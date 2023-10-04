@@ -13,6 +13,8 @@ import { DesktopHeaderComponent } from './desktop-header/desktop-header.componen
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ImprintComponent } from './imprint/imprint.component';
 import { DataProtectionComponent } from './data-protection/data-protection.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { DataProtectionComponent } from './data-protection/data-protection.compo
     DesktopHeaderComponent,
     SidebarComponent,
     ImprintComponent,
-    DataProtectionComponent
+    DataProtectionComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
