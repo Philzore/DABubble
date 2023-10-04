@@ -8,10 +8,16 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MainScreenComponent } from './main-screen/main-screen.component';
+import { DesktopHeaderComponent } from './desktop-header/desktop-header.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MainScreenComponent,
+    DesktopHeaderComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
