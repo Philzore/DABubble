@@ -11,17 +11,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainScreenComponent } from './main-screen/main-screen.component';
 import { DesktopHeaderComponent } from './desktop-header/desktop-header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ImprintComponent } from './imprint/imprint.component';
+import { DataProtectionComponent } from './data-protection/data-protection.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainScreenComponent,
     DesktopHeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    ImprintComponent,
+    DataProtectionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
