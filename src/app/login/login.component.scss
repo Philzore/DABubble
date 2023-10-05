@@ -1,0 +1,57 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 64px;
+}
+
+.image-container{
+    margin-left: 64px;
+}
+
+.register-container{
+    display: flex;
+    flex-direction: column;
+
+    margin-right: 64px;
+
+    .question{
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .register-link{
+        color: rgb(121, 126,243);
+    }
+}
+
+/*/----------------- LOGIN CONTAINER -------------/*/
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container{
+    height: 769px;
+    width: 606px;
+
+    background-color: white;
+
+    border-radius: 30px;
+
+    padding: 50px;
+}
+
+
+/*/----------- LOGIN HEADER -----------------/*/
+
+.login-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .login-headline{
+        color: rgb(68,77,242);
+    }
+}
