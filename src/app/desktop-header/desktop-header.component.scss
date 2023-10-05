@@ -1,0 +1,33 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 45px;
+    margin-right: 45px;
+    margin-top: 25px;
+    box-sizing: border-box;
+
+    input {
+        border-radius: 42px;
+        border: none;
+        width: 700px;
+        padding: 18px 45px;
+        font-size: 24px;
+        background-image: url('/assets/icons/search_icon.png');
+        background-repeat: no-repeat;
+        background-position-y: center;
+        background-position-x: 95%;
+    }
+}
+
+.user-info-container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    img {
+        height: 72px;
+        width: 72px;
+        object-fit: contain;
+        border-radius: 100%;
+    }
+}
