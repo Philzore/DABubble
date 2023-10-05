@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
@@ -15,12 +14,14 @@ import { ImprintComponent } from './imprint/imprint.component';
 import { DataProtectionComponent } from './data-protection/data-protection.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-
+import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatButtonModule} from '@angular/material/button';
+import { MainChatComponent } from './main-chat/main-chat.component';
+import {MatListModule} from '@angular/material/list';
 
 
 @NgModule({
@@ -32,16 +33,19 @@ import {MatButtonModule} from '@angular/material/button';
     ImprintComponent,
     DataProtectionComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    MainChatComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatInputModule,
+    MatToolbarModule,
     MatIconModule,
     MatCardModule,
     MatTreeModule,
     MatButtonModule,
+    MatListModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

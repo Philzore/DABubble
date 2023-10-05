@@ -1,0 +1,57 @@
+$main-purple: #eceefe;
+
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+
+  .chat-header-left {
+    display: flex;
+    align-items: center;
+
+    p {
+      margin: 0;
+    }
+
+    &:hover {
+      background-color: $main-purple;
+      border-radius: 15px;
+      padding: 0; /* Set padding to 0 when hovering */
+    }
+  }
+
+  .chat-header-right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .add-new-member {
+      &:hover {
+        padding: 0; /* Set padding to 0 when hovering */
+        background-color: $main-purple;
+      }
+    }
+
+    & > * {
+      margin-right: 30px;
+    }
+
+    .chat-members-images {
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        background-color: $main-purple;
+        padding: 0; /* Set padding to 0 when hovering */
+      }
+
+      img {
+        height: 30px;
+        width: 30px;
+        background-size: cover;
+        border-radius: 50%;
+      }
+    }
+  }
+}
