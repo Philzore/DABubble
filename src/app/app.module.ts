@@ -22,6 +22,8 @@ import {MatTreeModule} from '@angular/material/tree';
 import {MatButtonModule} from '@angular/material/button';
 import { MainChatComponent } from './main-chat/main-chat.component';
 import {MatListModule} from '@angular/material/list';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule, matFormFieldAnimations } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -41,6 +43,8 @@ import {MatListModule} from '@angular/material/list';
     AppRoutingModule,
     MatInputModule,
     MatToolbarModule,
+    MatFormFieldModule,
+    FormsModule,
     MatIconModule,
     MatCardModule,
     MatTreeModule,

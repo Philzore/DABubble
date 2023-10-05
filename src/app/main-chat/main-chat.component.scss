@@ -1,57 +1,99 @@
 $main-purple: #eceefe;
 
-mat-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #fff;
+.chat-container {
+    width: 80vw;
+    margin: 0 auto;
+    margin-top: 80px;
+    background-color: rgb(255, 255, 255) !important;
+    border-radius: 15px;
+    padding: 20px;
 
-  .chat-header-left {
-    display: flex;
-    align-items: center;
+    mat-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 15px;
+        background-color: white;
 
-    p {
-      margin: 0;
-    }
-
-    &:hover {
-      background-color: $main-purple;
-      border-radius: 15px;
-      padding: 0; /* Set padding to 0 when hovering */
-    }
-  }
-
-  .chat-header-right {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .add-new-member {
-      &:hover {
-        padding: 0; /* Set padding to 0 when hovering */
-        background-color: $main-purple;
+        .chat-header-left {
+          display: flex;
+          align-items: center;
+          padding: 5px;
+          border-radius: 15px;
+      
+          p {
+            margin: 0;
+          }
+      
+          &:hover {
+            background-color: $main-purple;
+            padding: 5px;
+            color:#98a3f4;
+          }
+        }
+      
+        .chat-header-right {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      
+      
+          & > * {
+            margin-right: 30px;
+          }
+      
+          .chat-members-images {
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            border-radius: 15px;
+      
+            .chat-teamsize {
+              margin: 0 0 0 15px;
+            }
+      
+            &:hover {
+              background-color: $main-purple;
+              padding: 5px;
+              color:#98a3f4;
+            }
+      
+            img {
+              height: 30px;
+              width: 30px;
+              background-size: cover;
+              border-radius: 50%;
+            }
+          }
+          .add-new-member {
+              padding: 5px;   
+              border-radius: 15px;
+              background-color: $main-purple;
+              
+            &:hover {
+              padding: 5px;
+              color:#98a3f4;
+            }
+          }
+        }
       }
-    }
 
-    & > * {
-      margin-right: 30px;
-    }
+      mat-list {
+        width: 70vw;
 
-    .chat-members-images {
-      display: flex;
-      align-items: center;
-
-      &:hover {
-        background-color: $main-purple;
-        padding: 0; /* Set padding to 0 when hovering */
       }
 
-      img {
-        height: 30px;
-        width: 30px;
-        background-size: cover;
-        border-radius: 50%;
+      .input-container {
+        display: flex;
+        justify-content: center;
+
+
+        input {
+            background-color: #fff;
+            border: 1px solid $main-purple;
+            border-radius: 10px;
+            width: 70vw;
+            height: 100px;
+        }
       }
-    }
-  }
 }
