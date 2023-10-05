@@ -18,6 +18,9 @@ import { RegisterComponent } from './register/register.component';
 
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
+import {MatCardModule} from '@angular/material/card';
+import {MatTreeModule} from '@angular/material/tree';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -36,6 +39,9 @@ import {MatIconModule} from '@angular/material/icon';
     AppRoutingModule,
     MatInputModule,
     MatIconModule,
+    MatCardModule,
+    MatTreeModule,
+    MatButtonModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

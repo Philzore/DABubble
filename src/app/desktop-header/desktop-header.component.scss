@@ -4,6 +4,7 @@ header {
     margin-left: 45px;
     margin-right: 45px;
     margin-top: 25px;
+    margin-bottom: 25px;
     box-sizing: border-box;
 
     input {
@@ -23,6 +24,11 @@ header {
     display: flex;
     align-items: center;
     gap: 30px;
+
+    h2 {
+        margin: 0;
+        font-weight: 700;
+    }
 
     img {
         height: 72px;

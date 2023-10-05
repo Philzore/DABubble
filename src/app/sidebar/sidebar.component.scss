@@ -1,0 +1,29 @@
+.overview-card {
+    box-sizing: border-box;
+    width: 360px;
+    height: 800px;
+    margin-left: 45px;
+}
+
+mat-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+
+}
+
+.sidebar-icon-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 40px;
+
+    img {
+        width: auto;
+        height: auto;
+        margin-bottom: 0;
+    }
+}
+
+.sidebar-header-image {}
