@@ -1,0 +1,98 @@
+$main-purple: #eceefe;
+$purple: #98a3f4;
+
+.purple {
+    color: $purple;
+}
+
+.group-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 0px 15px 15px 15px !important;
+    border: none;
+    padding: 20px;
+
+    p {
+        margin: 0;
+    }
+
+    .group-info-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .group-name {
+            font-size: 20px;
+        }
+
+        .close-button {
+            padding: 5px;
+            transition: 125ms ease-in-out;
+            &:hover {
+                background-color: $main-purple;
+                color: $purple;
+                border-radius: 15px;
+            }
+        }
+    }
+
+    .group-info-name-container {
+        border: 2px solid $main-purple;
+        border-radius: 15px;
+        padding: 15px;
+
+        .group-info-name-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 0 15px 0;
+        }
+    }
+
+    .group-info-description-container {
+        border: 2px solid $main-purple;
+        border-radius: 15px;
+        padding: 15px;
+
+        .group-info-description-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 0 15px 0;
+        }
+
+        .group-creator-container {
+            p {
+                padding: 5px
+            }
+            .group-creator {
+                color: $purple;
+                font-size: 18px;       
+            }
+        }
+
+        hr {
+            margin: 25px 5px;
+            background-color: rgb(243, 241, 241) !important;
+        }
+    }
+
+    .leave-group {
+        display: flex;
+        justify-content: end;
+
+        button {
+            background-color: $purple;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 15px;
+            border: transparent;
+
+            &:hover {
+                opacity: .8;
+            }
+        }
+    }
+}

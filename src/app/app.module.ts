@@ -24,6 +24,10 @@ import { MainChatComponent } from './main-chat/main-chat.component';
 import {MatListModule} from '@angular/material/list';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule, matFormFieldAnimations } from '@angular/material/form-field';
+import { GroupInfoPopupComponent } from './group-info-popup/group-info-popup.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { GroupMemberComponent } from './group-member/group-member.component';
+import { GroupAddMemberComponent } from './group-add-member/group-add-member.component';
 
 
 @NgModule({
@@ -36,7 +40,10 @@ import { MatFormFieldModule, matFormFieldAnimations } from '@angular/material/fo
     DataProtectionComponent,
     LoginComponent,
     RegisterComponent,
-    MainChatComponent
+    MainChatComponent,
+    GroupInfoPopupComponent,
+    GroupMemberComponent,
+    GroupAddMemberComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +52,7 @@ import { MatFormFieldModule, matFormFieldAnimations } from '@angular/material/fo
     MatToolbarModule,
     MatFormFieldModule,
     FormsModule,
+    MatDialogModule,
     MatIconModule,
     MatCardModule,
     MatTreeModule,
