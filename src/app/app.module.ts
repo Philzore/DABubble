@@ -28,6 +28,7 @@ import { GroupInfoPopupComponent } from './group-info-popup/group-info-popup.com
 import {MatDialogModule} from '@angular/material/dialog';
 import { GroupMemberComponent } from './group-member/group-member.component';
 import { GroupAddMemberComponent } from './group-add-member/group-add-member.component';
+import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { GroupAddMemberComponent } from './group-add-member/group-add-member.com
     MainChatComponent,
     GroupInfoPopupComponent,
     GroupMemberComponent,
-    GroupAddMemberComponent
+    GroupAddMemberComponent,
+    ChooseAvatarComponent
   ],
   imports: [
     BrowserModule,
