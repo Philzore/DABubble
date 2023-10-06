@@ -25,12 +25,12 @@
 
         <div class="inputfield-container">
             <img src="assets/icons/email-icon.png" alt="image of mail icon" class="inputfield-image">
-            <input type="text" class="inputfield" placeholder="beispielname@email.com">
+            <input type="text" class="inputfield" placeholder="beispielname@email.com" [(ngModel)]="email" name="email">
         </div>
 
         <div class="inputfield-container">
             <img src="assets/icons/password-icon.png" alt="" class="inputfield-image">
-            <input type="text" class="inputfield" placeholder="Passwort">
+            <input type="text" class="inputfield" placeholder="Passwort" [(ngModel)]="password" name="password">
         </div>
 
         <div class="forgot-password-container">
@@ -51,7 +51,7 @@
 
         <div class="button-container">
             <div class="login-button-container">
-                <button class="login-button">Anmelden</button>
+                <button class="login-button" (click)="login()">Anmelden</button>
             </div>
             
             <div class="guest-login-button-container">
