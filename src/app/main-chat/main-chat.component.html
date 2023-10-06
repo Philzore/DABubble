@@ -14,19 +14,59 @@
         </div>
     </mat-toolbar>
 
+
+
     <mat-list>
-        <mat-list-item>Item 1</mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>Item 2</mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>Item 3</mat-list-item>
+        <div class="chat-divider-top"></div>
+        <mat-list-item class="cursor">
+            <div class="message-container">
+                <img src="./assets/characters/character_1.png" alt="">
+                <div class="message-info-container">
+
+                    <div class="info-row">
+                    <p>Noah Braun</p> <span class="message-time">14:25 Uhr</span>
+                    </div>
+
+                    <p class="message-text">Lorem ipsum dolor sit amet.</p>
+
+                    <div class="last-response-row">
+                    <p class="cursor">2 Antworten</p> <span class="message-time">Letzte Antwort 14:56</span>
+                    </div>
+                </div>
+            </div>
+        </mat-list-item>
+
+        <!-- Own Message Start -->
+        <div class="chat-divider-top"></div>
+        <mat-list-item class="cursor">
+            <div class="message-container own-message">
+                <div class="message-info-container">
+
+                    <div class="info-row own-message">
+                    <p>Noah Braun</p> <span class="message-time">14:25 Uhr</span>
+                    </div>
+
+                    <p class="message-text-own message-text">Lorem ipsum dolor sit amet.</p>
+
+                    <div class="last-response-row">
+                    </div>
+                </div>
+                <img src="./assets/characters/character_2.png" alt="">
+            </div>
+        </mat-list-item>
+        <div class="chat-divider-bottom"></div>
+        <!-- Own Message End -->
+
       </mat-list>
 
-      <div class="input-container">
-      <input type="text">
-      <div class="message-container">
-        
-      </div>
-      </div>
+
+
+      <!-- <div class="input-container">
+        <input type="text">
+        <div class="">
+            <i class="material-icons">add</i>
+        </div>
+    </div> -->
+    
 
 </div>
