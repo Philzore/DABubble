@@ -1,57 +1,108 @@
-.header{
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 64px;
-}
+    margin-top: 75px;
+    margin-left: 75px;
+    margin-right: 75px;
+    margin-bottom: 75px;
 
-.image-container{
-    margin-left: 64px;
-}
+    .register-container {
+        display: flex;
+        flex-direction: column;
 
-.register-container{
-    display: flex;
-    flex-direction: column;
+        .question {
+            font-weight: bold;
+            text-align: right;
+        }
 
-    margin-right: 64px;
-
-    .question{
-        font-weight: bold;
-        text-align: right;
-    }
-
-    .register-link{
-        color: rgb(121, 126,243);
+        .register-link {
+            color: rgb(121, 126, 243);
+        }
     }
 }
+
+
 
 /*/----------------- LOGIN CONTAINER -------------/*/
-.content{
+.content {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.login-container{
+.login-container {
     height: 769px;
     width: 606px;
-
     background-color: white;
-
     border-radius: 30px;
-
     padding: 50px;
+    box-sizing: border-box;
 }
 
 
 /*/----------- LOGIN HEADER -----------------/*/
 
-.login-header{
+.login-container-header {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
+    height: 133px;
+    margin-bottom: 32px;
 
-    .login-headline{
-        color: rgb(68,77,242);
+    .login-headline {
+        color: rgb(68, 77, 242);
+
+        font-size: 46px;
+        font-weight: 700;
+    }
+
+    .recommendation {
+        font-size: 20px;
+        font-weight: 400;
+        text-align: center;
+        line-height: 24px;
     }
 }
+
+/*/-------------- FORM FIELDS ------------/*/
+
+.form-fields {
+    height: 222px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .inputfield-container {
+        width: 100%;
+        position: relative;
+    }
+
+    .inputfield-image {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+
+    .inputfield {
+        font-size: 18px;
+        font-weight: 500;
+        padding-left: 60px;
+        border: 1px solid transparent;
+        transition: .2s;
+        box-sizing: border-box;
+        outline: none;
+        width: 100%;
+        height: 60px;
+        background: #ECEEFE;
+        border-radius: 100px;
+    }
+
+    .forgot-password{
+        text-align: center;
+        color: #797EF3;
+    }
+}
+
+

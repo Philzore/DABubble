@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+
+
 RouterLink
 @Component({
   selector: 'app-login',
@@ -8,5 +10,5 @@ RouterLink
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-
+  hide = true;
 }
