@@ -1,4 +1,4 @@
-
+//---------------------------------- HEADER ----------------------- //
 
 .header {
     display: flex;
@@ -14,12 +14,21 @@
         flex-direction: column;
 
         .question {
-            font-weight: bold;
-            text-align: right;
+            font-weight: 400;
+            font-size: 18px;
         }
 
         .register-link {
-            color: rgb(121, 126, 243);
+            color: #797EF3;
+            font-weight: 400;
+            font-size: 18px;
+            text-align: center;
+            transition: 0.2s;
+
+            &:hover {
+                color: #444DF2;
+                cursor: pointer;
+            }
         }
     }
 }
@@ -31,6 +40,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .login-container {
@@ -40,6 +50,12 @@
     border-radius: 30px;
     padding: 50px;
     box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 43px;
+
 }
 
 
@@ -51,11 +67,9 @@
     align-items: center;
     justify-content: space-between;
     height: 133px;
-    margin-bottom: 32px;
 
     .login-headline {
-        color: rgb(68, 77, 242);
-
+        color: #444DF2;
         font-size: 46px;
         font-weight: 700;
     }
@@ -68,43 +82,205 @@
     }
 }
 
-/*/-------------- FORM FIELDS ------------/*/
+/*/-------------- FORMULAR INPUT FIELDS ------------/*/
 
-.form-fields {
-    height: 222px;
+.inputfield-container {
+    width: 100%;
+    position: relative;
+}
+
+.inputfield-image {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.inputfield {
+    font-size: 18px;
+    font-weight: 500;
+    padding-left: 60px;
+    border: 1px solid transparent;
+    transition: 0.2s;
+    box-sizing: border-box;
+    outline: none;
+    width: 100%;
+    height: 60px;
+    background: #ECEEFE;
+    border-radius: 100px;
+
+    &:hover {
+        cursor: pointer;
+        border: 1px solid grey;
+    }
+}
+
+//----------------- FORGOT PASSWORD CONTAINER ------------- //
+.forgot-password-container {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
 
-    .inputfield-container {
-        width: 100%;
-        position: relative;
-    }
 
-    .inputfield-image {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-    }
-
-    .inputfield {
-        font-size: 18px;
-        font-weight: 500;
-        padding-left: 60px;
-        border: 1px solid transparent;
-        transition: .2s;
-        box-sizing: border-box;
-        outline: none;
-        width: 100%;
-        height: 60px;
-        background: #ECEEFE;
-        border-radius: 100px;
-    }
-
-    .forgot-password{
+    .forgot-password {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         text-align: center;
+        font-size: 18px;
+        font-weight: 400;
         color: #797EF3;
+        width: 201px;
+        height: 32px;
+        border-radius: 30px;
+        transition: 0.2s;
+
+        &:hover {
+            color: #444DF2;
+            cursor: pointer;
+            font-weight: 500;
+            background-color: #ECEEFE;
+        }
     }
 }
 
 
+// ---------------------- OR CONTAINER -------------------- //
+.or-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .other {
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 24.55px;
+        padding: 5px 15px;
+    }
+
+    img {
+        height: 5px;
+        width: 200px;
+    }
+}
+
+
+// ------------------- GOOGLE-LOGIN----------------------- //
+
+.google-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 500px;
+    border-radius: 100px;
+    background-color: #ECEEFE;
+    outline: none;
+    border: 1px solid transparent;
+    transition: 0.2s;
+
+    img {
+        margin-right: 16px;
+    }
+
+    &:hover {
+        cursor: pointer;
+        border: 1px solid grey;
+        font-weight: 700;
+
+        .google-login {
+            font-weight: 700;
+        }
+    }
+}
+
+.google-login {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21.6px;
+    color: #444DF2;
+}
+
+// -------------------- BUTTONS CONTAINER ---------------- //
+
+.button-container {
+    width: 320px;
+    height: 49px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+    .login-button {
+        font-size: 18px;
+        font-weight: 600;
+        padding: 12px 25px;
+        border-radius: 25px;
+        color: white;
+        background-color: #444DF2;
+        outline: none;
+        border: none;
+        box-sizing: border-box;
+        transition: 0.2s;
+
+        &:hover {
+            background-color: #797EF3;
+            cursor: pointer;
+        }
+    }
+
+
+    .guest-login-button {
+        font-size: 18px;
+        font-weight: 700;
+        padding: 12px 25px;
+        border-radius: 25px;
+        color: #444DF2;
+        background-color: white;
+        border: 1px solid #797EF3;
+        box-sizing: border-box;
+        transition: 0.2s;
+
+        &:hover {
+            cursor: pointer;
+            background-color: #444DF2;
+            color: white;
+            border: 1px solid #444DF2;
+        }
+    }
+}
+
+
+
+// ------------------ IMPRESSUM UND DATENSCHUTZ --------------- // 
+
+.impressum-datenschutz {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 64px;
+
+    width: 270px;
+    height: 42px;
+    gap: 16px;
+
+    .impressum{
+        font-size: 18px;
+        font-weight: 400px;
+        text-decoration: none;
+        color: #797EF3;
+
+        &:hover{
+            color: #444DF2;
+        }
+    }
+
+    .datenschutz{
+        font-size: 18px;
+        font-weight: 400px;
+        text-decoration: none;
+        color: #797EF3;
+
+        &:hover{
+            color: #444DF2;
+        }
+    }
+}

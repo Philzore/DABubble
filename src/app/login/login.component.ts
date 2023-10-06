@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-
+import { Router, RouterLink } from '@angular/router';
 
 
 RouterLink
@@ -11,4 +10,6 @@ RouterLink
 })
 export class LoginComponent {
   hide = true;
+
+  constructor(private router: Router) {}
 }

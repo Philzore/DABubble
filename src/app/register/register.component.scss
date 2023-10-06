@@ -1,0 +1,189 @@
+//---------------------------------- HEADER ----------------------- //
+.header {
+    display: flex;
+    align-items: center;
+    margin-top: 75px;
+    margin-left: 75px;
+    margin-right: 75px;
+    margin-bottom: 75px;
+}
+
+
+// -------------------- CONTENT ------------------------ //
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+// --------------------- REGISTER CONTAINER ------------------- // 
+
+.register-container {
+    height: 669px;
+    width: 606px;
+    background-color: white;
+    border-radius: 30px;
+    box-sizing: border-box;
+    padding: 50px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 43px;
+
+    position: relative;
+}
+
+//------------------ BACK ARROW ICON ------------------- //
+
+.back-icon{
+    position: absolute;
+    top: 45px;
+    left: 32px;
+
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+//--------------- REGISTER HEADER CONTAINER ---------------- // 
+
+.register-headline-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 136px;
+    width: 486px;
+
+    .register-headline {
+        color: #444DF2;
+        font-size: 46px;
+        font-weight: 700;
+    }
+
+    .register-notice {
+        font-size: 20px;
+        font-weight: 400;
+        text-align: center;
+        line-height: 24px;
+    }
+}
+
+/*/-------------- FORMULAR INPUT FIELDS ------------/*/
+
+.inputfield-container {
+    width: 100%;
+    position: relative;
+}
+
+.inputfield-image {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.inputfield {
+    font-size: 18px;
+    font-weight: 500;
+    padding-left: 60px;
+    border: 1px solid transparent;
+    transition: 0.2s;
+    box-sizing: border-box;
+    outline: none;
+    width: 100%;
+    height: 60px;
+    background: #ECEEFE;
+    border-radius: 100px;
+
+    &:hover {
+        cursor: pointer;
+        border: 1px solid grey;
+    }
+}
+
+// ------------------------ ACCEPT DATA RULES IN CHECKBOX ------------------ //
+.accept-data-protection-container {
+    display: flex;
+    justify-content: left;
+    width: 506px;
+    height: 32px;
+}
+
+.checkbox-container {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.checkbox-sentence {
+    font-size: 16px;
+    color: #42526E;
+}
+
+.data-protection-word {
+    font-size: 18px;
+    font-weight: 400;
+    color: #797EF3;
+}
+
+//------------------ WEITER BUTTON --------------------- //
+
+.button-container{
+    display: flex;
+    justify-content: flex-end;
+    width: 506px;
+}
+.next-button{
+    font-size: 18px;
+    font-weight: 600;
+    padding: 12px 25px;
+    border-radius: 25px;
+    color: white;
+    background-color: #444DF2;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    transition: 0.2s;
+
+    &:hover {
+        background-color: #797EF3;
+        cursor: pointer;
+    }
+}
+
+// ------------------ IMPRESSUM UND DATENSCHUTZ --------------- // 
+
+.impressum-datenschutz {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 64px;
+
+    width: 270px;
+    height: 42px;
+    gap: 16px;
+
+    .impressum {
+        font-size: 18px;
+        font-weight: 400px;
+        text-decoration: none;
+        color: #797EF3;
+
+        &:hover {
+            color: #444DF2;
+        }
+    }
+
+    .datenschutz {
+        font-size: 18px;
+        font-weight: 400px;
+        text-decoration: none;
+        color: #797EF3;
+
+        &:hover {
+            color: #444DF2;
+        }
+    }
+}
