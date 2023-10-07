@@ -29,6 +29,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { GroupMemberComponent } from './group-member/group-member.component';
 import { GroupAddMemberComponent } from './group-add-member/group-add-member.component';
 import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
+import { MainThreadComponent } from './main-thread/main-thread.component';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 
 
 @NgModule({
@@ -45,7 +47,8 @@ import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
     GroupInfoPopupComponent,
     GroupMemberComponent,
     GroupAddMemberComponent,
-    ChooseAvatarComponent
+    ChooseAvatarComponent,
+    MainThreadComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +63,7 @@ import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
     MatTreeModule,
     MatButtonModule,
     MatListModule,
+    PickerComponent,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
