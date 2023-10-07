@@ -17,6 +17,19 @@ header {
         background-repeat: no-repeat;
         background-position-y: center;
         background-position-x: 95%;
+        border: 1px solid transparent;
+        transition: 0.2s;
+        box-sizing: border-box;
+        outline: none;
+
+        &:hover {
+            cursor: pointer;
+            border: 1px solid grey;
+        }
+
+        &:focus {
+            outline: 1px solid grey;
+        }
     }
 }
 
