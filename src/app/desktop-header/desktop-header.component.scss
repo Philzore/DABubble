@@ -49,4 +49,9 @@ header {
         object-fit: contain;
         border-radius: 100%;
     }
+
+    &:hover {
+        cursor: pointer;
+        color: #535AF1;
+    }
 }

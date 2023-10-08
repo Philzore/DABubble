@@ -2,7 +2,13 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
-
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 
 
 @Component({
@@ -52,6 +58,10 @@ export class SidebarComponent {
     } else {
       this.messageDropdown = true;
     }
+  }
+
+  closeSidebar(){
+
   }
 
 }
