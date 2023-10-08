@@ -1,7 +1,4 @@
-.test-dialog .mat-dialog-container {
-    border-radius: 30px !important;
-    background-color: aqua;
-}
+
 .dialog-create-channel {
     display: flex;
     flex-direction: column;
@@ -54,5 +51,9 @@
         border-radius: 25px;
         font-size: 18px;
         height: 50px;
+        transition: 0.2s;
+        &:hover {
+            background-color: #797EF3;
+        }
     }
 }

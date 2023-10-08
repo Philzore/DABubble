@@ -82,6 +82,22 @@ mat-card-header {
     max-width: 200px;
     padding: 4px 20px;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    position: relative;
+    img {
+        height: 50px;
+        width: 50px;
+        border-radius: 100%;
+    }
+
+    .point {
+        position: absolute;
+        font-size: 30px;
+        left: 55px;
+        bottom: 0;
+        color: green;
+    }
     
     &:hover {
         color: #535AF1;

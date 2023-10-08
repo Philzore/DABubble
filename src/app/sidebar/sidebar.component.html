@@ -62,8 +62,9 @@
         <!-- channel container for single channels -->
         <div class="list-container" *ngIf="messageDropdown">
           <div *ngFor="let user of users" class="single-entry">
-            <span>#</span>
-            <span>{{user}}</span>
+            <img src={{user.img}}>
+            <span class="point">&#9679;</span>
+            <span>{{user.name}}</span>
           </div>
         </div>
         <!-- end channel container for single channels -->
