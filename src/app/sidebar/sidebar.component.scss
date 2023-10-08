@@ -1,12 +1,6 @@
+//----------------- Card CONTAINER ------------- //
 mat-card {
-    padding: 32px 30px;
-}
-
-.overview-card {
-    box-sizing: border-box;
-    width: 360px;
-    height: 800px;
-    margin-left: 45px;
+     padding: 32px 30px;
 }
 
 mat-card-header {
@@ -15,6 +9,13 @@ mat-card-header {
     justify-content: flex-start;
     margin-bottom: 30px;
     padding: 0;
+}
+
+.overview-card {
+    box-sizing: border-box;
+    width: 360px;
+    height: 800px;
+    margin-left: 45px;
 }
 
 .mat-mdc-card-content {
@@ -40,16 +41,65 @@ mat-card-header {
         margin-bottom: 0;
     }
 }
-
-.channels {
+//----------------- Dropdown CONTAINER ------------- //
+.dropdown-container {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
     width: 100%;
+    margin-bottom: 30px;
 }
 
-.channel-drop-down {
+.dropdown-hover {
     display: flex;
     align-items: center;
     gap: 10px;
+
+    &:hover {
+        cursor: pointer;
+        color: #535AF1;
+    }
 }
+
+.dropdown-name {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.list-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.single-entry {
+    font-size: 18px;
+    margin-bottom: 15px;
+    max-width: 200px;
+    padding: 4px 20px;
+    box-sizing: border-box;
+    
+    &:hover {
+        color: #535AF1;
+        background-color: #ECEEFE;
+        border-radius: 20px;
+        
+        cursor: pointer;
+    }
+}
+
+.add-channel {
+    display: flex;
+    align-items: center;
+    padding: 4px 20px;
+    &:hover {
+        cursor: pointer;
+        color: #535AF1;
+    }
+}
+
+

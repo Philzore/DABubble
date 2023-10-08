@@ -15,7 +15,7 @@ export class SidebarComponent {
  channels = ['Entwicklerteam','Office-Team'] ;
  users = ['Hasan', 'Musti','Phil'];
  channelDropdown:boolean = false ;
-
+ messageDropdown:boolean = false ;
   constructor(public dialog:MatDialog) {
    
   }
@@ -29,6 +29,14 @@ export class SidebarComponent {
       this.channelDropdown = false ;
     } else {
       this.channelDropdown = true ;
+    }
+  }
+
+  openDropdownMessages() {
+    if (this.messageDropdown) {
+      this.messageDropdown = false ;
+    } else {
+      this.messageDropdown = true ;
     }
   }
 
