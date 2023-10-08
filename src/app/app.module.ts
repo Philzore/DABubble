@@ -73,5 +73,3 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-/* test*/
