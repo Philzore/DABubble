@@ -37,7 +37,7 @@ header {
     display: flex;
     align-items: center;
     gap: 30px;
-
+    position: relative;
     h2 {
         margin: 0;
         font-weight: 700;
@@ -48,6 +48,14 @@ header {
         width: 72px;
         object-fit: contain;
         border-radius: 100%;
+    }
+
+    .point {
+        position: absolute;
+        font-size: 30px;
+        right: 55px;
+        bottom: 0;
+        color: green;
     }
 
     &:hover {
