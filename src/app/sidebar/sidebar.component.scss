@@ -1,3 +1,7 @@
+mat-card {
+    padding: 32px 30px;
+}
+
 .overview-card {
     box-sizing: border-box;
     width: 360px;
@@ -10,7 +14,18 @@ mat-card-header {
     align-items: center;
     justify-content: flex-start;
     margin-bottom: 30px;
+    padding: 0;
+}
 
+.mat-mdc-card-content {
+    padding: 0;
+}
+
+.header-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .sidebar-icon-text {
@@ -26,4 +41,15 @@ mat-card-header {
     }
 }
 
-.sidebar-header-image {}
+.channels {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.channel-drop-down {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
