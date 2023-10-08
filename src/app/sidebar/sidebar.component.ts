@@ -1,76 +1,67 @@
-import { FlatTreeControl } from '@angular/cdk/tree';
+
 import { Component } from '@angular/core';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 
-/**
- * Food data with nested structure.
- * Each node has a name and an optional list of children.
- */
-interface ChatNode {
-  name: string;
-  children?: ChatNode[];
-}
-
-interface DirectMessageNode {
-  firstName:string;
-  lastName:string;
-  img:string;
-  online:boolean;
-  yourself?:boolean;
-  childrem?: DirectMessageNode[];
-}
-
-const TREE_DATA: ChatNode[] = [
-  {
-    name: 'Channels',
-    children: [{ name: '#Allgemein' }, { name: '#Coding' }, { name: '#Zocken' }],
-  },
-  {
-    name: 'Direktnachrichten',
-    children: [{ name: 'Musti' }, { name: 'Hasan' }, { name: 'Phil' }],
-  },
-];
-
-/** Flat node with expandable and level information */
-interface ExampleFlatNode {
-  expandable: boolean;
-  name: string;
-  level: number;
-}
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
+  
 })
 export class SidebarComponent {
- 
-  private _transformer = (node: ChatNode, level: number) => {
-    return {
-      expandable: !!node.children && node.children.length > 0,
-      name: node.name,
-      level: level,
-    };
-  };
+  channels = ['Entwicklerteam', 'Office-Team'];
+  users = [{
+    name: 'Hasan',
+    img: '/assets/characters/character_2.png',
+  },
+  {
+    name: 'Musti',
+    img: '/assets/characters/character_3.png',
+  },
+  {
+    name: 'Phil',
+    img: '/assets/characters/character_4.png',
+  },
+  ];
+  channelDropdown: boolean = false;
+  messageDropdown: boolean = false;
 
-  treeControl = new FlatTreeControl<ExampleFlatNode>(
-    node => node.level,
-    node => node.expandable,
-  );
 
-  treeFlattener = new MatTreeFlattener(
-    this._transformer,
-    node => node.level,
-    node => node.expandable,
-    node => node.children,
-  );
-
-  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
-  constructor() {
-    this.dataSource.data = TREE_DATA;
+  constructor(public dialog: MatDialog) {
+    console.log(this.users);
   }
 
-  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+  openDialog() {
+    const dialog = this.dialog.open(DialogCreateNewChannelComponent);
+  }
+
+  openDropdownChannels() {
+    if (this.channelDropdown) {
+      this.channelDropdown = false;
+    } else {
+      this.channelDropdown = true;
+    }
+  }
+
+  openDropdownMessages() {
+    if (this.messageDropdown) {
+      this.messageDropdown = false;
+    } else {
+      this.messageDropdown = true;
+    }
+  }
+
+  closeSidebar(){
+
+  }
 
 }

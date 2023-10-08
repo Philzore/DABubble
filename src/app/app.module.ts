@@ -31,6 +31,8 @@ import { GroupAddMemberComponent } from './group-add-member/group-add-member.com
 import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
 import { MainThreadComponent } from './main-thread/main-thread.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import { DialogCreateNewChannelComponent } from './dialog-create-new-channel/dialog-create-new-channel.component';
+import { DialogEdituserLogoutComponent } from './dialog-edituser-logout/dialog-edituser-logout.component';
 
 
 @NgModule({
@@ -49,6 +51,8 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
     GroupAddMemberComponent,
     ChooseAvatarComponent,
     MainThreadComponent,
+    DialogCreateNewChannelComponent,
+    DialogEdituserLogoutComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,30 +1,80 @@
 <mat-card class="overview-card br-30">
-    <mat-card-header>
-        <div class="sidebar-icon-text">
-            <img src="/assets/icons/workspace_logo.png">
-            <mat-card-title>Code learning</mat-card-title>
+  <!-- sidebar header -->
+  <mat-card-header>
+    <div class="header-section">
+      <div class="sidebar-icon-text">
+        <img src="/assets/icons/workspace_logo.png">
+        <mat-card-title>Code learning</mat-card-title>
+      </div>
+      <button mat-icon-button class="icon-btn-hover"><mat-icon>edit_square</mat-icon></button>
+    </div>
+  </mat-card-header>
+  <!-- end sidebar header -->
+  <!-- channel drop down -->
+  <mat-card-content>
+    <div class="dropdown-container">
+      <div class="dropdown-header">
+        <div class="dropdown-hover" (click)="openDropdownChannels()">
+          <div class="arrow" >
+            <mat-icon *ngIf="!channelDropdown">arrow_right</mat-icon>
+            <mat-icon *ngIf="channelDropdown">arrow_drop_down</mat-icon>
+          </div>
+          <div class="dropdown-name">
+            <mat-icon>workspaces_outline</mat-icon>
+            <span>Channels</span>
+          </div>
         </div>
-        <img src="/assets/icons/edit_square.png">
-    </mat-card-header>
-    <mat-card-content>
-        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-            <!-- This is the tree node template for leaf nodes -->
-            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-              <!-- use a disabled button to provide padding for tree leaf -->  
-              <button mat-icon-button disabled></button> 
-              {{node.name}}
-            </mat-tree-node>
-            <!-- This is the tree node template for expandable nodes -->
-            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-              <button mat-icon-button matTreeNodeToggle
-                      [attr.aria-label]="'Toggle ' + node.name">
-                <mat-icon class="mat-icon-rtl-mirror">
-                  {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                </mat-icon>
-              </button>
-              {{node.name}}
-            </mat-tree-node>
-          </mat-tree>
-    </mat-card-content>
-
+        <div>
+          <button class="icon-btn-hover" mat-icon-button (click)="openDialog()"><mat-icon>add</mat-icon></button>
+        </div>
+      </div>
+      <div>
+        <!-- channel container for single channels -->
+        <div class="list-container" *ngIf="channelDropdown">
+          <div *ngFor="let channel of channels" class="single-entry">
+            <span>#</span>
+            <span>{{channel}}</span>
+          </div>
+          <div class="add-channel" (click)="openDialog()">
+            <mat-icon>add_circle_outline</mat-icon>
+            <span>Channel hinzufügen</span>
+          </div>
+        </div>
+        <!-- end channel container for single channels -->
+      </div>
+    </div>
+    <!-- end channel drop down -->
+    <!-- direct message drop down -->
+    <div class="dropdown-container">
+      <div class="dropdown-header">
+        <div class="dropdown-hover" (click)="openDropdownMessages()">
+          <div class="arrow" >
+            <mat-icon *ngIf="!messageDropdown">arrow_right</mat-icon>
+            <mat-icon *ngIf="messageDropdown">arrow_drop_down</mat-icon>
+          </div>
+          <div class="dropdown-name">
+            <mat-icon>account_circle</mat-icon>
+            <span>Direktnachrichten</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <!-- channel container for single channels -->
+        <div class="list-container" *ngIf="messageDropdown">
+          <div *ngFor="let user of users" class="single-entry">
+            <img src={{user.img}}>
+            <span class="point">&#9679;</span>
+            <span>{{user.name}}</span>
+          </div>
+        </div>
+        <!-- end channel container for single channels -->
+      </div>
+    </div>
+    <!-- end direct message drop down -->
+  </mat-card-content>
+  <div class="workspace-closing" (click)="closeSidebar()"> 
+    <span>Workspace-Menü schließen</span>
+    <mat-icon>top_panel_close</mat-icon>
+  </div>
 </mat-card>
+
