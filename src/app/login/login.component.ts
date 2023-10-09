@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
+
 RouterLink
 @Component({
   selector: 'app-login',
@@ -16,8 +17,6 @@ export class LoginComponent {
   constructor(private router: Router) {}
 
   login() {
-   
-
     const auth = getAuth();
     signInWithEmailAndPassword(auth, this.email, this.password)
       
@@ -32,4 +31,6 @@ export class LoginComponent {
         console.log('User could not log in');
       });
   }
+
+
 }

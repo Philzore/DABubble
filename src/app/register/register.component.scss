@@ -21,7 +21,6 @@
 // --------------------- REGISTER CONTAINER ------------------- // 
 
 .register-container {
-    height: 669px;
     width: 606px;
     background-color: white;
     border-radius: 30px;
@@ -153,6 +152,12 @@
         cursor: pointer;
     }
 }
+
+/* CSS in Ihrer styles.css oder styles.scss Datei */
+.next-button:disabled {
+    background-color: rgb(104, 104, 104);
+    cursor: not-allowed;
+  }
 
 // ------------------ IMPRESSUM UND DATENSCHUTZ --------------- // 
 

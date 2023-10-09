@@ -22,7 +22,7 @@ import {MatTreeModule} from '@angular/material/tree';
 import {MatButtonModule} from '@angular/material/button';
 import { MainChatComponent } from './main-chat/main-chat.component';
 import {MatListModule} from '@angular/material/list';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, matFormFieldAnimations } from '@angular/material/form-field';
 import { GroupInfoPopupComponent } from './group-info-popup/group-info-popup.component';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -61,6 +61,7 @@ import { DialogEdituserLogoutComponent } from './dialog-edituser-logout/dialog-e
     MatToolbarModule,
     MatFormFieldModule,
     FormsModule,
+    ReactiveFormsModule,
     MatDialogModule,
     MatIconModule,
     MatCardModule,

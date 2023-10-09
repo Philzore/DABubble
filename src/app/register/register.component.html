@@ -19,17 +19,20 @@
         
         <div class="inputfield-container">
             <img src="assets/icons/person-icon.png" alt="image of person icon" class="inputfield-image">
-            <input type="text" class="inputfield" placeholder="Name und Nachname">
+            <input type="text" class="inputfield" placeholder="Name und Nachname" [formControl]="nameFormControl">
+            <mat-error *ngIf="nameFormControl.invalid">{{getNameErrorMessage()}}</mat-error>
         </div>
 
         <div class="inputfield-container">
             <img src="assets/icons/email-icon.png" alt="image of mail icon" class="inputfield-image">
-            <input type="text" class="inputfield" placeholder="beispielname@email.com" [(ngModel)]="email" name="email">
+            <input type="text" class="inputfield" placeholder="beispielname@email.com" [(ngModel)]="email" name="email" [formControl]="emailFormControl">
+            <mat-error *ngIf="emailFormControl.invalid">{{getEmailErrorMessage()}}</mat-error>
         </div>
 
         <div class="inputfield-container">
             <img src="assets/icons/password-icon.png" alt="image of password icon" class="inputfield-image">
-            <input type="text" class="inputfield" placeholder="Passwort" [(ngModel)]="password" name="password">
+            <input type="password" class="inputfield" placeholder="Passwort" [(ngModel)]="password" name="password" [formControl]="passwordFormControl">
+            <mat-error *ngIf="passwordFormControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
         </div>
 
         <div class="accept-data-protection-container">
@@ -41,7 +44,7 @@
 
         <div class="button-container">
             <div class="next-button-container">
-                <button class="next-button" (click)="register()">Weiter</button>
+                <button class="next-button" (click)="register()" [disabled]="!canRegister()">Weiter</button>
             </div>
         </div>
  
