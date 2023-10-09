@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog-create-new-channel',
@@ -8,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class DialogCreateNewChannelComponent {
 
+
+  constructor(public dialogRef: MatDialogRef<DialogCreateNewChannelComponent>) {}
+
+
+  saveNewChannel() {
+    
+  }
 }

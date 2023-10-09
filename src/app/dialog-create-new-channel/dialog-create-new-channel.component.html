@@ -1,7 +1,7 @@
 <div class="dialog-create-channel">
     <div class="dialog-header">
         <h2>Channel erstellen</h2>
-        <button class="icon-btn-hover" mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
+        <button class="icon-btn-hover" mat-icon-button (click)="dialogRef.close()"><mat-icon>close</mat-icon></button>
     </div>
     <div>
         <p>Channels dienen deinem Team zur Kommunikation.Am besten sollten sie themenbezogen sein #marketing zum
@@ -16,6 +16,6 @@
         <input placeholder="Dein Text hier">
     </div>
     <div class="create-btn">
-        <button mat-button mat-dialog-close>Erstellen</button>
+        <button mat-button (click)="saveNewChannel()">Erstellen</button>
     </div>
 </div>

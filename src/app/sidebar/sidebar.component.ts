@@ -41,7 +41,7 @@ export class SidebarComponent {
   }
 
   openDialog() {
-    const dialog = this.dialog.open(DialogCreateNewChannelComponent);
+    const dialog = this.dialog.open(DialogCreateNewChannelComponent,{panelClass: 'custom-normal-dialog'});
   }
 
   openDropdownChannels() {

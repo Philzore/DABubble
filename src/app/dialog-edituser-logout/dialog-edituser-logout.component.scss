@@ -10,10 +10,13 @@
 
     span {
         padding: 10px 70px;
+        outline: none;
 
         &:hover {
             cursor: pointer;
             color: #535AF1;
+            background-color: #ECEEFE;
+            border-radius: 20px;
         }
     }
 }

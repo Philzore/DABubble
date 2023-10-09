@@ -13,6 +13,6 @@ export class DesktopHeaderComponent {
     
   }
   openDialog() {
-    const dialog = this.dialog.open(DialogEdituserLogoutComponent,{position: {top:'100px',right:'50px'}});
+    const dialog = this.dialog.open(DialogEdituserLogoutComponent,{position: {top:'100px',right:'50px'}, panelClass: 'custom-logout-dialog'});
   }
 }
