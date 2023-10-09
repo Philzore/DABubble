@@ -1,11 +1,11 @@
 @media (max-width: 1000px) {
 
     .thread-container {
-        color: red;
+        background-color: red;
         width: 100vw;
         height: 100vh;
         z-index: 5;
-        position: relative;
+        position: absolute;
     }
 
 }
