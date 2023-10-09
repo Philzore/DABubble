@@ -1,19 +1,16 @@
 $main-purple: #eceefe;
 
 .chat-container {
-    width: 80vw;
+    width: 60vw;
     margin: 0 auto;
-    margin-top: 80px;
     background-color: rgb(255, 255, 255) !important;
-    border-radius: 15px;
-
 
     mat-toolbar {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-radius: 15px;
         background-color: white;
+        border-radius: 30px !important;
 
         .chat-header-left {
           display: flex;
@@ -192,8 +189,7 @@ $main-purple: #eceefe;
       }
 }
 
-      /* Chat End*/
-
+/* Chat End*/
 
 
 /* Own Message Styling Start */
@@ -204,3 +200,10 @@ $main-purple: #eceefe;
 }
 
 /* Own Message Styling End */
+
+.input-container {
+  flex-direction: column;
+  padding: 20px;
+  width: 55vw !important;
+  margin: 0 auto;
+}
