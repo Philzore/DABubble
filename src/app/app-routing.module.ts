@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { MainChatComponent } from './main-chat/main-chat.component';
 import { RegisterComponent } from './register/register.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const routes: Routes = [
   {path: '', component:LoginComponent},
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path: 'imprint', component: ImprintComponent},
   {path: 'dataprotection', component: DataProtectionComponent},
   {path: 'main-page', component: MainScreenComponent},
-  {path: 'main-chat', component:MainChatComponent}
+  {path: 'main-chat', component:MainChatComponent},
+  {path: 'forgot-password', component:ForgotPasswordComponent}
 ];
 
 @NgModule({

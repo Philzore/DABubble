@@ -107,6 +107,7 @@
 .accept-data-protection-container {
     display: flex;
     justify-content: left;
+    flex-direction: column;
     width: 506px;
     height: 32px;
 }
@@ -145,6 +146,7 @@
     justify-content: flex-end;
     width: 506px;
 }
+
 .next-button{
     font-size: 18px;
     font-weight: 600;
@@ -201,4 +203,10 @@
             color: #444DF2;
         }
     }
+}
+
+// --------------- ERROR MESSAGE ---------------- // 
+
+.error-message {
+    color: red;
 }

@@ -60,13 +60,13 @@ validateFullName(control: AbstractControl): ValidationErrors | null {
 
 getNameErrorMessage() {
   if (this.nameFormControl.hasError('required')) {
-    return 'You must enter a value';
+    return '*Bitte geben Sie einen Namen ein';
   }
   if (this.nameFormControl.hasError('fullName')) {
-    return 'Please enter both first and last names';
+    return 'Bitte geben Sie Vor-und Nachname ein';
   }
   if (this.nameFormControl.hasError('minLength')) {
-    return 'Both first and last names must have at least 2 characters';
+    return 'Vor-und Nachname sollten mindestens zwei Buchstaben haben';
   }
   return '';
 }
@@ -78,10 +78,10 @@ getNameErrorMessage() {
   ]);
   getEmailErrorMessage() {
     if (this.emailFormControl.hasError('required')) {
-      return 'You must enter a value';
+      return '*Bitte geben Sie eine E-Mail ein';
     }
     return this.emailFormControl.hasError('email')
-     ? 'Not a valid email' : '';
+     ? 'Diese E-Mail-Adresse ist leider ungültig' : '';
   }
 
   passwordFormControl = new FormControl('', [
@@ -90,14 +90,17 @@ getNameErrorMessage() {
   ]);
   getPasswordErrorMessage() {
     if (this.passwordFormControl.hasError('required')) {
-      return 'You must enter a value';
+      return '*Bitte geben Sie ein Passwort ein';
     }
     return this.passwordFormControl.hasError('minlength')
-      ? 'Must be at least 6 characters': '';
+      ? 'Passwort sollte mindestens 6 Zeichen haben': '';
   }
 
   privacyAcceptanceFormControl = new FormControl(false, [Validators.requiredTrue]);
 
+
+
+  
   canRegister(): boolean {
     return (
       this.emailFormControl.valid &&

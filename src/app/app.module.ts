@@ -33,6 +33,7 @@ import { MainThreadComponent } from './main-thread/main-thread.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { DialogCreateNewChannelComponent } from './dialog-create-new-channel/dialog-create-new-channel.component';
 import { DialogEdituserLogoutComponent } from './dialog-edituser-logout/dialog-edituser-logout.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { DialogEdituserLogoutComponent } from './dialog-edituser-logout/dialog-e
     MainThreadComponent,
     DialogCreateNewChannelComponent,
     DialogEdituserLogoutComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

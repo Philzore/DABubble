@@ -40,6 +40,9 @@
                 <input type="checkbox" [formControl]="privacyAcceptanceFormControl"> 
                 <span class="checkbox-sentence">Ich stimme der <span class="data-protection-word">Datenschutzerklärung</span> zu.</span>
             </label>
+            <span class="error-message" *ngIf="privacyAcceptanceFormControl.hasError('required')">
+                *Bitte akzeptieren Sie die Datenschutzerklärung, um fortzufahren.
+            </span>
         </div>
 
         <div class="button-container">
