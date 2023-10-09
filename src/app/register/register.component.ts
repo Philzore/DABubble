@@ -74,11 +74,14 @@ export class RegisterComponent {
       ? 'Must be at least 6 characters': '';
   }
 
+  privacyAcceptanceFormControl = new FormControl(false, [Validators.requiredTrue]);
+
   canRegister(): boolean {
     return (
       this.emailFormControl.valid &&
       this.passwordFormControl.valid &&
-      this.nameFormControl.valid
+      this.nameFormControl.valid &&
+      this.privacyAcceptanceFormControl.value // Überprüfe, ob die Checkbox ausgewählt ist
     );
   }
 }

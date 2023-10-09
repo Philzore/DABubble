@@ -112,14 +112,20 @@
 }
 
 .checkbox-container {
-    &:hover {
-        cursor: pointer;
+    display: flex;
+    align-items: center;  
+
+    input{
+        &:hover{
+            cursor: pointer;
+        }
     }
 }
 
 .checkbox-sentence {
     font-size: 16px;
     color: #42526E;
+    margin-left: 8px;
 }
 
 .data-protection-word {

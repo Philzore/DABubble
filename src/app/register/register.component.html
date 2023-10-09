@@ -37,8 +37,10 @@
 
         <div class="accept-data-protection-container">
             <div class="checkbox-container">
-                <input type="checkbox"> 
+                
+                <input type="checkbox" [formControl]="privacyAcceptanceFormControl"> 
                 <span class="checkbox-sentence">Ich stimme der <span class="data-protection-word">Datenschutzerklärung</span> zu.</span>
+            
             </div>
         </div>
 
