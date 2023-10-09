@@ -1,1 +1,27 @@
-<p>dialog-edit-profil works!</p>
+<div class="edit-profil-dialog">
+    <div class="edit-profil-header">
+        <h2>Dein Profil bearbeiten</h2>
+        <button mat-icon-button (click)="dialogRef.close()"><mat-icon>close</mat-icon></button>
+    </div>
+    <div class="profil-img">
+        <img src="/assets/characters/character_2.png">
+    </div>
+    <div class="edit-profil-field">
+        <div class="edit-profil-field-header">
+            <mat-icon>account_circle_outline</mat-icon>
+            <span><b>Vollständiger Name</b></span>
+        </div>
+        <input min="4" placeholder="Philipp Mössl">
+    </div>
+    <div class="edit-profil-field">
+        <div class="edit-profil-field-header">
+            <mat-icon>mail_outline</mat-icon>
+            <span><b>Vollständiger Name</b></span>
+        </div>
+        <input type="email" placeholder="pmoessl@outlook.de">
+    </div>
+    <div class="edit-profil-btns">
+        <button mat-button (click)="dialogRef.close()">Abbrechen</button>
+        <button mat-button>Speichern</button>
+    </div>
+</div>

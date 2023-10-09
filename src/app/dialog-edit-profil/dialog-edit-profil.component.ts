@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog-edit-profil',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class DialogEditProfilComponent {
 
+  constructor(public dialogRef:MatDialogRef<DialogEditProfilComponent>) {}
 }
