@@ -10,5 +10,4 @@ export class GroupInfoPopupComponent {
 
   constructor(public dialog: MatDialog) {}
   
-
 }

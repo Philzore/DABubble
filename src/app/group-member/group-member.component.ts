@@ -12,7 +12,7 @@ export class GroupMemberComponent {
 constructor(public dialog: MatDialog) {}
 
 openAddMemberPopUp(): void {
-  this.dialog.open(GroupAddMemberComponent);
+  this.dialog.open(GroupAddMemberComponent,{panelClass: 'custom-logout-dialog'});
 }
 
 }

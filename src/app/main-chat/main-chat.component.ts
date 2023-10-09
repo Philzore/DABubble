@@ -14,15 +14,15 @@ export class MainChatComponent {
   constructor(public dialog: MatDialog) {}
 
   openGroupInfoPopUp(): void {
-    this.dialog.open(GroupInfoPopupComponent);
+    this.dialog.open(GroupInfoPopupComponent ,{panelClass: 'custom-logout-dialog'});
   }
 
   openGroupMemberPopUp(): void {
-    this.dialog.open(GroupMemberComponent);
+    this.dialog.open(GroupMemberComponent, {position: {top:'100px',right:'50px'}, panelClass: 'custom-logout-dialog'});
   }
 
   openAddMemberPopUp(): void {
-    this.dialog.open(GroupAddMemberComponent);
+    this.dialog.open(GroupAddMemberComponent,{panelClass: 'custom-logout-dialog'});
   }
 
 

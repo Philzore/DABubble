@@ -10,7 +10,6 @@ import { DialogUserProfilComponent } from '../dialog-user-profil/dialog-user-pro
 })
 export class DialogEdituserLogoutComponent {
 
-
  constructor(public dialogRef: MatDialogRef<DialogEdituserLogoutComponent>, public dialog:MatDialog) {}
 
   showProfil(){
