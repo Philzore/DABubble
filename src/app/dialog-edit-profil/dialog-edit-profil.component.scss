@@ -51,5 +51,27 @@
 }
 
 .edit-profil-btns{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 45px;
+    gap: 32px;
 
+    button {
+        padding: 12px 25px;
+        border-radius: 50px;
+
+        &:first-child {
+            color: #797EF3;
+            background-color: white;
+            border: 1px solid #797EF3;
+        }
+
+        &:last-child {
+            color: white;
+            background-color: #444DF2;
+        }
+    }
+
+    
 }
