@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { FormControl, Validators} from '@angular/forms';
+import { AbstractControl, FormControl, ValidationErrors, Validators} from '@angular/forms';
 
 
 @Component({
@@ -35,19 +35,41 @@ export class RegisterComponent {
       });
   }
 
-  // Name Validierung
-  nameFormControl = new FormControl('', [
-    Validators.required,
-    Validators.minLength(2), // Mindestens 2 Zeichen für den Namen
-  ]);
+// Vor- und Nachnamen Validierung
+nameFormControl = new FormControl('', [
+  Validators.required,
+  this.validateFullName
+]);
 
-  getNameErrorMessage() {
-    if (this.nameFormControl.hasError('required')) {
-      return 'You must enter a value';
-    }
-    return this.nameFormControl.hasError('minlength')
-      ? 'Must be at least 2 characters': '';
+validateFullName(control: AbstractControl): ValidationErrors | null {
+  const value = control.value;
+  if (!value || value.trim() === '') {
+    return { required: true };
   }
+  const parts = value.trim().split(' ');
+  if (parts.length < 2) {
+    return { fullName: true };
+  }
+  const firstName = parts[0];
+  const lastName = parts[1];
+  if (firstName.length < 2 || lastName.length < 2) {
+    return { minLength: true };
+  }
+  return null;
+}
+
+getNameErrorMessage() {
+  if (this.nameFormControl.hasError('required')) {
+    return 'You must enter a value';
+  }
+  if (this.nameFormControl.hasError('fullName')) {
+    return 'Please enter both first and last names';
+  }
+  if (this.nameFormControl.hasError('minLength')) {
+    return 'Both first and last names must have at least 2 characters';
+  }
+  return '';
+}
 
   // EMAIL VALIDIERUNG
   emailFormControl = new FormControl('', [

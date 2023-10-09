@@ -26,6 +26,9 @@
         <div class="inputfield-container">
             <img src="assets/icons/email-icon.png" alt="image of mail icon" class="inputfield-image">
             <input type="text" class="inputfield" placeholder="beispielname@email.com" [(ngModel)]="email" name="email">
+            <div class="error-message" *ngIf="errorMessage">
+                {{ errorMessage }}
+            </div>
         </div>
 
         <div class="inputfield-container">
