@@ -1,8 +1,8 @@
 $main-purple: #eceefe;
 
 .chat-container {
+    margin-right:45px !important;
     width: 60vw;
-    margin: 0 auto;
     background-color: rgb(255, 255, 255) !important;
 
     mat-toolbar {
@@ -93,7 +93,7 @@ $main-purple: #eceefe;
 
 
         mat-list-item {
-          width: 80vw;
+          width: 63vw;
           height: 180px;
           padding: 30px;
           &:hover {
@@ -206,4 +206,15 @@ $main-purple: #eceefe;
   padding: 20px;
   width: 55vw !important;
   margin: 0 auto;
+}
+
+@media (max-width:1000px) {
+  .chat-container {
+    width: 100vw;
+    height: 100vh;
+
+    mat-list-item {
+      width: 100vw !important;
+    }
+  }
 }

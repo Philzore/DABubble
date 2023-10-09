@@ -2,3 +2,9 @@
     display: flex;
     gap: 30px;
 }
+
+@media (max-width:1000px) {
+    .chat-section {
+        gap: 0;
+    }
+}

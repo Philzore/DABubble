@@ -129,7 +129,7 @@ mat-card-header {
     padding: 24px 14px;
     border-bottom-right-radius: 30px;
     border-bottom-left-radius: 30px;
-    left: -190px;
+    left: -140px;
     bottom: 200px;
     box-shadow:-4px 4px 7px rgba(0,0,0,0.2);
     color: black;
@@ -140,5 +140,18 @@ mat-card-header {
     &:hover {
         cursor: pointer;
         color: #535AF1;
+    }
+}
+
+/* 
+*/
+
+@media (max-width: 1000px) {
+    .overview-card {
+        display: none;
+    }
+
+    .workspace-closing {
+        display: flex !important;
     }
 }
