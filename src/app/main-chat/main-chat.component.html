@@ -1,4 +1,4 @@
-<div class="chat-container br-30">
+<div class="chat-container br-30" [ngClass]="{'vw-65': !showComponentB}">
     <mat-toolbar>
         <div class="chat-header-left cursor" (click)="openGroupInfoPopUp()">
         <p># Entwicklerteam </p> <i class="material-icons">keyboard_arrow_down</i>
@@ -16,8 +16,8 @@
 
     <mat-list>
         <div class="chat-divider-top"></div>
-        <mat-list-item class="cursor">
-            <div class="message-container">
+        <mat-list-item class="cursor" [ngClass]="{'vw-45': showComponentB}">
+            <div class="message-container" >
                 <img src="./assets/characters/character_1.png" alt="">
                 <div class="message-info-container">
 
@@ -36,8 +36,8 @@
 
         <!-- Own Message Start -->
         <div class="chat-divider-top"></div>
-        <mat-list-item class="cursor">
-            <div class="message-container own-message">
+        <mat-list-item class="cursor" [ngClass]="{'vw-45': showComponentB}">
+            <div class="message-container own-message" >
                 <div class="message-info-container">
 
                     <div class="info-row own-message">
@@ -66,6 +66,6 @@
         </div>
     </div>  -->
     
-    <app-main-thread [showComponentB]="showComponentB"></app-main-thread>
-
 </div>
+
+<app-main-thread [showComponentB]="showComponentB"></app-main-thread>

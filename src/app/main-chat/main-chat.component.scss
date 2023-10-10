@@ -1,9 +1,19 @@
 $main-purple: #eceefe;
 
+.vw-65 {
+  width:65vw !important; 
+}
+
+.vw-45 {
+  width:45vw !important; 
+}
+
+
 .chat-container {
-    margin-right:45px !important;
-    width: 60vw;
+    margin-right:30px !important;
+    width: 45vw;
     background-color: rgb(255, 255, 255) !important;
+    height: calc(100vh - 160px);
 
     mat-toolbar {
         display: flex;
@@ -78,7 +88,7 @@ $main-purple: #eceefe;
       /* Chat Start*/
 
       mat-list {
-        width: 100vw;
+        // width: 100vw;
 
         .chat-divider-top {
           text-align: center;
@@ -111,7 +121,9 @@ $main-purple: #eceefe;
 
 
         .message-container {
-          display: flex;
+          // display: flex;
+          position: relative;
+          right: -30px;
 
 
           img {
@@ -125,7 +137,8 @@ $main-purple: #eceefe;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            margin: 0 30px 0 0;
+            // margin: 0 30px 0 0;
+            margin: 0 30px;
 
             & > * {
               display: flex;
@@ -218,3 +231,4 @@ $main-purple: #eceefe;
     }
   }
 }
+

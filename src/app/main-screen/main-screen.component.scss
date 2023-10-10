@@ -3,6 +3,10 @@
     gap: 30px;
 }
 
+app-main-chat {
+    display: flex;
+}
+
 @media (max-width:1000px) {
     .chat-section {
         gap: 0;

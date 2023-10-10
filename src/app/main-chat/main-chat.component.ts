@@ -14,7 +14,7 @@ export class MainChatComponent {
   constructor(public dialog: MatDialog) {}
 
   @Output() toggleComponentBEvent = new EventEmitter<boolean>();
-  showComponentB = false;
+  showComponentB = true;
 
   toggleComponentB() {
     this.showComponentB = !this.showComponentB;

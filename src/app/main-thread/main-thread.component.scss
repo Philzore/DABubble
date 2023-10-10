@@ -1,18 +1,12 @@
 .thread-container {
-    background-color: red;
-    width: 100vw;
-    height: 100vh;
-    z-index: 5;
-    position: absolute;
+    background-color: #fff;
+    width: 35vw;
+    height: calc(100vh - 160px);
 }
 
 
 @media (max-width: 1000px) {
     .thread-container {
-        background-color: red;
         width: 100vw;
-        height: 100vh;
-        z-index: 5;
-        position: absolute;
     }
 }

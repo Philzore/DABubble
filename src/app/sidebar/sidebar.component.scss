@@ -14,8 +14,9 @@ mat-card-header {
 
 .overview-card {
     box-sizing: border-box;
-    width: 360px;
-    height: 800px;
+    max-width: 360px;
+    width: 30vw;
+    height: calc(100vh - 160px);
     margin-left: 45px;
     position: relative;
 }
