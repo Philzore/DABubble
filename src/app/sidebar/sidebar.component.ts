@@ -52,24 +52,17 @@ export class SidebarComponent {
   }
 
   openDropdownChannels() {
-    if (this.channelDropdown) {
-      this.channelDropdown = false;
-    } else {
-      this.channelDropdown = true;
-    }
+    this.channelDropdown = !this.channelDropdown ;
   }
 
   openDropdownMessages() {
-    if (this.messageDropdown) {
-      this.messageDropdown = false;
-    } else {
-      this.messageDropdown = true;
-    }
+    this.messageDropdown = !this.messageDropdown;
   }
 
   closeSidebar(){
     this.sidebarClose = !this.sidebarClose ;
     this.workspaceText = this.sidebarClose ? 'öffnen' : 'schließen';
+    
   }
 
 }
