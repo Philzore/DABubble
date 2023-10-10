@@ -1,6 +1,7 @@
 //----------------- Card CONTAINER ------------- //
 mat-card {
      padding: 32px 30px;
+     font-size: 20px;
 }
 
 mat-card-header {
@@ -65,6 +66,7 @@ mat-card-header {
 .dropdown-name {
     display: flex;
     align-items: center;
+    gap: 15px;
 }
 
 .dropdown-header {
@@ -76,17 +78,21 @@ mat-card-header {
 .list-container {
     display: flex;
     flex-direction: column;
+    gap: 15px;
+    margin-left: 20px;
 }
 
 .single-entry {
     font-size: 18px;
-    margin-bottom: 15px;
+    font-weight: 700;
     max-width: 200px;
     padding: 4px 20px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     position: relative;
+    gap: 15px;
+
     img {
         height: 50px;
         width: 50px;
@@ -100,6 +106,8 @@ mat-card-header {
         bottom: 0;
         color: green;
     }
+
+    
     
     &:hover {
         color: #535AF1;
@@ -112,7 +120,9 @@ mat-card-header {
 .add-channel {
     display: flex;
     align-items: center;
-    padding: 4px 20px;
+    margin-left: 13px;
+    gap: 15px;
+
     &:hover {
         cursor: pointer;
         color: #535AF1;
@@ -134,12 +144,22 @@ mat-card-header {
     box-shadow:-4px 4px 7px rgba(0,0,0,0.2);
     color: black;
     display: flex;
+    justify-content: center;
     z-index: 1;
     width: 350px;
+    
+    
+    .workspace-animation {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        transition: all 250ms ease-in-out;
 
-    &:hover {
-        cursor: pointer;
-        color: #535AF1;
+        &:hover {
+            cursor: pointer;
+            color: #535AF1;
+            scale: 1.05;
+        }
     }
 }
 

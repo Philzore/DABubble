@@ -1,21 +1,27 @@
 
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
+import {trigger,state,style,animate,transition,} from '@angular/animations';
 
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
-  
+  animations: [ trigger(
+    'enterAnimation', [
+      transition(':enter', [
+        style({transform: 'translateX(-100%)', opacity: 0}),
+        animate('500ms', style({transform: 'translateX(0)', opacity: 1}))
+      ]),
+      transition(':leave', [
+        style({transform: 'translateX(0)', opacity: 1}),
+        animate('500ms', style({transform: 'translateX(-100%)', opacity: 0}))
+      ])
+    ]
+  )
+],
 })
 export class SidebarComponent {
   channels = ['Entwicklerteam', 'Office-Team'];
@@ -34,7 +40,8 @@ export class SidebarComponent {
   ];
   channelDropdown: boolean = false;
   messageDropdown: boolean = false;
-
+  sidebarClose:boolean = false;
+  workspaceText:string = 'schließen' ;
 
   constructor(public dialog: MatDialog) {
     console.log(this.users);
@@ -61,7 +68,8 @@ export class SidebarComponent {
   }
 
   closeSidebar(){
-
+    this.sidebarClose = !this.sidebarClose ;
+    this.workspaceText = this.sidebarClose ? 'öffnen' : 'schließen';
   }
 
 }
