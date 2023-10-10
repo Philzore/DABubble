@@ -1,5 +1,13 @@
-@media (max-width: 1000px) {
+.thread-container {
+    background-color: red;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+    position: absolute;
+}
 
+
+@media (max-width: 1000px) {
     .thread-container {
         background-color: red;
         width: 100vw;
@@ -7,5 +15,4 @@
         z-index: 5;
         position: absolute;
     }
-
 }
