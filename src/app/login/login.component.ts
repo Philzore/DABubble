@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInAnonymously } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 
 
 RouterLink
@@ -15,15 +18,15 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   login() {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, this.email, this.password)
-      
+
       .then((userCredential) => {
         // Signed in
-        console.log('User loged in successfully') 
+        console.log('User loged in successfully')
         const user = userCredential.user;
         this.router.navigate(['/main-page']);
       })
@@ -33,5 +36,29 @@ export class LoginComponent {
       });
   }
 
-
+  loginWithGoogle() {
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+        console.log('Google Login worked sucessfully')
+      }).catch((error) => {
+        console.log('Google Login Failed, Login does not work')
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  }
 }

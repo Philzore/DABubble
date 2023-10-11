@@ -291,3 +291,22 @@
     color: red;
     text-align: center;
 }
+
+//--------------- LOGO ANIMATION INTRO -------------- // 
+
+@keyframes logoAnimation{
+
+
+0% {
+    opacity: 1;
+}
+
+
+100% {
+    top: 50px;
+    left: 50px;
+    scale: .5;
+    opacity: 0;
+}
+
+}
