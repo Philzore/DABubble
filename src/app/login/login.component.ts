@@ -39,8 +39,10 @@ export class LoginComponent {
   loginWithGoogle() {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
+
     signInWithPopup(auth, provider)
       .then((result) => {
+        console.log('Google Login worked sucessfully')
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
@@ -48,7 +50,7 @@ export class LoginComponent {
         const user = result.user;
         // IdP data available using getAdditionalUserInfo(result)
         // ...
-        console.log('Google Login worked sucessfully')
+        this.router.navigate(['/main-page']);
       }).catch((error) => {
         console.log('Google Login Failed, Login does not work')
         // Handle Errors here.
