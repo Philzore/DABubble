@@ -20,7 +20,7 @@
 // --------------------- CHOOSE AVATAR CONTAINER ------------------- // 
 
 .choose-avatar-container {
-    width: 606px;
+    width: 640px;
     background-color: white;
     border-radius: 30px;
     box-sizing: border-box;
@@ -53,7 +53,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height: 136px;
     width: 486px;
 
     .choose-avatar-headline {
@@ -63,7 +62,63 @@
     }
 }
 
+// ---------------- CHOOSE AVATAR ICON CONTAINER ------------------ // 
 
+.avatar-icon-container{
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.image-container{
+    margin-bottom: 32px;
+}
+
+.registered-user-name{
+    font-size: 32px;
+    line-height: 43.65px;
+    font-weight: 700;
+}
+
+
+// ----------------- CHOOSE IMAGE SPAN -------------------- //
+
+.choose-from-list-span{
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 27.28px;
+    text-align: start;
+}
+
+.character-images-container{
+   
+    .character-image{
+        height: 72px;
+        width: 72px;
+        padding: 4px;
+        border-radius: 100%;
+        margin-right: 10px;
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    
+}
+
+
+// ----------------- CHOOSE OWN IMAGE SPAN -------------------- //
+.choose-own-image-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.choose-own-image-span{
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 27.28px;
+    text-align: start;
+}
 
 
 //------------------ NEXT BUTTON --------------------- //
