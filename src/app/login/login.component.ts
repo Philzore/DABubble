@@ -4,7 +4,7 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { signInAnonymously } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
-
+import { onAuthStateChanged } from "firebase/auth";
 
 RouterLink
 @Component({
@@ -60,6 +60,22 @@ export class LoginComponent {
         const email = error.customData.email;
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  }
+
+  loginAsGuest() {
+    const auth = getAuth();
+    signInAnonymously(auth)
+      .then(() => {
+        console.log('User logged in as Guest successfully')
+        this.router.navigate(['/main-page']);
+        // Signed in..
+      })
+      .catch((error) => {
+        console.log('ERROR, User could NOT log in as Guest')
+        const errorCode = error.code;
+        const errorMessage = error.message;
         // ...
       });
   }
