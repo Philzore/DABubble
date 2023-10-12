@@ -1,9 +1,9 @@
 
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
 import {trigger,state,style,animate,transition,} from '@angular/animations';
-
+import { SharedService } from 'src/shared.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -24,6 +24,9 @@ import {trigger,state,style,animate,transition,} from '@angular/animations';
 ],
 })
 export class SidebarComponent {
+
+  @Output() widthChange = new EventEmitter<number>();
+
   channels = ['Entwicklerteam', 'Office-Team'];
   users = [{
     name: 'Hasan',
@@ -43,7 +46,7 @@ export class SidebarComponent {
   sidebarClose:boolean = false;
   workspaceText:string = 'schließen' ;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private sharedService: SharedService) {
     console.log(this.users);
   }
 
@@ -62,7 +65,7 @@ export class SidebarComponent {
   closeSidebar(){
     this.sidebarClose = !this.sidebarClose ;
     this.workspaceText = this.sidebarClose ? 'öffnen' : 'schließen';
-    
+    this.sharedService.setSidebarVisibility(!this.sidebarClose);
   }
 
 }

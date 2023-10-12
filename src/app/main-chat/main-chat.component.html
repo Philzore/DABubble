@@ -1,4 +1,4 @@
-<div class="chat-container br-30" [ngClass]="{'vw-65': !showComponentB}">
+<div class="chat-container br-30" [style.width]="sidebarVisible ? '10vh' : '100vh'" [ngClass]="{'vw-65': !showComponentB}">
     <mat-toolbar>
         <div class="chat-header-left cursor" (click)="openGroupInfoPopUp()">
         <p># Entwicklerteam </p> <i class="material-icons">keyboard_arrow_down</i>
@@ -51,13 +51,14 @@
                 </div>
                 <img src="./assets/characters/character_2.png" alt="">
             </div>
+
         </mat-list-item>
+
         <div class="chat-divider-bottom"></div>
+
         <!-- Own Message End -->
 
       </mat-list>
-
-
 
     <!-- <div class="input-container">
         <input type="text">

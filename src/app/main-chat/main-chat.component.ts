@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.component';
 import { GroupMemberComponent } from '../group-member/group-member.component';
@@ -11,8 +11,9 @@ import { MainThreadComponent } from '../main-thread/main-thread.component';
   styleUrls: ['./main-chat.component.scss']
 })
 export class MainChatComponent {
+sidebarVisible: any;
   constructor(public dialog: MatDialog) {}
-
+  @Input() elementWidth: number;
   @Output() toggleComponentBEvent = new EventEmitter<boolean>();
   showComponentB = true;
 
@@ -32,7 +33,5 @@ export class MainChatComponent {
   openAddMemberPopUp(): void {
     this.dialog.open(GroupAddMemberComponent,{panelClass: 'custom-logout-dialog'});
   }
-
-
 
 }
