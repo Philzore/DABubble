@@ -17,6 +17,80 @@
     flex-direction: column;
 }
 
+// --------------------- CHOOSE AVATAR CONTAINER ------------------- // 
+
+.choose-avatar-container {
+    width: 606px;
+    background-color: white;
+    border-radius: 30px;
+    box-sizing: border-box;
+    padding: 50px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 43px;
+
+    position: relative;
+}
+
+//------------------ BACK ARROW ICON ------------------- //
+
+.back-icon {
+    position: absolute;
+    top: 45px;
+    left: 32px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+//--------------- CHOOSE AVATAR HEADER CONTAINER ---------------- // 
+
+.choose-avatar-headline-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 136px;
+    width: 486px;
+
+    .choose-avatar-headline {
+        color: #444DF2;
+        font-size: 46px;
+        font-weight: 700;
+    }
+}
+
+
+
+
+//------------------ NEXT BUTTON --------------------- //
+
+.button-container{
+    display: flex;
+    justify-content: flex-end;
+    width: 506px;
+}
+
+.next-button{
+    font-size: 18px;
+    font-weight: 600;
+    padding: 12px 25px;
+    border-radius: 25px;
+    color: white;
+    background-color: #444DF2;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    transition: 0.2s;
+
+    &:hover {
+        background-color: #797EF3;
+        cursor: pointer;
+    }
+}
 
 // ------------------ IMPRESSUM UND DATENSCHUTZ --------------- // 
 

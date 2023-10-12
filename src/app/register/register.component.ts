@@ -20,14 +20,13 @@ export class RegisterComponent {
 
 
   register() {
-
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, this.email, this.password)
       .then((userCredential) => {
         // Registrierung erfolgreich
         const user = userCredential.user;
         console.log('User registered successfully')
-        this.router.navigate(['/main-page']);
+        this.router.navigate(['/choose-avatar']);
       })
       .catch((error) => {
         // Bei einem Fehler die Fehlermeldung anzeigen
@@ -59,9 +58,6 @@ validateFullName(control: AbstractControl): ValidationErrors | null {
 }
 
 getNameErrorMessage() {
-  if (this.nameFormControl.hasError('required')) {
-    return '*Bitte geben Sie einen Namen ein';
-  }
   if (this.nameFormControl.hasError('fullName')) {
     return 'Bitte geben Sie Vor-und Nachname ein';
   }
@@ -77,9 +73,6 @@ getNameErrorMessage() {
     Validators.email,
   ]);
   getEmailErrorMessage() {
-    if (this.emailFormControl.hasError('required')) {
-      return '*Bitte geben Sie eine E-Mail ein';
-    }
     return this.emailFormControl.hasError('email')
      ? 'Diese E-Mail-Adresse ist leider ungültig' : '';
   }
@@ -89,9 +82,6 @@ getNameErrorMessage() {
     Validators.minLength(6), // Mindestens 6 Zeichen für das Passwort
   ]);
   getPasswordErrorMessage() {
-    if (this.passwordFormControl.hasError('required')) {
-      return '*Bitte geben Sie ein Passwort ein';
-    }
     return this.passwordFormControl.hasError('minlength')
       ? 'Passwort sollte mindestens 6 Zeichen haben': '';
   }
@@ -99,8 +89,6 @@ getNameErrorMessage() {
   privacyAcceptanceFormControl = new FormControl(false, [Validators.requiredTrue]);
 
 
-
-  
   canRegister(): boolean {
     return (
       this.emailFormControl.valid &&

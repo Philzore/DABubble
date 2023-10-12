@@ -8,10 +8,12 @@ import { LoginComponent } from './login/login.component';
 import { MainChatComponent } from './main-chat/main-chat.component';
 import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
 
 const routes: Routes = [
   {path: '', component:LoginComponent},
   {path: 'register', component:RegisterComponent},
+  {path: 'choose-avatar', component:ChooseAvatarComponent},
   {path: 'imprint', component: ImprintComponent},
   {path: 'dataprotection', component: DataProtectionComponent},
   {path: 'main-page', component: MainScreenComponent},
