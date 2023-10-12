@@ -7,7 +7,7 @@
 <div class="content">
 
     <div class="choose-avatar-container">
-        <img class="back-icon" src="assets/icons/arrow_back.png" alt="image of arrow-left icon" routerLink="">
+        <img class="back-icon" src="assets/icons/arrow_back.png" alt="image of arrow-left icon" routerLink="/register">
 
         <div class="choose-avatar-headline-container">
             <span class="choose-avatar-headline">Wähle deinen Avatar</span>
@@ -19,7 +19,7 @@
             </div>
 
             <span class="registered-user-name">
-                Name of registered User
+                {{ userData.name }}
             </span>
         </div>
 
@@ -50,7 +50,7 @@
 
         <div class="button-container">
             <div>
-                <button class="next-button">Weiter</button>
+                <button class="next-button" (click)="register()">Weiter</button>
             </div>
         </div>
     </div>

@@ -19,7 +19,7 @@
         
         <div class="inputfield-container">
             <img src="assets/icons/person-icon.png" alt="image of person icon" class="inputfield-image">
-            <input type="text" class="inputfield" placeholder="Name und Nachname" [formControl]="nameFormControl">
+            <input type="text" class="inputfield" placeholder="Name und Nachname" [(ngModel)]="name" name="name" [formControl]="nameFormControl">
             <mat-error *ngIf="nameFormControl.invalid">{{getNameErrorMessage()}}</mat-error>
         </div>
 
@@ -47,7 +47,7 @@
 
         <div class="button-container">
             <div class="next-button-container">
-                <button class="next-button" (click)="register()" [disabled]="!canRegister()">Weiter</button>
+                <button class="next-button" (click)="saveDataForNextPage()" [disabled]="!canSaveDataForNextPage()">Weiter</button>
             </div>
         </div>
  

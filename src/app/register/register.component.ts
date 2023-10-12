@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { AbstractControl, FormControl, ValidationErrors, Validators} from '@angular/forms';
-
+import { AbstractControl, FormControl, ValidationErrors, Validators } from '@angular/forms';
+import { UserDataService } from '../user-data.service';
 
 @Component({
   selector: 'app-register',
@@ -10,62 +9,51 @@ import { AbstractControl, FormControl, ValidationErrors, Validators} from '@angu
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-
+  name: string = '';
   email: string = '';
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userDataService: UserDataService) { }
 
-
-
-  register() {
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, this.email, this.password)
-      .then((userCredential) => {
-        // Registrierung erfolgreich
-        const user = userCredential.user;
-        console.log('User registered successfully')
-        this.router.navigate(['/choose-avatar']);
-      })
-      .catch((error) => {
-        // Bei einem Fehler die Fehlermeldung anzeigen
-        console.log('Error, User could not be registered')
-      });
+  saveDataForNextPage() {
+    this.userDataService.setUserData({ name: this.name, email: this.email, password: this.password});
+    this.router.navigate(['/choose-avatar']);
   }
 
-// Vor- und Nachnamen Validierung
-nameFormControl = new FormControl('', [
-  Validators.required,
-  this.validateFullName
-]);
+ 
+  // Vor- und Nachnamen Validierung
+  nameFormControl = new FormControl('', [
+    Validators.required,
+    this.validateFullName
+  ]);
 
-validateFullName(control: AbstractControl): ValidationErrors | null {
-  const value = control.value;
-  if (!value || value.trim() === '') {
-    return { required: true };
+  validateFullName(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (!value || value.trim() === '') {
+      return { required: true };
+    }
+    const parts = value.trim().split(' ');
+    if (parts.length < 2) {
+      return { fullName: true };
+    }
+    const firstName = parts[0];
+    const lastName = parts[1];
+    if (firstName.length < 2 || lastName.length < 2) {
+      return { minLength: true };
+    }
+    return null;
   }
-  const parts = value.trim().split(' ');
-  if (parts.length < 2) {
-    return { fullName: true };
-  }
-  const firstName = parts[0];
-  const lastName = parts[1];
-  if (firstName.length < 2 || lastName.length < 2) {
-    return { minLength: true };
-  }
-  return null;
-}
 
-getNameErrorMessage() {
-  if (this.nameFormControl.hasError('fullName')) {
-    return 'Bitte geben Sie Vor-und Nachname ein';
+  getNameErrorMessage() {
+    if (this.nameFormControl.hasError('fullName')) {
+      return 'Bitte geben Sie Vor-und Nachname ein';
+    }
+    if (this.nameFormControl.hasError('minLength')) {
+      return 'Vor-und Nachname sollten mindestens zwei Buchstaben haben';
+    }
+    return '';
   }
-  if (this.nameFormControl.hasError('minLength')) {
-    return 'Vor-und Nachname sollten mindestens zwei Buchstaben haben';
-  }
-  return '';
-}
 
   // EMAIL VALIDIERUNG
   emailFormControl = new FormControl('', [
@@ -74,7 +62,7 @@ getNameErrorMessage() {
   ]);
   getEmailErrorMessage() {
     return this.emailFormControl.hasError('email')
-     ? 'Diese E-Mail-Adresse ist leider ungültig' : '';
+      ? 'Diese E-Mail-Adresse ist leider ungültig' : '';
   }
 
   passwordFormControl = new FormControl('', [
@@ -83,13 +71,13 @@ getNameErrorMessage() {
   ]);
   getPasswordErrorMessage() {
     return this.passwordFormControl.hasError('minlength')
-      ? 'Passwort sollte mindestens 6 Zeichen haben': '';
+      ? 'Passwort sollte mindestens 6 Zeichen haben' : '';
   }
 
   privacyAcceptanceFormControl = new FormControl(false, [Validators.requiredTrue]);
 
 
-  canRegister(): boolean {
+  canSaveDataForNextPage(): boolean {
     return (
       this.emailFormControl.valid &&
       this.passwordFormControl.valid &&

@@ -64,17 +64,17 @@
 
 // ---------------- CHOOSE AVATAR ICON CONTAINER ------------------ // 
 
-.avatar-icon-container{
-display: flex;
-flex-direction: column;
-align-items: center;
+.avatar-icon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.image-container{
+.image-container {
     margin-bottom: 32px;
 }
 
-.registered-user-name{
+.registered-user-name {
     font-size: 32px;
     line-height: 43.65px;
     font-weight: 700;
@@ -83,37 +83,38 @@ align-items: center;
 
 // ----------------- CHOOSE IMAGE SPAN -------------------- //
 
-.choose-from-list-span{
+.choose-from-list-span {
     font-size: 20px;
     font-weight: 400;
     line-height: 27.28px;
     text-align: start;
 }
 
-.character-images-container{
-   
-    .character-image{
+.character-images-container {
+
+    .character-image {
         height: 72px;
         width: 72px;
         padding: 4px;
         border-radius: 100%;
         margin-right: 10px;
 
-        &:hover{
+        &:hover {
             cursor: pointer;
         }
     }
-    
+
 }
 
 
 // ----------------- CHOOSE OWN IMAGE SPAN -------------------- //
-.choose-own-image-container{
+.choose-own-image-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.choose-own-image-span{
+
+.choose-own-image-span {
     font-size: 20px;
     font-weight: 400;
     line-height: 27.28px;
@@ -123,13 +124,13 @@ align-items: center;
 
 //------------------ NEXT BUTTON --------------------- //
 
-.button-container{
+.button-container {
     display: flex;
     justify-content: flex-end;
     width: 506px;
 }
 
-.next-button{
+.next-button {
     font-size: 18px;
     font-weight: 600;
     padding: 12px 25px;
