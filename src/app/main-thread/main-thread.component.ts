@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-main-thread',
@@ -6,11 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./main-thread.component.scss']
 })
 export class MainThreadComponent {
-toggleComponentB() {
-throw new Error('Method not implemented.');
-}
-
-  @Input() showComponentB: boolean;
-  
 
 }

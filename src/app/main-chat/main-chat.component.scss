@@ -1,17 +1,6 @@
 $main-purple: #eceefe;
 
-.vw-65 {
-  width:65vw !important; 
-}
-
-.vw-45 {
-  width:45vw !important; 
-}
-
-
 .chat-container {
-    margin-right:30px !important;
-    width: 45vw;
     background-color: rgb(255, 255, 255) !important;
     height: calc(100vh - 160px);
 
@@ -103,7 +92,7 @@ $main-purple: #eceefe;
 
 
         mat-list-item {
-          width: 63vw;
+          width: 45vw;
           height: 180px;
           padding: 30px;
           &:hover {

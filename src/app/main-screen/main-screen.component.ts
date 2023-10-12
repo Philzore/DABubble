@@ -6,6 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./main-screen.component.scss']
 })
 export class MainScreenComponent {
-  @Input() elementWidth: number;
   
 }

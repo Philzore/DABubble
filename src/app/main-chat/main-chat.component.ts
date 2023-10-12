@@ -13,14 +13,6 @@ import { MainThreadComponent } from '../main-thread/main-thread.component';
 export class MainChatComponent {
 sidebarVisible: any;
   constructor(public dialog: MatDialog) {}
-  @Input() elementWidth: number;
-  @Output() toggleComponentBEvent = new EventEmitter<boolean>();
-  showComponentB = true;
-
-  toggleComponentB() {
-    this.showComponentB = !this.showComponentB;
-    this.toggleComponentBEvent.emit(this.showComponentB);
-  }
 
   openGroupInfoPopUp(): void {
     this.dialog.open(GroupInfoPopupComponent ,{panelClass: 'custom-logout-dialog'});

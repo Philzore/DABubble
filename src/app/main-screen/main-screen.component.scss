@@ -1,10 +1,21 @@
 .chat-section {
     display: flex;
+    // overflow: hidden;
     gap: 30px;
 }
 
 app-main-chat {
-    display: flex;
+    width: 45vw;
+}
+
+app-main-thread {
+    width: 35vw;
+    background-color: #fff;
+    margin: 0 30px 0 0;
+}
+
+app-sidebar {
+    width: 300px;
 }
 
 @media (max-width:1000px) {

@@ -1,4 +1,4 @@
-<div class="chat-container br-30" [style.width]="sidebarVisible ? '10vh' : '100vh'" [ngClass]="{'vw-65': !showComponentB}">
+<div class="chat-container br-30">
     <mat-toolbar>
         <div class="chat-header-left cursor" (click)="openGroupInfoPopUp()">
         <p># Entwicklerteam </p> <i class="material-icons">keyboard_arrow_down</i>
@@ -16,7 +16,7 @@
 
     <mat-list>
         <div class="chat-divider-top"></div>
-        <mat-list-item class="cursor" [ngClass]="{'vw-45': showComponentB}">
+        <mat-list-item class="cursor">
             <div class="message-container" >
                 <img src="./assets/characters/character_1.png" alt="">
                 <div class="message-info-container">
@@ -28,7 +28,7 @@
                     <p class="message-text">Lorem ipsum dolor sit amet.</p>
 
                     <div class="last-response-row">
-                    <p class="cursor" (click)="toggleComponentB()">2 Antworten</p> <span class="message-time">Letzte Antwort 14:56</span>
+                    <p class="cursor">2 Antworten</p> <span class="message-time">Letzte Antwort 14:56</span>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
 
         <!-- Own Message Start -->
         <div class="chat-divider-top"></div>
-        <mat-list-item class="cursor" [ngClass]="{'vw-45': showComponentB}">
+        <mat-list-item class="cursor">
             <div class="message-container own-message" >
                 <div class="message-info-container">
 
@@ -69,4 +69,4 @@
     
 </div>
 
-<app-main-thread [showComponentB]="showComponentB"></app-main-thread>
+<app-main-thread></app-main-thread>
