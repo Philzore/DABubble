@@ -30,6 +30,14 @@ header {
         &:focus {
             outline: 1px solid grey;
         }
+
+        @media(max-width:1350px) {
+            width: 500px;
+        }
+
+        @media(max-width:1130px) {
+            width: 400px;
+        }
     }
 }
 
@@ -41,6 +49,10 @@ header {
     h2 {
         margin: 0;
         font-weight: 700;
+
+        @media(max-width:1130px) {
+           display: none;
+        }
     }
 
     img {
@@ -56,6 +68,16 @@ header {
         right: 55px;
         bottom: 0;
         color: green;
+
+        @media(max-width:1130px) {
+            right: 0;
+         }
+    }
+
+    mat-icon {
+        @media(max-width:1130px) {
+            display: none;
+         }
     }
 
     &:hover {
