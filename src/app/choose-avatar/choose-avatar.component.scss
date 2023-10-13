@@ -181,3 +181,22 @@
         }
     }
 }
+
+//-------------------- NOTIFICATION CONTAINER ----------------- //
+
+.notification-visible {
+    background-color: rgba(136, 134, 134, 0.795) !important;
+}
+
+.notification-container {
+    position: fixed;
+    bottom: 20px; /* Hier können Sie den Abstand nach unten anpassen */
+    right: 20px; /* Hier können Sie den Abstand nach rechts anpassen */
+    transition: right 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    opacity: 0; /* Start mit vollständig transparent */
+  }
+
+.show-notification {
+    opacity: 1;
+    /* Machen Sie das Bild sichtbar */
+}

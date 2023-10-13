@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { UserDataService } from '../user-data.service';
 import { Router } from '@angular/router';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { Firestore, collection, addDoc } from '@angular/fire/firestore';
+import { User } from '../models/user.class';
 
 @Component({
   selector: 'app-choose-avatar',
@@ -13,21 +15,62 @@ export class ChooseAvatarComponent {
   name: string = '';
   email = this.userData.email;
   password = this.userData.email;
+  user = new User();
+  showNotification = false;
 
-  @ViewChild('fileInput') fileInput: any;
+
+  constructor(private userDataService: UserDataService, private router: Router, private firestore: Firestore) { }
 
 
-  constructor(private userDataService: UserDataService, private router: Router) { }
+  
+  showNotificationImage() {
+    this.showNotification = true;
+ 
+    document.body.classList.add('notification-visible');
+
+    setTimeout(() => {
+      document.body.classList.remove('notification-visible'); 
+      this.hideNotificationImage();
+      this.router.navigate(['']); 
+    }, 1500);
+  }
+
+
+  hideNotificationImage() {
+    this.showNotification = false;
+  }
+
+ 
+  createUserWithFirebase() {
+    let usersCollection = collection(this.firestore, 'users');
+    addDoc(usersCollection, this.user.toJSON())
+      .then(() => {
+        console.log('User added to Firestore successfully!');
+      })
+      .catch((error) => {
+        console.error('Error adding user to Firestore', error);
+      });
+  }
 
   register() {
-    console.log('', this.email, this.password)
     const auth = getAuth();
+  
     createUserWithEmailAndPassword(auth, this.email, this.password)
       .then((userCredential) => {
         // Registrierung erfolgreich
         const user = userCredential.user;
         console.log('User registered successfully');
-        this.router.navigate(['/main-page']);
+  
+        // Setzen Sie die Werte für das Benutzerobjekt
+        this.user.name = this.name;
+        this.user.email = this.email;
+        this.user.avatar = ''; // Setzen Sie den Avatar nach Bedarf
+  
+        // Fügen Sie den Benutzer zu Firestore hinzu
+        this.createUserWithFirebase();
+        
+        // Nach erfolgreicher Registrierung die Benachrichtigung anzeigen und zur Login-Seite navigieren
+        this.showNotificationImage();
       })
       .catch((error) => {
         // Bei einem Fehler die Fehlermeldung anzeigen
@@ -35,15 +78,15 @@ export class ChooseAvatarComponent {
       });
   }
 
-
   ngOnInit() {
     const userData = this.userDataService.getUserData();
-    this.email = userData.email; // Setze die E-Mail
+    this.email = userData.email; 
     this.name = userData.name
-    this.password = userData.password; // Setze das Passwort
+    this.password = userData.password;
     console.log('User name:', userData);
   }
 
+  @ViewChild('fileInput') fileInput: any;
 
   openFileInput() {
     this.fileInput.nativeElement.click();
