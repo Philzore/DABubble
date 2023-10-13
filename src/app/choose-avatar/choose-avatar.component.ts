@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { UserDataService } from '../user-data.service';
 import { Router } from '@angular/router';
-import { createUserWithEmailAndPassword, getAuth } from '@angular/fire/auth';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 @Component({
   selector: 'app-choose-avatar',
