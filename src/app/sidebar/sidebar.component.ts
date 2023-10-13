@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
 import {trigger,state,style,animate,transition, query,} from '@angular/animations';
 import { SharedService } from 'src/shared.service';
-import { Firestore, collection, getDocs } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDocs, onSnapshot } from '@angular/fire/firestore';
 
 
 @Component({
@@ -42,7 +42,7 @@ export class SidebarComponent {
     img: '/assets/characters/character_4.png',
   },
   ];
-  
+
   channelDropdown: boolean = false;
   messageDropdown: boolean = false;
   sidebarClose:boolean = false;
@@ -52,16 +52,22 @@ export class SidebarComponent {
   firestore: Firestore = inject(Firestore);
 
   constructor(public dialog: MatDialog, private sharedService: SharedService) {
-    this.getChannelsFromDataBase();
+    this.createSubscribe();
   }
 
   async getChannelsFromDataBase() {
+    this.channelsFromDataBase = [];
     const querySnapshot = await getDocs(collection(this.firestore, "channels"));
     querySnapshot.forEach((doc) => {
-      console.log(doc.id, '=>', doc.data());
       this.channelsFromDataBase.push(doc.data());
       console.log(this.channelsFromDataBase);
     });
+  }
+
+  createSubscribe() {
+    const unsub = onSnapshot(collection(this.firestore, "channels"), (doc) => {
+      this.getChannelsFromDataBase();
+  });
   }
 
   openDialog() {

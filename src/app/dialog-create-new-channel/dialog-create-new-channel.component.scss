@@ -27,6 +27,17 @@
         gap: 20px;
         box-sizing: border-box;
         font-size: 18px;
+        transition: 0.2s;
+        outline: none;
+
+        &:hover {
+            cursor: pointer;
+            border: 1px solid grey;
+        }
+
+        &:focus {
+            outline: 1px solid grey;
+        }
     }
 }
 

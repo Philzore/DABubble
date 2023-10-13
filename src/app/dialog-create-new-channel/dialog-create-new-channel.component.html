@@ -9,11 +9,11 @@
     </div>
     <div>
         <h3>Channel-Name</h3>
-        <input placeholder="# z.B. Kooperationsprojekte">
+        <input placeholder="# z.B. Kooperationsprojekte" [(ngModel)]="channelName">
     </div>
     <div>
         <h3>Beschreibung <span>(optional)</span></h3>
-        <input placeholder="Dein Text hier">
+        <input placeholder="Dein Text hier" [(ngModel)]="channelDescription">
     </div>
     <div class="create-btn">
         <button mat-button (click)="saveNewChannel()">Erstellen</button>
