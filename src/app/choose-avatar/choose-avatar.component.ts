@@ -11,8 +11,8 @@ import { createUserWithEmailAndPassword, getAuth } from '@angular/fire/auth';
 export class ChooseAvatarComponent {
   userData = this.userDataService.getUserData();
   name: string = '';
-  email: string = '';
-  password: string = '';
+  email = this.userData.email;
+  password = this.userData.email;
 
   @ViewChild('fileInput') fileInput: any;
 
@@ -20,9 +20,9 @@ export class ChooseAvatarComponent {
   constructor(private userDataService: UserDataService, private router: Router) { }
 
   register() {
-    
+    console.log('', this.email, this.password)
     const auth = getAuth();
-    createUserWithEmailAndPassword(auth, this.userData.email, this.userData.password)
+    createUserWithEmailAndPassword(auth, this.email, this.password)
       .then((userCredential) => {
         // Registrierung erfolgreich
         const user = userCredential.user;
@@ -37,13 +37,13 @@ export class ChooseAvatarComponent {
 
 
   ngOnInit() {
-      const userData = this.userDataService.getUserData();
-      this.email = userData.email; // Setze die E-Mail
-      this.name = userData.name
-      this.password = userData.password; // Setze das Passwort
-      console.log('User name:', userData);
+    const userData = this.userDataService.getUserData();
+    this.email = userData.email; // Setze die E-Mail
+    this.name = userData.name
+    this.password = userData.password; // Setze das Passwort
+    console.log('User name:', userData);
   }
-  
+
 
   openFileInput() {
     this.fileInput.nativeElement.click();

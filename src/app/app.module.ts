@@ -36,7 +36,8 @@ import { DialogEdituserLogoutComponent } from './dialog-edituser-logout/dialog-e
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { DialogUserProfilComponent } from './dialog-user-profil/dialog-user-profil.component';
 import { DialogEditProfilComponent } from './dialog-edit-profil/dialog-edit-profil.component';
-
+import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+import { AngularFireModule } from '@angular/fire/compat';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,8 @@ import { DialogEditProfilComponent } from './dialog-edit-profil/dialog-edit-prof
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
+    AngularFireAuthModule,
+    AngularFireModule,
     MatDialogModule,
     MatIconModule,
     MatCardModule,
