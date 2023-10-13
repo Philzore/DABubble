@@ -1,9 +1,11 @@
 
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, inject } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
-import {trigger,state,style,animate,transition,} from '@angular/animations';
+import {trigger,state,style,animate,transition, query,} from '@angular/animations';
 import { SharedService } from 'src/shared.service';
+import { Firestore, collection, getDocs } from '@angular/fire/firestore';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -27,7 +29,6 @@ export class SidebarComponent {
 
   @Output() widthChange = new EventEmitter<number>();
 
-  channels = ['Entwicklerteam', 'Office-Team'];
   users = [{
     name: 'Hasan',
     img: '/assets/characters/character_2.png',
@@ -41,13 +42,26 @@ export class SidebarComponent {
     img: '/assets/characters/character_4.png',
   },
   ];
+  
   channelDropdown: boolean = false;
   messageDropdown: boolean = false;
   sidebarClose:boolean = false;
   workspaceText:string = 'schließen' ;
+  channelsFromDataBase = [];
+
+  firestore: Firestore = inject(Firestore);
 
   constructor(public dialog: MatDialog, private sharedService: SharedService) {
-    console.log(this.users);
+    this.getChannelsFromDataBase();
+  }
+
+  async getChannelsFromDataBase() {
+    const querySnapshot = await getDocs(collection(this.firestore, "channels"));
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, '=>', doc.data());
+      this.channelsFromDataBase.push(doc.data());
+      console.log(this.channelsFromDataBase);
+    });
   }
 
   openDialog() {
@@ -65,7 +79,6 @@ export class SidebarComponent {
   closeSidebar(){
     this.sidebarClose = !this.sidebarClose ;
     this.workspaceText = this.sidebarClose ? 'öffnen' : 'schließen';
-    this.sharedService.setSidebarVisibility(!this.sidebarClose);
   }
 
 }
