@@ -1,4 +1,5 @@
 $main-purple: #eceefe;
+$purple: #98a3f4;
 
 .chat-container {
     background-color: rgb(255, 255, 255) !important;
@@ -77,8 +78,6 @@ $main-purple: #eceefe;
       /* Chat Start*/
 
       mat-list {
-        // width: 100vw;
-
         .chat-divider-top {
           text-align: center;
           border-top: 1px solid $main-purple;
@@ -87,7 +86,6 @@ $main-purple: #eceefe;
         .chat-divider-bottom {
           border-bottom: 1px solid $main-purple;
           position: relative;
-
         }
 
 
@@ -99,7 +97,7 @@ $main-purple: #eceefe;
             background-color: $main-purple;
             transition: 125ms ease-in-out;
             .message-text {
-              background-color: white !important; // Change the background color to white
+              background-color: white !important;
           }
             .message-time {
               color: grey !important;
@@ -149,11 +147,13 @@ $main-purple: #eceefe;
               background-color: $main-purple;
               padding: 10px;
               border-radius: 0px 15px 15px 15px;
-
             }
 
             .message-text-own {
-              border-radius: 15px 0px 15px 15px !important;
+              background-color: $purple;
+              color: #fff;
+              padding: 10px;
+              border-radius: 15px 0px 15px 15px !important;    
             }
 
 
@@ -199,6 +199,15 @@ $main-purple: #eceefe;
 .own-message {
   display: flex;
   justify-content: end;
+
+  &:hover {
+    background-color: $main-purple;
+    transition: 125ms ease-in-out;
+    .message-text-own {
+      background-color: $purple !important; // Change the background color to white
+      color: #fff   !important;
+  }
+}
 }
 
 /* Own Message Styling End */

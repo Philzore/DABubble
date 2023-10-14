@@ -58,7 +58,18 @@ body {
 .full-width {
     width: 100vw !important;
 }
-  
+mat-toolbar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    height: 70px !important;
+    padding: 0 20px!important;
+}
+
+mat-list {
+    padding: 0 !important;
+}
+
 
 .custom-logout-dialog {
     .mat-mdc-dialog-container .mdc-dialog__surface {
