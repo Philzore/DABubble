@@ -3,7 +3,6 @@ import { Component, EventEmitter, Output, ViewChild, inject } from '@angular/cor
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
 import {trigger,state,style,animate,transition,} from '@angular/animations';
-import { SharedService } from 'src/shared.service';
 
 @Component({
   selector: 'app-sidebar',
