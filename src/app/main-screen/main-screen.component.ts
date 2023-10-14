@@ -7,4 +7,11 @@ import { Component, Input } from '@angular/core';
 })
 export class MainScreenComponent {
   
+  @Input() sidebarVisible: boolean = true;
+  @Input() threadVisible: boolean = true;
+
+  get isMainChatFullWidth(): boolean {
+    return !this.sidebarVisible && !this.threadVisible;
+  }
+
 }

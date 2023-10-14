@@ -1,13 +1,67 @@
+$main-purple: #eceefe;
+
 .thread-container {
-    background-color: #fff;
-    height: calc(100vh - 160px);
-    width: 200px;
-    margin: 0 30px 0 0;
-}
+    padding: 20px;
 
+    .thread-header {
 
-@media (max-width: 1000px) {
-    .thread-container {
-        width: 100vw;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        .thread-header-info {
+            display: flex;
+            align-items: center;
+        }
+
+        
+        p {
+            color: purple;
+        }
     }
+
+    .message-thread-container {
+
+        .clicked-message {
+
+            display: flex;
+            align-items: center;
+
+            .info-row-thread {
+
+                display: flex;
+                padding: 0 10px;
+
+                p {
+                    font-size: 16px;
+                    font-weight:bolder;  
+                    margin: 0;
+                }
+
+                span {
+                    color: lightgray;
+                    font-size: 10px;
+                    margin: 0 0 0 15px;
+                }
+
+            }
+
+            
+
+            img {
+                height: 50px;
+                width: 50px;
+                background-size: cover;
+                border-radius: 50%;
+            }
+        }
+        
+        .message-info-thread {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+    }
+    
 }
