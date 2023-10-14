@@ -3,6 +3,7 @@ import { Component, EventEmitter, Output, ViewChild, inject } from '@angular/cor
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
 import {trigger,state,style,animate,transition,} from '@angular/animations';
+import { Firestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-sidebar',
@@ -49,7 +50,7 @@ export class SidebarComponent {
 
   firestore: Firestore = inject(Firestore);
 
-  constructor(public dialog: MatDialog, private sharedService: SharedService) {
+  constructor(public dialog: MatDialog) {
     console.log(this.users);
   }
 
@@ -68,7 +69,6 @@ export class SidebarComponent {
   closeSidebar(){
     this.sidebarClose = !this.sidebarClose ;
     this.workspaceText = this.sidebarClose ? 'öffnen' : 'schließen';
-    this.sharedService.setSidebarVisibility(!this.sidebarClose);
   }
 
 }
