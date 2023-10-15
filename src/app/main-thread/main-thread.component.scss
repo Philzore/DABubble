@@ -32,7 +32,7 @@ $purple: #98a3f4;
 .response {
     display: flex;
     flex-direction: row-reverse; /* Reverse the order to place it on the right */
-    justify-content: flex-end; /* Align to the right side */
+    justify-content: flex-start; /* Align to the right side */
 }
 
 .response .clicked-message {
