@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
+import { updateProfile } from "firebase/auth";
 
 @Component({
   selector: 'app-choose-avatar',
@@ -22,16 +23,16 @@ export class ChooseAvatarComponent {
   constructor(private userDataService: UserDataService, private router: Router, private firestore: Firestore) { }
 
 
-  
+
   showNotificationImage() {
     this.showNotification = true;
- 
+
     document.body.classList.add('notification-visible');
 
     setTimeout(() => {
-      document.body.classList.remove('notification-visible'); 
+      document.body.classList.remove('notification-visible');
       this.hideNotificationImage();
-      this.router.navigate(['']); 
+      this.router.navigate(['']);
     }, 1500);
   }
 
@@ -40,7 +41,6 @@ export class ChooseAvatarComponent {
     this.showNotification = false;
   }
 
- 
   createUserWithFirebase() {
     let usersCollection = collection(this.firestore, 'users');
     addDoc(usersCollection, this.user.toJSON())
@@ -54,21 +54,34 @@ export class ChooseAvatarComponent {
 
   register() {
     const auth = getAuth();
-  
+
     createUserWithEmailAndPassword(auth, this.email, this.password)
       .then((userCredential) => {
         // Registrierung erfolgreich
         const user = userCredential.user;
         console.log('User registered successfully');
-  
-        // Setzen Sie die Werte für das Benutzerobjekt
+
+        // Die Werte für Benutzerobjekt
         this.user.name = this.name;
         this.user.email = this.email;
         this.user.avatar = ''; // Setzen Sie den Avatar nach Bedarf
-  
-        // Fügen Sie den Benutzer zu Firestore hinzu
+
+        // Fügt Nutzer bei Firebase hinzu ( Collection )
         this.createUserWithFirebase();
-        
+
+        // Aktualisiert den Anzeigenamen vom User in der Authentication
+        updateProfile(auth.currentUser, {
+          displayName: this.name
+        })
+          .then(() => {
+            // Anzeigenamen aktualisiert
+            console.log('Display name updated successfully');
+          })
+          .catch((error) => {
+            // Bei einem Fehler die Fehlermeldung anzeigen
+            console.error('Error updating display name', error);
+          });
+
         // Nach erfolgreicher Registrierung die Benachrichtigung anzeigen und zur Login-Seite navigieren
         this.showNotificationImage();
       })
@@ -80,7 +93,7 @@ export class ChooseAvatarComponent {
 
   ngOnInit() {
     const userData = this.userDataService.getUserData();
-    this.email = userData.email; 
+    this.email = userData.email;
     this.name = userData.name
     this.password = userData.password;
     console.log('User name:', userData);
