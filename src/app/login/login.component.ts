@@ -18,7 +18,7 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   login() {
     const auth = getAuth();

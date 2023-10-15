@@ -1,3 +1,4 @@
+
 //---------------------------------- HEADER ----------------------- //
 
 .header {
@@ -263,24 +264,24 @@
     height: 42px;
     gap: 16px;
 
-    .impressum{
+    .impressum {
         font-size: 18px;
         font-weight: 400px;
         text-decoration: none;
         color: #797EF3;
 
-        &:hover{
+        &:hover {
             color: #444DF2;
         }
     }
 
-    .datenschutz{
+    .datenschutz {
         font-size: 18px;
         font-weight: 400px;
         text-decoration: none;
         color: #797EF3;
 
-        &:hover{
+        &:hover {
             color: #444DF2;
         }
     }
@@ -295,19 +296,19 @@
 
 //--------------- LOGO ANIMATION INTRO -------------- // 
 
-@keyframes logoAnimation{
+@keyframes logoAnimation {
 
 
-0% {
-    opacity: 1;
-}
+    0% {
+        opacity: 1;
+    }
 
 
-100% {
-    top: 50px;
-    left: 50px;
-    scale: .5;
-    opacity: 0;
-}
+    100% {
+        top: 50px;
+        left: 50px;
+        scale: .5;
+        opacity: 0;
+    }
 
 }
