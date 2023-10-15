@@ -21,7 +21,7 @@ export class DialogEditProfilComponent {
   getCurrentUser() {
     
     const user = this.auth.currentUser;
-
+    
     if (user) {
       this.currentUserEmail = user.email;
       this.currentUserName = user.displayName;
