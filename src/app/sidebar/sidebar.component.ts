@@ -3,7 +3,7 @@ import { Component, EventEmitter, Output, ViewChild, inject } from '@angular/cor
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
 import {trigger,state,style,animate,transition,} from '@angular/animations';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-sidebar',
@@ -25,33 +25,50 @@ import { Firestore } from '@angular/fire/firestore';
 })
 export class SidebarComponent {
 
-
-  @Output() widthChange = new EventEmitter<number>();
-
-  users = [{
-    name: 'Hasan',
-    img: '/assets/characters/character_2.png',
-  },
-  {
-    name: 'Musti',
-    img: '/assets/characters/character_3.png',
-  },
-  {
-    name: 'Phil',
-    img: '/assets/characters/character_4.png',
-  },
-  ];
+// @Output() widthChange = new EventEmitter<number>();
 
   channelDropdown: boolean = false;
   messageDropdown: boolean = false;
   sidebarClose:boolean = false;
   workspaceText:string = 'schließen' ;
   channelsFromDataBase = [];
+  usersFromDatabase = [];
 
   firestore: Firestore = inject(Firestore);
 
   constructor(public dialog: MatDialog) {
-    console.log(this.users);
+    this.createSubscribeChannels();
+    this.createSubscribeUsers();
+  }
+
+  async getChannelsFromDataBase() {
+    this.channelsFromDataBase = [];
+    const querySnapshotChannels = await getDocs(collection(this.firestore, "channels"));
+    querySnapshotChannels.forEach((doc) => {
+      this.channelsFromDataBase.push(doc.data());
+      // console.log(this.channelsFromDataBase);
+    });
+  }
+
+  async getUsersFromDatabase() {
+    this.usersFromDatabase = [];
+    const querySnapshotUsers = await getDocs(collection(this.firestore, 'users')) ;
+    querySnapshotUsers.forEach((doc) => {
+      this.usersFromDatabase.push(doc.data());
+      console.log(this.usersFromDatabase) ;
+    });
+  }
+
+  createSubscribeChannels() {
+    const unsubChannels = onSnapshot(collection(this.firestore, "channels"), (doc) => {
+      this.getChannelsFromDataBase();
+  });
+  }
+
+  createSubscribeUsers() {
+    const unsubUsers = onSnapshot(collection(this.firestore, "users"), (doc) => {
+      this.getUsersFromDatabase();
+  });
   }
 
   openDialog() {

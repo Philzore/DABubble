@@ -79,6 +79,15 @@ mat-card-header {
     flex-direction: column;
     gap: 15px;
     margin-left: 20px;
+    max-height: 200px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.direct-message {
+    max-height: 350px;
+
+    
 }
 
 .single-entry {
@@ -174,3 +183,22 @@ mat-card-header {
         display: flex !important;
     }
 }
+
+.no-overflow {
+    overflow: visible;
+}
+
+.list-container::-webkit-scrollbar {
+    width: 4px;
+    height: 8px;
+  }
+   
+  .list-container::-webkit-scrollbar-track {
+    background-color:#e4e4e4;
+    border-radius: 100px;
+  }
+   
+  .list-container::-webkit-scrollbar-thumb {
+    background-color: rgb(165, 163, 163);
+    border-radius: 100px;
+  }

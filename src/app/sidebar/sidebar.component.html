@@ -36,7 +36,7 @@
             <span>{{channel.name}}</span>
           </div>
           <div class="add-channel" (click)="openDialog()">
-            <mat-icon>add_circle_outline</mat-icon>
+            <mat-icon class="no-overflow">add_circle_outline</mat-icon>
             <span>Channel hinzufügen</span>
           </div>
         </div>
@@ -60,9 +60,9 @@
       </div>
       <div>
         <!-- channel container for single channels -->
-        <div class="list-container" *ngIf="messageDropdown">
-          <div *ngFor="let user of users" class="single-entry">
-            <img src={{user.img}}>
+        <div class="list-container direct-message" *ngIf="messageDropdown">
+          <div *ngFor="let user of usersFromDatabase" class="single-entry">
+            <img src= '/assets/characters/character_{{user.avatar}}.png'>
             <span class="point">&#9679;</span>
             <span>{{user.name}}</span>
           </div>
