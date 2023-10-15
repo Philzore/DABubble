@@ -256,7 +256,8 @@
 .impressum-datenschutz {
     display: flex;
     justify-content: space-evenly;
-    margin-top: 64px;
+    position: absolute;
+    bottom: 48px;
 
     width: 270px;
     height: 42px;

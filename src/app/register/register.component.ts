@@ -85,5 +85,6 @@ export class RegisterComponent {
       this.privacyAcceptanceFormControl.value // Überprüfe, ob die Checkbox ausgewählt ist
     );
   }
+  
 }
 
