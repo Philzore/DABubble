@@ -38,6 +38,7 @@ import { DialogUserProfilComponent } from './dialog-user-profil/dialog-user-prof
 import { DialogEditProfilComponent } from './dialog-edit-profil/dialog-edit-profil.component';
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFireModule } from '@angular/fire/compat';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { AngularFireModule } from '@angular/fire/compat';
     ForgotPasswordComponent,
     DialogUserProfilComponent,
     DialogEditProfilComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

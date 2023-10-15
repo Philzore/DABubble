@@ -9,6 +9,7 @@ import { MainChatComponent } from './main-chat/main-chat.component';
 import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const routes: Routes = [
   {path: '', component:LoginComponent},
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path: 'dataprotection', component: DataProtectionComponent},
   {path: 'main-page', component: MainScreenComponent},
   {path: 'main-chat', component:MainChatComponent},
-  {path: 'forgot-password', component:ForgotPasswordComponent}
+  {path: 'forgot-password', component:ForgotPasswordComponent},
+  {path: 'change-password', component:ChangePasswordComponent}
 ];
 
 @NgModule({
