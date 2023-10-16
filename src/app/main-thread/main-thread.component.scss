@@ -2,7 +2,7 @@ $main-purple: #eceefe;
 $purple: #98a3f4;
 
 .end {
-    justify-content: flex-end; // Changed to SCSS syntax
+    justify-content: flex-end;
 }
 
 .chat-divider-top {
@@ -14,11 +14,11 @@ $purple: #98a3f4;
     color: $main-purple;
     display: flex;
     align-items: center;
-    justify-content: space-between; // Uncommented
+    justify-content: space-between;
     padding: 5px 20px;
 
     p {
-        flex: 0.5; // Added "0" before ".5" to make it a valid SCSS syntax
+        flex: 0.5;
         margin: 0;
     }
 
@@ -84,7 +84,7 @@ $purple: #98a3f4;
         .clicked-message {
             display: flex;
             align-items: center;
-            align-items: flex-start;
+            flex-direction: column; // Added to make it clearer
             padding: 20px;
 
             &:hover {
@@ -96,28 +96,28 @@ $purple: #98a3f4;
             }
         }
     }
-}
+    
+    .message-info-thread {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-.message-info-thread {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+        .clicked-message-content {
+            .message-text {
+                background-color: $main-purple;
+                color: black;
+                padding: 10px;
+                margin: 10px;
+                border-radius: 15px 0px 15px 15px !important;
+            }
 
-    .clicked-message-content {
-        .message-text {
-            background-color: $main-purple;
-            color: black;
-            padding: 10px;
-            margin: 10px;
-            border-radius: 15px 0px 15px 15px !important;
-        }
-
-        .message-text-own {
-            background-color: $purple;
-            color: #fff;
-            padding: 10px;
-            margin: 10px;
-            border-radius: 15px 0px 15px 15px !important;
+            .message-text-own {
+                background-color: $purple;
+                color: #fff;
+                padding: 10px;
+                margin: 10px;
+                border-radius: 15px 0px 15px 15px !important;
+            }
         }
     }
 }
