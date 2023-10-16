@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { getAuth } from '@angular/fire/auth';
+import { NgModel } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
 })
+
 
 export class UserDataService {
   private userData: { name: string, email: string, password: string } = { name: '', email: '', password: '' };

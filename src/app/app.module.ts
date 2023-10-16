@@ -41,6 +41,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { SharedService } from './shared.service';
+import { UserDataService } from './user-data.service';
+
 
 
 @NgModule({
@@ -65,6 +67,7 @@ import { SharedService } from './shared.service';
     DialogUserProfilComponent,
     DialogEditProfilComponent,
     ChangePasswordComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -88,7 +91,7 @@ import { SharedService } from './shared.service';
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule
   ],
-  providers: [{provide:LocationStrategy, useClass:HashLocationStrategy}, SharedService],
+  providers: [{provide:LocationStrategy, useClass:HashLocationStrategy}, SharedService, UserDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
