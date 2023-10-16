@@ -39,6 +39,7 @@ import { DialogEditProfilComponent } from './dialog-edit-profil/dialog-edit-prof
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFireModule } from '@angular/fire/compat';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [{provide:LocationStrategy, useClass:HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
