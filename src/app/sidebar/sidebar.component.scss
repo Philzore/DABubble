@@ -1,7 +1,8 @@
 //----------------- Card CONTAINER ------------- //
 mat-card {
-     padding: 32px 30px;
+     padding: 15px;
      font-size: 20px;
+     border-radius: 30px;
 }
 
 mat-card-header {
@@ -14,7 +15,7 @@ mat-card-header {
 
 .overview-card {
     box-sizing: border-box;
-    // max-width: 360px;
+    max-width: 300px;
     height: calc(100vh - 160px);
     margin-left: 20px;
     position: relative;
@@ -139,7 +140,7 @@ mat-card-header {
 
 //----------------- Workspace closing CONTAINER ------------- //
 .workspace-closing {
-    font-size: 20px;
+    font-size: 16px;
     transform: rotate(-90deg);
     position: absolute;
     background-color: white;
@@ -153,7 +154,7 @@ mat-card-header {
     color: black;
     display: flex;
     justify-content: center;
-    z-index: 1;
+    z-index: 6;
     width: 350px;
     
     
@@ -175,12 +176,21 @@ mat-card-header {
 */
 
 @media (max-width: 1000px) {
+    mat-card {
+        border-radius: 0 30px 30px 0;
+          
+    }
+
     .overview-card {
-        display: none;
+        z-index: 5;
+        position: absolute;
+        left: 0;
+        margin: 0;
     }
 
     .workspace-closing {
         display: flex !important;
+        bottom: 177px;
     }
 }
 

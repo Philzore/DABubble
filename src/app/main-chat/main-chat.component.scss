@@ -90,7 +90,7 @@ $purple: #98a3f4;
 
 
         mat-list-item {
-          width: 45vw;
+          width: 100%;
           height: 180px;
           padding: 30px;
           &:hover {
@@ -220,13 +220,6 @@ $purple: #98a3f4;
 }
 
 @media (max-width:1000px) {
-  .chat-container {
-    width: 100vw;
-    height: 100vh;
-
-    mat-list-item {
-      width: 100vw !important;
-    }
-  }
+ 
 }
 

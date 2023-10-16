@@ -3,6 +3,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
+import { SharedService } from '../shared.service';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -22,7 +24,8 @@ import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firest
   ]
 })
 export class SidebarComponent {
-  @Output() widthChange = new EventEmitter<number>();
+  @Output() sidebarToggled = new EventEmitter<boolean>();
+
 
   channelDropdown: boolean = false;
   messageDropdown: boolean = false;
@@ -32,7 +35,7 @@ export class SidebarComponent {
   usersFromDatabase = [];
   firestore: Firestore = inject(Firestore);
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private sharedService: SharedService) {
     this.createSubscribeChannels();
     this.createSubscribeUsers();
   }
@@ -82,5 +85,6 @@ export class SidebarComponent {
   closeSidebar() {
     this.sidebarClose = !this.sidebarClose;
     this.workspaceText = this.sidebarClose ? 'öffnen' : 'schließen';
+    this.sharedService.toggleSidebar();
   }
 }

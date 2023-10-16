@@ -40,6 +40,8 @@ import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFireModule } from '@angular/fire/compat';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { SharedService } from './shared.service';
+
 
 @NgModule({
   declarations: [
@@ -86,7 +88,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule
   ],
-  providers: [{provide:LocationStrategy, useClass:HashLocationStrategy}],
+  providers: [{provide:LocationStrategy, useClass:HashLocationStrategy}, SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

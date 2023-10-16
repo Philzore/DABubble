@@ -1,4 +1,4 @@
-<div class="chat-container br-30">
+<div class="chat-container br-30" [style.width]="isSidebarOpen ? '45vw' : 'calc(45vw + 250px)'">
     <mat-toolbar>
         <div class="chat-header-left cursor" (click)="openGroupInfoPopUp()">
         <p># Entwicklerteam </p> <i class="material-icons">keyboard_arrow_down</i>
@@ -59,21 +59,14 @@
         <!-- Own Message End -->
 
       </mat-list>
-<<<<<<< HEAD
 
+<!-- 
     <div class="input-container">
-=======
-    <!-- <div class="input-container">
->>>>>>> f84d62b (worked on responsive design)
         <input type="text">
         <div class="">
             <i class="material-icons">add</i>
         </div>
-<<<<<<< HEAD
-    </div>  
 
-=======
-    </div>  -->
->>>>>>> f84d62b (worked on responsive design)
+    </div>   -->
 </div>
 

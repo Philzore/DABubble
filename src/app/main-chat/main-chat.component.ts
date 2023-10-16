@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.component';
 import { GroupMemberComponent } from '../group-member/group-member.component';
 import { GroupAddMemberComponent } from '../group-add-member/group-add-member.component';
 import { MainThreadComponent } from '../main-thread/main-thread.component';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-main-chat',
@@ -11,19 +12,28 @@ import { MainThreadComponent } from '../main-thread/main-thread.component';
   styleUrls: ['./main-chat.component.scss']
 })
 export class MainChatComponent {
-sidebarVisible: any;
-  constructor(public dialog: MatDialog) {}
+
+  isSidebarOpen: boolean = true;
+
+  constructor(public dialog: MatDialog, private sharedService: SharedService) {
+    this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
+      this.isSidebarOpen = isOpen;
+    });
+  }
 
   openGroupInfoPopUp(): void {
-    this.dialog.open(GroupInfoPopupComponent ,{panelClass: 'custom-logout-dialog'});
+    this.dialog.open(GroupInfoPopupComponent, { panelClass: 'custom-logout-dialog' });
   }
 
   openGroupMemberPopUp(): void {
-    this.dialog.open(GroupMemberComponent, {position: {top:'100px',right:'50px'}, panelClass: 'custom-logout-dialog'});
+    this.dialog.open(GroupMemberComponent, { position: { top: '100px', right: '50px' }, panelClass: 'custom-logout-dialog' });
   }
 
   openAddMemberPopUp(): void {
-    this.dialog.open(GroupAddMemberComponent,{panelClass: 'custom-logout-dialog'});
+    this.dialog.open(GroupAddMemberComponent, { panelClass: 'custom-logout-dialog' });
   }
 
+  toggleSidebar(): void {
+    this.sharedService.toggleSidebar();
+  }
 }
