@@ -15,9 +15,9 @@ export class DesktopHeaderComponent {
 
   constructor(public dialog: MatDialog, public userDataService:UserDataService) {
     //  this.getCurrentUser();
-    setTimeout(() => {
-      this.userData = userDataService.getCurrentUser();
-    }, 200); 
+    // setTimeout(() => {
+    //   this.userData = userDataService.getCurrentUser();
+    // }, 200); 
   }
 
   getCurrentUser() {
