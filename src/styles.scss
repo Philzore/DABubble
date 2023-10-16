@@ -71,6 +71,15 @@ mat-list {
 }
 
 
+.hidden {
+    display: none !important;
+  }
+  
+.full-width {
+    width: 100vw !important;
+}
+  
+
 .custom-logout-dialog {
     .mat-mdc-dialog-container .mdc-dialog__surface {
         border-radius: 30px 0px 30px 30px !important;

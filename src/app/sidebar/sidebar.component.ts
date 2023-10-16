@@ -3,7 +3,10 @@ import { Component, EventEmitter, Output, ViewChild, inject } from '@angular/cor
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
 import {trigger,state,style,animate,transition,} from '@angular/animations';
+<<<<<<< HEAD
 import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
+=======
+>>>>>>> f84d62b (worked on responsive design)
 
 @Component({
   selector: 'app-sidebar',
@@ -25,7 +28,12 @@ import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firest
 })
 export class SidebarComponent {
 
+<<<<<<< HEAD
 // @Output() widthChange = new EventEmitter<number>();
+=======
+
+  @Output() widthChange = new EventEmitter<number>();
+>>>>>>> f84d62b (worked on responsive design)
 
   channelDropdown: boolean = false;
   messageDropdown: boolean = false;
@@ -34,6 +42,7 @@ export class SidebarComponent {
   channelsFromDataBase = [];
   usersFromDatabase = [];
 
+<<<<<<< HEAD
   firestore: Firestore = inject(Firestore);
 
   constructor(public dialog: MatDialog) {
@@ -69,6 +78,10 @@ export class SidebarComponent {
     const unsubUsers = onSnapshot(collection(this.firestore, "users"), (doc) => {
       this.getUsersFromDatabase();
   });
+=======
+  constructor(public dialog: MatDialog) {
+    console.log(this.users);
+>>>>>>> f84d62b (worked on responsive design)
   }
 
   openDialog() {
@@ -86,6 +99,10 @@ export class SidebarComponent {
   closeSidebar(){
     this.sidebarClose = !this.sidebarClose ;
     this.workspaceText = this.sidebarClose ? 'öffnen' : 'schließen';
+<<<<<<< HEAD
+=======
+    // this.sharedService.setSidebarVisibility(!this.sidebarClose);
+>>>>>>> f84d62b (worked on responsive design)
   }
 
 }
