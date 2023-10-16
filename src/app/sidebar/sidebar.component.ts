@@ -34,8 +34,8 @@ export class SidebarComponent {
   firestore: Firestore;
 
   constructor(public dialog: MatDialog, private sharedService: SharedService) {
-    this.createSubscribeChannels();
-    this.createSubscribeUsers();
+    // this.createSubscribeChannels();
+    // this.createSubscribeUsers();
   }
 
   async getChannelsFromDataBase() {

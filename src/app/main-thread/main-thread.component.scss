@@ -87,6 +87,12 @@ $purple: #98a3f4;
             flex-direction: column; // Added to make it clearer
             padding: 20px;
 
+            img {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+            }
+
             &:hover {
                 background-color: $main-purple;
                 transition: 125ms ease-in-out;
