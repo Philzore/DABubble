@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {  EmailAuthProvider,  browserLocalPersistence, browserSessionPersistence, getAuth, onAuthStateChanged, reauthenticateWithCredential, reauthenticateWithPopup, updateEmail } from '@angular/fire/auth';
 import { MatDialogRef } from '@angular/material/dialog';
+import { UserDataService } from '../user-data.service';
+
 
 @Component({
   selector: 'app-dialog-edit-profil',
@@ -10,12 +12,14 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class DialogEditProfilComponent {
   currentUserEmail: string = '';
   currentUserName: string = '';
+  userData = [];
   newName: string = '';
   newEmail: string = '';
   auth = getAuth();
 
-  constructor(public dialogRef: MatDialogRef<DialogEditProfilComponent>) {
-    this.getCurrentUser();
+  constructor(public dialogRef: MatDialogRef<DialogEditProfilComponent>, public userDataService:UserDataService) {
+    // this.getCurrentUser();
+    this.userData = userDataService.getCurrentUser();
   }
 
   getCurrentUser() {

@@ -11,14 +11,14 @@
             <mat-icon>account_circle_outline</mat-icon>
             <span><b>Vollständiger Name</b></span>
         </div>
-        <input min="4" placeholder='{{ currentUserName }}' [(ngModel)]="newName">
+        <input min="4" placeholder='{{ userData[0] }}' [(ngModel)]="newName">
     </div>
     <div class="edit-profil-field">
         <div class="edit-profil-field-header">
             <mat-icon>mail_outline</mat-icon>
             <span><b>E-Mail-Adresse</b></span>
         </div>
-        <input type="email" placeholder='{{ currentUserEmail }}' [(ngModel)]="newEmail">
+        <input type="email" placeholder='{{ userData[1] }}' [(ngModel)]="newEmail">
     </div>
     <div class="edit-profil-btns">
         <button mat-button (click)="dialogRef.close()">Abbrechen</button>

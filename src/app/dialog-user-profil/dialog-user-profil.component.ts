@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogEditProfilComponent } from '../dialog-edit-profil/dialog-edit-profil.component';
+import { UserDataService } from '../user-data.service';
 
 @Component({
   selector: 'app-dialog-user-profil',
@@ -8,9 +9,11 @@ import { DialogEditProfilComponent } from '../dialog-edit-profil/dialog-edit-pro
   styleUrls: ['./dialog-user-profil.component.scss']
 })
 export class DialogUserProfilComponent {
+  userData = [] ;
 
-
-  constructor(public dialogRef:MatDialogRef<DialogUserProfilComponent>, public dialog:MatDialog) {}
+  constructor(public dialogRef:MatDialogRef<DialogUserProfilComponent>, public dialog:MatDialog, public userDataService:UserDataService) {
+    this.userData = userDataService.getCurrentUser();
+  }
 
   openEditProfile() {
     this.dialogRef.close();
