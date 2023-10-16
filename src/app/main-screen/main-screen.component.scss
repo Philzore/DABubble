@@ -1,7 +1,10 @@
 .chat-section {
     display: flex;
     gap: 20px;
-    // overflow: hidden;
+}
+
+app-main-chat {
+    width: 45vw;
 }
 
 app-main-thread {

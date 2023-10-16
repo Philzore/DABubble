@@ -2,53 +2,51 @@ $main-purple: #eceefe;
 $purple: #98a3f4;
 
 .end {
-    justify-content: end;
+    justify-content: flex-end; // Changed to SCSS syntax
 }
 
 .chat-divider-top {
     text-align: center;
     border-top: 1px solid $main-purple;
-  }
+}
 
 .chat-divider-bottom-container {
     color: $main-purple;
     display: flex;
     align-items: center;
-    // justify-content: space-between;
+    justify-content: space-between; // Uncommented
     padding: 5px 20px;
 
     p {
-        flex: .5;
+        flex: 0.5; // Added "0" before ".5" to make it a valid SCSS syntax
         margin: 0;
     }
 
     .chat-divider-bottom {
         text-align: center;
-        flex:1;
+        flex: 1;
         border-top: 2px solid $main-purple;
     }
 }
 
 .response {
     display: flex;
-    flex-direction: row-reverse; /* Reverse the order to place it on the right */
-    justify-content: flex-start; /* Align to the right side */
-}
+    flex-direction: row-reverse;
+    justify-content: flex-start;
 
-.response .clicked-message {
-    margin-left: auto; /* Push it to the right side */
-    text-align: right; /* Align text to the right */
-    /* Add any other necessary styles */
+    .clicked-message {
+        margin-left: auto;
+        text-align: right;
+        // Add any other necessary styles
+    }
 }
-  
 
 .thread-container {
-
     mat-toolbar {
         display: flex;
         justify-content: space-around;
         align-items: center;
-        padding:20px 0;
+        padding: 20px 0;
         background-color: #fff !important;
 
         .thread-header-info {
@@ -60,20 +58,17 @@ $purple: #98a3f4;
             }
         }
 
-        
         p {
-            color: purple;
+            color: $purple;
             margin: 0 0 0 5px;
             font-size: 12px;
         }
     }
 
     .message-thread-container {
-
         .own-message {
-
             .own-message-time {
-                margin:0 15px 0 0 !important;
+                margin: 0 15px 0 0 !important;
             }
 
             &:hover {
@@ -82,82 +77,47 @@ $purple: #98a3f4;
                 .message-text-own {
                     background-color: $purple;
                     color: #fff;
-              }
+                }
             }
-
         }
-
 
         .clicked-message {
             display: flex;
             align-items: center;
-            align-items: flex-start; /* Set this to flex-start */
+            align-items: flex-start;
             padding: 20px;
-
 
             &:hover {
                 background-color: $main-purple;
                 transition: 125ms ease-in-out;
                 .message-text {
-                  background-color: white !important; // Change the background color to white
-              }
-            }
-    
-            .info-row-thread {
-                display: flex;
-                padding: 0 10px;
-
-                p {
-                    font-size: 16px;
-                    font-weight:bolder;  
-                    margin: 0;
+                    background-color: white !important;
                 }
-
-                span {
-                    color: lightgray;
-                    font-size: 10px;
-                    margin: 0 0 0 15px;
-                }
-
             }
-
-            
-
-            img {
-                height: 50px;
-                width: 50px;
-                background-size: cover;
-                border-radius: 50%;
-            }
-            
-        }
-        
-        .message-info-thread {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            .clicked-message-content {
-
-                .message-text {
-                    background-color: $main-purple;
-                    color: black;
-                    padding: 10px;
-                    margin: 10px;
-                    border-radius: 15px 0px 15px 15px !important;  
-                }
-
-                .message-text-own {
-                    background-color: $purple;
-                    color: #fff;
-                    padding: 10px;
-                    margin: 10px;
-                    border-radius: 15px 0px 15px 15px !important;  
-                }
-
-            }
-
-        }
         }
     }
-    
+}
+
+.message-info-thread {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .clicked-message-content {
+        .message-text {
+            background-color: $main-purple;
+            color: black;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 15px 0px 15px 15px !important;
+        }
+
+        .message-text-own {
+            background-color: $purple;
+            color: #fff;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 15px 0px 15px 15px !important;
+        }
+    }
+}

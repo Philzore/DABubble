@@ -8,20 +8,10 @@ import { browserLocalPersistence, getAuth, } from '@angular/fire/auth';
   styleUrls: ['./main-screen.component.scss']
 })
 export class MainScreenComponent {
-
-  @Input() sidebarVisible: boolean = true;
-  @Input() threadVisible: boolean = true;
-
+  
   constructor() {
     // const auth = getAuth();
     // auth.setPersistence(browserLocalPersistence);
     
   }
-
-
-
-  get isMainChatFullWidth(): boolean {
-    return !this.sidebarVisible && !this.threadVisible;
-  }
-
 }
