@@ -1,10 +1,9 @@
-import { Component, EventEmitter, Output, ViewChild, inject } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, EventEmitter, Output, Injectable } from '@angular/core'; // Import Injectable
+import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
 import { SharedService } from '../shared.service';
-
 
 @Component({
   selector: 'app-sidebar',
@@ -26,14 +25,13 @@ import { SharedService } from '../shared.service';
 export class SidebarComponent {
   @Output() sidebarToggled = new EventEmitter<boolean>();
 
-
   channelDropdown: boolean = false;
   messageDropdown: boolean = false;
   sidebarClose: boolean = false;
   workspaceText: string = 'schließen';
   channelsFromDataBase = [];
   usersFromDatabase = [];
-  firestore: Firestore = inject(Firestore);
+  firestore: Firestore;
 
   constructor(public dialog: MatDialog, private sharedService: SharedService) {
     this.createSubscribeChannels();
@@ -42,7 +40,7 @@ export class SidebarComponent {
 
   async getChannelsFromDataBase() {
     this.channelsFromDataBase = [];
-    const querySnapshotChannels = await getDocs(collection(this.firestore, "channels"));
+    const querySnapshotChannels = await getDocs(collection(this.firestore, 'channels'));
     querySnapshotChannels.forEach((doc) => {
       this.channelsFromDataBase.push(doc.data());
       // console.log(this.channelsFromDataBase);
@@ -59,19 +57,25 @@ export class SidebarComponent {
   }
 
   createSubscribeChannels() {
-    const unsubChannels = onSnapshot(collection(this.firestore, "channels"), (doc) => {
+    const unsubChannels = onSnapshot(collection(this.firestore, 'channels'), (doc) => {
       this.getChannelsFromDataBase();
     });
   }
 
   createSubscribeUsers() {
-    const unsubUsers = onSnapshot(collection(this.firestore, "users"), (doc) => {
+    const unsubUsers = onSnapshot(collection(this.firestore, 'users'), (doc) => {
       this.getUsersFromDatabase();
     });
   }
 
   openDialog() {
-    const dialog = this.dialog.open(DialogCreateNewChannelComponent, { panelClass: 'custom-normal-dialog' });
+    const dialogRef = this.dialog.open(DialogCreateNewChannelComponent, {
+      panelClass: 'custom-normal-dialog',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   openDropdownChannels() {
