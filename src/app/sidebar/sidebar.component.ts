@@ -31,11 +31,11 @@ export class SidebarComponent {
   workspaceText: string = 'schließen';
   channelsFromDataBase = [];
   usersFromDatabase = [];
-  firestore: Firestore;
 
-  constructor(public dialog: MatDialog, private sharedService: SharedService) {
-    // this.createSubscribeChannels();
-    // this.createSubscribeUsers();
+
+  constructor(public dialog: MatDialog, private sharedService: SharedService, private firestore:Firestore) {
+    this.createSubscribeChannels();
+    this.createSubscribeUsers();
   }
 
   async getChannelsFromDataBase() {
