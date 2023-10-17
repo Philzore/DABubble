@@ -42,6 +42,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { SharedService } from './shared.service';
 import { UserDataService } from './user-data.service';
 import { DesktopHeaderComponent } from './desktop-header/desktop-header.component';
+import { DialogReauthenticateComponent } from './dialog-reauthenticate/dialog-reauthenticate.component';
 
 
 
@@ -67,6 +68,7 @@ import { DesktopHeaderComponent } from './desktop-header/desktop-header.componen
     DialogUserProfilComponent,
     DialogEditProfilComponent,
     ChangePasswordComponent,
+    DialogReauthenticateComponent,
     
   ],
   imports: [
@@ -91,7 +93,7 @@ import { DesktopHeaderComponent } from './desktop-header/desktop-header.componen
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule
   ],
-  providers: [{provide:LocationStrategy, useClass:HashLocationStrategy}, SharedService],
+  providers: [{provide:LocationStrategy, useClass:HashLocationStrategy}, SharedService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
