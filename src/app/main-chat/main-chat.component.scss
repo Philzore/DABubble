@@ -2,6 +2,7 @@ $main-purple: #eceefe;
 $purple: #98a3f4;
 
 .chat-container {
+    position: relative;
     background-color: rgb(255, 255, 255) !important;
     height: calc(100vh - 160px);
 
@@ -180,13 +181,78 @@ $purple: #98a3f4;
       .input-container {
         display: flex;
         justify-content: center;
+        flex-direction: column;
+        padding: 20px;
+        position: absolute;
+        bottom: 50px;
+        left: 20px;
+        right: 20px;
+        border: 1px solid $main-purple;
+        border-radius: 10px;
 
-        input {
+        .material-icons {
+          margin: 0 0 0 15px;
+          padding: 5px;
+          transition: 125ms ease-in-out;
+          cursor: pointer;
+          border-radius: 50%;
+
+          &:hover {
+            padding: 5px;
+            color: $purple;
+            background-color: $main-purple;
+          }
+
+        }
+
+
+        textarea {
+            display: flex;
+            justify-content: center;
             background-color: #fff;
-            border: 1px solid $main-purple;
-            border-radius: 10px;
-            width: 70vw;
-            height: 100px;
+            height: 70px;
+            resize: none;
+            border: none;
+            outline: none;
+
+          &::placeholder {
+            opacity: .6;
+          }
+
+        }
+
+        .input-send {
+          display: flex;
+          justify-content: space-between;
+          position: absolute;
+          left: 20px;
+          right: 20px;
+          bottom: 10px;
+
+          .input-send-left {
+
+            .add-data {
+              margin-left: 0;
+            }
+
+          }
+
+
+          .input-send-right {
+
+            .material-icons {
+              color: $purple;
+
+
+
+              &:hover {
+                opacity: .7;
+                background-color: #fff !important;
+              }
+
+            }
+
+          }
         }
       }
 }
@@ -211,13 +277,6 @@ $purple: #98a3f4;
 }
 
 /* Own Message Styling End */
-
-.input-container {
-  flex-direction: column;
-  padding: 20px;
-  width: 55vw !important;
-  margin: 0 auto;
-}
 
 @media (max-width:1000px) {
  
