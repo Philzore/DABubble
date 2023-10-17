@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { EmailAuthProvider, OAuthProvider, browserLocalPersistence, browserSessionPersistence, getAuth, onAuthStateChanged, reauthenticateWithCredential, reauthenticateWithPopup, updateEmail } from '@angular/fire/auth';
+import { Component, OnInit } from '@angular/core';
+import { Auth, EmailAuthProvider, OAuthProvider, browserLocalPersistence, browserSessionPersistence, getAuth, onAuthStateChanged, reauthenticateWithCredential, reauthenticateWithPopup, updateEmail } from '@angular/fire/auth';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserDataService } from '../user-data.service';
+import { user } from 'rxfire/auth';
 
 
 @Component({
@@ -9,30 +10,23 @@ import { UserDataService } from '../user-data.service';
   templateUrl: './dialog-edit-profil.component.html',
   styleUrls: ['./dialog-edit-profil.component.scss']
 })
-export class DialogEditProfilComponent {
+export class DialogEditProfilComponent implements OnInit{
   currentUserEmail: string = '';
   currentUserName: string = '';
   userData = [];
   newName: string = '';
   newEmail: string = '';
-  auth = getAuth();
+  
 
-  constructor(public dialogRef: MatDialogRef<DialogEditProfilComponent>, public userDataService: UserDataService) {
-    // this.getCurrentUser();
-    this.userData = userDataService.getCurrentUser();
+  constructor(public dialogRef: MatDialogRef<DialogEditProfilComponent>, public userDataService: UserDataService, private auth:Auth) {
+    
   }
 
-  getCurrentUser() {
-
-    const user = this.auth.currentUser;
-
-    if (user) {
-      this.currentUserEmail = user.email;
-      this.currentUserName = user.displayName;
-    } else {
-      // No user is signed in.
-    }
+  ngOnInit(): void {
+    this.userData = this.userDataService.getCurrentUser();
+    console.log('UserData', this.userData);
   }
+
 
   saveUser() {
     updateEmail(this.auth.currentUser, this.newEmail).then(() => {

@@ -8,7 +8,6 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainScreenComponent } from './main-screen/main-screen.component';
-import { DesktopHeaderComponent } from './desktop-header/desktop-header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ImprintComponent } from './imprint/imprint.component';
 import { DataProtectionComponent } from './data-protection/data-protection.component';
@@ -42,6 +41,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { SharedService } from './shared.service';
 import { UserDataService } from './user-data.service';
+import { DesktopHeaderComponent } from './desktop-header/desktop-header.component';
 
 
 
@@ -91,7 +91,7 @@ import { UserDataService } from './user-data.service';
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule
   ],
-  providers: [{provide:LocationStrategy, useClass:HashLocationStrategy}, SharedService, UserDataService],
+  providers: [{provide:LocationStrategy, useClass:HashLocationStrategy}, SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
-import { getAuth } from '@angular/fire/auth';
-import { NgModel } from '@angular/forms';
+import { Auth } from '@angular/fire/auth';
+
 
 @Injectable({
   providedIn: 'root',
 })
 
 
+
 export class UserDataService {
+
+  constructor (private auth:Auth) {}
   private userData: { name: string, email: string, password: string } = { name: '', email: '', password: '' };
 
   setUserData(data: { name: string, email: string, password: string }) {
@@ -19,9 +22,9 @@ export class UserDataService {
   }
 
   getCurrentUser() {
-    const auth = getAuth() ;
-    const user = auth.currentUser;
     
+    const user = this.auth.currentUser;
+    console.log('Nutzer', user);
     if (user) {
       let currentUserEmail = user.email;
       let currentUserName = user.displayName;
