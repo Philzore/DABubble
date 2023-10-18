@@ -30,7 +30,7 @@
       </div>
       <div>
         <!-- channel container for single channels -->
-        <div class="list-container" *ngIf="channelDropdown">
+        <div class="list-container" *ngIf="channelDropdown" [@dropDownMenu]>
           <div *ngFor="let channel of channelsFromDataBase" class="single-entry">
             <span>#</span>
             <span>{{channel.name}}</span>
@@ -60,7 +60,7 @@
       </div>
       <div>
         <!-- channel container for single channels -->
-        <div class="list-container direct-message" *ngIf="messageDropdown">
+        <div class="list-container direct-message" *ngIf="messageDropdown" [@dropDownMenu]>
           <div *ngFor="let user of usersFromDatabase" class="single-entry">
             <img src= '/assets/characters/character_{{user.avatar}}.png'>
             <span class="point">&#9679;</span>
@@ -79,4 +79,8 @@
     <span #workspace_text>Workspace-Menü {{workspaceText}}</span>
     <mat-icon>close</mat-icon>
   </div>
+</div>
+
+<div class="feedback-success" [@fadeIn] *ngIf="activateFadeIn">
+  <span>{{fadeInText}}</span>
 </div>

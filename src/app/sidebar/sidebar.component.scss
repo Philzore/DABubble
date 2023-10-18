@@ -113,12 +113,10 @@ mat-card-header {
         position: absolute;
         font-size: 30px;
         left: 55px;
-        bottom: 0;
+        bottom: -10px;
         color: green;
     }
 
-    
-    
     &:hover {
         color: #535AF1;
         background-color: #ECEEFE;
@@ -158,7 +156,6 @@ mat-card-header {
     z-index: 6;
     width: 350px;
     
-    
     .workspace-animation {
         display: flex;
         align-items: center;
@@ -171,6 +168,23 @@ mat-card-header {
             scale: 1.05;
         }
     }
+}
+
+//----------------- Fade In Feedback ------------- //
+.feedback-success {
+    text-align: center;
+    color: white;
+    position: absolute;
+    left: 0 ;
+    right: 0;
+    bottom: 200px;
+    margin: auto;
+    width: 200px;
+    z-index: 1;
+    padding: 20px;
+    border-radius: 50px;
+    background-color: #535AF1;
+
 }
 
 /* 
