@@ -81,6 +81,6 @@
   </div>
 </div>
 
-<div class="feedback-success" [@fadeIn] *ngIf="activateFadeIn">
-  <span>{{fadeInText}}</span>
+<div [class.feedback-success]="activateFadeInOverlay">
+  <span *ngIf="activateFadeIn" [@fadeIn]  (@fadeIn.done)="removeOverlay()">{{fadeInText}}</span>
 </div>

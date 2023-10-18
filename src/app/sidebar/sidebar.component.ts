@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Injectable } from '@angular/core'; // Import Injectable
+import { Component, EventEmitter, Output, Injectable, ViewChild, ElementRef } from '@angular/core'; // Import Injectable
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
 import { trigger, state, style, animate, transition, sequence } from '@angular/animations';
@@ -36,7 +36,7 @@ import { SharedService } from '../shared.service';
     ]),
       trigger('fadeIn', [
         transition(':enter', [
-          style({opacity: 0 ,transform: 'translateY(-100%)'}),
+          style({opacity: 0 ,transform: 'translateY(100%)'}),
           animate(500, style({ opacity: 1 ,transform: 'translateY(0)'}))
         ]),
         transition(':leave', [
@@ -52,7 +52,8 @@ export class SidebarComponent {
   channelDropdown: boolean = false;
   messageDropdown: boolean = false;
   sidebarClose: boolean = false;
-  activateFadeIn:boolean = true;
+  activateFadeIn:boolean = false;
+  activateFadeInOverlay:boolean = false ;
   fadeInText:string = '';
   workspaceText: string = 'schließen';
   channelsFromDataBase = [];
@@ -110,6 +111,8 @@ export class SidebarComponent {
 
   openDropdownMessages() {
     this.messageDropdown = !this.messageDropdown;
+    this.showFeedback('Test');
+    
   }
 
   closeSidebar() {
@@ -119,7 +122,17 @@ export class SidebarComponent {
   }
 
   showFeedback(message:string) {
-    this.activateFadeIn = true ;
+    this.activateFadeInOverlay = this.activateFadeInOverlay ? false : true ;
+    this.activateFadeIn = this.activateFadeIn ? false : true ;
     this.fadeInText = message ;
+  }
+
+  removeOverlay(){
+    setTimeout(() => {
+      this.activateFadeInOverlay = false ;
+    }, 2000);
+    setTimeout(() => {
+      this.activateFadeIn = false ;
+    }, 1000);
   }
 }

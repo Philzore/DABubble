@@ -1,8 +1,8 @@
 //----------------- Card CONTAINER ------------- //
 mat-card {
-     padding: 15px;
-     font-size: 20px;
-     border-radius: 30px;
+    padding: 15px;
+    font-size: 20px;
+    border-radius: 30px;
 }
 
 mat-card-header {
@@ -43,6 +43,7 @@ mat-card-header {
         margin-bottom: 0;
     }
 }
+
 //----------------- Dropdown CONTAINER ------------- //
 .dropdown-container {
     display: flex;
@@ -89,7 +90,7 @@ mat-card-header {
 .direct-message {
     max-height: 300px;
 
-    
+
 }
 
 .single-entry {
@@ -149,13 +150,13 @@ mat-card-header {
     border-bottom-left-radius: 30px;
     left: -140px;
     bottom: 200px;
-    box-shadow:-4px 4px 7px rgba(0,0,0,0.2);
+    box-shadow: -4px 4px 7px rgba(0, 0, 0, 0.2);
     color: black;
     display: flex;
     justify-content: center;
     z-index: 6;
     width: 350px;
-    
+
     .workspace-animation {
         display: flex;
         align-items: center;
@@ -175,16 +176,26 @@ mat-card-header {
     text-align: center;
     color: white;
     position: absolute;
-    left: 0 ;
+    left: 0;
     right: 0;
-    bottom: 200px;
-    margin: auto;
-    width: 200px;
+    bottom: 0;
     z-index: 1;
-    padding: 20px;
-    border-radius: 50px;
-    background-color: #535AF1;
+    background-color: rgba(0,0,0,0.8);
+    height: 100%;
+    width: 100%;
 
+    span {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 200px;
+        margin: auto;
+        width: 200px;
+        z-index: 1;
+        padding: 20px;
+        border-radius: 50px;
+        background-color: #535AF1;
+    }
 }
 
 /* 
@@ -193,7 +204,7 @@ mat-card-header {
 @media (max-width: 1000px) {
     mat-card {
         border-radius: 0 30px 30px 0;
-          
+
     }
 
     .overview-card {
@@ -216,14 +227,14 @@ mat-card-header {
 .list-container::-webkit-scrollbar {
     width: 4px;
     height: 8px;
-  }
-   
-  .list-container::-webkit-scrollbar-track {
-    background-color:#e4e4e4;
+}
+
+.list-container::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
     border-radius: 100px;
-  }
-   
-  .list-container::-webkit-scrollbar-thumb {
+}
+
+.list-container::-webkit-scrollbar-thumb {
     background-color: rgb(165, 163, 163);
     border-radius: 100px;
-  }
+}
