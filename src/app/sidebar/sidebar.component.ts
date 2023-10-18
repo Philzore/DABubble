@@ -111,8 +111,6 @@ export class SidebarComponent {
 
   openDropdownMessages() {
     this.messageDropdown = !this.messageDropdown;
-    this.showFeedback('Test');
-    
   }
 
   closeSidebar() {
