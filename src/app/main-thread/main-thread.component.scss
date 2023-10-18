@@ -37,7 +37,6 @@ $purple: #98a3f4;
     .clicked-message {
         margin-left: auto;
         text-align: right;
-        // Add any other necessary styles
     }
 }
 
@@ -52,9 +51,23 @@ $purple: #98a3f4;
         padding: 20px 0;
         background-color: #fff !important;
 
+        .thread-header {
+            display: flex;
+            justify-content: space-around;
+
+            .close-button {
+                display: flex;
+                align-items: center;
+            }
+
+        }
+
+
         .thread-header-info {
             display: flex;
             align-items: center;
+
+            
 
             h3 {
                 margin: 0;
@@ -87,7 +100,6 @@ $purple: #98a3f4;
         .clicked-message {
             display: flex;
             align-items: center;
-            flex-direction: column; // Added to make it clearer
             padding: 20px;
 
             img {
@@ -111,7 +123,23 @@ $purple: #98a3f4;
         flex-direction: column;
         align-items: center;
 
+        .info-row-thread {
+            display: flex;
+
+            span {
+                color: lightgray;
+                font-size: 12px;
+            }
+
+            p {
+                margin:0 15px 0 0;
+                font-weight: bolder;;
+            }
+
+        }
+
         .clicked-message-content {
+
             .message-text {
                 background-color: $main-purple;
                 color: black;
@@ -135,8 +163,8 @@ $purple: #98a3f4;
         justify-content: center;
         flex-direction: column;
         padding: 20px;
-        position: relative;
-        bottom: 0;
+        position: absolute;
+        bottom: 50px;
         left: 20px;
         right: 20px;
         border: 1px solid $main-purple;

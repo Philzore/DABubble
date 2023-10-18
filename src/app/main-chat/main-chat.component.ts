@@ -14,6 +14,9 @@ import { SharedService } from '../shared.service';
 export class MainChatComponent {
 
   isSidebarOpen: boolean = true;
+  showAddDataPopup: boolean = false;
+  showEmojiPopup: boolean = false;
+  showPersonPopup: boolean = true;
 
   constructor(public dialog: MatDialog, private sharedService: SharedService) {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
@@ -22,18 +25,31 @@ export class MainChatComponent {
   }
 
   openGroupInfoPopUp(): void {
-    this.dialog.open(GroupInfoPopupComponent, { panelClass: 'custom-logout-dialog' });
+    this.dialog.open(GroupInfoPopupComponent, { position: { top: '190px', right: '350px' }, panelClass: 'custom-logout-dialog' });
   }
 
   openGroupMemberPopUp(): void {
-    this.dialog.open(GroupMemberComponent, { position: { top: '100px', right: '50px' }, panelClass: 'custom-logout-dialog' });
+    this.dialog.open(GroupMemberComponent, { position: { top: '190px', right: '350px' }, panelClass: 'custom-logout-dialog' });
   }
 
   openAddMemberPopUp(): void {
-    this.dialog.open(GroupAddMemberComponent, { panelClass: 'custom-logout-dialog' });
+    this.dialog.open(GroupAddMemberComponent, { position: { top: '190px', right: '350px' }, panelClass: 'custom-logout-dialog' });
   }
 
   toggleSidebar(): void {
     this.sharedService.toggleSidebar();
   }
+
+  toggleAddDataPopup(): void {
+    this.showAddDataPopup = !this.showAddDataPopup;
+  }
+
+  toggleEmojiPopup(): void {
+    this.showEmojiPopup = !this.showEmojiPopup;
+  }
+
+  togglePersonPopup(): void {
+    this.showPersonPopup = !this.showPersonPopup;
+  }
+
 }
