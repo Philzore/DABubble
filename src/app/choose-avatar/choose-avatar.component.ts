@@ -106,6 +106,7 @@ export class ChooseAvatarComponent {
     if (selectedFile) {
       // Den Dateipfad in eine sichere URL umwandeln
       const fileURL = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(selectedFile));
+      console.log('Ausgewählte Datei:', selectedFile);
       this.selectedCharacter = fileURL;
     }
   }
