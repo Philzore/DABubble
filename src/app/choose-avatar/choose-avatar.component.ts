@@ -6,6 +6,7 @@ import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
 import { updateProfile } from "firebase/auth";
 import { AppComponent } from '../app.component';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-choose-avatar',
@@ -18,10 +19,23 @@ export class ChooseAvatarComponent {
   email = this.userData.email;
   password = this.userData.email;
   user = new User();
-  showNotification = false;
 
+  selectedCharacter: SafeUrl | string = 'assets/characters/default_character.png'; // Standardcharakter
+  
+  characters: string[] = [
+    'assets/characters/character_1.png',
+    'assets/characters/character_2.png',
+    'assets/characters/character_3.png',
+    'assets/characters/character_4.png',
+    'assets/characters/character_5.png',
+    'assets/characters/character_6.png'
+  ];
 
-  constructor(private userDataService: UserDataService, private router: Router, private firestore: Firestore, public appComponent: AppComponent) { }
+  selectCharacter(character: string) {
+    this.selectedCharacter = character;
+  }
+
+  constructor(private userDataService: UserDataService, private router: Router, private firestore: Firestore, public appComponent: AppComponent, private sanitizer: DomSanitizer) { }
 
   createUserWithFirebase() {
     let usersCollection = collection(this.firestore, 'users');
@@ -42,7 +56,7 @@ export class ChooseAvatarComponent {
         this.appComponent.showFeedback('Du hast dich erfolgreich registriert!');
         const user = userCredential.user;
         // Registrierung erfolgreich
-        
+
         console.log('User registered successfully');
         // Die Werte für Benutzerobjekt
         this.user.name = this.name;
@@ -53,7 +67,7 @@ export class ChooseAvatarComponent {
         this.createUserWithFirebase();
 
         this.router.navigate(['']);
-        
+
         // Aktualisiert den Anzeigenamen vom User in der Authentication
         updateProfile(auth.currentUser, {
           displayName: this.name
@@ -90,8 +104,9 @@ export class ChooseAvatarComponent {
   onFileSelected(event: any) {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
-      // Hier kannst du die ausgewählte Datei weiterverarbeiten, z.B. hochladen oder anzeigen
-      console.log('Ausgewählte Datei:', selectedFile);
+      // Den Dateipfad in eine sichere URL umwandeln
+      const fileURL = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(selectedFile));
+      this.selectedCharacter = fileURL;
     }
   }
 }

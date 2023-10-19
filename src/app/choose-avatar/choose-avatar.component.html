@@ -6,7 +6,7 @@
 
 <div class="content">
 
-    <div class="choose-avatar-container">
+    <div class="avatar-container">
         <div class="back-icon-container" routerLink="">
             <img class="back-icon" src="assets/icons/arrow_back.png" alt="image of arrow-left icon">
         </div>
@@ -15,9 +15,9 @@
             <span class="choose-avatar-headline">Wähle deinen Avatar</span>
         </div>
 
-        <div class="avatar-icon-container">
-            <div class="image-container">
-                <img src="assets/characters/default_character.png" alt="image of default user icon">
+        <div class="avatar">
+            <div id="avatar-image-container">
+                <img [src]="selectedCharacter" alt="Selected character">
             </div>
 
             <span class="registered-user-name">
@@ -25,29 +25,28 @@
             </span>
         </div>
 
-        <div>
+        <div class="choose-avatar-section">
             <span class="choose-from-list-span">
                 Aus der Liste wählen
             </span>
             <div class="character-images-container">
-                <img class="character-image" src="assets/characters/character_1.png" alt="">
-                <img class="character-image" src="assets/characters/character_2.png" alt="">
-                <img class="character-image" src="assets/characters/character_3.png" alt="">
-                <img class="character-image" src="assets/characters/character_4.png" alt="">
-                <img class="character-image" src="assets/characters/character_5.png" alt="">
-                <img class="character-image" src="assets/characters/character_6.png" alt="">
+                <div class="image-container" *ngFor="let character of characters">
+                    <img class="image" [src]="character" (click)="selectCharacter(character)" alt="Character">
+                </div>
+            </div>
+
+            <div class="choose-own-image-container">
+                <span class="choose-own-image-span">
+                    Eigenes Bild verwenden
+                </span>
+                <div>
+                    <button class="choose-own-image-button" (click)="openFileInput()">Bild hochladen</button>
+                    <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)">
+                </div>
             </div>
         </div>
 
-        <div class="choose-own-image-container">
-            <span class="choose-own-image-span">
-                Eigenes Bild verwenden
-            </span>
-            <div>
-                <button (click)="openFileInput()">Bild hochladen</button>
-                <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)">
-            </div>
-        </div>
+        
 
 
         <div class="button-container">
