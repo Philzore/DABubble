@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Firestore, addDoc, collection, doc, setDoc } from '@angular/fire/firestore';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { AppComponent } from '../app.component';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class DialogCreateNewChannelComponent {
   channelName: string = '';
   channelDescription: string = '';
 
-  constructor(public dialogRef: MatDialogRef<DialogCreateNewChannelComponent>) { }
+  constructor(public dialogRef: MatDialogRef<DialogCreateNewChannelComponent>, public appComponent:AppComponent) { }
   email = new FormControl('', [Validators.required, Validators.email]);
 
   getErrorMessage() {
@@ -37,6 +38,8 @@ export class DialogCreateNewChannelComponent {
         this.channelDescription = '';
       }).then(() =>{
         this.dialogRef.close();
+      }).then(() => {
+        this.appComponent.showFeedback('Channel created');
       });
     }
   }
