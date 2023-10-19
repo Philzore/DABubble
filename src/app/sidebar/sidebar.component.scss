@@ -171,33 +171,6 @@ mat-card-header {
     }
 }
 
-//----------------- Fade In Feedback ------------- //
-.feedback-success {
-    text-align: center;
-    color: white;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
-    background-color: rgba(0,0,0,0.8);
-    height: 100%;
-    width: 100%;
-
-    span {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 200px;
-        margin: auto;
-        width: 200px;
-        z-index: 1;
-        padding: 20px;
-        border-radius: 50px;
-        background-color: #535AF1;
-    }
-}
-
 /* 
 */
 

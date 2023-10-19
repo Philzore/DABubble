@@ -4,6 +4,7 @@ import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/di
 import { trigger, state, style, animate, transition, sequence } from '@angular/animations';
 import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
 import { SharedService } from '../shared.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -52,15 +53,13 @@ export class SidebarComponent {
   channelDropdown: boolean = false;
   messageDropdown: boolean = false;
   sidebarClose: boolean = false;
-  activateFadeIn:boolean = false;
-  activateFadeInOverlay:boolean = false ;
-  fadeInText:string = '';
+  
   workspaceText: string = 'schließen';
   channelsFromDataBase = [];
   usersFromDatabase = [];
 
 
-  constructor(public dialog: MatDialog, private sharedService: SharedService, private firestore: Firestore) {
+  constructor(public dialog: MatDialog, private sharedService: SharedService, private firestore: Firestore, public appComponent:AppComponent) {
     this.createSubscribeChannels();
     this.createSubscribeUsers();
   }
@@ -111,6 +110,7 @@ export class SidebarComponent {
 
   openDropdownMessages() {
     this.messageDropdown = !this.messageDropdown;
+    this.appComponent.showFeedback('test') ;
   }
 
   closeSidebar() {
@@ -119,18 +119,4 @@ export class SidebarComponent {
     this.sharedService.toggleSidebar();
   }
 
-  showFeedback(message:string) {
-    this.activateFadeInOverlay = this.activateFadeInOverlay ? false : true ;
-    this.activateFadeIn = this.activateFadeIn ? false : true ;
-    this.fadeInText = message ;
-  }
-
-  removeOverlay(){
-    setTimeout(() => {
-      this.activateFadeInOverlay = false ;
-    }, 2000);
-    setTimeout(() => {
-      this.activateFadeIn = false ;
-    }, 1000);
-  }
 }

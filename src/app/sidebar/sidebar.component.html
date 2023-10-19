@@ -80,7 +80,3 @@
     <mat-icon>close</mat-icon>
   </div>
 </div>
-
-<div [class.feedback-success]="activateFadeInOverlay">
-  <span *ngIf="activateFadeIn" [@fadeIn]  (@fadeIn.done)="removeOverlay()">{{fadeInText}}</span>
-</div>

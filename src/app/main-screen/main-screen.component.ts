@@ -10,8 +10,7 @@ import { browserLocalPersistence, getAuth, } from '@angular/fire/auth';
 export class MainScreenComponent {
   
   constructor() {
-    // const auth = getAuth();
-    // auth.setPersistence(browserLocalPersistence);
+    
     
   }
 

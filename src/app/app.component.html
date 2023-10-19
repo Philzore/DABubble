@@ -1,2 +1,6 @@
 <router-outlet></router-outlet>
 
+
+<div [class.feedback-success]="activateFadeInOverlay">
+    <span *ngIf="activateFadeIn" [@fadeIn] (@fadeIn.done)="removeOverlay()">{{fadeInText}}</span>
+</div>
