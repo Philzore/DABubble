@@ -6,24 +6,13 @@ import { signInAnonymously } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
+import { AppComponent } from '../app.component';
 
 RouterLink
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({opacity: 0 ,transform: 'translateY(100%)'}),
-        animate(500, style({ opacity: 1 ,transform: 'translateY(0)'}))
-      ]),
-      transition(':leave', [
-        style({ opacity: 1,transform: 'translateY(0)' }),
-        animate(500, style({ opacity: 0,transform: 'translateY(-100%)' }))
-      ])
-    ])
-  ]
+  styleUrls: ['./login.component.scss']
 })
 
 
@@ -33,12 +22,7 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string = '';
 
-  activateFadeIn: boolean = false;
-  activateFadeInOverlay:boolean = false ;
-  fadeInText:string = '';
-
-  
-  constructor(private router: Router) {}
+  constructor(private router: Router, public appComponent:AppComponent) {}
 
   login() {
     const auth = getAuth();
@@ -84,9 +68,9 @@ export class LoginComponent {
       });
   }
 
-  loginAsGuest() {
+  async loginAsGuest() {
     const auth = getAuth();
-    this.showFeedback('Hallo Gast!')
+    this.appComponent.showFeedback('Hallo Gast!');
     signInAnonymously(auth)
       .then(() => {
         console.log('User logged in as Guest successfully')
@@ -101,22 +85,4 @@ export class LoginComponent {
       });
   }
 
-
-  
-
-  showFeedback(message:string) {
-    this.activateFadeInOverlay = this.activateFadeInOverlay ? false : true ;
-    this.activateFadeIn = this.activateFadeIn ? false : true ;
-    this.fadeInText = message ;
-  }
-
-  removeOverlay(){
-    setTimeout(() => {
-      this.activateFadeInOverlay = false ;
-    }, 2000);
-    setTimeout(() => {
-      this.activateFadeIn = false ;
-    }, 1000);
-  }
-  
 }

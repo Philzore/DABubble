@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { confirmPasswordReset } from '@firebase/auth';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { getAuth } from "firebase/auth";
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-change-password',
@@ -13,17 +14,23 @@ export class ChangePasswordComponent {
   confirmPassword: string = '';
   oobCode: string;
 
-  constructor(private router: ActivatedRoute){
+  constructor(private router: ActivatedRoute, public appComponent: AppComponent) {
     this.oobCode = this.router.snapshot.queryParams['oobCode'] || null;
   }
 
   changePassword() {
-    if(this.passwordsMatch()){
+    if (this.passwordsMatch()) {
       const auth = getAuth();
       const newPassword = this.newPassword;
-  
-      confirmPasswordReset(auth, this.oobCode, newPassword).then((value) => console.log(value, 'Changed password sucessfully'))
-      .catch((err) => console.error(err));
+
+      confirmPasswordReset(auth, this.oobCode, newPassword)
+        .then((value) => {
+          this.appComponent.showFeedback('Dein Passwort wurde erfolgreich geändert!')
+          console.log(value, 'Changed password sucessfully');
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     }
   }
 

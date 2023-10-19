@@ -5,6 +5,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
 import { updateProfile } from "firebase/auth";
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-choose-avatar',
@@ -20,26 +21,7 @@ export class ChooseAvatarComponent {
   showNotification = false;
 
 
-  constructor(private userDataService: UserDataService, private router: Router, private firestore: Firestore) { }
-
-
-
-  showNotificationImage() {
-    this.showNotification = true;
-
-    document.body.classList.add('notification-visible');
-
-    setTimeout(() => {
-      document.body.classList.remove('notification-visible');
-      this.hideNotificationImage();
-      this.router.navigate(['']);
-    }, 1500);
-  }
-
-
-  hideNotificationImage() {
-    this.showNotification = false;
-  }
+  constructor(private userDataService: UserDataService, private router: Router, private firestore: Firestore, public appComponent: AppComponent) { }
 
   createUserWithFirebase() {
     let usersCollection = collection(this.firestore, 'users');
@@ -57,10 +39,11 @@ export class ChooseAvatarComponent {
 
     createUserWithEmailAndPassword(auth, this.email, this.password)
       .then((userCredential) => {
-        // Registrierung erfolgreich
+        this.appComponent.showFeedback('Du hast dich erfolgreich registriert!');
         const user = userCredential.user;
+        // Registrierung erfolgreich
+        
         console.log('User registered successfully');
-
         // Die Werte für Benutzerobjekt
         this.user.name = this.name;
         this.user.email = this.email;
@@ -69,6 +52,8 @@ export class ChooseAvatarComponent {
         // Fügt Nutzer bei Firebase hinzu ( Collection )
         this.createUserWithFirebase();
 
+        this.router.navigate(['']);
+        
         // Aktualisiert den Anzeigenamen vom User in der Authentication
         updateProfile(auth.currentUser, {
           displayName: this.name
@@ -81,9 +66,6 @@ export class ChooseAvatarComponent {
             // Bei einem Fehler die Fehlermeldung anzeigen
             console.error('Error updating display name', error);
           });
-
-        // Nach erfolgreicher Registrierung die Benachrichtigung anzeigen und zur Login-Seite navigieren
-        this.showNotificationImage();
       })
       .catch((error) => {
         // Bei einem Fehler die Fehlermeldung anzeigen
