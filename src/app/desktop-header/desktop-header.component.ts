@@ -15,27 +15,12 @@ export class DesktopHeaderComponent implements OnInit{
 
   constructor(public dialog: MatDialog, public userDataService:UserDataService) { 
     
-    
   }
 
   ngOnInit(): void {
     this.userData = this.userDataService.getCurrentUser();
-    
-    // setTimeout(() => {
-    //   this.getCurrentUser();
-    // }, 1000); 
   }
 
-  getCurrentUser() {
-    const auth = getAuth();
-    const user = auth.currentUser;
-
-    if (user) {
-      this.currentUserName = user.displayName;
-    } else {
-      // No user is signed in.
-    }
-  }
   openDialog() {
     const dialog = this.dialog.open(DialogEdituserLogoutComponent, { position: { top: '100px', right: '50px' }, panelClass: 'custom-logout-dialog' });
   }

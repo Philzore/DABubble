@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Output, Injectable, ViewChild, ElementRef } from '@angular/core'; // Import Injectable
+import { Component, EventEmitter, Output, Injectable, ViewChild, Input } from '@angular/core'; // Import Injectable
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
 import { trigger, state, style, animate, transition, sequence } from '@angular/animations';
 import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
 import { SharedService } from '../shared.service';
 import { AppComponent } from '../app.component';
+import { UserDataService } from '../user-data.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -35,33 +36,35 @@ import { AppComponent } from '../app.component';
         ])
       ])
     ]),
-      trigger('fadeIn', [
-        transition(':enter', [
-          style({opacity: 0 ,transform: 'translateY(100%)'}),
-          animate(500, style({ opacity: 1 ,transform: 'translateY(0)'}))
-        ]),
-        transition(':leave', [
-          style({ opacity: 1,transform: 'translateY(0)' }),
-          animate(500, style({ opacity: 0,transform: 'translateY(-100%)' }))
-        ])
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(100%)' }),
+        animate(500, style({ opacity: 1, transform: 'translateY(0)' }))
+      ]),
+      transition(':leave', [
+        style({ opacity: 1, transform: 'translateY(0)' }),
+        animate(500, style({ opacity: 0, transform: 'translateY(-100%)' }))
       ])
-    ]
+    ])
+  ]
 })
 export class SidebarComponent {
   @Output() sidebarToggled = new EventEmitter<boolean>();
 
+
   channelDropdown: boolean = false;
   messageDropdown: boolean = false;
   sidebarClose: boolean = false;
-  
+
   workspaceText: string = 'schließen';
   channelsFromDataBase = [];
   usersFromDatabase = [];
+  userData = [] ;
 
-
-  constructor(public dialog: MatDialog, private sharedService: SharedService, private firestore: Firestore, public appComponent:AppComponent) {
+  constructor(public dialog: MatDialog, private sharedService: SharedService, private firestore: Firestore, public appComponent: AppComponent,public userDataService:UserDataService) {
     this.createSubscribeChannels();
     this.createSubscribeUsers();
+    this.userData = userDataService.getCurrentUser();
   }
 
   async getChannelsFromDataBase() {
@@ -78,29 +81,34 @@ export class SidebarComponent {
     const querySnapshotUsers = await getDocs(collection(this.firestore, 'users'));
     querySnapshotUsers.forEach((doc) => {
       this.usersFromDatabase.push(doc.data());
-      console.log(this.usersFromDatabase);
+      // console.log(this.usersFromDatabase);
     });
   }
 
   createSubscribeChannels() {
-    const unsubChannels = onSnapshot(collection(this.firestore, 'channels'), (doc) => {
-      this.getChannelsFromDataBase();
+    const unsubChannels = onSnapshot(collection(this.firestore, 'channels'), async (doc) => {
+      await this.getChannelsFromDataBase();
     });
   }
 
   createSubscribeUsers() {
-    const unsubUsers = onSnapshot(collection(this.firestore, 'users'), (doc) => {
-      this.getUsersFromDatabase();
+    const unsubUsers = onSnapshot(collection(this.firestore, 'users'), async (doc) => {
+      await this.getUsersFromDatabase();
     });
   }
 
   openDialog() {
     const dialogRef = this.dialog.open(DialogCreateNewChannelComponent, {
       panelClass: 'custom-normal-dialog',
+      data : {user: this.userData},
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
+      if (result) {
+        if (result.event == 'start') {
+          this.appComponent.showFeedback('Channel created');
+        }
+      }
     });
   }
 
