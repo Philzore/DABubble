@@ -244,13 +244,32 @@ $purple: #98a3f4;
                 margin: 0;
               }
 
+              .emoji-mart {
+
+                  position: absolute;
+                  z-index: 2;
+                  left: 75px;
+                  bottom: 25px;
+
+              }
+
               .chat-member-row {
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
                 padding: 10px;
                 gap: 20px;
-  
+                transition: 125ms ease-in-out;
+                border-radius: 5px;
+                cursor: pointer;
+                
+                &:hover {
+
+                color: #fff;
+                background-color: $purple;
+
+                }
+
                 img {
                   height: 30px;
                   border-radius: 50%;
@@ -272,6 +291,15 @@ $purple: #98a3f4;
               position: absolute;
               left: 25px;
               top: 25px;
+              transition: 125ms ease-in-out;
+
+
+              &:hover {
+                color: #fff;
+                background-color: $purple;
+
+              }
+
             }
 
           }
