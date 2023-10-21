@@ -1,10 +1,11 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.component';
 import { GroupMemberComponent } from '../group-member/group-member.component';
 import { GroupAddMemberComponent } from '../group-add-member/group-add-member.component';
 import { MainThreadComponent } from '../main-thread/main-thread.component';
 import { SharedService } from '../shared.service';
+import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-main-chat',
@@ -17,12 +18,15 @@ export class MainChatComponent {
   showAddDataPopup: boolean = false;
   showEmojiPopup: boolean = false;
   showPersonPopup: boolean = false;
-selectedEmoji: string;
+  channelsFromDataBase = [];
+  usersFromDatabase = [];
+  userData = [] ;
 
-  constructor(public dialog: MatDialog, private sharedService: SharedService, private elementRef: ElementRef) {
+  constructor(public dialog: MatDialog, private sharedService: SharedService, private elementRef: ElementRef, private firestore: Firestore) {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
     });
+    this.openGroupInfoPopUp();
   }
 
   openGroupInfoPopUp(): void {
@@ -78,5 +82,34 @@ selectedEmoji: string;
     this.copiedText = text;
   }
 
+  async getChannelsFromDataBase() {
+    this.channelsFromDataBase = [];
+    const querySnapshotChannels = await getDocs(collection(this.firestore, 'channels'));
+    querySnapshotChannels.forEach((doc) => {
+      this.channelsFromDataBase.push(doc.data());
+      // console.log(this.channelsFromDataBase);
+    });
+  }
+
+  async getUsersFromDatabase() {
+    this.usersFromDatabase = [];
+    const querySnapshotUsers = await getDocs(collection(this.firestore, 'users'));
+    querySnapshotUsers.forEach((doc) => {
+      this.usersFromDatabase.push(doc.data());
+      // console.log(this.usersFromDatabase);
+    });
+  }
+
+  createSubscribeChannels() {
+    const unsubChannels = onSnapshot(collection(this.firestore, 'channels'), async (doc) => {
+      await this.getChannelsFromDataBase();
+    });
+  }
+
+  createSubscribeUsers() {
+    const unsubUsers = onSnapshot(collection(this.firestore, 'users'), async (doc) => {
+      await this.getUsersFromDatabase();
+    });
+  }
 
 }

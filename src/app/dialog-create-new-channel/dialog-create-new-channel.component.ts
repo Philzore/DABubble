@@ -12,6 +12,7 @@ import { AppComponent } from '../app.component';
 
 })
 export class DialogCreateNewChannelComponent implements OnInit{
+
   firestore: Firestore = inject(Firestore);
   
   channelName: string = '';
@@ -35,6 +36,7 @@ export class DialogCreateNewChannelComponent implements OnInit{
 
   async saveNewChannel() {
     if (this.channelName.length >= 3) {
+      /* added by hasan to display the channel name in main chat component */
       await addDoc(collection(this.firestore, 'channels'), {
         name: this.channelName,
         description: this.channelDescription,

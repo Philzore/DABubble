@@ -1,5 +1,5 @@
 $main-purple: #eceefe;
-$purple: #98a3f4;
+$purple: #535af1;
 
 .purple {
     color: $purple;
@@ -41,6 +41,21 @@ $purple: #98a3f4;
         border: 2px solid $main-purple;
         border-radius: 15px;
         padding: 15px;
+
+        &.is-editing {
+            border: 2px solid transparent; // Shrink the border to zero when editing
+            transition: all .3s ease-in;
+        }
+    
+
+        input {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid $main-purple;
+            border-radius: 15px;
+            padding: 15px;
+        }
 
         .group-info-name-heading {
             display: flex;

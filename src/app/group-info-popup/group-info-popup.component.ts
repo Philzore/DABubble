@@ -7,6 +7,18 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./group-info-popup.component.scss']
 })
 export class GroupInfoPopupComponent {
+isEditing = false;
+channelName = 'Channelname';
+
+changeChannelDescription() {
+throw new Error('Method not implemented.');
+}
+
+changeChannelName() {
+  this.isEditing = !this.isEditing;
+  console.log(this.isEditing);
+
+}
 
   constructor(public dialog: MatDialog) {}
   

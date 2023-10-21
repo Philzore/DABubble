@@ -49,8 +49,8 @@ import { UserDataService } from '../user-data.service';
   ]
 })
 export class SidebarComponent {
-  @Output() sidebarToggled = new EventEmitter<boolean>();
 
+  @Output() sidebarToggled = new EventEmitter<boolean>();
 
   channelDropdown: boolean = false;
   messageDropdown: boolean = false;
@@ -124,6 +124,11 @@ export class SidebarComponent {
     this.sidebarClose = !this.sidebarClose;
     this.workspaceText = this.sidebarClose ? 'öffnen' : 'schließen';
     this.sharedService.toggleSidebar();
+  }
+
+  /* Open Channel */
+  openChannel() {
+    console.log('Click function to display the specific Channel that has been clicked on')
   }
 
 }
