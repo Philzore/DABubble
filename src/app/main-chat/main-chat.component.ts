@@ -17,6 +17,7 @@ export class MainChatComponent {
   showAddDataPopup: boolean = false;
   showEmojiPopup: boolean = false;
   showPersonPopup: boolean = false;
+selectedEmoji: string;
 
   constructor(public dialog: MatDialog, private sharedService: SharedService, private elementRef: ElementRef) {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
@@ -55,7 +56,6 @@ export class MainChatComponent {
   @HostListener('document:click', ['$event'])
   onClick(event: MouseEvent): void {
     if (!this.elementRef.nativeElement.contains(event.target)) {
-      // Click occurred outside the popups, so close them
       this.showAddDataPopup = false;
       this.showEmojiPopup = false;
       this.showPersonPopup = false;

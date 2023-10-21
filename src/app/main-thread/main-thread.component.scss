@@ -46,9 +46,8 @@ $purple: #98a3f4;
 
     mat-toolbar {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
-        padding: 20px 0;
         background-color: #fff !important;
 
         .thread-header {
@@ -100,7 +99,7 @@ $purple: #98a3f4;
         .clicked-message {
             display: flex;
             align-items: center;
-            padding: 20px;
+            padding: 20px 40px;
 
             img {
                 height: 50px;
