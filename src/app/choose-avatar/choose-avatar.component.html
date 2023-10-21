@@ -30,8 +30,8 @@
                 Aus der Liste wählen
             </span>
             <div class="character-images-container">
-                <div class="image-container" *ngFor="let character of characters">
-                    <img class="image" [src]="character" (click)="selectCharacter(character)" alt="Character">
+                <div class="image-container" *ngFor="let character of characters; let i = index">
+                    <img class="image" [src]="character" (click)="selectCharacter(i)" alt="Character">
                 </div>
             </div>
 

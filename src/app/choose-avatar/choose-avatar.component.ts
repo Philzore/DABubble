@@ -20,6 +20,8 @@ export class ChooseAvatarComponent {
   password = this.userData.email;
   user = new User();
 
+  selectedCharacterIndex: number | null = null; // Neue Variable, um den ausgewählten Index zu verfolgen
+
   selectedCharacter: SafeUrl | string = 'assets/characters/default_character.png'; // Standardcharakter
   
   characters: string[] = [
@@ -31,8 +33,9 @@ export class ChooseAvatarComponent {
     'assets/characters/character_6.png'
   ];
 
-  selectCharacter(character: string) {
-    this.selectedCharacter = character;
+  selectCharacter(index: number) {
+    this.selectedCharacterIndex = index;
+    this.selectedCharacter = this.characters[index];
   }
 
   constructor(private userDataService: UserDataService, private router: Router, private firestore: Firestore, public appComponent: AppComponent, private sanitizer: DomSanitizer) { }
@@ -61,7 +64,10 @@ export class ChooseAvatarComponent {
         // Die Werte für Benutzerobjekt
         this.user.name = this.name;
         this.user.email = this.email;
-        this.user.avatar = ''; // Setzen Sie den Avatar nach Bedarf
+        
+        if (this.selectedCharacterIndex !== null) {
+          this.user.avatar = (this.selectedCharacterIndex + 1).toString();
+        }
 
         // Fügt Nutzer bei Firebase hinzu ( Collection )
         this.createUserWithFirebase();
@@ -70,7 +76,7 @@ export class ChooseAvatarComponent {
 
         // Aktualisiert den Anzeigenamen vom User in der Authentication
         updateProfile(auth.currentUser, {
-          displayName: this.name
+          displayName: this.name,
         })
           .then(() => {
             // Anzeigenamen aktualisiert
