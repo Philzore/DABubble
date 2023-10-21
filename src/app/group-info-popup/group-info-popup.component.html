@@ -8,6 +8,7 @@
         <div class="group-info-name-heading">
             <p class="bold">Channel - Name</p>
             <p class="cursor purple" (click)="changeChannelName()">Bearbeiten</p>
+            <p class="cursor purple" (click)="saveChannelName()">Speichern</p>
         </div>
         <div class="group-info-name">
             <ng-container *ngIf="isEditing; else displayChannelName">
@@ -24,6 +25,7 @@
     <div class="group-info-description-container">
         <div class="group-info-description-header">
             <p class="bold">Beschreibung</p> <p class="cursor purple" (click)="changeChannelDescription()">Bearbeiten</p>
+            <p class="cursor purple" (click)="changeChannelDescription()">Speichern</p>
         </div>
         <div class="group-info-description">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum, voluptate! Sed deserunt impedit explicabo laborum.

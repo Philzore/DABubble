@@ -26,7 +26,7 @@ export class MainChatComponent {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
     });
-    this.openGroupInfoPopUp();
+    // this.openGroupInfoPopUp();
   }
 
   openGroupInfoPopUp(): void {

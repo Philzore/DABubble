@@ -7,6 +7,9 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./group-info-popup.component.scss']
 })
 export class GroupInfoPopupComponent {
+saveChannelName() {
+throw new Error('Method not implemented.');
+}
 isEditing = false;
 channelName = 'Channelname';
 
