@@ -8,6 +8,7 @@ $purple: #535af1;
 .group-info-container {
     display: flex;
     flex-direction: column;
+    max-width: 500px;
     gap: 20px;
     border-radius: 0px 15px 15px 15px !important;
     border: none;
@@ -55,6 +56,7 @@ $purple: #535af1;
             border: 2px solid $main-purple;
             border-radius: 15px;
             padding: 15px;
+            width: calc(100% - 30px);
         }
 
         .group-info-name-heading {

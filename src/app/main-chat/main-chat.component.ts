@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.component';
 import { GroupMemberComponent } from '../group-member/group-member.component';
@@ -22,11 +22,20 @@ export class MainChatComponent {
   usersFromDatabase = [];
   userData = [] ;
 
+  @Input() threadContainerVisible = false; // Receive initial visibility state
+  @Output() toggleThreadContainer = new EventEmitter<void>();
+
+
   constructor(public dialog: MatDialog, private sharedService: SharedService, private elementRef: ElementRef, private firestore: Firestore) {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
     });
     // this.openGroupInfoPopUp();
+  }
+
+  onToggleThreadContainer() {
+    console.log('toggle thread');
+    this.sharedService.toggleThreadContainer();
   }
 
   openGroupInfoPopUp(): void {

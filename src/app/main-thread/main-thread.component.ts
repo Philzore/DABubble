@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-main-thread',
@@ -9,7 +10,18 @@ export class MainThreadComponent {
   showAddDataPopup: boolean;
   showEmojiPopup: boolean;
   showPersonPopup: boolean;
-copiedText: any;
+  copiedText: any;
+  threadContainerVisible: boolean; // Declare the property
+
+  constructor(private sharedService: SharedService) {}
+
+  ngOnInit() {
+    this.sharedService.threadContainerVisibility$.subscribe(
+      (visibility) => {
+        this.threadContainerVisible = visibility;
+      }
+    );
+  }
 
   toggleAddDataPopup(): void {
     this.showAddDataPopup = !this.showAddDataPopup;
@@ -22,5 +34,4 @@ copiedText: any;
   togglePersonPopup(): void {
     this.showPersonPopup = !this.showPersonPopup;
   }
-
 }

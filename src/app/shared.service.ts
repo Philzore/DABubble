@@ -7,6 +7,19 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class SharedService {
+  private threadContainerVisibilitySubject = new BehaviorSubject<boolean>(true);
+  threadContainerVisibility$ = this.threadContainerVisibilitySubject.asObservable();
+
+  constructor() {
+    // Initialize your service here if needed.
+  }
+
+  toggleThreadContainer() {
+    this.threadContainerVisibilitySubject.next(
+      !this.threadContainerVisibilitySubject.value
+    );
+  }
+
   private isSidebarOpen = new BehaviorSubject<boolean>(true);
 
   public toggleSidebar(): void {
