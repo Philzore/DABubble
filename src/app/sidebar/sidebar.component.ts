@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Injectable, ViewChild, Input } from '@angular/core'; // Import Injectable
+import { Component, EventEmitter, Output, Injectable, ViewChild, Input, OnInit } from '@angular/core'; // Import Injectable
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
 import { trigger, state, style, animate, transition, sequence } from '@angular/animations';
@@ -48,7 +48,7 @@ import { UserDataService } from '../user-data.service';
     ])
   ]
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
 
   @Output() sidebarToggled = new EventEmitter<boolean>();
 
@@ -59,12 +59,16 @@ export class SidebarComponent {
   workspaceText: string = 'schließen';
   channelsFromDataBase = [];
   usersFromDatabase = [];
-  userData = [] ;
+  userData = [];
 
-  constructor(public dialog: MatDialog, private sharedService: SharedService, private firestore: Firestore, public appComponent: AppComponent,public userDataService:UserDataService) {
+  constructor(public dialog: MatDialog, private sharedService: SharedService, private firestore: Firestore, public appComponent: AppComponent, public userDataService: UserDataService) {
     this.createSubscribeChannels();
     this.createSubscribeUsers();
-    this.userData = userDataService.getCurrentUser();
+
+  }
+
+  ngOnInit():void {
+    this.userData = this.userDataService.getCurrentUser();
   }
 
   async getChannelsFromDataBase() {
@@ -72,7 +76,6 @@ export class SidebarComponent {
     const querySnapshotChannels = await getDocs(collection(this.firestore, 'channels'));
     querySnapshotChannels.forEach((doc) => {
       this.channelsFromDataBase.push(doc.data());
-      // console.log(this.channelsFromDataBase);
     });
   }
 
@@ -81,7 +84,6 @@ export class SidebarComponent {
     const querySnapshotUsers = await getDocs(collection(this.firestore, 'users'));
     querySnapshotUsers.forEach((doc) => {
       this.usersFromDatabase.push(doc.data());
-      // console.log(this.usersFromDatabase);
     });
   }
 
@@ -100,7 +102,7 @@ export class SidebarComponent {
   openDialog() {
     const dialogRef = this.dialog.open(DialogCreateNewChannelComponent, {
       panelClass: 'custom-normal-dialog',
-      data : {user: this.userData},
+      data: { user: this.userData },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

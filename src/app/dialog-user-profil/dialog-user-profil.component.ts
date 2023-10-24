@@ -15,8 +15,8 @@ export class DialogUserProfilComponent implements OnInit{
     
   }
 
-  ngOnInit(): void {
-    this.userData = this.userDataService.getCurrentUser();
+  async ngOnInit(): Promise<void> {
+    this.userData = await this.userDataService.getCurrentUser();
   }
 
   openEditProfile() {

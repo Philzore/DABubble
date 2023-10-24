@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogEdituserLogoutComponent } from '../dialog-edituser-logout/dialog-edituser-logout.component';
 import { UserDataService } from '../user-data.service';
@@ -9,16 +9,21 @@ import { getAuth } from '@angular/fire/auth';
   templateUrl: './desktop-header.component.html',
   styleUrls: ['./desktop-header.component.scss']
 })
-export class DesktopHeaderComponent implements OnInit{
+export class DesktopHeaderComponent implements OnInit {
   currentUserName: string = '';
   userData = [];
 
-  constructor(public dialog: MatDialog, public userDataService:UserDataService) { 
-    
+  constructor(public dialog: MatDialog, public userDataService: UserDataService) {
+
   }
 
   ngOnInit(): void {
-    this.userData = this.userDataService.getCurrentUser();
+    // setTimeout(() => {
+    //   this.userData = this.userDataService.getCurrentUser();
+    //   // console.log('UserData:', this.userData);
+    //   this.userDataService.saveToLocalStorage('userData',this.userData);
+    // }, 750);
+
   }
 
   openDialog() {

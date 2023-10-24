@@ -21,11 +21,14 @@ export class DialogEditProfilComponent implements OnInit {
   newEmail: string = '';
   currentPassword: string = '';
 
+  nameChangeSuccessfull : boolean = false ;
+  emailChangeSuccessfull : boolean = false ;
+
   constructor(public dialog: MatDialog, public dialogRef: MatDialogRef<DialogEditProfilComponent>, public userDataService: UserDataService, private auth: Auth, public appComponent: AppComponent) {
 
   }
 
-  ngOnInit(): void {
+ ngOnInit(): void {
     this.userData = this.userDataService.getCurrentUser();
     console.log('UserData', this.userData);
   }
@@ -36,10 +39,12 @@ export class DialogEditProfilComponent implements OnInit {
 
     if (this.newEmail.includes('@') && this.newEmail.includes('.')) {
       this.refreshEmail(user);
+      this.emailChangeSuccessfull = true ;
     }
 
     if (this.newName.length >= 4) {
       this.refreshDisplayName(user);
+      this.nameChangeSuccessfull = true ;
     }
 
 

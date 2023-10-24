@@ -48,6 +48,22 @@
         border: 1px solid gray;
         outline: none;
     }
+
+    .successfull-input {
+        border: 1px solid green;
+    }
+
+    .error-input {
+        border: 1px solid red;
+    }
+
+    .success-text {
+        color: green;
+    }
+
+    .error-text {
+        color: red;
+    }
 }
 
 .edit-profil-btns{
