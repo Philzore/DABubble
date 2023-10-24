@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
+import { Auth, EmailAuthProvider, getAuth, reauthenticateWithCredential, signInWithEmailAndPassword } from '@angular/fire/auth';
 
 
 @Injectable({
@@ -10,11 +10,12 @@ import { Auth } from '@angular/fire/auth';
 
 export class UserDataService {
 
-  constructor (private auth:Auth) {}
+  constructor(private auth: Auth) { }
   private userData: { name: string, email: string, password: string } = { name: '', email: '', password: '' };
 
   setUserData(data: { name: string, email: string, password: string }) {
     this.userData = data;
+
   }
 
   getUserData() {
@@ -22,9 +23,8 @@ export class UserDataService {
   }
 
   getCurrentUser() {
-    
     const user = this.auth.currentUser;
-    console.log('Nutzer', user);
+     console.log('Nutzer', user);
     if (user) {
       let currentUserEmail = user.email;
       let currentUserName = user.displayName;
@@ -33,5 +33,21 @@ export class UserDataService {
       // No user is signed in.
       return [];
     }
+
+  }
+
+  reAuthenticate(password: string): boolean {
+    let reAuthenticateSuccess = false;
+    const auth = getAuth();
+
+    const emailAuthProvider = EmailAuthProvider.credential(this.auth.currentUser.email, password);
+    reauthenticateWithCredential(this.auth.currentUser, emailAuthProvider).then(() => {
+      console.log('Reauthentication succesful');
+      reAuthenticateSuccess = true;
+    }).catch((error) => {
+      console.log('Reauthenticate error :', error);
+      reAuthenticateSuccess = false;
+    });
+    return reAuthenticateSuccess;
   }
 }

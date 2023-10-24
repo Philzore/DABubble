@@ -1,0 +1,39 @@
+
+input {
+    box-sizing: border-box;
+    padding: 15px 20px;
+    border-radius: 30px;
+    border: 1px solid gray;
+    outline: none;
+}
+
+mat-dialog-actions {
+    margin-top: 10px;
+    justify-content: space-around !important;
+}
+
+button {
+    padding: 12px 25px;
+    border-radius: 50px;
+    transition: all 250ms ease-in-out;
+
+    &:first-child {
+        color: #797EF3;
+        background-color: white;
+        border: 1px solid #797EF3;
+
+        &:hover {
+            background-color: #444DF2;
+            color: white;
+        }
+    }
+
+    &:last-child {
+        color: white;
+        background-color: #444DF2;
+
+        &:hover {
+            background-color:#797EF3;
+        }
+    }
+}

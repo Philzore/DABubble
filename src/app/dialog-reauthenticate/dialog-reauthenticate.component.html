@@ -1,9 +1,10 @@
-<h2>Reauthentication</h2>
 <mat-dialog-content>
+    <h2>Reauthentication</h2>
+    <p>Ihre Session ist abgelaufen</p>
     <p>Bitte geben Sie Ihr Passwort erneut ein:</p>
     <input type="password" [(ngModel)]="currentPassword" placeholder="Passwort">
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-button (click)="reauthenticate()">Reauthentifizieren</button>
     <button mat-button (click)="closeDialog()">Abbrechen</button>
+    <button mat-button (click)="reauthenticate()">Reauthentifizieren</button>
 </mat-dialog-actions>
