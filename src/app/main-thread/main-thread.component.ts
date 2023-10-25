@@ -15,6 +15,8 @@ export class MainThreadComponent {
 
   constructor(private sharedService: SharedService) {}
 
+  @Output() threadClosed = new EventEmitter<void>();
+
   ngOnInit() {
     this.sharedService.threadContainerVisibility$.subscribe(
       (visibility) => {
@@ -34,4 +36,9 @@ export class MainThreadComponent {
   togglePersonPopup(): void {
     this.showPersonPopup = !this.showPersonPopup;
   }
+
+  closeThread() {
+    this.threadClosed.emit();
+  }
+
 }

@@ -8,10 +8,16 @@ import { browserLocalPersistence, getAuth, } from '@angular/fire/auth';
   styleUrls: ['./main-screen.component.scss']
 })
 export class MainScreenComponent {
+
+  hideThread = false;
   
   constructor() {
     
     
+  }
+
+  hideThreadContainer() {  
+    this.hideThread = !this.hideThread;
   }
 
 }

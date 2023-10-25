@@ -14,11 +14,7 @@ export class SharedService {
     // Initialize your service here if needed.
   }
 
-  toggleThreadContainer() {
-    this.threadContainerVisibilitySubject.next(
-      !this.threadContainerVisibilitySubject.value
-    );
-  }
+  
 
   private isSidebarOpen = new BehaviorSubject<boolean>(true);
 

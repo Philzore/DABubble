@@ -22,20 +22,13 @@ export class MainChatComponent {
   usersFromDatabase = [];
   userData = [] ;
 
-  @Input() threadContainerVisible = false; // Receive initial visibility state
-  @Output() toggleThreadContainer = new EventEmitter<void>();
-
+  @Output() threadClosed = new EventEmitter<void>();
 
   constructor(public dialog: MatDialog, private sharedService: SharedService, private elementRef: ElementRef, private firestore: Firestore) {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
     });
     // this.openGroupInfoPopUp();
-  }
-
-  onToggleThreadContainer() {
-    console.log('toggle thread');
-    this.sharedService.toggleThreadContainer();
   }
 
   openGroupInfoPopUp(): void {
@@ -96,7 +89,6 @@ export class MainChatComponent {
     const querySnapshotChannels = await getDocs(collection(this.firestore, 'channels'));
     querySnapshotChannels.forEach((doc) => {
       this.channelsFromDataBase.push(doc.data());
-      // console.log(this.channelsFromDataBase);
     });
   }
 
@@ -119,6 +111,11 @@ export class MainChatComponent {
     const unsubUsers = onSnapshot(collection(this.firestore, 'users'), async (doc) => {
       await this.getUsersFromDatabase();
     });
+  }
+
+
+  closeThread() {
+    this.threadClosed.emit();
   }
 
 }

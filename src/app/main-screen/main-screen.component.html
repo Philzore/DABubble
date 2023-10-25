@@ -2,6 +2,6 @@
 
 <section class="chat-section">
     <app-sidebar class="br-30"></app-sidebar>
-    <app-main-chat class="br-30"></app-main-chat>
-    <app-main-thread  class="br-30"></app-main-thread>
+    <app-main-chat class="br-30" (threadClosed)="hideThreadContainer()" ></app-main-chat>
+    <app-main-thread *ngIf="!hideThread" (threadClosed)="hideThreadContainer()" class="br-30"></app-main-thread>
 </section>
