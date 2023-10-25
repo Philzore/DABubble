@@ -43,21 +43,24 @@ export class MainChatComponent {
     this.dialog.open(GroupAddMemberComponent, { position: { top: '190px', right: '350px' }, panelClass: 'custom-logout-dialog' });
   }
 
-  toggleSidebar(): void {
-    this.sharedService.toggleSidebar();
-  }
+  // toggleSidebar(): void {
+  //   this.sharedService.toggleSidebar();
+  // }
 
   toggleAddDataPopup(): void {
     this.showAddDataPopup = !this.showAddDataPopup;
   }
 
+  
   toggleEmojiPopup(): void {
     this.showEmojiPopup = !this.showEmojiPopup;
   }
 
+
   togglePersonPopup(): void {
     this.showPersonPopup = !this.showPersonPopup;
   }
+
 
   @HostListener('document:click', ['$event'])
   onClick(event: MouseEvent): void {
@@ -67,6 +70,7 @@ export class MainChatComponent {
       this.showPersonPopup = false;
     }
   }
+
 
    // Close popups with the Escape key
    @HostListener('document:keydown.escape', ['$event'])
@@ -80,9 +84,11 @@ export class MainChatComponent {
     this.showPersonPopup = false;
   }
 
+
   copyText(text: string): void {
     this.copiedText = text;
   }
+
 
   async getChannelsFromDataBase() {
     this.channelsFromDataBase = [];
@@ -101,11 +107,13 @@ export class MainChatComponent {
     });
   }
 
+
   createSubscribeChannels() {
     const unsubChannels = onSnapshot(collection(this.firestore, 'channels'), async (doc) => {
       await this.getChannelsFromDataBase();
     });
   }
+
 
   createSubscribeUsers() {
     const unsubUsers = onSnapshot(collection(this.firestore, 'users'), async (doc) => {

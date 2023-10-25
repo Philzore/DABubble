@@ -38,6 +38,7 @@ export class MainThreadComponent {
   }
 
   closeThread() {
+    console.log('close thread');
     this.threadClosed.emit();
   }
 

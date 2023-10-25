@@ -9,12 +9,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class SharedService {
   private threadContainerVisibilitySubject = new BehaviorSubject<boolean>(true);
   threadContainerVisibility$ = this.threadContainerVisibilitySubject.asObservable();
-
   constructor() {
     // Initialize your service here if needed.
   }
 
-  
 
   private isSidebarOpen = new BehaviorSubject<boolean>(true);
 

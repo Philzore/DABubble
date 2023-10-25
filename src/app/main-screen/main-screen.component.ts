@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-
+import { SharedService } from '../shared.service';
 import { browserLocalPersistence, getAuth, } from '@angular/fire/auth';
 
 @Component({
@@ -8,13 +8,11 @@ import { browserLocalPersistence, getAuth, } from '@angular/fire/auth';
   styleUrls: ['./main-screen.component.scss']
 })
 export class MainScreenComponent {
+  hideThread = true;
+  viewState: string = 'all'; // Initialize with a default value
 
-  hideThread = false;
-  
-  constructor() {
-    
-    
-  }
+
+  constructor(private sharedService: SharedService) {  }
 
   hideThreadContainer() {  
     this.hideThread = !this.hideThread;

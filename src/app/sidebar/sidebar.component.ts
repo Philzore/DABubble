@@ -55,11 +55,11 @@ export class SidebarComponent implements OnInit {
   channelDropdown: boolean = false;
   messageDropdown: boolean = false;
   sidebarClose: boolean = false;
-
   workspaceText: string = 'schließen';
   channelsFromDataBase = [];
   usersFromDatabase = [];
   userData = [];
+
 
   constructor(public dialog: MatDialog, private sharedService: SharedService, private firestore: Firestore, public appComponent: AppComponent, public userDataService: UserDataService) {
     this.createSubscribeChannels();
@@ -130,7 +130,6 @@ export class SidebarComponent implements OnInit {
 
   /* Open Channel */
   openChannel() {
-    console.log('Click function to display the specific Channel that has been clicked on')
+    console.log('Click function to display the specific Channel that has been clicked on');
   }
-
 }

@@ -4,15 +4,29 @@
 }
 
 app-main-chat {
-    width: 45vw;
+    width: 80vw;
 }
 
 app-main-thread {
     width: 35vw;
     min-width: 300px;
+    max-width: 350px;
     background-color: #fff;
     margin: 0 20px 0 0;
 }
 
 @media (max-width:1000px) {
+
+    // app-main-chat {
+    //     width: 100vw;
+    // }
+
+    // app-main-thread {
+    //     width: 100vw;
+    // }
+
+    // app-sidebar {
+    //     width: 100vw;
+    // }
+
 }
