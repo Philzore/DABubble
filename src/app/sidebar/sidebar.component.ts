@@ -58,7 +58,7 @@ export class SidebarComponent implements OnInit {
   workspaceText: string = 'schließen';
   channelsFromDataBase = [];
   usersFromDatabase = [];
-  userData = [];
+  userData = {};
 
 
   constructor(public dialog: MatDialog, private sharedService: SharedService, private firestore: Firestore, public appComponent: AppComponent, public userDataService: UserDataService) {

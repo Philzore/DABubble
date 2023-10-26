@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogEdituserLogoutComponent } from '../dialog-edituser-logout/dialog-edituser-logout.component';
 import { UserDataService } from '../user-data.service';
-import { getAuth } from '@angular/fire/auth';
+
 
 @Component({
   selector: 'app-desktop-header',
@@ -11,22 +11,24 @@ import { getAuth } from '@angular/fire/auth';
 })
 export class DesktopHeaderComponent implements OnInit {
   currentUserName: string = '';
-  userData = [];
+  userData:object = {
+    name : '',
+    mail : '',
+  };
 
   constructor(public dialog: MatDialog, public userDataService: UserDataService) {
 
   }
 
   ngOnInit(): void {
-    // setTimeout(() => {
-    //   this.userData = this.userDataService.getCurrentUser();
-    //   // console.log('UserData:', this.userData);
-    //   this.userDataService.saveToLocalStorage('userData',this.userData);
-    // }, 750);
+    setTimeout(() => {
+      this.userData = this.userDataService.getCurrentUser();
+      this.userDataService.saveCurrentUserLocalStorage(this.userData);
+    }, 1000);
 
   }
 
   openDialog() {
-    const dialog = this.dialog.open(DialogEdituserLogoutComponent, { position: { top: '100px', right: '50px' }, panelClass: 'custom-logout-dialog' });
+    const dialog = this.dialog.open(DialogEdituserLogoutComponent, { position: { top: '100px', right: '50px' }, panelClass: 'custom-logout-dialog'});
   }
 }

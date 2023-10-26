@@ -9,16 +9,20 @@ import { UserDataService } from '../user-data.service';
   styleUrls: ['./dialog-user-profil.component.scss']
 })
 export class DialogUserProfilComponent implements OnInit{
-  userData = [] ;
+  userData = {} ;
 
   constructor(public dialogRef:MatDialogRef<DialogUserProfilComponent>, public dialog:MatDialog, public userDataService:UserDataService) {
     
   }
 
-  async ngOnInit(): Promise<void> {
-    this.userData = await this.userDataService.getCurrentUser();
+  ngOnInit(): void {
+    
   }
 
+  /**
+   * open dialog to edit user name and email
+   * 
+   */
   openEditProfile() {
     this.dialogRef.close();
     const dialog = this.dialog.open(DialogEditProfilComponent,{position: {top:'100px',right:'50px'}, panelClass: 'custom-logout-dialog'});

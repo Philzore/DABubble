@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, EmailAuthProvider, getAuth, reauthenticateWithCredential, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, EmailAuthProvider, getAuth, reauthenticateWithCredential } from '@angular/fire/auth';
 
 
 @Injectable({
@@ -9,11 +9,11 @@ import { Auth, EmailAuthProvider, getAuth, reauthenticateWithCredential, signInW
 
 
 export class UserDataService {
-  currentUser:object = [];
+  currentUser:object = {};
+
 
   constructor(private auth: Auth) { 
-    console.log('constructor');
-    this.currentUser = this.getFromLocalStorage('userData');
+    this.currentUser = this.getFromLocalStorage('currentUser');
     console.log(this.currentUser);
   }
   private userData: { name: string, email: string, password: string } = { name: '', email: '', password: '' };
@@ -28,31 +28,63 @@ export class UserDataService {
     return this.userData;
   }
 
+  /**
+   * save the stuff in the key 'currentUser'
+   * 
+   * @param object what you want to storage
+   */
+  saveCurrentUserLocalStorage(object) {
+    const objectString = JSON.stringify(object);
+    localStorage.setItem('currentUser',objectString);
+  }
+
+  /**
+   * save stuff in the local storage
+   * 
+   * @param key(string) key for the localStorage
+   * @param object what you want to storage
+   */
   saveToLocalStorage(key, object) {
     const objectString = JSON.stringify(object);
     localStorage.setItem(key,objectString);
   }
 
+  /**
+   * load stuff from the localStorage with the correct key
+   * 
+   * @param key(string) to load from the right part
+   * @returns object from the given key
+   */
   getFromLocalStorage(key){
     const storedObjectString = localStorage.getItem(key);
     const storedObjectAsJSON = JSON.parse(storedObjectString);
     return storedObjectAsJSON;
   }
 
+  /**
+   * get the current User from authentication
+   * 
+   * @returns name and mail from the current logged user or nothing if no user is logged in
+   */
   getCurrentUser() {
     const user = this.auth.currentUser;
-    console.log('Nutzer', user);
     if (user) {
       let currentUserEmail = user.email;
       let currentUserName = user.displayName;
-      return [currentUserName, currentUserEmail];
+      return { name : currentUserName, mail :currentUserEmail};
     } else {
       // No user is signed in.
-      return [];
+      return {};
     }
 
   }
 
+  /**
+   * reauthentication with password if session is over 
+   * 
+   * @param password(string) password from user
+   * @returns true or false , in dependency of success
+   */
   reAuthenticate(password: string): boolean {
     let reAuthenticateSuccess = false;
     const auth = getAuth();

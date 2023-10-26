@@ -7,7 +7,7 @@
         <img src="/assets/characters/character_2.png">
     </div>
     <div class="profil-name">
-        <h2>{{userData[0]}}</h2>
+        <h2>{{userDataService.currentUser['name']}}</h2>
         <a (click)="openEditProfile()">Bearbeiten</a>
     </div>
     <div class="profile-status">
@@ -17,7 +17,7 @@
         <mat-icon>mail_outline</mat-icon>
         <div class="mail-container">
             <span><b>E-Mail-Adresse</b></span>
-            <a href="mailto:{{userData[1]}}">{{userData[1]}}</a>
+            <a href="mailto:{{userDataService.currentUser['mail']}}">{{userDataService.currentUser['mail']}}</a>
         </div>
     </div>
 </div>
