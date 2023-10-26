@@ -71,6 +71,10 @@ export class SidebarComponent implements OnInit {
     this.userData = this.userDataService.getCurrentUser();
   }
 
+  /**
+   * load channels from firestore and push to local array
+   * 
+   */
   async getChannelsFromDataBase() {
     this.channelsFromDataBase = [];
     const querySnapshotChannels = await getDocs(collection(this.firestore, 'channels'));
@@ -79,6 +83,10 @@ export class SidebarComponent implements OnInit {
     });
   }
 
+  /**
+   * load users from firestore and push to local array
+   * 
+   */
   async getUsersFromDatabase() {
     this.usersFromDatabase = [];
     const querySnapshotUsers = await getDocs(collection(this.firestore, 'users'));
@@ -87,18 +95,33 @@ export class SidebarComponent implements OnInit {
     });
   }
 
+  /**
+   * create subscribe for collection channels
+   * when something changed then load channels from firestore again
+   * 
+   */
   createSubscribeChannels() {
     const unsubChannels = onSnapshot(collection(this.firestore, 'channels'), async (doc) => {
       await this.getChannelsFromDataBase();
     });
   }
 
+  /**
+   * create subscribe for collection users
+   * when something changed then load users from firestore again
+   * 
+   */
   createSubscribeUsers() {
     const unsubUsers = onSnapshot(collection(this.firestore, 'users'), async (doc) => {
       await this.getUsersFromDatabase();
     });
   }
 
+  /**
+   * open dialog to create a new channel
+   * when closing and new channel created then start animation
+   * 
+   */
   openDialog() {
     const dialogRef = this.dialog.open(DialogCreateNewChannelComponent, {
       panelClass: 'custom-normal-dialog',
@@ -114,14 +137,26 @@ export class SidebarComponent implements OnInit {
     });
   }
 
+  /**
+   * open drop down for channels
+   * 
+   */
   openDropdownChannels() {
     this.channelDropdown = !this.channelDropdown;
   }
 
+  /**
+   * open drop down for direct messages
+   * 
+   */
   openDropdownMessages() {
     this.messageDropdown = !this.messageDropdown;
   }
 
+  /**
+   * close sidebar with animation
+   * 
+   */
   closeSidebar() {
     this.sidebarClose = !this.sidebarClose;
     this.workspaceText = this.sidebarClose ? 'öffnen' : 'schließen';
