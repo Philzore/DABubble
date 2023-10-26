@@ -39,6 +39,14 @@ export class UserDataService {
   }
 
   /**
+   * clear current user key in local storage
+   * 
+   */
+  clearCurrentUserLocalStorage(){
+    localStorage.removeItem('currentUser');
+  }
+
+  /**
    * save stuff in the local storage
    * 
    * @param key(string) key for the localStorage

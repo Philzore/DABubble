@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogUserProfilComponent } from '../dialog-user-profil/dialog-user-profil.component';
 import { getAuth, signOut } from "firebase/auth";
 import { Router } from '@angular/router';
+import { UserDataService } from '../user-data.service';
 
 @Component({
   selector: 'app-dialog-edituser-logout',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class DialogEdituserLogoutComponent {
 
- constructor(public dialogRef: MatDialogRef<DialogEdituserLogoutComponent>, public dialog:MatDialog, private router: Router) {}
+ constructor(public dialogRef: MatDialogRef<DialogEdituserLogoutComponent>, public dialog:MatDialog, private router: Router,private userDataService:UserDataService) {}
 
   showProfil(){
     this.dialogRef.close();
@@ -24,6 +25,7 @@ export class DialogEdituserLogoutComponent {
       // Sign-out successful.
       this.dialogRef.close();
       console.log('User logged out successfully')
+      this.userDataService.clearCurrentUserLocalStorage();
       this.router.navigate(['/']);
     }).catch((error) => {
       // An error happened.
