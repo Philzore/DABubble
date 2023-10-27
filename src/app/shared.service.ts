@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class SharedService {
-  private currentActiveChannel = new BehaviorSubject<string>('Von Phil'); 
+  public currentActiveChannel = new BehaviorSubject<string>('Von Phil'); 
   currentActiveChannel$ = this.currentActiveChannel.asObservable();
   
 

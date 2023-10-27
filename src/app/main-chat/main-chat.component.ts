@@ -36,10 +36,12 @@ export class MainChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getChannelsFromDataBase();
+    
 
     this.sharedService.currentActiveChannel$.subscribe((value) => {
+      this.templateIsReady = false;
       console.log('Änderungen :', value) ;
+      this.getChannelsFromDataBase(value);
     });
     
   }
@@ -99,11 +101,11 @@ export class MainChatComponent implements OnInit {
   }
 
 
-  async getChannelsFromDataBase() {
+  async getChannelsFromDataBase(name) {
     this.filteredChannels = [];
     const channelRef = collection(this.firestore, 'channels');
-    const filteredChannels = query(channelRef, where('name', "==", this.sharedService.currentActiveChannel$))
-    console.log(this.sharedService.currentActiveChannel$)
+    const filteredChannels = query(channelRef, where('name', "==", name))
+    
     const querySnapshot = await getDocs(filteredChannels);
     querySnapshot.forEach((doc) => {
       console.log(doc.data()['name']);
@@ -124,11 +126,11 @@ export class MainChatComponent implements OnInit {
   }
 
 
-  createSubscribeChannels() {
-    const unsubChannels = onSnapshot(collection(this.firestore, 'channels'), async (doc) => {
-      await this.getChannelsFromDataBase();
-    });
-  }
+  // createSubscribeChannels() {
+  //   const unsubChannels = onSnapshot(collection(this.firestore, 'channels'), async (doc) => {
+  //     await this.getChannelsFromDataBase();
+  //   });
+  // }
 
 
   createSubscribeUsers() {
