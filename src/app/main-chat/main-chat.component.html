@@ -1,67 +1,71 @@
 <div class="chat-container br-30">
     <mat-toolbar>
         <div class="chat-header-left cursor" (click)="openGroupInfoPopUp()">
-        <p *ngIf="templateIsReady">{{ filteredChannels[0]['name'] }} </p> <i class="material-icons">keyboard_arrow_down</i>
+
+            <p *ngIf="templateIsReady"># {{ filteredChannels[0]['name'] }}</p> <i
+                class="material-icons">keyboard_arrow_down</i>
+
         </div>
         <div class="chat-header-right cursor">
             <div class="chat-members-images" (click)="openGroupMemberPopUp()">
                 <img src="./assets/characters/character_1.png" alt="">
                 <img src="./assets/characters/character_2.png" alt="">
                 <img src="./assets/characters/character_3.png" alt="">
-                <div  class="chat-teamsize">3</div>
+                <div class="chat-teamsize">3</div>
             </div>
             <i (click)="openAddMemberPopUp()" class="material-icons add-new-member cursor">person_add_alt</i>
         </div>
     </mat-toolbar>
 
-        <div class="chat-wrapper">
+    <div class="chat-wrapper">
         <div class="chat-divider-top">
 
             <div class="time-of-message">12:34 PM</div>
             <div class="parting-line"></div>
 
         </div>
-            <div class="message-container cursor">
-                <img src="./assets/characters/character_1.png" alt="">
-                <div class="message-info-container">
+        <div class="message-container cursor">
+            <img src="./assets/characters/character_1.png" alt="">
+            <div class="message-info-container">
 
-                    <div class="info-row">
+                <div class="info-row">
                     <div class="info-row-name">
-                    <p>Noah Braun</p> <span class="message-time">14:25 Uhr</span>
+                        <p>Noah Braun</p> <span class="message-time">14:25 Uhr</span>
                     </div>
 
                     <div class="info-row-react">
                         Placeholder
                     </div>
-                    
+
                 </div>
 
-                    <p class="message-text">Lorem ipsum dolor sit amet.</p>
+                <p class="message-text">Lorem ipsum dolor sit amet.</p>
 
-                    <div class="last-response-row">
-                    <p (click)="closeThread()" class="cursor">Toggle Thread</p> <span class="message-time">Letzte Antwort 14:56</span>
-                    </div>
+                <div class="last-response-row">
+                    <p (click)="closeThread()" class="cursor">Toggle Thread</p> <span class="message-time">Letzte
+                        Antwort 14:56</span>
                 </div>
             </div>
+        </div>
 
         <!-- Own Message Start -->
         <div class="chat-divider-top"></div>
 
-            <div class="message-container own-message">
-                
-                <div class="message-info-container">
+        <div class="message-container own-message">
 
-                    <div class="info-row ">
+            <div class="message-info-container">
+
+                <div class="info-row ">
                     <p>Noah Braun</p> <span class="message-time">14:25 Uhr</span>
-                    </div>
-
-                    <p class="message-text-own">Eigene Nachricht.</p>
-
-                    <div class="last-response-row">
-                    </div>
                 </div>
-                <img src="./assets/characters/character_2.png" alt="">
+
+                <p class="message-text-own">Eigene Nachricht.</p>
+
+                <div class="last-response-row">
+                </div>
             </div>
+            <img src="./assets/characters/character_2.png" alt="">
+        </div>
 
         <div class="chat-divider-bottom"></div>
 
@@ -70,58 +74,58 @@
     </div>
 
 
-      <section class="input-container">
-        <textarea [(ngModel)]="copiedText"  placeholder="Nachricht an #Channelname"></textarea>
+    <section class="input-container">
+        <textarea [(ngModel)]="copiedText" placeholder="Nachricht an #Channelname"></textarea>
         <div class="input-send">
-          <div class="input-send-left">
-            <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
-            <i class="material-icons toggle-emoji" (click)="toggleEmojiPopup()">insert_emoticon</i>
-            <i class="material-icons toggle-person" (click)="togglePersonPopup()">alternate_email</i>
-          </div>
-
-          <div class="input-popups">
-            <div *ngIf="showAddDataPopup" class="add-data-popup">Datei anhängen</div>
-            <div *ngIf="showEmojiPopup" class="emoji-mart">
-                <emoji-mart [style]="{ position: 'absolute', bottom: '25px', left : '75px', 'border-radius': '15px', 'z-index': '2'}"></emoji-mart>
+            <div class="input-send-left">
+                <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
+                <i class="material-icons toggle-emoji" (click)="toggleEmojiPopup()">insert_emoticon</i>
+                <i class="material-icons toggle-person" (click)="togglePersonPopup()">alternate_email</i>
             </div>
-            <div *ngIf="showPersonPopup" class="person-popup">
-                
-                <div class="member-popup scrollbar">
 
-
-                    <div class="chat-member-row">
-                        <img src="./assets/characters/character_1.png" alt="">
-                        <!-- <p (click)="copyText(copyText('@' + name))">{{ '@' + name }} </p> -->
-                    </div>
-                    <div class="chat-member-row">
-                        <img src="./assets/characters/character_1.png" alt="">
-                        <!-- <p (click)="copyText(copyText('@' + name))">{{ '@' + name }} </p> -->
-                    </div>
-                    <div class="chat-member-row">
-                        <img src="./assets/characters/character_1.png" alt="">
-                        <!-- <p (click)="copyText(copyText('@' + name))">{{ '@' + name }} </p> -->
-                    </div>
-                    <div class="chat-member-row">
-                        <img src="./assets/characters/character_1.png" alt="">
-                        <!-- <p (click)="copyText(copyText('@' + name))">{{ '@' + name }} </p> -->
-                    </div>
-                    <div class="chat-member-row">
-                        <img src="./assets/characters/character_1.png" alt="">
-                        <p #personParagraph>Person 2</p>
-                    </div>
-            
+            <div class="input-popups">
+                <div *ngIf="showAddDataPopup" class="add-data-popup">Datei anhängen</div>
+                <div *ngIf="showEmojiPopup" class="emoji-mart">
+                    <emoji-mart
+                        [style]="{ position: 'absolute', bottom: '25px', left : '75px', 'border-radius': '15px', 'z-index': '2'}"></emoji-mart>
                 </div>
+                <div *ngIf="showPersonPopup" class="person-popup">
 
+                    <div class="member-popup scrollbar">
+
+
+                        <div class="chat-member-row">
+                            <img src="./assets/characters/character_1.png" alt="">
+                            <!-- <p (click)="copyText(copyText('@' + name))">{{ '@' + name }} </p> -->
+                        </div>
+                        <div class="chat-member-row">
+                            <img src="./assets/characters/character_1.png" alt="">
+                            <!-- <p (click)="copyText(copyText('@' + name))">{{ '@' + name }} </p> -->
+                        </div>
+                        <div class="chat-member-row">
+                            <img src="./assets/characters/character_1.png" alt="">
+                            <!-- <p (click)="copyText(copyText('@' + name))">{{ '@' + name }} </p> -->
+                        </div>
+                        <div class="chat-member-row">
+                            <img src="./assets/characters/character_1.png" alt="">
+                            <!-- <p (click)="copyText(copyText('@' + name))">{{ '@' + name }} </p> -->
+                        </div>
+                        <div class="chat-member-row">
+                            <img src="./assets/characters/character_1.png" alt="">
+                            <p #personParagraph>Person 2</p>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
-          </div>
-      
-          <div class="input-send-right">
-            <i class="material-icons">send</i>
-          </div>
+
+            <div class="input-send-right">
+                <i class="material-icons">send</i>
+            </div>
         </div>
-      </section>
-      
-    
+    </section>
+
+
 
 </div>
-
