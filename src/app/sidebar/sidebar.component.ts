@@ -51,6 +51,7 @@ import { UserDataService } from '../user-data.service';
 export class SidebarComponent implements OnInit {
 
   @Output() sidebarToggled = new EventEmitter<boolean>();
+  @Output() changeChannel = new EventEmitter<string>();
 
   channelDropdown: boolean = false;
   messageDropdown: boolean = false;
@@ -60,6 +61,7 @@ export class SidebarComponent implements OnInit {
   usersFromDatabase = [];
   userData = {};
 
+  
 
   constructor(public dialog: MatDialog, private sharedService: SharedService, private firestore: Firestore, public appComponent: AppComponent, public userDataService: UserDataService) {
     this.createSubscribeChannels();

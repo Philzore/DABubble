@@ -13,6 +13,8 @@ import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firest
   styleUrls: ['./main-chat.component.scss']
 })
 export class MainChatComponent {
+  @Input() channel:string;
+
   copiedText: string = '';
   isSidebarOpen: boolean = true;
   showAddDataPopup: boolean = false;

@@ -11,6 +11,7 @@ export class MainScreenComponent {
   hideThread = true;
   viewState: string = 'all'; // Initialize with a default value
 
+  activeChannel = '';
 
   constructor(private sharedService: SharedService) {  }
 
