@@ -13,7 +13,7 @@ import { filter } from 'rxjs';
   templateUrl: './main-chat.component.html',
   styleUrls: ['./main-chat.component.scss']
 })
-export class MainChatComponent  implements OnInit {
+export class MainChatComponent implements OnInit {
   copiedText: string = '';
   isSidebarOpen: boolean = true;
   showAddDataPopup: boolean = false;
@@ -21,8 +21,10 @@ export class MainChatComponent  implements OnInit {
   showPersonPopup: boolean = false;
   channelsFromDataBase = [];
   usersFromDatabase = [];
-  userData = [] ;
+  userData = [];
   filteredChannels = [];
+
+  templateIsReady = false;
 
   @Output() threadClosed = new EventEmitter<void>();
 
@@ -54,7 +56,7 @@ export class MainChatComponent  implements OnInit {
     this.showAddDataPopup = !this.showAddDataPopup;
   }
 
-  
+
   toggleEmojiPopup(): void {
     this.showEmojiPopup = !this.showEmojiPopup;
   }
@@ -74,13 +76,13 @@ export class MainChatComponent  implements OnInit {
     }
   }
 
-   // Close popups with the Escape key
-   @HostListener('document:keydown.escape', ['$event'])
-   onEscapeKey(event: KeyboardEvent): void {
-     this.closePopups();
-   }
+  // Close popups with the Escape key
+  @HostListener('document:keydown.escape', ['$event'])
+  onEscapeKey(event: KeyboardEvent): void {
+    this.closePopups();
+  }
 
-   closePopups(): void {
+  closePopups(): void {
     this.showAddDataPopup = false;
     this.showEmojiPopup = false;
     this.showPersonPopup = false;
@@ -99,10 +101,12 @@ export class MainChatComponent  implements OnInit {
     console.log(this.sharedService.currentActiveChannel)
     const querySnapshot = await getDocs(filteredChannels);
     querySnapshot.forEach((doc) => {
-    console.log(doc.data()['name']);
-    this.filteredChannels.push(doc.data());
-    console.log(this.filteredChannels);
+      console.log(doc.data()['name']);
+      this.filteredChannels.push(doc.data());
+      console.log(this.filteredChannels);
     });
+
+    this.templateIsReady = true;
   }
 
   async getUsersFromDatabase() {
