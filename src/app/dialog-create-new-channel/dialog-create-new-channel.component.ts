@@ -3,6 +3,7 @@ import { Firestore, addDoc, collection, doc, setDoc } from '@angular/fire/firest
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppComponent } from '../app.component';
+import { UserDataService } from '../user-data.service';
 
 
 @Component({
@@ -13,13 +14,12 @@ import { AppComponent } from '../app.component';
 })
 export class DialogCreateNewChannelComponent implements OnInit{
 
-  firestore: Firestore = inject(Firestore);
-  
   channelName: string = '';
   channelDescription: string = '';
   currentUser = '';
 
-  constructor(public dialogRef: MatDialogRef<DialogCreateNewChannelComponent>,@Inject(MAT_DIALOG_DATA) public data, public appComponent:AppComponent) { }
+  constructor(public dialogRef: MatDialogRef<DialogCreateNewChannelComponent>,@Inject(MAT_DIALOG_DATA) public data, public appComponent:AppComponent, 
+  public firestore:Firestore,public userDataService:UserDataService) { }
   // email = new FormControl('', [Validators.required, Validators.email]);
 
   // getErrorMessage() {
@@ -31,7 +31,7 @@ export class DialogCreateNewChannelComponent implements OnInit{
   // }
 
   ngOnInit() {
-    this.currentUser = this.data.user[0];
+    this.currentUser = this.userDataService.currentUser['name'];
   }
 
   async saveNewChannel() {
