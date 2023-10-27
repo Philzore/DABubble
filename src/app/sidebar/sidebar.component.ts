@@ -3,9 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
 import { trigger, state, style, animate, transition, sequence } from '@angular/animations';
 import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
-import { SharedService } from '../shared.service';
 import { AppComponent } from '../app.component';
 import { UserDataService } from '../user-data.service';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -166,7 +166,7 @@ export class SidebarComponent implements OnInit {
   }
 
   /* Open Channel */
-  openChannel() {
-    console.log('Click function to display the specific Channel that has been clicked on');
+  openChannel(name) {
+    this.sharedService.currentActiveChannel = name;
   }
 }

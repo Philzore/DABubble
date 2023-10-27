@@ -1,20 +1,19 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.component';
 import { GroupMemberComponent } from '../group-member/group-member.component';
 import { GroupAddMemberComponent } from '../group-add-member/group-add-member.component';
 import { MainThreadComponent } from '../main-thread/main-thread.component';
 import { SharedService } from '../shared.service';
-import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, collection, getDocs, onSnapshot, query, where } from '@angular/fire/firestore';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-main-chat',
   templateUrl: './main-chat.component.html',
   styleUrls: ['./main-chat.component.scss']
 })
-export class MainChatComponent {
-  @Input() channel:string;
-
+export class MainChatComponent  implements OnInit {
   copiedText: string = '';
   isSidebarOpen: boolean = true;
   showAddDataPopup: boolean = false;
@@ -23,6 +22,7 @@ export class MainChatComponent {
   channelsFromDataBase = [];
   usersFromDatabase = [];
   userData = [] ;
+  filteredChannels = [];
 
   @Output() threadClosed = new EventEmitter<void>();
 
@@ -31,6 +31,10 @@ export class MainChatComponent {
       this.isSidebarOpen = isOpen;
     });
     // this.openGroupInfoPopUp();
+  }
+
+  ngOnInit() {
+    this.getChannelsFromDataBase();
   }
 
   openGroupInfoPopUp(): void {
@@ -45,9 +49,6 @@ export class MainChatComponent {
     this.dialog.open(GroupAddMemberComponent, { position: { top: '190px', right: '350px' }, panelClass: 'custom-logout-dialog' });
   }
 
-  // toggleSidebar(): void {
-  //   this.sharedService.toggleSidebar();
-  // }
 
   toggleAddDataPopup(): void {
     this.showAddDataPopup = !this.showAddDataPopup;
@@ -73,7 +74,6 @@ export class MainChatComponent {
     }
   }
 
-
    // Close popups with the Escape key
    @HostListener('document:keydown.escape', ['$event'])
    onEscapeKey(event: KeyboardEvent): void {
@@ -93,10 +93,15 @@ export class MainChatComponent {
 
 
   async getChannelsFromDataBase() {
-    this.channelsFromDataBase = [];
-    const querySnapshotChannels = await getDocs(collection(this.firestore, 'channels'));
-    querySnapshotChannels.forEach((doc) => {
-      this.channelsFromDataBase.push(doc.data());
+    this.filteredChannels = [];
+    const channelRef = collection(this.firestore, 'channels');
+    const filteredChannels = query(channelRef, where('name', "==", this.sharedService.currentActiveChannel))
+    console.log(this.sharedService.currentActiveChannel)
+    const querySnapshot = await getDocs(filteredChannels);
+    querySnapshot.forEach((doc) => {
+    console.log(doc.data()['name']);
+    this.filteredChannels.push(doc.data());
+    console.log(this.filteredChannels);
     });
   }
 
