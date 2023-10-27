@@ -23,12 +23,11 @@ export class MainChatComponent implements OnInit {
   usersFromDatabase = [];
   userData = [];
   filteredChannels = [];
-
   templateIsReady = false;
 
   @Output() threadClosed = new EventEmitter<void>();
 
-  constructor(public dialog: MatDialog, private sharedService: SharedService, private elementRef: ElementRef, private firestore: Firestore) {
+  constructor(public dialog: MatDialog, public sharedService: SharedService, private elementRef: ElementRef, private firestore: Firestore) {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
     });
@@ -108,11 +107,9 @@ export class MainChatComponent implements OnInit {
     
     const querySnapshot = await getDocs(filteredChannels);
     querySnapshot.forEach((doc) => {
-      console.log(doc.data()['name']);
       this.filteredChannels.push(doc.data());
       console.log(this.filteredChannels);
     });
-
     this.templateIsReady = true;
   }
 

@@ -21,7 +21,6 @@ export class SharedService {
     // Initialize your service here if needed.
   }
 
-
   private isSidebarOpen = new BehaviorSubject<boolean>(true);
 
   public toggleSidebar(): void {
