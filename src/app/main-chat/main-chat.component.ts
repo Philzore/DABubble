@@ -6,7 +6,7 @@ import { GroupAddMemberComponent } from '../group-add-member/group-add-member.co
 import { MainThreadComponent } from '../main-thread/main-thread.component';
 import { SharedService } from '../shared.service';
 import { Firestore, collection, getDocs, onSnapshot, query, where } from '@angular/fire/firestore';
-import { filter } from 'rxjs';
+import { BehaviorSubject, filter } from 'rxjs';
 
 @Component({
   selector: 'app-main-chat',
@@ -37,6 +37,11 @@ export class MainChatComponent implements OnInit {
 
   ngOnInit() {
     this.getChannelsFromDataBase();
+
+    this.sharedService.currentActiveChannel$.subscribe((value) => {
+      console.log('Änderungen :', value) ;
+    });
+    
   }
 
   openGroupInfoPopUp(): void {
@@ -97,8 +102,8 @@ export class MainChatComponent implements OnInit {
   async getChannelsFromDataBase() {
     this.filteredChannels = [];
     const channelRef = collection(this.firestore, 'channels');
-    const filteredChannels = query(channelRef, where('name', "==", this.sharedService.currentActiveChannel))
-    console.log(this.sharedService.currentActiveChannel)
+    const filteredChannels = query(channelRef, where('name', "==", this.sharedService.currentActiveChannel$))
+    console.log(this.sharedService.currentActiveChannel$)
     const querySnapshot = await getDocs(filteredChannels);
     querySnapshot.forEach((doc) => {
       console.log(doc.data()['name']);

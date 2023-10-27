@@ -167,6 +167,6 @@ export class SidebarComponent implements OnInit {
 
   /* Open Channel */
   openChannel(name) {
-    this.sharedService.currentActiveChannel = name;
+    this.sharedService.updateChannel(name);
   }
 }
