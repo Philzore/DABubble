@@ -80,6 +80,9 @@ $purple: #535af1;
       /* Chat Start*/
 
       .chat-wrapper {
+
+        overflow-y: scroll;
+
         .chat-divider-top {
 
           text-align: center;
