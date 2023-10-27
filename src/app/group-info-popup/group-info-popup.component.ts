@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-group-info-popup',
@@ -7,22 +7,25 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./group-info-popup.component.scss']
 })
 export class GroupInfoPopupComponent {
-saveChannelName() {
-throw new Error('Method not implemented.');
-}
-isEditing = false;
-channelName = 'Channelname';
 
-changeChannelDescription() {
-throw new Error('Method not implemented.');
-}
+  constructor(public dialog: MatDialog, public dialogRef:MatDialogRef<GroupInfoPopupComponent>) { }
 
-changeChannelName() {
-  this.isEditing = !this.isEditing;
-  console.log(this.isEditing);
+  saveChannelName() {
+    throw new Error('Method not implemented.');
+  }
+  isEditing = false;
+  channelName = 'Channelname';
 
-}
+  changeChannelDescription() {
+    throw new Error('Method not implemented.');
+  }
 
-  constructor(public dialog: MatDialog) {}
-  
+  changeChannelName() {
+    this.isEditing = !this.isEditing;
+    console.log(this.isEditing);
+
+  }
+
+
+
 }

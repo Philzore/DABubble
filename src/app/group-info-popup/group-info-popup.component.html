@@ -1,7 +1,7 @@
 <div class="group-info-container">
 
     <div class="group-info-header">
-        <p class="group-name"># Channelname</p> <i class="material-icons cursor close-button">close</i>
+        <p class="group-name"># Channelname</p> <i class="material-icons cursor close-button" (click)="dialogRef.close()">close</i>
     </div>
 
     <div class="group-info-name-container" [ngClass]="{'is-editing': isEditing}" >
@@ -37,7 +37,7 @@
     </div>
 
     <div class="leave-group">
-        <button class="cursor">Channel verlassen</button>
+        <button class="cursor" (click)="dialogRef.close()">Channel verlassen</button>
     </div>
 
 </div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-group-add-member',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./group-add-member.component.scss']
 })
 export class GroupAddMemberComponent {
+  constructor(public dialogRef:MatDialogRef<GroupAddMemberComponent>) {}
 
 }

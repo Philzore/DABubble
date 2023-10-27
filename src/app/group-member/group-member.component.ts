@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GroupAddMemberComponent } from '../group-add-member/group-add-member.component';
 
 @Component({
@@ -9,7 +9,7 @@ import { GroupAddMemberComponent } from '../group-add-member/group-add-member.co
 })
 export class GroupMemberComponent {
 
-constructor(public dialog: MatDialog) {}
+constructor(public dialog: MatDialog, public dialogRef:MatDialogRef<GroupAddMemberComponent>) {}
 
 openAddMemberPopUp(): void {
   this.dialog.open(GroupAddMemberComponent,{panelClass: 'custom-logout-dialog'});
