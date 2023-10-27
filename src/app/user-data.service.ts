@@ -33,9 +33,11 @@ export class UserDataService {
    * 
    * @param object what you want to storage
    */
-  saveCurrentUserLocalStorage(object) {
+  saveCurrentUserLocalStorage(userName,userMail) {
+    let object = {name : userName, mail:userMail}
     const objectString = JSON.stringify(object);
     localStorage.setItem('currentUser',objectString);
+    this.currentUser = object;
   }
 
   /**

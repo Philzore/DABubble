@@ -22,8 +22,8 @@ export class DesktopHeaderComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.userData = this.userDataService.getCurrentUser();
-      this.userDataService.saveCurrentUserLocalStorage(this.userData);
+      // this.userData = this.userDataService.getCurrentUser();
+      // this.userDataService.saveCurrentUserLocalStorage(this.userData);
     }, 1000);
 
   }

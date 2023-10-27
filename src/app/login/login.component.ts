@@ -7,6 +7,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import { AppComponent } from '../app.component';
+import { UserDataService } from '../user-data.service';
 
 RouterLink
 @Component({
@@ -22,7 +23,7 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private router: Router, public appComponent:AppComponent) {}
+  constructor(private router: Router, public appComponent:AppComponent,private userDataService:UserDataService) {}
 
   login() {
     const auth = getAuth();
@@ -32,6 +33,9 @@ export class LoginComponent {
         // Signed in
         console.log('User loged in successfully')
         const user = userCredential.user;
+        //Phil 
+        console.log(auth.currentUser);
+        this.userDataService.saveCurrentUserLocalStorage(auth.currentUser.displayName,auth.currentUser.email);
         this.router.navigate(['/main-page']);
       })
       .catch((error) => {
@@ -52,6 +56,8 @@ export class LoginComponent {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
+        //Phil 
+        this.userDataService.saveCurrentUserLocalStorage(auth.currentUser.displayName,auth.currentUser.email);
         // IdP data available using getAdditionalUserInfo(result)
         // ...
         this.router.navigate(['/main-page']);
