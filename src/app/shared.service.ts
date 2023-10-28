@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class SharedService {
-<<<<<<< HEAD
+
   public currentActiveChannel = new BehaviorSubject<string>('Von Phil'); 
   currentActiveChannel$ = this.currentActiveChannel.asObservable();
   
@@ -15,9 +15,7 @@ export class SharedService {
   updateChannel(newValue:string) {
     this.currentActiveChannel.next(newValue);
   }
-=======
-  public currentActiveChannel: string = 'Von Phil'; 
->>>>>>> ce5632a (worked on responsive layout)
+
 
   private threadContainerVisibilitySubject = new BehaviorSubject<boolean>(true);
   threadContainerVisibility$ = this.threadContainerVisibilitySubject.asObservable();
