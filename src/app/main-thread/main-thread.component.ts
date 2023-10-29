@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { SharedService } from '../shared.service';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-main-thread',

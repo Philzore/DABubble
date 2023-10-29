@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogEdituserLogoutComponent } from '../dialog-edituser-logout/dialog-edituser-logout.component';
-import { UserDataService } from '../user-data.service';
+import { UserDataService } from '../services/user-data.service';
 
 
 @Component({

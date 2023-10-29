@@ -4,7 +4,7 @@ import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.co
 import { GroupMemberComponent } from '../group-member/group-member.component';
 import { GroupAddMemberComponent } from '../group-add-member/group-add-member.component';
 import { MainThreadComponent } from '../main-thread/main-thread.component';
-import { SharedService } from '../shared.service';
+import { SharedService } from '../services/shared.service';
 import { Firestore, collection, getDocs, onSnapshot, query, where } from '@angular/fire/firestore';
 import { BehaviorSubject, filter } from 'rxjs';
 
@@ -46,7 +46,7 @@ export class MainChatComponent implements OnInit {
   }
 
   openGroupInfoPopUp(): void {
-    this.dialog.open(GroupInfoPopupComponent, { position: { top: '190px', right: '350px' }, panelClass: 'custom-logout-dialog' });
+    this.dialog.open(GroupInfoPopupComponent, { position: { top: '190px', left: '200px' }, panelClass: 'custom-logout-dialog' ,data:this.filteredChannels});
   }
 
   openGroupMemberPopUp(): void {

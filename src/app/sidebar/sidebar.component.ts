@@ -4,8 +4,8 @@ import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/di
 import { trigger, state, style, animate, transition, sequence } from '@angular/animations';
 import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
 import { AppComponent } from '../app.component';
-import { UserDataService } from '../user-data.service';
-import { SharedService } from '../shared.service';
+import { UserDataService } from '../services/user-data.service';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-sidebar',

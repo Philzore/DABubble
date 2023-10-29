@@ -39,8 +39,8 @@ import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFireModule } from '@angular/fire/compat';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { SharedService } from './shared.service';
-import { UserDataService } from './user-data.service';
+import { SharedService } from './services/shared.service';
+import { UserDataService } from './services/user-data.service';
 import { DesktopHeaderComponent } from './desktop-header/desktop-header.component';
 import { DialogReauthenticateComponent } from './dialog-reauthenticate/dialog-reauthenticate.component';
 

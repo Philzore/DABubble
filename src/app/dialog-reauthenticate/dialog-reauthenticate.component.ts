@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DialogEditProfilComponent } from '../dialog-edit-profil/dialog-edit-profil.component';
-import { UserDataService } from '../user-data.service';
+import { UserDataService } from '../services/user-data.service';
 
 @Component({
   selector: 'app-dialog-reauthenticate',

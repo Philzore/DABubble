@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { UserDataService } from '../user-data.service';
+import { UserDataService } from '../services/user-data.service';
 import { Router } from '@angular/router';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';

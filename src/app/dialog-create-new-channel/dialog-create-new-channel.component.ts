@@ -3,7 +3,7 @@ import { Firestore, addDoc, collection, doc, setDoc } from '@angular/fire/firest
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppComponent } from '../app.component';
-import { UserDataService } from '../user-data.service';
+import { UserDataService } from '../services/user-data.service';
 
 
 @Component({

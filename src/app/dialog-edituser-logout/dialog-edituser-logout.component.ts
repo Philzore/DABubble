@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogUserProfilComponent } from '../dialog-user-profil/dialog-user-profil.component';
 import { getAuth, signOut } from "firebase/auth";
 import { Router } from '@angular/router';
-import { UserDataService } from '../user-data.service';
+import { UserDataService } from '../services/user-data.service';
 
 @Component({
   selector: 'app-dialog-edituser-logout',

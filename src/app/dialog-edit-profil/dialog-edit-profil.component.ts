@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Auth, updateEmail, updateProfile } from '@angular/fire/auth';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { UserDataService } from '../user-data.service';
+import { UserDataService } from '../services/user-data.service';
 import { DialogReauthenticateComponent } from '../dialog-reauthenticate/dialog-reauthenticate.component';
 import { AppComponent } from '../app.component';
 

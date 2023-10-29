@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { SharedService } from '../shared.service';
+import { SharedService } from '../services/shared.service';
 import { browserLocalPersistence, getAuth, } from '@angular/fire/auth';
 
 @Component({

@@ -7,7 +7,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import { AppComponent } from '../app.component';
-import { UserDataService } from '../user-data.service';
+import { UserDataService } from '../services/user-data.service';
 
 RouterLink
 @Component({
