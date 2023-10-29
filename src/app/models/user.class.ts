@@ -4,7 +4,6 @@ export class User {
     password: string;
     avatar: string;
 
-
     constructor(obj?: any) {
         this.name = obj ? obj.name : '';
         this.email = obj ? obj.email : '';

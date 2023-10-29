@@ -6,6 +6,7 @@ import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firest
 import { AppComponent } from '../app.component';
 import { UserDataService } from '../services/user-data.service';
 import { SharedService } from '../services/shared.service';
+import { User } from '../models/user.class';
 
 
 @Component({
@@ -59,7 +60,8 @@ export class SidebarComponent implements OnInit {
   sidebarClose: boolean = false;
   workspaceText: string = 'schließen';
   channelsFromDataBase = [];
-  usersFromDatabase = [];
+  //Move to userDataService.ts
+  // usersFromDatabase = [];
   userData = {};
 
 
@@ -100,11 +102,10 @@ export class SidebarComponent implements OnInit {
    * 
    */
   async getUsersFromDatabase() {
-    this.usersFromDatabase = [];
+    this.userDataService.usersFromDatabase = [];
     const querySnapshotUsers = await getDocs(collection(this.firestore, 'users'));
     querySnapshotUsers.forEach((doc) => {
-      this.usersFromDatabase.push(doc.data());
-      console.log(this.usersFromDatabase);
+      this.userDataService.usersFromDatabase.push(new User(doc.data()));
     });
   }
 

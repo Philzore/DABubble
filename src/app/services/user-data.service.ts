@@ -10,6 +10,7 @@ import { Auth, EmailAuthProvider, getAuth, reauthenticateWithCredential } from '
 
 export class UserDataService implements OnInit{
   currentUser:object = {};
+  usersFromDatabase = [];
   guestUser:boolean ;
 
   private userData: { name: string, email: string, password: string } = { name: '', email: '', password: '' };
