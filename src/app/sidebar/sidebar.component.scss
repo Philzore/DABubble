@@ -177,7 +177,12 @@ mat-card-header {
 @media (max-width: 1000px) {
     mat-card {
         border-radius: 0 30px 30px 0;
-
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 123;
+        height: calc(100vh - 120px);
     }
 
     .overview-card {
@@ -185,11 +190,13 @@ mat-card-header {
         position: absolute;
         left: 0;
         margin: 0;
+        height: calc(100vh - 120px);
+        max-width: none;
     }
 
     .workspace-closing {
-        display: flex !important;
-        bottom: 177px;
+        display: none !important;
+
     }
 }
 

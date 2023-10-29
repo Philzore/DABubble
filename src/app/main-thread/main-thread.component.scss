@@ -315,3 +315,16 @@ $purple: #535af1;
         }
       }
 }
+
+
+@media (max-width:1000px) {
+
+  .thread-container { 
+        position: absolute;
+        height: calc(100vh - 120px);
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100vw;
+  }
+}

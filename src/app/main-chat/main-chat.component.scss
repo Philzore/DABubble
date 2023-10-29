@@ -382,6 +382,7 @@ $purple: #535af1;
  
   .chat-container {
     border-radius: 0 !important;
+    height: calc(100vh - 120px);
   }
 
 }
