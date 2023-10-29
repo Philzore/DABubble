@@ -62,18 +62,23 @@ export class SidebarComponent implements OnInit {
   usersFromDatabase = [];
   userData = {};
 
-  
 
-  constructor(public dialog: MatDialog, public sharedService: SharedService, private firestore: Firestore, public appComponent: AppComponent, public userDataService: UserDataService) {
+
+  constructor(
+    public dialog: MatDialog,
+    public sharedService: SharedService,
+    private firestore: Firestore,
+    public appComponent: AppComponent,
+    public userDataService: UserDataService) {
+      
     this.createSubscribeChannels();
     this.createSubscribeUsers();
 
   }
 
-  ngOnInit():void {
-    this.userData = this.userDataService.getCurrentUser();
+  ngOnInit(): void {
     this.sharedService.isSidebarOpen$().subscribe((state) => {
-    this.sidebarClose = state;
+      this.sidebarClose = state;
     });
     this.userData = this.userDataService.getCurrentUser();
   }
@@ -173,6 +178,7 @@ export class SidebarComponent implements OnInit {
   closeSidebar() {
     console.log('test');
     this.sharedService.toggleSidebar();
+    this.workspaceText = this.sidebarClose ? 'öffnen' : 'schließen';
   }
 
   /* Open Channel */

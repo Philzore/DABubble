@@ -35,7 +35,7 @@ export class LoginComponent {
         const user = userCredential.user;
         //Phil 
         console.log(auth.currentUser);
-        this.userDataService.saveCurrentUserLocalStorage(auth.currentUser.displayName,auth.currentUser.email);
+        this.userDataService.saveCurrentUserLocalStorage(auth.currentUser.displayName,auth.currentUser.email,auth.currentUser.photoURL);
         this.router.navigate(['/main-page']);
       })
       .catch((error) => {
@@ -57,7 +57,7 @@ export class LoginComponent {
         // The signed-in user info.
         const user = result.user;
         //Phil 
-        this.userDataService.saveCurrentUserLocalStorage(auth.currentUser.displayName,auth.currentUser.email);
+        this.userDataService.saveCurrentUserLocalStorage(auth.currentUser.displayName,auth.currentUser.email,auth.currentUser.photoURL);
         // IdP data available using getAdditionalUserInfo(result)
         // ...
         this.router.navigate(['/main-page']);
@@ -80,7 +80,7 @@ export class LoginComponent {
     signInAnonymously(auth)
       .then(() => {
         console.log('User logged in as Guest successfully')
-        this.userDataService.saveCurrentUserLocalStorage('Gast','');
+        this.userDataService.saveCurrentUserLocalStorage('Gast','','');
         this.router.navigate(['/main-page']);
         // Signed in..
       })

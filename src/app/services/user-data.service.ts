@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable , OnInit} from '@angular/core';
 import { Auth, EmailAuthProvider, getAuth, reauthenticateWithCredential } from '@angular/fire/auth';
 
 
@@ -8,16 +8,20 @@ import { Auth, EmailAuthProvider, getAuth, reauthenticateWithCredential } from '
 
 
 
-export class UserDataService {
+export class UserDataService implements OnInit{
   currentUser:object = {};
+  guestUser:boolean ;
 
+  private userData: { name: string, email: string, password: string } = { name: '', email: '', password: '' };
 
   constructor(private auth: Auth) { 
     this.currentUser = this.getFromLocalStorage('currentUser');
     console.log(this.currentUser);
   }
-  private userData: { name: string, email: string, password: string } = { name: '', email: '', password: '' };
   
+  ngOnInit(): void {
+    
+  }
   
 
   setUserData(data: { name: string, email: string, password: string }) {
@@ -34,11 +38,12 @@ export class UserDataService {
    * @param userName {string} - name to storage
    * @param userMail {string} - email to storage
    */
-  saveCurrentUserLocalStorage(userName,userMail) {
-    let object = {name : userName, mail:userMail}
+  saveCurrentUserLocalStorage(userName,userMail,profileImgNr) {
+    let object = {name : userName, mail:userMail, imgNr : profileImgNr}
     const objectString = JSON.stringify(object);
     localStorage.setItem('currentUser',objectString);
     this.currentUser = object;
+    this.guestUser = userName === 'Gast' ;
   }
 
   /**

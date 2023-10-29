@@ -4,7 +4,7 @@
         <button mat-icon-button (click)="dialogRef.close()" class="icon-btn-hover"><mat-icon>close</mat-icon></button>
     </div>
     <div class="profil-img">
-        <img src="/assets/characters/character_2.png">
+        <img src="/assets/characters/character_{{userDataService.currentUser['imgNr']}}.png">
     </div>
     <div class="edit-profil-field">
         <div class="edit-profil-field-header">

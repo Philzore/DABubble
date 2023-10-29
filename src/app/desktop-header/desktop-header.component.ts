@@ -13,10 +13,7 @@ export class DesktopHeaderComponent implements OnInit {
 
   sidebarClose = false;
   currentUserName: string = '';
-  userData:object = {
-    name : '',
-    mail : '',
-  };
+  
 
   constructor(public sharedService: SharedService, public dialog: MatDialog, public userDataService: UserDataService) {
 
@@ -26,7 +23,6 @@ export class DesktopHeaderComponent implements OnInit {
     this.sharedService.isSidebarOpen$().subscribe((state) => {
     this.sidebarClose = state;
     });
-    this.userData = this.userDataService.getCurrentUser();
   }
 
   openDialog() {
