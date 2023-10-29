@@ -12,7 +12,7 @@ export class SharedService {
   private threadContainerVisibilitySubject = new BehaviorSubject<boolean>(true);
   threadContainerVisibility$ = this.threadContainerVisibilitySubject.asObservable();
 
-  public isSidebarOpen = new BehaviorSubject<boolean>(true);
+  public isSidebarOpen = new BehaviorSubject<boolean>(false);
 
   constructor(private firestore: Firestore) {
     // Initialize your service here if needed.

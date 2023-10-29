@@ -6,6 +6,7 @@ $purple: #535af1;
     background-color: rgb(255, 255, 255) !important;
     height: calc(100vh - 160px);
     position: relative;
+    margin: 0 20px;
 
     mat-toolbar {
         display: flex;
@@ -383,6 +384,8 @@ $purple: #535af1;
   .chat-container {
     border-radius: 0 !important;
     height: calc(100vh - 120px);
+    margin: 0;
+
   }
 
 }
