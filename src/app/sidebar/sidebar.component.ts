@@ -104,6 +104,7 @@ export class SidebarComponent implements OnInit {
     const querySnapshotUsers = await getDocs(collection(this.firestore, 'users'));
     querySnapshotUsers.forEach((doc) => {
       this.usersFromDatabase.push(doc.data());
+      console.log(this.usersFromDatabase);
     });
   }
 

@@ -50,7 +50,7 @@ export class DialogCreateNewChannelComponent implements OnInit {
         this.newChannel.name = this.channelName;
         this.newChannel.description = this.channelDescription;
         this.newChannel.created = this.currentUser;
-        this.newChannel.members = this.currentUser;
+        this.newChannel.members.push(this.currentUser);
         console.log(this.newChannel);
         /* added by hasan to display the channel name in main chat component */
         await addDoc(collection(this.firestore, 'channels'),
@@ -77,10 +77,7 @@ export class DialogCreateNewChannelComponent implements OnInit {
 
     this.data.channels.forEach((element) => {
       let nameToLower = element.name.toLowerCase();
-      console.log('Element Name:', nameToLower);
-      console.log('Current Input Lower', lowerInput);
       if (nameToLower == lowerInput) {
-        console.log('Channel already Exist');
         this.errChannelExist = true;
       }
     });

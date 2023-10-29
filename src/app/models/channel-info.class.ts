@@ -1,8 +1,10 @@
-export class Channel {
-    name: string;
-    description: string;
-    created: string;
-    members: string[];
+export class ChannelInfo {
+          name:string ;
+          members:string[];
+          created:string ;
+          description:string ;
+        id:string ;
+      
 
 
     constructor(obj?: any) {
@@ -10,19 +12,19 @@ export class Channel {
         this.description = obj ? obj.description : '';
         this.created = obj ? obj.created : '';
         this.members = obj ? obj.members : [];
+        this.id = obj ? obj.id : '';
     }
 
  
     public toJSON() {
         return {
+            info : {
             name: this.name,
             description: this.description,
             created: this.created,
             members: this.members,
+            },
+            id : this.id,
         }
     }
-
-
-
-
 }

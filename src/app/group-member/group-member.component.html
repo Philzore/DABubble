@@ -3,12 +3,12 @@
         <p>Mitglieder</p> <i class="material-icons cursor" (click)="dialogRef.close()">close</i>
     </div>
 
-    <div class="group-members">
-        <img src="./assets/characters/character_1.png" alt=""> <p>Frederick Beck (Du)</p>
+    <div *ngFor="let member of currentChannel.info.members" class="group-members">
+        <img src="./assets/characters/character_1.png" alt=""> <p>{{ member }}</p>
     </div>
-    <div class="group-members cursor">
+    <!-- <div class="group-members cursor">
         <img src="./assets/characters/character_3.png" alt=""> <p>Sofia Müller</p>
-    </div>
+    </div> -->
 
     <div class="add-member cursor">
         <i class="material-icons add-new-member cursor">person_add_alt</i>

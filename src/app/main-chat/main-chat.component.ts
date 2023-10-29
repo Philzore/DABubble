@@ -5,6 +5,7 @@ import { GroupMemberComponent } from '../group-member/group-member.component';
 import { GroupAddMemberComponent } from '../group-add-member/group-add-member.component';
 import { SharedService } from '../services/shared.service';
 import { Firestore, collection, getDocs, onSnapshot, query, where } from '@angular/fire/firestore';
+import { ChannelInfo } from '../models/channel-info.class';
 
 
 @Component({
@@ -24,6 +25,8 @@ export class MainChatComponent implements OnInit {
   filteredChannels = [];
   templateIsReady = false;
 
+  channelKlassenTest = new ChannelInfo() ;
+
   @Output() threadClosed = new EventEmitter<void>();
 
   constructor(
@@ -38,6 +41,7 @@ export class MainChatComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this.sharedService.currentActiveChannel$.subscribe((value) => {
       this.templateIsReady = false;
       console.log('Änderungen :', value);
@@ -59,7 +63,7 @@ export class MainChatComponent implements OnInit {
    * 
    */
   openGroupMemberPopUp(): void {
-    this.dialog.open(GroupMemberComponent, { position: { top: '190px', right: '350px' }, panelClass: 'custom-logout-dialog' });
+    this.dialog.open(GroupMemberComponent, { position: { top: '180px', right: '150px' }, panelClass: 'custom-logout-dialog',data: this.filteredChannels  });
   }
 
   /**
@@ -67,7 +71,7 @@ export class MainChatComponent implements OnInit {
    * 
    */
   openAddMemberPopUp(): void {
-    this.dialog.open(GroupAddMemberComponent, { position: { top: '190px', right: '350px' }, panelClass: 'custom-logout-dialog' });
+    this.dialog.open(GroupAddMemberComponent, { position: { top: '180px', right: '50px' }, panelClass: 'custom-logout-dialog' });
   }
 
   /**
