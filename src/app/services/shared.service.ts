@@ -1,5 +1,3 @@
-// shared.service.ts
-
 import { Injectable } from '@angular/core';
 import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -8,46 +6,53 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class SharedService {
-
-  public currentActiveChannel = new BehaviorSubject<string>('Von Phil'); 
+  public currentActiveChannel = new BehaviorSubject<string>('Von Phil');
   currentActiveChannel$ = this.currentActiveChannel.asObservable();
 
   private threadContainerVisibilitySubject = new BehaviorSubject<boolean>(true);
   threadContainerVisibility$ = this.threadContainerVisibilitySubject.asObservable();
 
-  private isSidebarOpen = new BehaviorSubject<boolean>(true);
-  
+  public isSidebarOpen = new BehaviorSubject<boolean>(true);
+
   constructor(private firestore: Firestore) {
     // Initialize your service here if needed.
   }
 
   /**
-   * function to update documents in collection channels
+   * Function to update documents in the "channels" collection.
    * 
-   * @param content {object} - content which should be updated
-   * @param id {number} - id for firestore to save the new content
+   * @param content {object} - Content to be updated
+   * @param id {string} - Document ID in Firestore
    */
-  async updateChannelInfoDatabase(content:object,id:string){
-    const channelRef = doc(this.firestore, 'channels' ,id);
-    await updateDoc(channelRef, 
-      content,
-    );
+  async updateChannelInfoDatabase(content: object, id: string) {
+    const channelRef = doc(this.firestore, 'channels', id);
+    await updateDoc(channelRef, content);
   }
 
   /**
-   * update channel to show in channel in other components
+   * Update the current active channel to be displayed in other components.
    * 
-   * @param newValue {string} - input to update channel infos
+   * @param newValue {string} - New value to update the channel information
    */
-  updateChannel(newValue:string) {
+  updateChannel(newValue: string) {
     this.currentActiveChannel.next(newValue);
   }
 
-  public toggleSidebar(): void {
+  /**
+   * Toggle the state of the sidebar (open or closed).
+   */
+  toggleSidebar(): void {
+
+    console.log(this.isSidebarOpen);
     this.isSidebarOpen.next(!this.isSidebarOpen.value);
   }
 
-  public isSidebarOpen$(): Observable<boolean> {
+  /**
+   * Get the observable for the sidebar state.
+   * 
+   * @returns {Observable<boolean>} - Observable to track the sidebar state
+   */
+  isSidebarOpen$(): Observable<boolean> {
     return this.isSidebarOpen.asObservable();
   }
 }

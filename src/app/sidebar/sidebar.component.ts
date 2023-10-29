@@ -7,6 +7,7 @@ import { AppComponent } from '../app.component';
 import { UserDataService } from '../services/user-data.service';
 import { SharedService } from '../services/shared.service';
 
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -50,7 +51,7 @@ import { SharedService } from '../services/shared.service';
 })
 export class SidebarComponent implements OnInit {
 
-  @Output() sidebarToggled = new EventEmitter<boolean>();
+  // @Output() sidebarToggled = new EventEmitter<boolean>();
   @Output() changeChannel = new EventEmitter<string>();
 
   channelDropdown: boolean = false;
@@ -63,13 +64,17 @@ export class SidebarComponent implements OnInit {
 
   
 
-  constructor(public dialog: MatDialog, private sharedService: SharedService, private firestore: Firestore, public appComponent: AppComponent, public userDataService: UserDataService) {
+  constructor(public dialog: MatDialog, public sharedService: SharedService, private firestore: Firestore, public appComponent: AppComponent, public userDataService: UserDataService) {
     this.createSubscribeChannels();
     this.createSubscribeUsers();
 
   }
 
   ngOnInit():void {
+    this.userData = this.userDataService.getCurrentUser();
+    this.sharedService.isSidebarOpen$().subscribe((state) => {
+    this.sidebarClose = state;
+    });
     this.userData = this.userDataService.getCurrentUser();
   }
 
@@ -159,9 +164,14 @@ export class SidebarComponent implements OnInit {
    * close sidebar with animation
    * 
    */
+  // closeSidebar() {
+  //   this.sidebarClose = !this.sidebarClose;
+  //   this.workspaceText = this.sidebarClose ? 'öffnen' : 'schließen';
+  //   // this.sharedService.toggleSidebar();
+  // }
+
   closeSidebar() {
-    this.sidebarClose = !this.sidebarClose;
-    this.workspaceText = this.sidebarClose ? 'öffnen' : 'schließen';
+    console.log('test');
     this.sharedService.toggleSidebar();
   }
 
