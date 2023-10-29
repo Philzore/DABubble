@@ -17,6 +17,7 @@ export class UserDataService implements OnInit{
   constructor(private auth: Auth) { 
     this.currentUser = this.getFromLocalStorage('currentUser');
     console.log(this.currentUser);
+    this.guestUser = this.currentUser['imgNr'] == '' ? true : false ;
   }
   
   ngOnInit(): void {
