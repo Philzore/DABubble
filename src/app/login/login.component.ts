@@ -80,6 +80,7 @@ export class LoginComponent {
     signInAnonymously(auth)
       .then(() => {
         console.log('User logged in as Guest successfully')
+        this.userDataService.saveCurrentUserLocalStorage('Gast','');
         this.router.navigate(['/main-page']);
         // Signed in..
       })

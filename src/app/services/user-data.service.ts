@@ -29,9 +29,10 @@ export class UserDataService {
   }
 
   /**
-   * save the stuff in the key 'currentUser'
+   * storage user in localStorage
    * 
-   * @param object what you want to storage
+   * @param userName {string} - name to storage
+   * @param userMail {string} - email to storage
    */
   saveCurrentUserLocalStorage(userName,userMail) {
     let object = {name : userName, mail:userMail}

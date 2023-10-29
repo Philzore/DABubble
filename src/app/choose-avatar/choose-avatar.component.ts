@@ -77,6 +77,8 @@ export class ChooseAvatarComponent {
         // Aktualisiert den Anzeigenamen vom User in der Authentication
         updateProfile(auth.currentUser, {
           displayName: this.name,
+          //Phil addes photoUrl
+          photoURL : this.user.avatar,
         })
           .then(() => {
             // Anzeigenamen aktualisiert
