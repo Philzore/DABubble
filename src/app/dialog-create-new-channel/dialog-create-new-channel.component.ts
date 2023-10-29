@@ -19,7 +19,7 @@ export class DialogCreateNewChannelComponent implements OnInit {
   channelDescription: string = '';
   currentUser = '';
   newChannel: Channel = new Channel();
-  errChannelExist = false ;
+  errChannelExist = false;
 
   constructor(
     public dialogRef: MatDialogRef<DialogCreateNewChannelComponent>,
@@ -29,11 +29,20 @@ export class DialogCreateNewChannelComponent implements OnInit {
     public userDataService: UserDataService) { }
 
 
+/**
+ * save the currennt active user in variable
+ * 
+ */
   ngOnInit() {
     this.currentUser = this.userDataService.currentUser['name'];
-    console.log(this.data);
   }
 
+  /**
+   * save the new channel in the Database
+   * check if the channel exist
+   * check if there are more then three letters
+   * 
+   */
   async saveNewChannel() {
     this.checkChannelExist();
     if (!this.errChannelExist) {
@@ -56,8 +65,13 @@ export class DialogCreateNewChannelComponent implements OnInit {
     }
   }
 
+  /**
+   * check if the channel already exist
+   * it should not possible to create two times the same channel
+   * 
+   */
   checkChannelExist() {
-    this.errChannelExist = false ;
+    this.errChannelExist = false;
     let currentInput = this.channelName;
     let lowerInput = currentInput.toLowerCase();
 
@@ -67,10 +81,10 @@ export class DialogCreateNewChannelComponent implements OnInit {
       console.log('Current Input Lower', lowerInput);
       if (nameToLower == lowerInput) {
         console.log('Channel already Exist');
-        this.errChannelExist = true ;
+        this.errChannelExist = true;
       }
     });
-    
+
 
   }
 }

@@ -16,13 +16,17 @@ export class SharedService {
   threadContainerVisibility$ = this.threadContainerVisibilitySubject.asObservable();
 
   private isSidebarOpen = new BehaviorSubject<boolean>(true);
-
-  currentChannelInformation = {};
   
   constructor(private firestore: Firestore) {
     // Initialize your service here if needed.
   }
 
+  /**
+   * function to update documents in collection channels
+   * 
+   * @param content {object} - content which should be updated
+   * @param id {number} - id for firestore to save the new content
+   */
   async updateChannelInfoDatabase(content:object,id:string){
     const channelRef = doc(this.firestore, 'channels' ,id);
     await updateDoc(channelRef, 
@@ -30,6 +34,11 @@ export class SharedService {
     );
   }
 
+  /**
+   * update channel to show in channel in other components
+   * 
+   * @param newValue {string} - input to update channel infos
+   */
   updateChannel(newValue:string) {
     this.currentActiveChannel.next(newValue);
   }

@@ -46,29 +46,50 @@ export class MainChatComponent implements OnInit {
 
   }
 
+  /**
+   * open Group Info dialog
+   * 
+   */
   openGroupInfoPopUp(): void {
     this.dialog.open(GroupInfoPopupComponent, { position: { top: '180px', left: '320px' }, panelClass: 'custom-channel-dialog', data: this.filteredChannels });
   }
 
+  /**
+   * open Group Member dialog
+   * 
+   */
   openGroupMemberPopUp(): void {
     this.dialog.open(GroupMemberComponent, { position: { top: '190px', right: '350px' }, panelClass: 'custom-logout-dialog' });
   }
 
+  /**
+   * open Add Member dialog
+   * 
+   */
   openAddMemberPopUp(): void {
     this.dialog.open(GroupAddMemberComponent, { position: { top: '190px', right: '350px' }, panelClass: 'custom-logout-dialog' });
   }
 
-
+  /**
+   * open add Data dialog in chat
+   * 
+   */
   toggleAddDataPopup(): void {
     this.showAddDataPopup = !this.showAddDataPopup;
   }
 
-
+  /**
+   * open emoji dialog in chat
+   * 
+   */
   toggleEmojiPopup(): void {
     this.showEmojiPopup = !this.showEmojiPopup;
   }
 
-
+  /**
+   * open person dialog in chat
+   * 
+   */
   togglePersonPopup(): void {
     this.showPersonPopup = !this.showPersonPopup;
   }
