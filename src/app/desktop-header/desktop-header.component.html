@@ -1,5 +1,13 @@
 <header>
-    <img src="/assets/icons/logo_with_text.png">
+
+    <div class="header-responsive">
+
+        <i class="material-icons cursor">arrow_back_ios</i>
+        <img src="/assets/icons/workspace_logo.png" alt="">
+
+    </div>
+
+    <img class="dabubble-logo" src="/assets/icons/logo_with_text.png">
     <input placeholder="Code learning durchsuchen">
     <div class="user-info-container" (click)="openDialog()">
         <h2>{{userDataService.currentUser['name']}}</h2>

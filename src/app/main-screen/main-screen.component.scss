@@ -17,16 +17,25 @@ app-main-thread {
 
 @media (max-width:1000px) {
 
-    // app-main-chat {
-    //     width: 100vw;
-    // }
+    app-main-chat {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
 
-    // app-main-thread {
-    //     width: 100vw;
-    // }
+    app-main-thread {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
 
-    // app-sidebar {
-    //     width: 100vw;
-    // }
+    app-sidebar {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
 
 }

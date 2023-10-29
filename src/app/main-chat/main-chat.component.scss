@@ -380,5 +380,9 @@ $purple: #535af1;
 
 @media (max-width:1000px) {
  
+  .chat-container {
+    border-radius: 0 !important;
+  }
+
 }
 
