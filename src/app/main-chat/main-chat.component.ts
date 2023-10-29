@@ -3,10 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.component';
 import { GroupMemberComponent } from '../group-member/group-member.component';
 import { GroupAddMemberComponent } from '../group-add-member/group-add-member.component';
-import { MainThreadComponent } from '../main-thread/main-thread.component';
 import { SharedService } from '../services/shared.service';
 import { Firestore, collection, getDocs, onSnapshot, query, where } from '@angular/fire/firestore';
-import { BehaviorSubject, filter } from 'rxjs';
+
 
 @Component({
   selector: 'app-main-chat',
@@ -27,7 +26,11 @@ export class MainChatComponent implements OnInit {
 
   @Output() threadClosed = new EventEmitter<void>();
 
-  constructor(public dialog: MatDialog, public sharedService: SharedService, private elementRef: ElementRef, private firestore: Firestore) {
+  constructor(
+    public dialog: MatDialog,
+    public sharedService: SharedService,
+    private elementRef: ElementRef,
+    private firestore: Firestore) {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
     });
@@ -35,18 +38,16 @@ export class MainChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-
     this.sharedService.currentActiveChannel$.subscribe((value) => {
       this.templateIsReady = false;
-      console.log('Änderungen :', value) ;
+      console.log('Änderungen :', value);
       this.getChannelsFromDataBase(value);
     });
-    
+
   }
 
   openGroupInfoPopUp(): void {
-    this.dialog.open(GroupInfoPopupComponent, { position: { top: '190px', left: '200px' }, panelClass: 'custom-logout-dialog' ,data:this.filteredChannels});
+    this.dialog.open(GroupInfoPopupComponent, { position: { top: '180px', left: '320px' }, panelClass: 'custom-channel-dialog', data: this.filteredChannels });
   }
 
   openGroupMemberPopUp(): void {
@@ -104,10 +105,10 @@ export class MainChatComponent implements OnInit {
     this.filteredChannels = [];
     const channelRef = collection(this.firestore, 'channels');
     const filteredChannels = query(channelRef, where('name', "==", name))
-    
+
     const querySnapshot = await getDocs(filteredChannels);
     querySnapshot.forEach((doc) => {
-      this.filteredChannels.push(doc.data());
+      this.filteredChannels.push(doc.data(), doc.id);
       console.log(this.filteredChannels);
     });
     this.templateIsReady = true;

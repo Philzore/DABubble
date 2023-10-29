@@ -8,7 +8,8 @@ $purple: #535af1;
 .group-info-container {
     display: flex;
     flex-direction: column;
-    max-width: 500px;
+    // max-width: 500px;
+    min-width: 800px;
     gap: 20px;
     border-radius: 0px 15px 15px 15px !important;
     border: none;
@@ -30,6 +31,7 @@ $purple: #535af1;
         .close-button {
             padding: 5px;
             transition: 125ms ease-in-out;
+            outline: none;
             &:hover {
                 background-color: $main-purple;
                 color: $purple;
@@ -49,15 +51,7 @@ $purple: #535af1;
         }
     
 
-        input {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid $main-purple;
-            border-radius: 15px;
-            padding: 15px;
-            width: calc(100% - 30px);
-        }
+        // remov input and move it to the bottom for whole container
 
         .group-info-name-heading {
             display: flex;
@@ -111,5 +105,15 @@ $purple: #535af1;
                 opacity: .8;
             }
         }
+    }
+
+    input {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid $main-purple;
+        border-radius: 15px;
+        padding: 15px;
+        width: calc(100% - 30px);
     }
 }

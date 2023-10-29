@@ -1,38 +1,46 @@
 <div class="group-info-container">
 
     <div class="group-info-header">
-        <p class="group-name"># Channelname</p> <i class="material-icons cursor close-button" (click)="dialogRef.close()">close</i>
+        <p class="group-name"># {{currentChannel.info.name}}</p> <i class="material-icons cursor close-button"
+            (click)="dialogRef.close()">close</i>
     </div>
 
-    <div class="group-info-name-container" [ngClass]="{'is-editing': isEditing}" >
+    <div class="group-info-name-container" [ngClass]="{'is-editing': isEditing}">
         <div class="group-info-name-heading">
             <p class="bold">Channel - Name</p>
-            <p class="cursor purple" (click)="changeChannelName()">Bearbeiten</p>
-            <!-- <p class="cursor purple" (click)="saveChannelName()">Speichern</p> -->
+            <p class="cursor purple" *ngIf="!isEditing" (click)="changeChannelName()">Bearbeiten</p>
+            <p class="cursor purple" *ngIf="isEditing" (click)="saveChannelName()">Speichern</p>
         </div>
         <div class="group-info-name">
             <ng-container *ngIf="isEditing; else displayChannelName">
-                <input [(ngModel)]="channelName" (blur)="changeChannelName()" (keydown.enter)="changeChannelName()" />
+                <input [(ngModel)]="channelName"/>
             </ng-container>
             <ng-template #displayChannelName>
-                <p># Channelname</p>
+                <p># {{currentChannel.info.name}}</p>
             </ng-template>
         </div>
     </div>
-    
-    
+
+
 
     <div class="group-info-description-container">
         <div class="group-info-description-header">
-            <p class="bold">Beschreibung</p> 
-            <p class="cursor purple" (click)="changeChannelDescription()">Bearbeiten</p>
-            <!-- <p class="cursor purple" (click)="changeChannelDescription()">Speichern</p> -->
+            <p class="bold">Beschreibung</p>
+            <p class="cursor purple" *ngIf="!hideEditDescription" (click)="changeChannelDescription()">Bearbeiten</p>
+            <p class="cursor purple" *ngIf="hideEditDescription" (click)="saveChannelDescription()">Speichern</p>
         </div>
-         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates iusto incidunt facere perferendis, aut fuga?</p>
+        <div class="group-info-name">
+            <ng-container *ngIf="hideEditDescription; else displayDescription">
+                <input [(ngModel)]="channelDescription"/>
+            </ng-container>
+            <ng-template #displayDescription>
+                <p>{{currentChannel.info.description}}</p>
+            </ng-template>
+        </div>
         <hr>
         <div class="group-creator-container">
             <p class="bold">Erstellt von</p>
-            <p class="group-creator">Noah Braun</p>
+            <p class="group-creator">{{currentChannel.info.created}}</p>
         </div>
     </div>
 

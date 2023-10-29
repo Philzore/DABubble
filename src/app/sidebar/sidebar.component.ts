@@ -127,7 +127,7 @@ export class SidebarComponent implements OnInit {
   openDialog() {
     const dialogRef = this.dialog.open(DialogCreateNewChannelComponent, {
       panelClass: 'custom-normal-dialog',
-      data: { user: this.userData },
+      data: { channels: this.channelsFromDataBase },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

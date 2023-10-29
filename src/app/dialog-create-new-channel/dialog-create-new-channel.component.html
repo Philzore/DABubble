@@ -10,6 +10,7 @@
     <div>
         <h3>Channel-Name</h3>
         <input placeholder="# z.B. Kooperationsprojekte" [(ngModel)]="channelName">
+        <span class="error-channel-exist" *ngIf="errChannelExist">Channel exisitert bereits</span>
     </div>
     <div>
         <h3>Beschreibung <span>(optional)</span></h3>
