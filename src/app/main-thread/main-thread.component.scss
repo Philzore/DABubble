@@ -44,7 +44,8 @@ $purple: #535af1;
 .thread-container {
     position: relative;
     height: calc(100vh - 160px);
-
+    background: #fff;
+    border-radius: 30px;
     mat-toolbar {
         display: flex;
         justify-content: space-between;
@@ -326,5 +327,6 @@ $purple: #535af1;
         right: 0;
         left: 0;
         width: 100vw;
+        border-radius: 0;
   }
 }

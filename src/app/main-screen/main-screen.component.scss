@@ -13,6 +13,7 @@ app-main-thread {
     max-width: 350px;
     background-color: #fff;
     margin: 0 20px 0 0;
+    border-radius: 30px;
 }
 
 @media (max-width:1000px) {
@@ -22,6 +23,7 @@ app-main-thread {
         bottom: 0;
         right: 0;
         left: 0;
+        // z-index: 3;
     }
 
     app-main-thread {
@@ -29,6 +31,8 @@ app-main-thread {
         bottom: 0;
         right: 0;
         left: 0;
+        border-radius: 0;
+        // z-index: 2;
     }
 
     app-sidebar {
@@ -37,7 +41,7 @@ app-main-thread {
         right: 0;
         left: 0;
         width: 100vw !important;
-
+        // z-index: 4;
     }
 
 }
