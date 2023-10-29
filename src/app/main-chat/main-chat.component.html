@@ -1,9 +1,13 @@
 <div class="chat-container br-30">
     <mat-toolbar>
         <div class="chat-header-left cursor" (click)="openGroupInfoPopUp()">
+<<<<<<< HEAD
             <p *ngIf="templateIsReady"># {{ filteredChannels[0]['name'] }}</p> <i
                 class="material-icons">keyboard_arrow_down</i>
 
+=======
+        <p *ngIf="templateIsReady"># {{ sharedService.currentActiveChannel }}</p> <i class="material-icons">keyboard_arrow_down</i>
+>>>>>>> ce5632a (worked on responsive layout)
         </div>
         <div class="chat-header-right cursor">
             <div class="chat-members-images" (click)="openGroupMemberPopUp()">
