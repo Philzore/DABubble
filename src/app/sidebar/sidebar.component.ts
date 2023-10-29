@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Injectable, ViewChild, Input, OnInit } from '@angular/core'; // Import Injectable
+import { Component, EventEmitter, Output, Injectable, ViewChild, Input, OnInit, HostListener } from '@angular/core'; // Import Injectable
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
 import { trigger, state, style, animate, transition, sequence } from '@angular/animations';
@@ -53,7 +53,7 @@ export class SidebarComponent implements OnInit {
 
   // @Output() sidebarToggled = new EventEmitter<boolean>();
   @Output() changeChannel = new EventEmitter<string>();
-
+  specificWidth = 1000;
   channelDropdown: boolean = false;
   messageDropdown: boolean = false;
   sidebarClose: boolean = false;
@@ -176,9 +176,14 @@ export class SidebarComponent implements OnInit {
   // }
 
   closeSidebar() {
-    console.log('test');
     this.sharedService.toggleSidebar();
     this.workspaceText = this.sidebarClose ? 'öffnen' : 'schließen';
+  }
+
+  closeSidebarResponsive() {
+    if (window.innerWidth < this.specificWidth) {
+      this.sharedService.toggleSidebar();
+    }
   }
 
   /* Open Channel */
