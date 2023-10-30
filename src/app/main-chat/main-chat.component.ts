@@ -26,9 +26,12 @@ export class MainChatComponent implements OnInit {
   userData = [];
   filteredChannels = [];
   channelMessagesFromDB = [];
+  thradMessagesFromDB = [];
   templateIsReady = false;
-  channelKlassenTest = new ChannelInfo();
+  
   message = new Message();
+  threadMessage = new Message();
+
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
   @Output() threadClosed = new EventEmitter<void>();
 
@@ -146,35 +149,53 @@ export class MainChatComponent implements OnInit {
     this.templateIsReady = true;
   }
 
-  async getUsersFromDatabase() {
-    this.usersFromDatabase = [];
-    const querySnapshotUsers = await getDocs(collection(this.firestore, 'users'));
-    querySnapshotUsers.forEach((doc) => {
-      this.usersFromDatabase.push(doc.data());
-      // console.log(this.usersFromDatabase);
-    });
-  }
-
-
-  // createSubscribeChannels() {
-  //   const unsubChannels = onSnapshot(collection(this.firestore, 'channels'), async (doc) => {
-  //     await this.getChannelsFromDataBase();
+  //Uncomment from Phil
+  // async getUsersFromDatabase() {
+  //   this.usersFromDatabase = [];
+  //   const querySnapshotUsers = await getDocs(collection(this.firestore, 'users'));
+  //   querySnapshotUsers.forEach((doc) => {
+  //     this.usersFromDatabase.push(doc.data());
+  //     // console.log(this.usersFromDatabase);
   //   });
   // }
 
 
-  createSubscribeUsers() {
-    const unsubUsers = onSnapshot(collection(this.firestore, 'users'), async (doc) => {
-      await this.getUsersFromDatabase();
-    });
-  }
 
+  // createSubscribeUsers() {
+  //   const unsubUsers = onSnapshot(collection(this.firestore, 'users'), async (doc) => {
+  //     await this.getUsersFromDatabase();
+  //   });
+  // }
 
-  toggleThread(messageID) {
-    console.log(messageID);
+/**
+ * open or close the thrad component
+ * 
+ * @param messageID {string} - id form the clicked message
+ */
+  toggleThread(messageID:string) {
+    this.createSubscribeThreadMessages(messageID);
     this.threadClosed.emit();
   }
 
+  /**
+   * create a subscribe for changes in thread messages
+   * 
+   * @param messageID {string} - id form the clicked message
+   */
+  async createSubscribeThreadMessages(messageID) {
+    let channelId = this.filteredChannels[1];
+    console.log('Aktuelle Message ID : ',messageID);
+    //load right thread from firestore
+    const unsubThread = onSnapshot(collection(this.firestore,`channels/${channelId}/messages/${messageID}/thread`), async (doc) => {
+      console.log('Thread with id :' , messageID , 'updating');
+      await this.getThreadMessagesFromSingleMessage(messageID);
+    });
+  }
+
+  /**
+   * create subscribe for changes in messages for a single channel
+   * 
+   */
   async createSubscribeChannelMessages() {
     let channelId = this.filteredChannels[1];
     const unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
@@ -182,6 +203,12 @@ export class MainChatComponent implements OnInit {
     });
   }
 
+  /**
+   * send a normal messgae in a channel
+   * create subcollection messages in channel doc
+   * create subcollection thread in subcollection messages with the first content of the message
+   * 
+   */
   async messageSend() {
     this.message.from = this.userDataService.currentUser['name'];
     let date = new Date();
@@ -208,12 +235,16 @@ export class MainChatComponent implements OnInit {
     );
   }
 
-  
+  /**
+   * get the messages from the current active channel
+   * then sort it by time
+   * 
+   */
   async getMessagesFromChannel() {
     let channelId = this.filteredChannels[1];
     this.channelMessagesFromDB = [];
-    const querySnapshotUsers = await getDocs(collection(this.firestore, `channels/${channelId}/messages`));
-    querySnapshotUsers.forEach((doc) => {
+    const querySnapshotMessages = await getDocs(collection(this.firestore, `channels/${channelId}/messages`));
+    querySnapshotMessages.forEach((doc) => {
       this.channelMessagesFromDB.push(new Message(doc.data()));
       console.log(doc.data());
     });
@@ -221,14 +252,40 @@ export class MainChatComponent implements OnInit {
     this.sortMessagesTime();
   }
 
+  /**
+   * send ja message in a single thread
+   * 
+   */
   async sendThreadMessage() {
-
+    this.threadMessage.from = this.userDataService.currentUser['name'];
+    let date = new Date();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+    this.threadMessage.time = formattedTime;
+    this.threadMessage.text = this.copiedText;
+    this.copiedText = '';
   }
 
-  async getThreadMessagesFromSingleMessage () {
-
+  /**
+   * get the thread messages from a single message
+   * 
+   * @param messageID {string} - id form the clicked message
+   */
+  async getThreadMessagesFromSingleMessage (messageID) {
+    let channelId = this.filteredChannels[1];
+    this.thradMessagesFromDB = [];
+    const querySnapshotThread = await getDocs(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`));
+    querySnapshotThread.forEach((doc) => {
+      this.thradMessagesFromDB.push(new Message(doc.data()));
+      console.log(doc.data());
+    });
   }
 
+  /**
+   * sort the messages by time
+   * 
+   */
   sortMessagesTime() {
     this.channelMessagesFromDB.sort((a,b) => a.time - b.time) ;
     console.log('Sorted :' , this.channelMessagesFromDB);
