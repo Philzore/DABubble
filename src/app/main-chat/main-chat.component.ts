@@ -171,7 +171,8 @@ export class MainChatComponent implements OnInit {
   }
 
 
-  toggleThread() {
+  toggleThread(messageID) {
+    console.log(messageID);
     this.threadClosed.emit();
   }
 
@@ -187,10 +188,17 @@ export class MainChatComponent implements OnInit {
     let date = new Date();
     this.message.time = date.getTime();
     this.message.text = this.copiedText;
+    
     //add subcollection
     let channelId = this.filteredChannels[1];
     const singleRef = doc(this.firestore, 'channels', channelId);
-    const subcollection = await addDoc(collection(singleRef, 'messages'),
+    const subcollectionMessages = await addDoc(collection(singleRef, 'messages'),
+      this.message.toJSON()
+    );
+    //create thread subcollection
+    const messageRef = doc(this.firestore,`channels/${channelId}/messages`, subcollectionMessages.id);
+    console.log(messageRef.id);
+    const threadSubcollection = await addDoc(collection(messageRef,`thread`),
       this.message.toJSON()
     );
   }
@@ -205,6 +213,14 @@ export class MainChatComponent implements OnInit {
     });
     console.log('Founded Messages :' , this.channelMessagesFromDB);
     this.sortMessagesTime();
+  }
+
+  async sendThreadMessage() {
+
+  }
+
+  async getThreadMessagesFromSingleMessage () {
+
   }
 
   sortMessagesTime() {
