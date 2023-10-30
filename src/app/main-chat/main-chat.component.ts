@@ -204,6 +204,12 @@ export class MainChatComponent implements OnInit {
       console.log(doc.data());
     });
     console.log('Founded Messages :' , this.channelMessagesFromDB);
+    this.sortMessagesTime();
+  }
+
+  sortMessagesTime() {
+    this.channelMessagesFromDB.sort((a,b) => a.time - b.time) ;
+    console.log('Sorted :' , this.channelMessagesFromDB);
   }
 
 }
