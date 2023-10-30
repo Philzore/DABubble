@@ -15,24 +15,21 @@
         </div>
     </mat-toolbar>
 
-    <div class="chat-wrapper">
-        <div class="chat-divider-top">
-
-            <div class="time-of-message">12:34 PM</div>
-            <div class="parting-line"></div>
-
-        </div>
+    <div class="chat-wrapper" #chatWrapper>
+       
+            <div class="chat-divider-top"></div>
         <div *ngFor="let message of channelMessagesFromDB" class="message-container cursor">
+            
+            <!-- <div class="message-time-container">
+                <p>{{ message.time }}</p>
+            </div> -->
+
             <img src="./assets/characters/character_1.png" alt="">
             <div class="message-info-container">
 
                 <div class="info-row">
                     <div class="info-row-name">
                         <p>{{message.from}}</p> <span class="message-time">{{message.time}}</span>
-                    </div>
-
-                    <div class="info-row-react">
-                        Placeholder
                     </div>
 
                 </div>
@@ -44,7 +41,10 @@
                         Antwort 14:56</span>
                 </div>
             </div>
+            <!-- <div class="chat-divider-bottom"></div> -->
+
         </div>
+
         <!-- <div class="message-container cursor">
             <img src="./assets/characters/character_1.png" alt="">
             <div class="message-info-container">
@@ -70,6 +70,7 @@
         </div> -->
 
         <!-- Own Message Start -->
+        
         <div class="chat-divider-top"></div>
 
         <div class="message-container own-message">
@@ -88,7 +89,7 @@
             <img src="./assets/characters/character_2.png" alt="">
         </div>
 
-        <div class="chat-divider-bottom"></div>
+        <!-- <div class="chat-divider-bottom"></div> -->
 
         <!-- Own Message End -->
 
@@ -96,7 +97,7 @@
 
 
     <section class="input-container">
-        <textarea [(ngModel)]="copiedText" placeholder="Nachricht an #Channelname"></textarea>
+        <textarea  [(ngModel)]="copiedText" placeholder="Nachricht an #Channelname"></textarea>
         <div class="input-send">
             <div class="input-send-left">
                 <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
@@ -142,7 +143,7 @@
             </div>
 
             <div class="input-send-right">
-                <i class="material-icons" (click)="messageSend()">send</i>
+                <i class="material-icons" (click)="messageSend()" >send</i>
             </div>
         </div>
     </section>

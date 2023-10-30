@@ -5,7 +5,6 @@ $purple: #535af1;
     position: relative;
     background-color: rgb(255, 255, 255) !important;
     height: calc(100vh - 160px);
-    position: relative;
     margin: 0 20px;
 
     mat-toolbar {
@@ -79,28 +78,29 @@ $purple: #535af1;
       }
 
       /* Chat Start*/
-
       .chat-wrapper {
-
+        max-height: calc(100% - 210px); 
         overflow-y: scroll;
 
         .chat-divider-top {
 
           text-align: center;
-          border-top: 1px solid $main-purple;
+          border-top: 5px solid $main-purple;
+          width: 100%;
         }
 
         .chat-divider-bottom {
-          border-bottom: 1px solid $main-purple;
-          position: relative;
+          border-bottom: 5px solid $main-purple;
+          width: 100%;
+
         }
 
 
           .message-container {
           display: flex;
           align-items: center;
-          padding:0 40px;
-          height: 180px;
+          padding:20px 40px;
+          margin: 20px 0;
           &:hover {
             background-color: $main-purple;
             transition: 125ms ease-in-out;
@@ -205,11 +205,13 @@ $purple: #535af1;
         flex-direction: column;
         padding: 20px;
         position: absolute;
-        bottom: 50px;
-        left: 20px;
-        right: 20px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        margin: 30px;
         border: 1px solid $main-purple;
         border-radius: 10px;
+        background: #fff;
 
         .material-icons {
           margin: 0 0 0 15px;

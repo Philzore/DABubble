@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, OnInit, ViewChild, AfterViewChecked, Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.component';
 import { GroupMemberComponent } from '../group-member/group-member.component';
@@ -6,7 +6,6 @@ import { GroupAddMemberComponent } from '../group-add-member/group-add-member.co
 import { SharedService } from '../services/shared.service';
 import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, query, where } from '@angular/fire/firestore';
 import { ChannelInfo } from '../models/channel-info.class';
-
 import { Message } from '../models/message.class';
 import { UserDataService } from '../services/user-data.service';
 
@@ -28,10 +27,9 @@ export class MainChatComponent implements OnInit {
   filteredChannels = [];
   channelMessagesFromDB = [];
   templateIsReady = false;
-
   channelKlassenTest = new ChannelInfo();
   message = new Message();
-
+  @ViewChild('chatWrapper') private chatWrapper: ElementRef;
   @Output() threadClosed = new EventEmitter<void>();
 
   constructor(
@@ -39,6 +37,7 @@ export class MainChatComponent implements OnInit {
     public sharedService: SharedService,
     public userDataService: UserDataService,
     private elementRef: ElementRef,
+    private renderer: Renderer2,
     private firestore: Firestore) {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
@@ -47,15 +46,20 @@ export class MainChatComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.sharedService.currentActiveChannel$.subscribe(async (value) => {
       this.templateIsReady = false;
       console.log('Änderungen :', value);
       await this.getChannelsFromDataBase(value);
       await this.createSubscribeChannelMessages();
     });
-    
+  }
 
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+      this.renderer.setProperty(this.chatWrapper.nativeElement, 'scrollTop', this.chatWrapper.nativeElement.scrollHeight);
   }
 
   /**
@@ -129,11 +133,6 @@ export class MainChatComponent implements OnInit {
   }
 
 
-  copyText(text: string): void {
-    this.copiedText = text;
-  }
-
-
   async getChannelsFromDataBase(name) {
     this.filteredChannels = [];
     const channelRef = collection(this.firestore, 'channels');
@@ -186,9 +185,12 @@ export class MainChatComponent implements OnInit {
   async messageSend() {
     this.message.from = this.userDataService.currentUser['name'];
     let date = new Date();
-    this.message.time = date.getTime();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+    this.message.time = formattedTime;
     this.message.text = this.copiedText;
-    
+    this.copiedText = '';
     //add subcollection
     let channelId = this.filteredChannels[1];
     const singleRef = doc(this.firestore, 'channels', channelId);
@@ -203,6 +205,7 @@ export class MainChatComponent implements OnInit {
     );
   }
 
+  
   async getMessagesFromChannel() {
     let channelId = this.filteredChannels[1];
     this.channelMessagesFromDB = [];
@@ -227,5 +230,4 @@ export class MainChatComponent implements OnInit {
     this.channelMessagesFromDB.sort((a,b) => a.time - b.time) ;
     console.log('Sorted :' , this.channelMessagesFromDB);
   }
-
 }

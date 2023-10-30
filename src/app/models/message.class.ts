@@ -1,6 +1,6 @@
 export class Message {
     from: string;
-    time: number;
+    time: string;
     text: string;
     id:string;
     
