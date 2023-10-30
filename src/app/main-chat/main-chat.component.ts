@@ -4,7 +4,7 @@ import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.co
 import { GroupMemberComponent } from '../group-member/group-member.component';
 import { GroupAddMemberComponent } from '../group-add-member/group-add-member.component';
 import { SharedService } from '../services/shared.service';
-import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, query, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc, where } from '@angular/fire/firestore';
 import { ChannelInfo } from '../models/channel-info.class';
 import { Message } from '../models/message.class';
 import { UserDataService } from '../services/user-data.service';
@@ -197,6 +197,9 @@ export class MainChatComponent implements OnInit {
     const subcollectionMessages = await addDoc(collection(singleRef, 'messages'),
       this.message.toJSON()
     );
+    await updateDoc(doc(this.firestore,`channels/${channelId}/messages`, subcollectionMessages.id), {
+      id: subcollectionMessages.id,
+    });
     //create thread subcollection
     const messageRef = doc(this.firestore,`channels/${channelId}/messages`, subcollectionMessages.id);
     console.log(messageRef.id);
