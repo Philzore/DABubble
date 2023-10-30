@@ -201,6 +201,7 @@ export class MainChatComponent implements OnInit {
     const querySnapshotUsers = await getDocs(collection(this.firestore, `channels/${channelId}/messages`));
     querySnapshotUsers.forEach((doc) => {
       this.channelMessagesFromDB.push(new Message(doc.data()));
+      console.log(doc.data());
     });
     console.log('Founded Messages :' , this.channelMessagesFromDB);
   }
