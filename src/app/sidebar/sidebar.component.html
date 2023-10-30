@@ -9,6 +9,10 @@
       <button mat-icon-button class="icon-btn-hover"><mat-icon>edit_square</mat-icon></button>
     </div>
   </mat-card-header>
+
+  
+  <!-- TODO: Different header when smaller than 1000px and sidebar is open -->
+
   <!-- end sidebar header -->
   <!-- channel drop down -->
   <mat-card-content>
@@ -31,9 +35,9 @@
       <div>
         <!-- channel container for single channels -->
         <div class="list-container" *ngIf="channelDropdown" [@dropDownMenu]>
-          <div (click)="openChannel(channel.name)" *ngFor="let channel of channelsFromDataBase; let i = index" class="single-entry">
+          <div *ngFor="let channel of channelsFromDataBase; let i = index" class="single-entry">
             <span>#</span>
-            <span (click)="closeSidebarResponsive()">{{channel.name}}</span>
+            <p (click)="openChannel(channel.name)" (click)="closeSidebarResponsive()">{{channel.name}}</p>
           </div>
           <div class="add-channel" (click)="openDialog()">
             <mat-icon class="no-overflow">add_circle_outline</mat-icon>
@@ -64,7 +68,7 @@
           <div *ngFor="let user of userDataService.usersFromDatabase" class="single-entry">
             <img src= '/assets/characters/character_{{user.avatar}}.png'>
             <span class="point">&#9679;</span>
-            <span>{{user.name}}</span>
+            <p>{{user.name}}</p>
           </div>
         </div>
         <!-- end channel container for single channels -->
