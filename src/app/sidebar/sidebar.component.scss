@@ -3,6 +3,11 @@ mat-card {
     padding: 15px;
     font-size: 20px;
     border-radius: 30px;
+
+    p {
+        margin: 0;
+    }
+
 }
 
 mat-card-header {
@@ -14,8 +19,8 @@ mat-card-header {
 }
 
 .overview-card {
-    box-sizing: border-box;
     max-width: 300px;
+    box-sizing: border-box;
     height: calc(100vh - 160px);
     margin-left: 20px;
     position: relative;
@@ -197,8 +202,12 @@ mat-card-header {
 
     .workspace-closing {
         display: none !important;
-
     }
+
+    .single-entry {
+        max-width: none !important;
+    }
+
 }
 
 .no-overflow {
