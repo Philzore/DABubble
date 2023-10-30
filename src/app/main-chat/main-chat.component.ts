@@ -269,6 +269,7 @@ export class MainChatComponent implements OnInit {
 
   /**
    * get the thread messages from a single message
+   * push to thradMessagesFromDB with class Message
    * 
    * @param messageID {string} - id form the clicked message
    */
@@ -278,7 +279,7 @@ export class MainChatComponent implements OnInit {
     const querySnapshotThread = await getDocs(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`));
     querySnapshotThread.forEach((doc) => {
       this.thradMessagesFromDB.push(new Message(doc.data()));
-      console.log(doc.data());
+      console.log('Thread Data:',doc.data());
     });
   }
 
