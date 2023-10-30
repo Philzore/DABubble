@@ -83,6 +83,8 @@ $purple: #535af1;
     }
 
     .message-thread-container {
+        max-height: calc(100% - 210px); 
+        overflow-y: scroll;
         .own-message {
             .own-message-time {
                 margin: 0 15px 0 0 !important;
@@ -101,7 +103,8 @@ $purple: #535af1;
         .clicked-message {
             display: flex;
             align-items: center;
-            padding: 20px 40px;
+            padding:10px 20px;
+            margin: 20px 0;
 
             img {
                 height: 50px;
@@ -165,11 +168,13 @@ $purple: #535af1;
         flex-direction: column;
         padding: 20px;
         position: absolute;
-        bottom: 50px;
-        left: 20px;
-        right: 20px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        margin: 30px;
         border: 1px solid $main-purple;
         border-radius: 10px;
+        background: #fff;
 
         .material-icons {
           margin: 0 0 0 15px;

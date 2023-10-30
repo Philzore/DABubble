@@ -8,7 +8,7 @@
       <i class="material-icons cursor close-button" (click)="closeThread()">close</i>
   </mat-toolbar>
 
-  <div class="message-thread-container">
+  <div #chatWrapper class="message-thread-container">
     <!-- Chat Divider Top -->
     <div class="chat-divider-top"></div>
 
@@ -39,6 +39,40 @@
     </div>
 
     <!-- Text Response Container -->
+    <div class="clicked-message">
+      <img src="./assets/characters/character_2.png" alt="">
+      <div class="message-info-thread">
+        <!-- Message Response Container -->
+        <div class="message-content-container">
+          <div class="info-row-thread">
+            <p class="bold">Noah Braun</p>
+            <span class="message-time">14:25 Uhr</span>
+          </div>
+          <div class="clicked-message-content">
+            <p class="message-text">
+              Placeholder für Antwort von anderen.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clicked-message">
+      <img src="./assets/characters/character_2.png" alt="">
+      <div class="message-info-thread">
+        <!-- Message Response Container -->
+        <div class="message-content-container">
+          <div class="info-row-thread">
+            <p class="bold">Noah Braun</p>
+            <span class="message-time">14:25 Uhr</span>
+          </div>
+          <div class="clicked-message-content">
+            <p class="message-text">
+              Placeholder für Antwort von anderen.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="clicked-message">
       <img src="./assets/characters/character_2.png" alt="">
       <div class="message-info-thread">

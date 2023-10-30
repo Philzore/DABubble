@@ -28,7 +28,6 @@ export class MainChatComponent implements OnInit {
   channelMessagesFromDB = [];
   thradMessagesFromDB = [];
   templateIsReady = false;
-  
   message = new Message();
   threadMessage = new Message();
 

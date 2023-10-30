@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { SharedService } from '../services/shared.service';
 
 @Component({
@@ -12,8 +12,12 @@ export class MainThreadComponent {
   showPersonPopup: boolean;
   copiedText: any;
   threadContainerVisible: boolean; // Declare the property
+  @ViewChild('chatWrapper') private chatWrapper: ElementRef;
 
-  constructor(private sharedService: SharedService) {}
+  constructor(
+    private sharedService: SharedService,
+    private renderer: Renderer2
+    ) {}
 
   @Output() threadClosed = new EventEmitter<void>();
 
@@ -23,6 +27,14 @@ export class MainThreadComponent {
         this.threadContainerVisible = visibility;
       }
     );
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+      this.renderer.setProperty(this.chatWrapper.nativeElement, 'scrollTop', this.chatWrapper.nativeElement.scrollHeight);
   }
 
   toggleAddDataPopup(): void {

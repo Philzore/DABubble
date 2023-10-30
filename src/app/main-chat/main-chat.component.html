@@ -32,12 +32,20 @@
                         <p>{{message.from}}</p> <span class="message-time">{{message.time}}</span>
                     </div>
 
+                    <div class="info-row-react">
+                        <i class="material-icons checkmark">check_circle</i>
+                        <i class="material-icons handshake">handshake</i>
+                        <i class="material-icons">add_reaction</i>
+                        <!-- Thread also opens when clicking here -->
+                        <i (click)="toggleThread(message.id)" class="material-icons">text_snippet</i>
+                    </div>
+
                 </div>
 
                 <p class="message-text">{{message.text}}</p>
 
                 <div class="last-response-row">
-                    <p (click)="toggleThread(message.id)" class="cursor">Toggle Thread</p> <span class="message-time">Letzte
+                    <p (click)="toggleThread(message.id)" class="cursor">2 Antworten</p> <span class="message-time">Letzte
                         Antwort 14:56</span>
                 </div>
             </div>
@@ -54,9 +62,7 @@
                         <p>Noah Braun</p> <span class="message-time">14:25 Uhr</span>
                     </div>
 
-                    <div class="info-row-react">
-                        Placeholder
-                    </div>
+                    
 
                 </div>
 
