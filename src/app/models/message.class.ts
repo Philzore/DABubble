@@ -4,9 +4,9 @@ export class Message {
     text: string;
     
     constructor(obj?: any) {
-        this.from = obj ? obj.name : '';
-        this.time = obj ? obj.description : '';
-        this.text = obj ? obj.created : '';
+        this.from = obj ? obj.from : '';
+        this.time = obj ? obj.time : '';
+        this.text = obj ? obj.text : '';
     }
 
     public toJSON() {
