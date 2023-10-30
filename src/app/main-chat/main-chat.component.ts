@@ -4,8 +4,11 @@ import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.co
 import { GroupMemberComponent } from '../group-member/group-member.component';
 import { GroupAddMemberComponent } from '../group-add-member/group-add-member.component';
 import { SharedService } from '../services/shared.service';
-import { Firestore, collection, getDocs, onSnapshot, query, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, query, where } from '@angular/fire/firestore';
 import { ChannelInfo } from '../models/channel-info.class';
+
+import { Message } from '../models/message.class';
+import { UserDataService } from '../services/user-data.service';
 
 
 @Component({
@@ -23,15 +26,18 @@ export class MainChatComponent implements OnInit {
   usersFromDatabase = [];
   userData = [];
   filteredChannels = [];
+  channelMessagesFromDB = [];
   templateIsReady = false;
 
-  channelKlassenTest = new ChannelInfo() ;
+  channelKlassenTest = new ChannelInfo();
+  message = new Message();
 
   @Output() threadClosed = new EventEmitter<void>();
 
   constructor(
     public dialog: MatDialog,
     public sharedService: SharedService,
+    public userDataService: UserDataService,
     private elementRef: ElementRef,
     private firestore: Firestore) {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
@@ -41,12 +47,14 @@ export class MainChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-    this.sharedService.currentActiveChannel$.subscribe((value) => {
+
+    this.sharedService.currentActiveChannel$.subscribe(async (value) => {
       this.templateIsReady = false;
       console.log('Änderungen :', value);
-      this.getChannelsFromDataBase(value);
+      await this.getChannelsFromDataBase(value);
+      await this.createSubscribeChannelMessages();
     });
+    
 
   }
 
@@ -63,7 +71,7 @@ export class MainChatComponent implements OnInit {
    * 
    */
   openGroupMemberPopUp(): void {
-    this.dialog.open(GroupMemberComponent, { position: { top: '180px', right: '150px' }, panelClass: 'custom-logout-dialog',data: this.filteredChannels  });
+    this.dialog.open(GroupMemberComponent, { position: { top: '180px', right: '150px' }, panelClass: 'custom-logout-dialog', data: this.filteredChannels });
   }
 
   /**
@@ -163,8 +171,38 @@ export class MainChatComponent implements OnInit {
   }
 
 
-  closeThread() {
+  toggleThread() {
     this.threadClosed.emit();
+  }
+
+  async createSubscribeChannelMessages() {
+    let channelId = this.filteredChannels[1];
+    const unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
+      await this.getMessagesFromChannel();
+    });
+  }
+
+  async messageSend() {
+    this.message.from = this.userDataService.currentUser['name'];
+    let date = new Date();
+    this.message.time = date.getTime();
+    this.message.text = this.copiedText;
+    //add subcollection
+    let channelId = this.filteredChannels[1];
+    const singleRef = doc(this.firestore, 'channels', channelId);
+    const subcollection = await addDoc(collection(singleRef, 'messages'),
+      this.message.toJSON()
+    );
+  }
+
+  async getMessagesFromChannel() {
+    let channelId = this.filteredChannels[1];
+    this.channelMessagesFromDB = [];
+    const querySnapshotUsers = await getDocs(collection(this.firestore, `channels/${channelId}/messages`));
+    querySnapshotUsers.forEach((doc) => {
+      this.channelMessagesFromDB.push(new Message(doc.data()));
+    });
+    console.log('Founded Messages :' , this.channelMessagesFromDB);
   }
 
 }

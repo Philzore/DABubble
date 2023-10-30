@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppComponent } from '../app.component';
 import { UserDataService } from '../services/user-data.service';
 import { Channel } from '../models/channel.class';
+import { Message } from '../models/message.class';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class DialogCreateNewChannelComponent implements OnInit {
   channelDescription: string = '';
   currentUser = '';
   newChannel: Channel = new Channel();
+  message = new Message();
   errChannelExist = false;
 
   constructor(
@@ -29,10 +31,10 @@ export class DialogCreateNewChannelComponent implements OnInit {
     public userDataService: UserDataService) { }
 
 
-/**
- * save the currennt active user in variable
- * 
- */
+  /**
+   * save the currennt active user in variable
+   * 
+   */
   ngOnInit() {
     this.currentUser = this.userDataService.currentUser['name'];
   }
@@ -53,14 +55,21 @@ export class DialogCreateNewChannelComponent implements OnInit {
         this.newChannel.members.push(this.currentUser);
         console.log(this.newChannel);
         /* added by hasan to display the channel name in main chat component */
-        await addDoc(collection(this.firestore, 'channels'),
+        const docRef = await addDoc(collection(this.firestore, 'channels'),
           this.newChannel.toJSON()
-        ).then(() => {
+        ).then(async (docRef) => {
+        //   console.log('DocRef :', docRef.id);
+        //   //add subcollection
+        //   const singleRef = doc(this.firestore,'channels',docRef.id);
+        //   const subcollection = await addDoc(collection(singleRef,'messages'),
+        //   this.message.toJSON()
+        // );
           this.channelName = '';
           this.channelDescription = '';
         }).then(() => {
           this.dialogRef.close({ event: 'start' });
-        })
+        });
+        
       }
     }
   }
