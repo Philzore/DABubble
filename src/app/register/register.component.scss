@@ -32,8 +32,8 @@
     align-items: center;
     gap: 43px;
 
-    margin-left: 24px;
-    margin-right: 24px;
+    margin-left: 16px;
+    margin-right: 16px;
 
     position: relative;
 }
@@ -68,7 +68,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height: 136px;
+    gap: 43px;
     width: 100%;
 
     .register-headline {
@@ -242,9 +242,10 @@
 
     .register-container {
         padding: 40px !important;
+        gap: 24px !important;
     }
 
-    .back-icon-container{
+    .back-icon-container {
         display: none;
     }
 }
