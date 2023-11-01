@@ -188,6 +188,7 @@ export class MainChatComponent implements OnInit {
     const unsubThread = onSnapshot(collection(this.firestore,`channels/${channelId}/messages/${messageID}/thread`), async (doc) => {
       console.log('Thread with id :' , messageID , 'updating');
       await this.getThreadMessagesFromSingleMessage(messageID);
+      
     });
   }
 
@@ -248,7 +249,7 @@ export class MainChatComponent implements OnInit {
       console.log(doc.data());
     });
     console.log('Founded Messages :' , this.channelMessagesFromDB);
-    this.sortMessagesTime();
+    this.sortMessagesTime(this.channelMessagesFromDB);
   }
 
   /**
@@ -274,20 +275,25 @@ export class MainChatComponent implements OnInit {
    */
   async getThreadMessagesFromSingleMessage (messageID) {
     let channelId = this.filteredChannels[1];
-    this.thradMessagesFromDB = [];
+    this.sharedService.currentThreadContent = [];
     const querySnapshotThread = await getDocs(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`));
     querySnapshotThread.forEach((doc) => {
-      this.thradMessagesFromDB.push(new Message(doc.data()));
+      this.sharedService.currentThreadContent.push(new Message(doc.data()));
       console.log('Thread Data:',doc.data());
+      console.log(this.sharedService.currentThreadContent);
     });
+    //set path in sharedService
+    this.sharedService.threadPath = '' ;
+    this.sharedService.threadPath = `channels/${channelId}/messages/${messageID}/thread` ;
+    this.sortMessagesTime(this.sharedService.currentThreadContent);
+    console.log(this.sharedService.currentThreadContent);
   }
 
   /**
    * sort the messages by time
    * 
    */
-  sortMessagesTime() {
-    this.channelMessagesFromDB.sort((a,b) => a.time - b.time) ;
-    console.log('Sorted :' , this.channelMessagesFromDB);
+  sortMessagesTime(array) {
+    array.sort((a,b) => a.time - b.time) ;
   }
 }

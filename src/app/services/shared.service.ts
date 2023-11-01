@@ -6,13 +6,16 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class SharedService {
-  public currentActiveChannel = new BehaviorSubject<string>('Von Phil');
+  public currentActiveChannel = new BehaviorSubject<string>('Bubble');
   currentActiveChannel$ = this.currentActiveChannel.asObservable();
 
   private threadContainerVisibilitySubject = new BehaviorSubject<boolean>(true);
   threadContainerVisibility$ = this.threadContainerVisibilitySubject.asObservable();
 
   public isSidebarOpen = new BehaviorSubject<boolean>(false);
+
+  currentThreadContent = [] ;
+  threadPath : string = '' ;
 
   constructor(private firestore: Firestore) {
     // Initialize your service here if needed.
