@@ -1,6 +1,10 @@
 $main-purple: #eceefe;
 $purple: #535af1;
 
+.checkmark  {
+  color: rgb(84, 216, 84);
+}
+
 .chat-container {
     position: relative;
     background-color: rgb(255, 255, 255) !important;
@@ -137,6 +141,21 @@ $purple: #535af1;
               align-items: center;
             }
 
+            .emoji-react-container {
+              margin-bottom: 10px;
+
+              .emoji-wrapper {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                border-radius: 30px;
+                padding: 5px;
+                border: 1px solid $main-purple;
+                background: #fff;
+              }
+
+            }
+
             .info-row {
               display: flex;
               justify-content: space-between;
@@ -151,12 +170,12 @@ $purple: #535af1;
                 transition: 125ms ease-in-out;
                 opacity: 0;
                 position: absolute;
-                right: 40px !important; 
-                top: 70px;
+                right: 50px;
                 border-radius: 30px 30px 0 30px;
                 border: 1px solid #adb0d9;
                 padding: 5px 15px;
                 background: #fff;
+
               
                 &:hover {
                   opacity: 1;
@@ -171,10 +190,6 @@ $purple: #535af1;
                     background-color: $main-purple;
                   }
 
-                }
-
-                .checkmark  {
-                  color: rgb(84, 216, 84);
                 }
 
                 .handshake {
