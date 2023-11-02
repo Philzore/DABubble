@@ -77,7 +77,8 @@ export class MainThreadComponent {
     let hours = date.getHours();
     let minutes = date.getMinutes();
     const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-    this.threadMessage.time = formattedTime;
+    this.threadMessage.calculatedTime = formattedTime ;
+    this.threadMessage.time = date;
     this.threadMessage.text = this.copiedText;
 
 

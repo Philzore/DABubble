@@ -1,12 +1,14 @@
 export class Message {
     from: string;
-    time: string;
+    time: Date;
+    calculatedTime:string;
     text: string;
     id:string;
     
     constructor(obj?: any) {
         this.from = obj ? obj.from : '';
         this.time = obj ? obj.time : '';
+        this.calculatedTime = obj ? obj.calculatedTime : '';
         this.text = obj ? obj.text : '';
         this.id = obj ? obj.id : '';
     }
@@ -15,6 +17,7 @@ export class Message {
         return {
             from: this.from,
             time: this.time,
+            calculatedTime: this.calculatedTime,
             text: this.text,
             id: this.id,
         }

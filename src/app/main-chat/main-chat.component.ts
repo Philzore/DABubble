@@ -215,7 +215,8 @@ export class MainChatComponent implements OnInit {
     let hours = date.getHours();
     let minutes = date.getMinutes();
     const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-    this.message.time = formattedTime;
+    this.message.calculatedTime = formattedTime ;
+    this.message.time = date;
     this.message.text = this.copiedText;
     this.copiedText = '';
     //add subcollection
@@ -256,16 +257,17 @@ export class MainChatComponent implements OnInit {
    * send ja message in a single thread
    * 
    */
-  async sendThreadMessage() {
-    this.threadMessage.from = this.userDataService.currentUser['name'];
-    let date = new Date();
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-    this.threadMessage.time = formattedTime;
-    this.threadMessage.text = this.copiedText;
-    this.copiedText = '';
-  }
+  // async sendThreadMessage() {
+  //   this.threadMessage.from = this.userDataService.currentUser['name'];
+  //   let date = new Date();
+  //   let hours = date.getHours();
+  //   let minutes = date.getMinutes();
+  //   const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+  //   this.threadMessage.calculatedTime = formattedTime ;
+  //   this.threadMessage.time = date;
+  //   this.threadMessage.text = this.copiedText;
+  //   this.copiedText = '';
+  // }
 
   /**
    * get the thread messages from a single message

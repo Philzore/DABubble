@@ -20,7 +20,7 @@
           <!-- Info Row for Own Message -->
           <div class="info-row-thread">
             <p class="bold">{{ sharedService.currentThreadContent[0].from }}</p>
-            <span class="message-time">{{ sharedService.currentThreadContent[0].time }}</span>
+            <span class="message-time">{{ sharedService.currentThreadContent[0].calculatedTime }}</span>
           </div>
           <!-- Clicked Message Content -->
           <div class="clicked-message-content">
@@ -47,7 +47,7 @@
           <div class="message-content-container">
             <div class="info-row-thread">
               <p class="bold">{{message.from}}</p>
-              <span class="message-time">{{message.time}}</span>
+              <span class="message-time">{{message.calculatedTime}}</span>
             </div>
             <div class="clicked-message-content">
               <p class="message-text">
