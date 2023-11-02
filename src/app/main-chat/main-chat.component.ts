@@ -176,8 +176,10 @@ export class MainChatComponent implements OnInit {
     console.log('Thrad status:', this.threadOpen);
     if (this.threadOpen) {
       this.unsubThread(); 
+    } else {
+      this.createSubscribeThreadMessages(messageID);
     }
-    this.createSubscribeThreadMessages(messageID);
+    
     
     this.threadClosed.emit();
     this.threadOpen = !this.threadOpen;
