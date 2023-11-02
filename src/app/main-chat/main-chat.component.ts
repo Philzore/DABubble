@@ -30,6 +30,8 @@ export class MainChatComponent implements OnInit {
   templateIsReady = false;
   message = new Message();
   threadMessage = new Message();
+  threadOpen = false;
+
 
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
   @Output() threadClosed = new EventEmitter<void>();
@@ -61,7 +63,7 @@ export class MainChatComponent implements OnInit {
   }
 
   scrollToBottom() {
-      this.renderer.setProperty(this.chatWrapper.nativeElement, 'scrollTop', this.chatWrapper.nativeElement.scrollHeight);
+    this.renderer.setProperty(this.chatWrapper.nativeElement, 'scrollTop', this.chatWrapper.nativeElement.scrollHeight);
   }
 
   /**
@@ -166,14 +168,20 @@ export class MainChatComponent implements OnInit {
   //   });
   // }
 
-/**
- * open or close the thrad component
- * 
- * @param messageID {string} - id form the clicked message
- */
-  toggleThread(messageID:string) {
-    this.createSubscribeThreadMessages(messageID);
+  /**
+   * open or close the thrad component
+   * 
+   * @param messageID {string} - id form the clicked message
+   */
+  toggleThread(messageID: string) {
+    if (this.threadOpen) {
+
+    } else {
+      this.createSubscribeThreadMessages(messageID);
+    }
     this.threadClosed.emit();
+    this.threadOpen = !this.threadOpen;
+
   }
 
   /**
@@ -182,15 +190,17 @@ export class MainChatComponent implements OnInit {
    * @param messageID {string} - id form the clicked message
    */
   async createSubscribeThreadMessages(messageID) {
-    let channelId = this.filteredChannels[1];
-    console.log('Aktuelle Message ID : ',messageID);
-    //load right thread from firestore
-    const unsubThread = onSnapshot(collection(this.firestore,`channels/${channelId}/messages/${messageID}/thread`), async (doc) => {
-      this.sharedService.currentThreadContent = [] ;
-      console.log('Thread with id :' , messageID , 'updating');
-      await this.getThreadMessagesFromSingleMessage(messageID);
-      
-    });
+      let channelId = this.filteredChannels[1];
+      console.log('Aktuelle Message ID : ', messageID);
+      //load right thread from firestore
+      const unsubThread = onSnapshot(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`), async (doc) => {
+        if (!this.threadOpen) {
+        console.log('Thread with id :', messageID, 'updating');
+        await this.getThreadMessagesFromSingleMessage(messageID);
+        } else {
+          unsubThread();
+        }
+      });
   }
 
   /**
@@ -216,7 +226,7 @@ export class MainChatComponent implements OnInit {
     let hours = date.getHours();
     let minutes = date.getMinutes();
     const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-    this.message.calculatedTime = formattedTime ;
+    this.message.calculatedTime = formattedTime;
     this.message.time = date;
     this.message.text = this.copiedText;
     this.copiedText = '';
@@ -226,13 +236,13 @@ export class MainChatComponent implements OnInit {
     const subcollectionMessages = await addDoc(collection(singleRef, 'messages'),
       this.message.toJSON()
     );
-    await updateDoc(doc(this.firestore,`channels/${channelId}/messages`, subcollectionMessages.id), {
+    await updateDoc(doc(this.firestore, `channels/${channelId}/messages`, subcollectionMessages.id), {
       id: subcollectionMessages.id,
     });
     //create thread subcollection
-    const messageRef = doc(this.firestore,`channels/${channelId}/messages`, subcollectionMessages.id);
+    const messageRef = doc(this.firestore, `channels/${channelId}/messages`, subcollectionMessages.id);
     console.log(messageRef.id);
-    const threadSubcollection = await addDoc(collection(messageRef,`thread`),
+    const threadSubcollection = await addDoc(collection(messageRef, `thread`),
       this.message.toJSON()
     );
   }
@@ -250,7 +260,7 @@ export class MainChatComponent implements OnInit {
       this.channelMessagesFromDB.push(new Message(doc.data()));
       console.log(doc.data());
     });
-    console.log('Founded Messages :' , this.channelMessagesFromDB);
+    console.log('Founded Messages :', this.channelMessagesFromDB);
     this.sortMessagesTime(this.channelMessagesFromDB);
   }
 
@@ -276,18 +286,18 @@ export class MainChatComponent implements OnInit {
    * 
    * @param messageID {string} - id form the clicked message
    */
-  async getThreadMessagesFromSingleMessage (messageID) {
+  async getThreadMessagesFromSingleMessage(messageID) {
     let channelId = this.filteredChannels[1];
     this.sharedService.currentThreadContent = [];
     const querySnapshotThread = await getDocs(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`));
     querySnapshotThread.forEach((doc) => {
       this.sharedService.currentThreadContent.push(new Message(doc.data()));
-      console.log('Thread Data:',doc.data());
+      console.log('Thread Data:', doc.data());
       console.log(this.sharedService.currentThreadContent);
     });
     //set path in sharedService
-    this.sharedService.threadPath = '' ;
-    this.sharedService.threadPath = `channels/${channelId}/messages/${messageID}/thread` ;
+    this.sharedService.threadPath = '';
+    this.sharedService.threadPath = `channels/${channelId}/messages/${messageID}/thread`;
     this.sortMessagesTime(this.sharedService.currentThreadContent);
     console.log(this.sharedService.currentThreadContent);
   }
@@ -297,6 +307,6 @@ export class MainChatComponent implements OnInit {
    * 
    */
   sortMessagesTime(array) {
-    array.sort((a,b) => a.time - b.time) ;
+    array.sort((a, b) => a.time - b.time);
   }
 }

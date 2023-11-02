@@ -45,8 +45,6 @@ export class SharedService {
    * Toggle the state of the sidebar (open or closed).
    */
   toggleSidebar(): void {
-
-    console.log(this.isSidebarOpen);
     this.isSidebarOpen.next(!this.isSidebarOpen.value);
   }
 
