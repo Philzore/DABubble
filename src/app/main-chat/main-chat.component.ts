@@ -32,6 +32,8 @@ export class MainChatComponent implements OnInit {
   threadMessage = new Message();
   threadOpen = false;
 
+  unsubThread;
+
 
   @ViewChild('scrollButton') scrollButton: ElementRef;
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
@@ -187,14 +189,14 @@ export class MainChatComponent implements OnInit {
    * @param messageID {string} - id form the clicked message
    */
   toggleThread(messageID: string) {
+    console.log('Thrad status:', this.threadOpen);
     if (this.threadOpen) {
-
-    } else {
-      this.createSubscribeThreadMessages(messageID);
+      this.unsubThread(); 
     }
+    this.createSubscribeThreadMessages(messageID);
+    
     this.threadClosed.emit();
     this.threadOpen = !this.threadOpen;
-
   }
 
   /**
@@ -206,13 +208,9 @@ export class MainChatComponent implements OnInit {
       let channelId = this.filteredChannels[1];
       console.log('Aktuelle Message ID : ', messageID);
       //load right thread from firestore
-      const unsubThread = onSnapshot(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`), async (doc) => {
-        if (!this.threadOpen) {
+       this.unsubThread = onSnapshot(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`), async (doc) => { 
         console.log('Thread with id :', messageID, 'updating');
         await this.getThreadMessagesFromSingleMessage(messageID);
-        } else {
-          unsubThread();
-        }
       });
   }
 
