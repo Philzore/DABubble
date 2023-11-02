@@ -18,8 +18,6 @@ export class MainThreadComponent {
   threadContainerVisible: boolean; // Declare the property
   threadReady: boolean = false;
   threadMessage = new Message();
-  @ViewChild('scrollButton') scrollButton: ElementRef;
-  
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
 
   constructor(
@@ -47,6 +45,7 @@ export class MainThreadComponent {
     this.renderer.setProperty(this.chatWrapper.nativeElement, 'scrollTop', this.chatWrapper.nativeElement.scrollHeight);
   }
 
+<<<<<<< HEAD
 // ngAfterViewChecked() {
 //   this.updateScrollButtonVisibility();
 // }
@@ -63,6 +62,8 @@ export class MainThreadComponent {
 //   }
 // }
 
+=======
+>>>>>>> abbd631ad64907003ffcc09ed1dbe5b2cd08d478
   toggleAddDataPopup(): void {
     this.showAddDataPopup = !this.showAddDataPopup;
   }

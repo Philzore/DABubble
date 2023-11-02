@@ -19,17 +19,18 @@ $purple: #535af1;
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
-    
+      
       button {
-        background-color: #007acc; // Adjust the background color as needed
+        background-color: $purple; // Adjust the background color as needed
         color: #fff; // Adjust the text color as needed
         border: none;
         border-radius: 5px;
         padding: 10px 20px;
         cursor: pointer;
+        transition: 125ms ease-in-out;
     
         &:hover {
-          background-color: #005eaa; // Adjust the hover background color as needed
+          opacity: .8;
         }
       }
     }

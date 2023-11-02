@@ -30,12 +30,15 @@ export class MainChatComponent implements OnInit {
   templateIsReady = false;
   message = new Message();
   threadMessage = new Message();
+<<<<<<< HEAD
   threadOpen = false;
 
   unsubThread;
 
 
   @ViewChild('scrollButton') scrollButton: ElementRef;
+=======
+>>>>>>> 6c02ae7 (removed scroll button)
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
   @Output() threadClosed = new EventEmitter<void>();
 
@@ -63,22 +66,6 @@ export class MainChatComponent implements OnInit {
 
   scrollToBottom() {
     this.renderer.setProperty(this.chatWrapper.nativeElement, 'scrollTop', this.chatWrapper.nativeElement.scrollHeight);
-  }
-
-  ngAfterViewChecked() {
-    this.updateScrollButtonVisibility();
-  }
-
-  updateScrollButtonVisibility() {
-    const chatWrapper: HTMLElement = this.chatWrapper.nativeElement;
-    const scrollButton: HTMLElement = this.scrollButton.nativeElement;
-
-    // Check if the container is scrollable to the bottom
-    if (chatWrapper.scrollHeight - chatWrapper.scrollTop === chatWrapper.clientHeight) {
-      scrollButton.style.display = 'none'; // Hide the button
-    } else {
-      scrollButton.style.display = 'block'; // Show the button
-    }
   }
 
   /**
