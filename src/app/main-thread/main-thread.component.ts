@@ -16,10 +16,10 @@ export class MainThreadComponent {
   showPersonPopup: boolean;
   copiedText: string;
   threadContainerVisible: boolean; // Declare the property
-
   threadReady: boolean = false;
   threadMessage = new Message();
-
+  @ViewChild('scrollButton') scrollButton: ElementRef;
+  
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
 
   constructor(
@@ -41,18 +41,27 @@ export class MainThreadComponent {
     setTimeout(() => {
       this.threadReady = true;
     }, 300);
-
-  }
-
-  ngAfterViewChecked() {
-    setTimeout(() => {
-      this.scrollToBottom();
-    }, 500);
   }
 
   scrollToBottom() {
     this.renderer.setProperty(this.chatWrapper.nativeElement, 'scrollTop', this.chatWrapper.nativeElement.scrollHeight);
   }
+
+ngAfterViewChecked() {
+  this.updateScrollButtonVisibility();
+}
+
+updateScrollButtonVisibility() {
+  const chatWrapper: HTMLElement = this.chatWrapper.nativeElement;
+  const scrollButton: HTMLElement = this.scrollButton.nativeElement;
+
+  // Check if the container is scrollable to the bottom
+  if (chatWrapper.scrollHeight - chatWrapper.scrollTop === chatWrapper.clientHeight) {
+    scrollButton.style.display = 'none'; // Hide the button
+  } else {
+    scrollButton.style.display = 'block'; // Show the button
+  }
+}
 
   toggleAddDataPopup(): void {
     this.showAddDataPopup = !this.showAddDataPopup;

@@ -94,6 +94,11 @@
     </div> -->
 
     <!-- Input Container (Same structure as in the main) -->
+
+    <div class="scroll-to-bottom-container">
+      <button #scrollButton (click)="scrollToBottom()">Scroll to bottom</button>
+  </div>
+
     <section class="input-container">
       <textarea [(ngModel)]="copiedText" placeholder="Nachricht an #Antwort"></textarea>
       <div class="input-send">
