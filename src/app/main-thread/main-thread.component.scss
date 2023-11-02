@@ -46,6 +46,29 @@ $purple: #535af1;
     height: calc(100vh - 160px);
     background: #fff;
     border-radius: 30px;
+
+    .scroll-to-bottom-container {
+      position: absolute;
+      bottom: 200px;
+      z-index: 10;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+    
+      button {
+        background-color: #007acc; // Adjust the background color as needed
+        color: #fff; // Adjust the text color as needed
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+    
+        &:hover {
+          background-color: #005eaa; // Adjust the hover background color as needed
+        }
+      }
+    }
+
     mat-toolbar {
         display: flex;
         justify-content: space-between;
@@ -62,6 +85,8 @@ $purple: #535af1;
             }
 
         }
+
+        
 
 
         .thread-header-info {
