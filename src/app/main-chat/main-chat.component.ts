@@ -186,6 +186,7 @@ export class MainChatComponent implements OnInit {
     console.log('Aktuelle Message ID : ',messageID);
     //load right thread from firestore
     const unsubThread = onSnapshot(collection(this.firestore,`channels/${channelId}/messages/${messageID}/thread`), async (doc) => {
+      this.sharedService.currentThreadContent = [] ;
       console.log('Thread with id :' , messageID , 'updating');
       await this.getThreadMessagesFromSingleMessage(messageID);
       
