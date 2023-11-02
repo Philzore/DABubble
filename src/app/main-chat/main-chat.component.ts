@@ -30,15 +30,12 @@ export class MainChatComponent implements OnInit {
   templateIsReady = false;
   message = new Message();
   threadMessage = new Message();
-<<<<<<< HEAD
   threadOpen = false;
 
   unsubThread;
 
 
   @ViewChild('scrollButton') scrollButton: ElementRef;
-=======
->>>>>>> 6c02ae7 (removed scroll button)
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
   @Output() threadClosed = new EventEmitter<void>();
 

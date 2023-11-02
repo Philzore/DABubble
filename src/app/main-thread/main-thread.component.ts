@@ -45,25 +45,6 @@ export class MainThreadComponent {
     this.renderer.setProperty(this.chatWrapper.nativeElement, 'scrollTop', this.chatWrapper.nativeElement.scrollHeight);
   }
 
-<<<<<<< HEAD
-// ngAfterViewChecked() {
-//   this.updateScrollButtonVisibility();
-// }
-
-// updateScrollButtonVisibility() {
-//   const chatWrapper: HTMLElement = this.chatWrapper.nativeElement;
-//   const scrollButton: HTMLElement = this.scrollButton.nativeElement;
-
-//   // Check if the container is scrollable to the bottom
-//   if (chatWrapper.scrollHeight - chatWrapper.scrollTop === chatWrapper.clientHeight) {
-//     scrollButton.style.display = 'none'; // Hide the button
-//   } else {
-//     scrollButton.style.display = 'block'; // Show the button
-//   }
-// }
-
-=======
->>>>>>> abbd631ad64907003ffcc09ed1dbe5b2cd08d478
   toggleAddDataPopup(): void {
     this.showAddDataPopup = !this.showAddDataPopup;
   }
