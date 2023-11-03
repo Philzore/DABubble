@@ -18,7 +18,9 @@ export class MainThreadComponent {
   threadContainerVisible: boolean; // Declare the property
   threadReady: boolean = false;
   threadMessage = new Message();
+  @ViewChild('scrollButton') scrollButton: ElementRef;
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
+  showScrollButton = false;
 
   constructor(
     public sharedService: SharedService,
@@ -42,7 +44,16 @@ export class MainThreadComponent {
   }
 
   scrollToBottom() {
-    this.renderer.setProperty(this.chatWrapper.nativeElement, 'scrollTop', this.chatWrapper.nativeElement.scrollHeight);
+    const container: HTMLElement = this.chatWrapper.nativeElement;
+    container.scrollTop = container.scrollHeight;
+  }
+
+  onScroll(event: any) {
+    if (event.target.offsetHeight + 50 + event.target.scrollTop >= event.target.scrollHeight) {
+      this.showScrollButton = false;
+    } else {
+      this.showScrollButton = true;
+    }
   }
 
   toggleAddDataPopup(): void {

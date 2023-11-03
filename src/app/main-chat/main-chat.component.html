@@ -15,7 +15,7 @@
         </div>
     </mat-toolbar>
 
-    <div class="chat-wrapper" #chatWrapper>
+    <div class="chat-wrapper" #chatWrapper (scroll)="onScroll($event)">
        
             <div class="chat-divider-top"></div>
         <div *ngFor="let message of channelMessagesFromDB" class="message-container cursor">
@@ -32,12 +32,12 @@
                         <p>{{message.from}}</p> <span class="message-time">{{message.calculatedTime}}</span>
                     </div>
 
-                    <div class="info-row-react">
+                    <!-- <div class="info-row-react">
                         <i class="material-icons checkmark">check_circle</i>
                         <i class="material-icons handshake">handshake</i>
                         <i class="material-icons">add_reaction</i>
                         <i (click)="toggleThread(message.id)" class="material-icons">text_snippet</i>
-                    </div>
+                    </div> -->
 
                 </div>
 
@@ -107,8 +107,8 @@
 
     </div>
 
-    <div class="scroll-to-bottom-container">
-        <button #scrollButton (click)="scrollToBottom()">Scroll to bottom</button>
+    <div *ngIf="showScrollButton" class="scroll-to-bottom-container">
+        <button *ngIf="showScrollButton" #scrollButton (click)="scrollToBottom()">Scroll to bottom</button>
     </div>
 
     <section class="input-container">

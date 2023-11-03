@@ -8,7 +8,7 @@
     <i class="material-icons cursor close-button" (click)="closeThread()">close</i>
   </mat-toolbar>
 
-  <div #chatWrapper class="message-thread-container">
+  <div #chatWrapper (scroll)="onScroll($event)" class="message-thread-container">
     <!-- Chat Divider Top -->
     <div class="chat-divider-top"></div>
 
@@ -95,9 +95,9 @@
 
     <!-- Input Container (Same structure as in the main) -->
 
-    <!-- <div class="scroll-to-bottom-container">
-      <button #scrollButton (click)="scrollToBottom()">Scroll to bottom</button>
-  </div> -->
+    <div *ngIf="showScrollButton" class="scroll-to-bottom-container">
+      <button *ngIf="showScrollButton" #scrollButton (click)="scrollToBottom()">Scroll to bottom</button>
+    </div> 
 
     <section class="input-container">
       <textarea [(ngModel)]="copiedText" placeholder="Nachricht an #Antwort"></textarea>

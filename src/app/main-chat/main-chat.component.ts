@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, OnInit, ViewChild, AfterViewChecked, Renderer2 } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, AfterViewInit, Output, OnInit, ViewChild, AfterViewChecked, Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.component';
 import { GroupMemberComponent } from '../group-member/group-member.component';
@@ -31,10 +31,8 @@ export class MainChatComponent implements OnInit {
   message = new Message();
   threadMessage = new Message();
   threadOpen = false;
-
   unsubThread;
-
-
+  showScrollButton = false;
   @ViewChild('scrollButton') scrollButton: ElementRef;
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
   @Output() threadClosed = new EventEmitter<void>();
@@ -62,7 +60,16 @@ export class MainChatComponent implements OnInit {
   }
 
   scrollToBottom() {
-    this.renderer.setProperty(this.chatWrapper.nativeElement, 'scrollTop', this.chatWrapper.nativeElement.scrollHeight);
+    const container: HTMLElement = this.chatWrapper.nativeElement;
+    container.scrollTop = container.scrollHeight;
+  }
+
+  onScroll(event: any) {
+    if (event.target.offsetHeight + 50 + event.target.scrollTop >= event.target.scrollHeight) {
+      this.showScrollButton = false;
+    } else {
+      this.showScrollButton = true;
+    }
   }
 
   /**
@@ -179,8 +186,6 @@ export class MainChatComponent implements OnInit {
     } else {
       this.createSubscribeThreadMessages(messageID);
     }
-    
-    
     this.threadClosed.emit();
     this.threadOpen = !this.threadOpen;
   }
@@ -242,6 +247,7 @@ export class MainChatComponent implements OnInit {
     const threadSubcollection = await addDoc(collection(messageRef, `thread`),
       this.message.toJSON()
     );
+    this.scrollToBottom();
   }
 
   /**

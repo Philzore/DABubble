@@ -108,6 +108,8 @@ $purple: #535af1;
 
       /* Chat Start*/
       .chat-wrapper {
+
+        scroll-behavior: smooth;
         max-height: calc(100% - 210px); 
         overflow-y: scroll;
 
