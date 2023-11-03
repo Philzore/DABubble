@@ -4,7 +4,7 @@ import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.co
 import { GroupMemberComponent } from '../group-member/group-member.component';
 import { GroupAddMemberComponent } from '../group-add-member/group-add-member.component';
 import { SharedService } from '../services/shared.service';
-import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc, where, getDoc } from '@angular/fire/firestore';
 import { ChannelInfo } from '../models/channel-info.class';
 import { Message } from '../models/message.class';
 import { UserDataService } from '../services/user-data.service';
@@ -23,6 +23,7 @@ export class MainChatComponent implements OnInit {
   showPersonPopup: boolean = false;
   channelsFromDataBase = [];
   usersFromDatabase = [];
+  usersFromChannels = [];
   userData = [];
   filteredChannels = [];
   channelMessagesFromDB = [];
@@ -56,6 +57,7 @@ export class MainChatComponent implements OnInit {
       console.log('Änderungen :', value);
       await this.getChannelsFromDataBase(value);
       await this.createSubscribeChannelMessages();
+      await this.getUsersFromChannel();
     });
   }
 
@@ -147,7 +149,6 @@ export class MainChatComponent implements OnInit {
     this.filteredChannels = [];
     const channelRef = collection(this.firestore, 'channels');
     const filteredChannels = query(channelRef, where('name', "==", name))
-
     const querySnapshot = await getDocs(filteredChannels);
     querySnapshot.forEach((doc) => {
       this.filteredChannels.push(doc.data(), doc.id);
@@ -156,18 +157,29 @@ export class MainChatComponent implements OnInit {
     this.templateIsReady = true;
   }
 
-  //Uncomment from Phil
+  // function to get the user from a channel to display when clicking on @ in input field to tag somebody in the group
+  async getUsersFromChannel() {
+    let channelId = this.filteredChannels[1];
+    this.usersFromChannels = [];
+    const querySnapshotChannel = await getDocs(collection(this.firestore, `channels/${channelId}`));
+    // const quuerySnapshotChannelMember = await getDoc(querySnapshotChannel);
+    // console.log('console log the query snapshot to look for the user of a channel', querySnapshotUsers);
+    querySnapshotChannel.forEach((doc) => {
+      this.usersFromChannels.push(doc.data());
+      console.log(this.usersFromChannels);
+    })
+  }
+
+
   // async getUsersFromDatabase() {
   //   this.usersFromDatabase = [];
   //   const querySnapshotUsers = await getDocs(collection(this.firestore, 'users'));
   //   querySnapshotUsers.forEach((doc) => {
   //     this.usersFromDatabase.push(doc.data());
-  //     // console.log(this.usersFromDatabase);
   //   });
   // }
 
-
-
+  
   // createSubscribeUsers() {
   //   const unsubUsers = onSnapshot(collection(this.firestore, 'users'), async (doc) => {
   //     await this.getUsersFromDatabase();

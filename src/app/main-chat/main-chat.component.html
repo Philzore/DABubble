@@ -32,12 +32,12 @@
                         <p>{{message.from}}</p> <span class="message-time">{{message.calculatedTime}}</span>
                     </div>
 
-                    <!-- <div class="info-row-react">
+                    <div class="info-row-react">
                         <i class="material-icons checkmark">check_circle</i>
                         <i class="material-icons handshake">handshake</i>
                         <i class="material-icons">add_reaction</i>
                         <i (click)="toggleThread(message.id)" class="material-icons">text_snippet</i>
-                    </div> -->
+                    </div>
 
                 </div>
 
@@ -109,6 +109,7 @@
 
     <div *ngIf="showScrollButton" class="scroll-to-bottom-container">
         <button *ngIf="showScrollButton" #scrollButton (click)="scrollToBottom()">Scroll to bottom</button>
+        <!-- <i class="material-icons">keyboard_arrow_down</i> -->
     </div>
 
     <section class="input-container">
@@ -129,30 +130,13 @@
                 </div>
                 <div *ngIf="showPersonPopup" class="person-popup">
 
-                    <div class="member-popup scrollbar">
+                    <div class="member-popup scrollbar" *ngFor="let user of usersFromChannels">
 
-
                         <div class="chat-member-row">
-                            <img src="./assets/characters/character_1.png" alt="">
-                            <!-- <p (click)="copyText(copyText('@' + name))">{{ '@' + name }} </p> -->
+                            <img [src]="user.profilePicture">
+                            <p>{{ user.username }}</p>
                         </div>
-                        <div class="chat-member-row">
-                            <img src="./assets/characters/character_1.png" alt="">
-                            <!-- <p (click)="copyText(copyText('@' + name))">{{ '@' + name }} </p> -->
-                        </div>
-                        <div class="chat-member-row">
-                            <img src="./assets/characters/character_1.png" alt="">
-                            <!-- <p (click)="copyText(copyText('@' + name))">{{ '@' + name }} </p> -->
-                        </div>
-                        <div class="chat-member-row">
-                            <img src="./assets/characters/character_1.png" alt="">
-                            <!-- <p (click)="copyText(copyText('@' + name))">{{ '@' + name }} </p> -->
-                        </div>
-                        <div class="chat-member-row">
-                            <img src="./assets/characters/character_1.png" alt="">
-                            <p #personParagraph>Person 2</p>
-                        </div>
-
+                    
                     </div>
 
                 </div>
