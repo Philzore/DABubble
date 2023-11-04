@@ -9,39 +9,45 @@
 <div class="content">
 
     <div class="register-container">
-        <div class="back-icon-container" routerLink="">
-            <img class="back-icon" src="assets/icons/arrow_back.png" alt="image of arrow-left icon">
-        </div>
-        
-    
+
         <div class="register-headline-container">
+            <img class="back-icon" src="assets/icons/arrow_back.png" alt="image of arrow-left icon" routerLink="">
             <span class="register-headline">Konto erstellen</span>
-            <span class="register-notice">Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto</span>
         </div>
 
-        
+        <div class="register-notice-container">
+            <span class="register-notice">Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues
+                DABubble-Konto</span>
+        </div>
+
+
+
         <div class="inputfield-container">
             <img src="assets/icons/person-icon.png" alt="image of person icon" class="inputfield-image">
-            <input type="text" class="inputfield" placeholder="Name und Nachname" [(ngModel)]="name" name="name" [formControl]="nameFormControl">
+            <input type="text" class="inputfield" placeholder="Name und Nachname" [(ngModel)]="name" name="name"
+                [formControl]="nameFormControl">
             <mat-error *ngIf="nameFormControl.invalid">{{getNameErrorMessage()}}</mat-error>
         </div>
 
         <div class="inputfield-container">
             <img src="assets/icons/email-icon.png" alt="image of mail icon" class="inputfield-image">
-            <input type="text" class="inputfield" placeholder="beispielname@email.com" [(ngModel)]="email" name="email" [formControl]="emailFormControl">
+            <input type="text" class="inputfield" placeholder="beispielname@email.com" [(ngModel)]="email" name="email"
+                [formControl]="emailFormControl">
             <mat-error *ngIf="emailFormControl.invalid">{{getEmailErrorMessage()}}</mat-error>
         </div>
 
         <div class="inputfield-container">
             <img src="assets/icons/password-icon.png" alt="image of password icon" class="inputfield-image">
-            <input type="password" class="inputfield" placeholder="Passwort" [(ngModel)]="password" name="password" [formControl]="passwordFormControl">
+            <input type="password" class="inputfield" placeholder="Passwort" [(ngModel)]="password" name="password"
+                [formControl]="passwordFormControl">
             <mat-error *ngIf="passwordFormControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
         </div>
 
         <div class="accept-data-protection-container">
             <label class="checkbox-container">
-                <input type="checkbox" [formControl]="privacyAcceptanceFormControl"> 
-                <span class="checkbox-sentence">Ich stimme der <span class="data-protection-word">Datenschutzerklärung</span> zu.</span>
+                <input type="checkbox" [formControl]="privacyAcceptanceFormControl">
+                <span class="checkbox-sentence">Ich stimme der <span
+                        class="data-protection-word">Datenschutzerklärung</span> zu.</span>
             </label>
             <span class="error-message" *ngIf="privacyAcceptanceFormControl.hasError('required')">
                 *Bitte akzeptieren Sie die Datenschutzerklärung, um fortzufahren.
@@ -50,10 +56,11 @@
 
         <div class="button-container">
             <div class="next-button-container">
-                <button class="next-button" (click)="saveDataForNextPage()" [disabled]="!canSaveDataForNextPage()">Weiter</button>
+                <button class="next-button" (click)="saveDataForNextPage()"
+                    [disabled]="!canSaveDataForNextPage()">Weiter</button>
             </div>
         </div>
- 
+
 
     </div>
 

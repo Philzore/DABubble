@@ -2,10 +2,7 @@
 .header {
     display: flex;
     align-items: center;
-    margin-top: 75px;
-    margin-left: 75px;
-    margin-right: 75px;
-    margin-bottom: 75px;
+    margin: 32px;
 }
 
 
@@ -16,6 +13,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    gap: 64px;
 }
 
 // --------------------- REGISTER CONTAINER ------------------- // 
@@ -40,20 +38,11 @@
 
 //------------------ BACK ARROW ICON ------------------- //
 
-.back-icon-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    height: 40px;
-    width: 40px;
-
-    position: absolute;
-    top: 27px;
-    left: 32px;
-
+.back-icon{
+    padding: 8px;
     transition: 0.2s;
-
+    object-fit: cover;
+    margin-right: 8px;
     &:hover {
         background-color: #ECEEFE;
         border-radius: 50px;
@@ -65,22 +54,23 @@
 
 .register-headline-container {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    gap: 43px;
+    justify-content: center;
     width: 100%;
 
     .register-headline {
         color: #444DF2;
-        font-size: 46px;
+        font-size: 40px;
         font-weight: 700;
     }
+}
 
-    .register-notice {
-        font-size: 20px;
+
+.register-notice-container {
+    text-align: center;
+    .register-notice{
+        font-size: 18px;
         font-weight: 400;
-        text-align: center;
         line-height: 24px;
     }
 }
@@ -123,6 +113,7 @@
     justify-content: left;
     flex-direction: column;
     width: 100%;
+    gap: 8px;
 }
 
 .checkbox-container {
@@ -147,7 +138,7 @@
 }
 
 .data-protection-word {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     color: #797EF3;
 }
@@ -189,11 +180,6 @@
 .impressum-datenschutz {
     display: flex;
     justify-content: space-evenly;
-    position: absolute;
-    bottom: 48px;
-
-    width: 270px;
-    height: 42px;
     gap: 16px;
 
     .impressum {
@@ -223,6 +209,7 @@
 
 .error-message {
     color: red;
+    font-size: 16px !important;
 }
 
 //-------------RESPONSIVE-------------//
@@ -232,12 +219,30 @@
         justify-content: center;
     }
 
+    .register-container{
+        gap: 16px !important;
+        padding: 24px !important;
+    }
+
+    .register-headline-container{
+        gap: 16px !important;
+    }
+
     .register-headline {
-        font-size: 32px !important;
+        font-size: 24px !important;
     }
 
     .register-notice {
-        font-size: 18px !important;
+        font-size: 16px !important;
+        line-height: unset !important;
+    }
+
+    .inputfield{
+        font-size: 16px !important;
+    }
+
+    .next-button{
+        font-size: 16px !important;
     }
 
     .register-container {
@@ -245,8 +250,13 @@
         gap: 24px !important;
     }
 
-    .back-icon-container {
-        display: none;
+ 
+
+    .impressum{
+        font-size: 16px !important;
+    }
+    .datenschutz{
+        font-size: 16px !important;
     }
 }
 
