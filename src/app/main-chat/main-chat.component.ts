@@ -157,18 +157,7 @@ export class MainChatComponent implements OnInit {
     this.templateIsReady = true;
   }
 
-  // function to get the user from a channel to display when clicking on @ in input field to tag somebody in the group
-  async getUsersFromChannel() {
-    let channelId = this.filteredChannels[1];
-    this.usersFromChannels = [];
-    const querySnapshotChannel = await getDocs(collection(this.firestore, `channels/${channelId}`));
-    // const quuerySnapshotChannelMember = await getDoc(querySnapshotChannel);
-    // console.log('console log the query snapshot to look for the user of a channel', querySnapshotUsers);
-    querySnapshotChannel.forEach((doc) => {
-      this.usersFromChannels.push(doc.data());
-      console.log(this.usersFromChannels);
-    })
-  }
+ 
 
 
   // async getUsersFromDatabase() {
@@ -260,6 +249,17 @@ export class MainChatComponent implements OnInit {
       this.message.toJSON()
     );
     this.scrollToBottom();
+  }
+
+   // function to get the user from a channel to display when clicking on @ in input field to tag somebody in the group
+   async getUsersFromChannel() {
+    let channelId = this.filteredChannels[1];
+    this.usersFromChannels = [];
+    const querySnapshotChannel = await getDocs(collection(this.firestore, `channels/${channelId}`));
+    querySnapshotChannel.forEach((doc) => {
+      this.usersFromChannels.push(doc.data());
+      console.log(this.usersFromChannels);
+    })
   }
 
   /**

@@ -1,5 +1,5 @@
-$main-purple: #eceefe;
 $purple: #535af1;
+$main-purple: #eceefe;
 
 .checkmark  {
   color: rgb(84, 216, 84);
@@ -45,7 +45,8 @@ $purple: #535af1;
         justify-content: space-between;
         align-items: center;
         background-color: white;
-        border-radius: 30px !important;
+        border-radius: 30px 30px 0 0 !important;
+        box-shadow: 0 6px 6px -2px #00000014;
 
         .chat-header-left {
           display: flex;
@@ -68,6 +69,21 @@ $purple: #535af1;
           display: flex;
           justify-content: space-between;
           align-items: center;
+
+          .chat-members-images {
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            border-radius: 15px;
+
+
+            &:hover {
+              background-color: $main-purple;
+              padding: 5px;
+              color:#98a3f4;
+            }
+
+          }
       
       
           & > * {
@@ -78,11 +94,7 @@ $purple: #535af1;
               margin: 0 0 0 15px;
             }
       
-            &:hover {
-              background-color: $main-purple;
-              padding: 5px;
-              color:#98a3f4;
-            }
+            
       
             img {
               height: 30px;
@@ -111,6 +123,24 @@ $purple: #535af1;
         max-height: calc(100% - 210px); 
         overflow-y: scroll;
 
+        .chat-beginning-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 30px;
+          text-align: center;
+
+
+          h2 {
+            margin: 0;
+          }
+
+          p {
+            font-size: 16px;
+          }
+
+        }
+
         .chat-divider-top {
 
           text-align: center;
@@ -128,8 +158,7 @@ $purple: #535af1;
           .message-container {
           display: flex;
           align-items: center;
-          padding:10px 20px;
-          margin: 20px 0;
+          padding:10px 30px;
           position: relative;
           &:hover {
             background-color: $main-purple;
@@ -142,6 +171,7 @@ $purple: #535af1;
             }
             .info-row-react {
               opacity: 1 !important;
+              right: 50px !important;
             }
 
           }
@@ -189,24 +219,26 @@ $purple: #535af1;
 
               .info-row-name {
                 display: flex;
+                align-items: center;
+
+                p {
+                  font-weight: 600;
+                }
+
               }
 
 
               .info-row-react {
-                transition: 125ms ease-in-out;
+                transition: 225ms ease-in-out;
                 opacity: 0;
                 position: absolute;
-                right: 50px;
+                right: 30px;
                 top: -15px;
                 border-radius: 30px 30px 0 30px;
                 border: 1px solid #adb0d9;
                 padding: 5px 15px;
                 background: #fff;
-
               
-                &:hover {
-                  opacity: 1;
-                }
 
                 .material-icons {
                   margin-right: 15px;
@@ -227,8 +259,8 @@ $purple: #535af1;
 
 
               p {
-                font-size: 14px;
-                font-weight: 700;  
+                font-size: 18px;
+                font-weight: 900;  
                 margin: 0;
               }
             }
@@ -258,7 +290,7 @@ $purple: #535af1;
             }
 
             .message-time {
-              color: lightgray;
+              opacity: .8;
               font-size: 12px;
               margin: 0 0 0 15px;
             }
