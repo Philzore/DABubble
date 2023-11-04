@@ -256,6 +256,7 @@ export class MainChatComponent implements OnInit {
     let channelId = this.filteredChannels[1];
     this.usersFromChannels = [];
     const querySnapshotChannel = await getDocs(collection(this.firestore, `channels/${channelId}`));
+    
     querySnapshotChannel.forEach((doc) => {
       this.usersFromChannels.push(doc.data());
       console.log(this.usersFromChannels);
