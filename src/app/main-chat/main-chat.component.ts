@@ -58,6 +58,7 @@ export class MainChatComponent implements OnInit {
       await this.getChannelsFromDataBase(value);
       await this.createSubscribeChannelMessages();
       await this.getUsersFromChannel();
+      this.templateIsReady = true ;
     });
   }
 
@@ -154,7 +155,7 @@ export class MainChatComponent implements OnInit {
       this.filteredChannels.push(doc.data(), doc.id);
       console.log(this.filteredChannels);
     });
-    this.templateIsReady = true;
+    // this.templateIsReady = true;
   }
 
  
@@ -225,6 +226,7 @@ export class MainChatComponent implements OnInit {
    */
   async messageSend() {
     this.message.from = this.userDataService.currentUser['name'];
+    this.message.profileImg = this.userDataService.currentUser['imgNr'];
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();

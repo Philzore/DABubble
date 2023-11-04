@@ -75,6 +75,7 @@ export class MainThreadComponent {
 
   async sendThreadMessage() {
     this.threadMessage.from = this.userDataService.currentUser['name'];
+    this.threadMessage.profileImg = this.userDataService.currentUser['imgNr'];
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
