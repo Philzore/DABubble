@@ -4,10 +4,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 75px;
-    margin-left: 75px;
-    margin-right: 75px;
-    margin-bottom: 75px;
+    margin: 35px;
 
     .register-container {
         display: flex;
@@ -41,6 +38,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    gap: 64px;
 }
 
 .login-container {
@@ -73,7 +71,7 @@
 
     .login-headline {
         color: #444DF2;
-        font-size: 46px;
+        font-size: 40px;
         font-weight: 700;
     }
 
@@ -153,7 +151,7 @@
     align-items: center;
 
     .other {
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 400;
         line-height: 24.55px;
         padding: 5px 15px;
@@ -255,15 +253,11 @@
 
 
 // ------------------ IMPRESSUM UND DATENSCHUTZ --------------- // 
-
 .impressum-datenschutz {
     display: flex;
-    justify-content: space-evenly;
-    position: absolute;
-    bottom: 35px;
+    align-items: center;
+    justify-content: center;
 
-    width: 270px;
-    height: 42px;
     gap: 16px;
 
     .impressum {
@@ -289,65 +283,12 @@
     }
 }
 
+
 // --------------- ERROR MESSAGE ---------------- // 
 
 .error-message {
     color: red;
     text-align: center;
-}
-
-
-//-------------RESPONSIVE-------------//
-@media (max-width: 600px) {
-
-    .login-container {
-        padding: 40px !important;
-        gap: 24px !important;
-    }
-
-    .or-container {
-
-        img {
-            width: 103px;
-        }
-    }
-
-    .login-container-header {
-        height: 126px;
-    }
-
-    .register-container {
-        display: none !important;
-    }
-
-    .mobile-register-container {
-        display: flex !important;
-        margin-top: 5vh;
-    }
-
-    .header {
-        justify-content: center;
-    }
-
-    .login-headline {
-        font-size: 32px !important;
-    }
-
-    .recommendation {
-        font-size: 18px !important;
-    }
-
-    .button-container {
-        width: 280px;
-    }
-
-    .login-button {
-        padding: 12px 20px !important;
-    }
-
-    .guest-login-button {
-        padding: 12px 13px !important;
-    }
 }
 
 //------- MOBILE REGISTER CONTAINER-------//
@@ -376,6 +317,89 @@
     }
 
 }
+
+
+//-------------RESPONSIVE-------------//
+@media (max-width: 600px) {
+
+    .login-container {
+        padding: 24px !important;
+        gap: 16px !important;
+    }
+
+    .or-container {
+        img {
+            width: 103px;
+        }
+    }
+
+    .register-container {
+        display: none !important;
+    }
+
+    .mobile-register-container {
+        display: flex !important;
+    }
+
+    .header {
+        justify-content: center;
+    }
+
+    .login-headline {
+        font-size: 24px !important;
+    }
+
+    .recommendation {
+        font-size: 16px !important;
+    }
+
+    .inputfield{
+        font-size: 16px !important;
+    }
+
+    .forgot-password{
+        font-size: 16px !important;
+    }
+
+    .other{
+        font-size: 16px !important;
+    }
+
+    .google-login{
+        font-size: 16px !important;
+    }
+
+    .button-container {
+        width: 280px;
+    }
+
+    .login-button {
+        font-size: 16px !important;
+        padding: 12px 20px !important;
+    }
+
+    .guest-login-button {
+        font-size: 16px !important;
+        padding: 12px 13px !important;
+    }
+
+    .question{
+        font-size: 16px !important;
+    }
+
+    .register-link{
+        font-size: 16px !important;
+    }
+
+    .impressum{
+        font-size: 16px !important;
+    }
+    .datenschutz{
+        font-size: 16px !important;
+    }
+}
+
+
 
 @media (max-width: 440px) {
     .login-container {
