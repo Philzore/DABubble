@@ -449,10 +449,13 @@ $main-purple: #eceefe;
 
           .input-send-right {
 
+            button {
+              border: none;
+              background: transparent;
+            }
+
             .material-icons {
               color: $purple;
-
-
 
               &:hover {
                 opacity: .7;
