@@ -18,13 +18,8 @@
     <div class="chat-wrapper" #chatWrapper (scroll)="onScroll($event)">
        
 
-<<<<<<< HEAD
-        <div *ngIf="templateIsReady" class="chat-beginning-container" >
-            <h2>Dies ist der Anfang von Channel #{{ this.filteredChannels[0].name }}</h2>
-=======
         <div class="chat-beginning-container" >
             <h2>Dies ist der Anfang vom Channel #{{ this.filteredChannels[0].name }}</h2>
->>>>>>> 0fc6d33 (last changes)
             <p>{{ this.filteredChannels[0].description }}</p>
         </div>
 
@@ -141,7 +136,6 @@
                 <div *ngIf="showPersonPopup" class="person-popup">
 
                     <div class="member-popup scrollbar">
-
                         <div class="chat-member-row">
                             <p>{{ this.filteredChannels[0].members }}</p>
                         </div>
