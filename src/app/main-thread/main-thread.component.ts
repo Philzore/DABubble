@@ -23,6 +23,8 @@ export class MainThreadComponent {
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
   showScrollButton = false;
 
+  @Output() unsubThreadEvent = new EventEmitter<any>();
+
   constructor(
     public sharedService: SharedService,
     private userDataService: UserDataService,
@@ -31,7 +33,7 @@ export class MainThreadComponent {
     private renderer: Renderer2
   ) { }
 
-  @Output() threadClosed = new EventEmitter<void>();
+  // @Output() threadClosed = new EventEmitter<void>();
 
   ngOnInit() {
     this.sharedService.threadContainerVisibility$.subscribe(
@@ -71,12 +73,16 @@ export class MainThreadComponent {
   }
 
   closeThread() {
-    this.threadClosed.emit();
+    // this.mainChat.unsubThreadMessages();
+    // this.threadClosed.emit();
+    // this.mainChat.toggleThread();
+    this.unsubThreadEvent.emit();
+    console.log('threadOpen Status :', this.mainChat.threadOpen);
   }
 
   async sendThreadMessage() {
     this.threadMessage.from = this.userDataService.currentUser['name'];
-    
+
     if (this.threadMessage.from == 'Gast') {
       this.threadMessage.profileImg = `./assets/characters/default_character.png`;
     } else {
@@ -98,6 +104,6 @@ export class MainThreadComponent {
     this.copiedText = '';
   }
 
-  
+
 
 }

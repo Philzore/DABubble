@@ -16,6 +16,7 @@ export class SharedService {
 
   currentThreadContent = [] ;
   threadPath : string = '' ;
+  
 
   constructor(private firestore: Firestore) {
     // Initialize your service here if needed.

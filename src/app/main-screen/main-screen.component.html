@@ -2,8 +2,8 @@
 
 <section class="chat-section">
     <app-sidebar ></app-sidebar>
-    <app-main-chat (threadClosed)="hideThreadContainer()" ></app-main-chat>
-    <app-main-thread *ngIf="!hideThread" (threadClosed)="hideThreadContainer()"></app-main-thread>
+    <app-main-chat [threadToogleFromOutside]="OutputToogleThread"  (threadClosed)="hideThreadContainer()" ></app-main-chat>
+    <app-main-thread *ngIf="!hideThread" (unsubThreadEvent)="toogleThread()" (threadClosed)="hideThreadContainer()"></app-main-thread>
 </section>
 
 

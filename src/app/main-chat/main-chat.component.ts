@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, AfterViewInit, Output, OnInit, ViewChild, AfterViewChecked, Renderer2 } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, AfterViewInit, Output, OnInit, ViewChild, AfterViewChecked, Renderer2, OnChanges,SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.component';
 import { GroupMemberComponent } from '../group-member/group-member.component';
@@ -15,7 +15,7 @@ import { UserDataService } from '../services/user-data.service';
   templateUrl: './main-chat.component.html',
   styleUrls: ['./main-chat.component.scss']
 })
-export class MainChatComponent implements OnInit {
+export class MainChatComponent implements OnInit , OnChanges {
   copiedText: string = '';
   isSidebarOpen: boolean = true;
   showAddDataPopup: boolean = false;
@@ -35,8 +35,13 @@ export class MainChatComponent implements OnInit {
   unsubThread;
   showScrollButton = false;
   isSendingMessage = false;
+
+  runtime = false ;
+
   @ViewChild('scrollButton') scrollButton: ElementRef;
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
+
+  @Input() threadToogleFromOutside:boolean ;
   @Output() threadClosed = new EventEmitter<void>();
 
   constructor(
@@ -61,6 +66,14 @@ export class MainChatComponent implements OnInit {
       await this.getUsersFromChannel();
     });
     
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['threadToogleFromOutside'] && this.runtime) {
+      console.log('Change');
+      this.toggleThread();
+    }
+    this.runtime = true ;
   }
 
   scrollToBottom() {
@@ -164,19 +177,23 @@ export class MainChatComponent implements OnInit {
    * 
    * @param messageID {string} - id form the clicked message
    */
-  toggleThread(messageID: string) {
-    console.log('Thrad status:', this.threadOpen);
+  toggleThread(messageID?: string) {
+    console.log('Thrad status Anfang:', this.threadOpen);
+    
     if (this.threadOpen) {
+      console.log('Unsub');
       this.unsubThread(); 
     } else {
       this.createSubscribeThreadMessages(messageID);
     }
     this.threadClosed.emit();
     this.threadOpen = !this.threadOpen;
+    console.log('Thrad status Ende:', this.threadOpen);
   }
 
   unsubThreadMessages() {
     this.unsubThread(); 
+    console.log('Unsub');
   }
 
   /**
@@ -186,7 +203,7 @@ export class MainChatComponent implements OnInit {
    */
   async createSubscribeThreadMessages(messageID) {
       let channelId = this.filteredChannels[1];
-      console.log('Aktuelle Message ID : ', messageID);
+      // console.log('Aktuelle Message ID : ', messageID);
       //load right thread from firestore
        this.unsubThread = onSnapshot(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`), async (doc) => { 
         console.log('Thread with id :', messageID, 'updating');
@@ -238,7 +255,7 @@ export class MainChatComponent implements OnInit {
     });
     //create thread subcollection
     const messageRef = doc(this.firestore, `channels/${channelId}/messages`, subcollectionMessages.id);
-    console.log(messageRef.id);
+    // console.log(messageRef.id);
     const threadSubcollection = await addDoc(collection(messageRef, `thread`),
       this.message.toJSON()
     );
@@ -270,7 +287,7 @@ export class MainChatComponent implements OnInit {
     const querySnapshotMessages = await getDocs(collection(this.firestore, `channels/${channelId}/messages`));
     querySnapshotMessages.forEach((doc) => {
       this.channelMessagesFromDB.push(new Message(doc.data()));
-      console.log(doc.data());
+      // console.log(doc.data());
     });
     console.log('Founded Messages :', this.channelMessagesFromDB);
     this.sortMessagesTime(this.channelMessagesFromDB);
@@ -304,8 +321,8 @@ export class MainChatComponent implements OnInit {
     const querySnapshotThread = await getDocs(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`));
     querySnapshotThread.forEach((doc) => {
       this.sharedService.currentThreadContent.push(new Message(doc.data()));
-      console.log('Thread Data:', doc.data());
-      console.log(this.sharedService.currentThreadContent);
+      // console.log('Thread Data:', doc.data());
+      // console.log(this.sharedService.currentThreadContent);
     });
     //set path in sharedService
     this.sharedService.threadPath = '';
