@@ -18,8 +18,13 @@
     <div class="chat-wrapper" #chatWrapper (scroll)="onScroll($event)">
        
 
+<<<<<<< HEAD
         <div *ngIf="templateIsReady" class="chat-beginning-container" >
             <h2>Dies ist der Anfang von Channel #{{ this.filteredChannels[0].name }}</h2>
+=======
+        <div class="chat-beginning-container" >
+            <h2>Dies ist der Anfang vom Channel #{{ this.filteredChannels[0].name }}</h2>
+>>>>>>> 0fc6d33 (last changes)
             <p>{{ this.filteredChannels[0].description }}</p>
         </div>
 
@@ -119,8 +124,7 @@
     </div>
 
     <section class="input-container">
-
-        <textarea  [(ngModel)]="copiedText" placeholder="Nachricht an #Channelname"></textarea>
+        <textarea [(ngModel)]="copiedText" placeholder="Nachricht an #Channelname"></textarea>
         <div class="input-send">
             <div class="input-send-left">
                 <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
@@ -148,7 +152,9 @@
             </div>
 
             <div class="input-send-right">
-                <i class="material-icons" (click)="messageSend()" >send</i>
+                <button (click)="messageSend()" [disabled]="isSendingMessage">
+                    <i class="material-icons">send</i>
+                </button>
             </div>
         </div>
     </section>

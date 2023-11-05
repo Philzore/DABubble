@@ -34,6 +34,7 @@ export class MainChatComponent implements OnInit {
   threadOpen = false;
   unsubThread;
   showScrollButton = false;
+  isSendingMessage = false;
   @ViewChild('scrollButton') scrollButton: ElementRef;
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
   @Output() threadClosed = new EventEmitter<void>();
@@ -225,6 +226,7 @@ export class MainChatComponent implements OnInit {
    * 
    */
   async messageSend() {
+    this.isSendingMessage = true;
     this.message.from = this.userDataService.currentUser['name'];
     this.message.profileImg = this.userDataService.currentUser['imgNr'];
     let date = new Date();
@@ -250,6 +252,7 @@ export class MainChatComponent implements OnInit {
     const threadSubcollection = await addDoc(collection(messageRef, `thread`),
       this.message.toJSON()
     );
+    this.isSendingMessage = false;
     this.scrollToBottom();
   }
 
