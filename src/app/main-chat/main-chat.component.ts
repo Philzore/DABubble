@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, AfterViewInit, Output, OnInit, ViewChild, AfterViewChecked, Renderer2, OnChanges,SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, AfterViewInit, Output, OnInit, ViewChild, AfterViewChecked, Renderer2, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.component';
 import { GroupMemberComponent } from '../group-member/group-member.component';
@@ -15,7 +15,7 @@ import { UserDataService } from '../services/user-data.service';
   templateUrl: './main-chat.component.html',
   styleUrls: ['./main-chat.component.scss']
 })
-export class MainChatComponent implements OnInit , OnChanges {
+export class MainChatComponent implements OnInit, OnChanges {
   copiedText: string = '';
   isSidebarOpen: boolean = true;
   showAddDataPopup: boolean = false;
@@ -36,12 +36,12 @@ export class MainChatComponent implements OnInit , OnChanges {
   showScrollButton = false;
   isSendingMessage = false;
 
-  runtime = false ;
+  runtime = false;
 
   @ViewChild('scrollButton') scrollButton: ElementRef;
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
 
-  @Input() threadToogleFromOutside:boolean ;
+  @Input() threadToogleFromOutside: boolean;
   @Output() threadClosed = new EventEmitter<void>();
 
   constructor(
@@ -65,7 +65,7 @@ export class MainChatComponent implements OnInit , OnChanges {
       await this.createSubscribeChannelMessages();
       await this.getUsersFromChannel();
     });
-    
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -73,7 +73,7 @@ export class MainChatComponent implements OnInit , OnChanges {
       console.log('Change');
       this.toggleThread();
     }
-    this.runtime = true ;
+    this.runtime = true;
   }
 
   scrollToBottom() {
@@ -179,10 +179,10 @@ export class MainChatComponent implements OnInit , OnChanges {
    */
   toggleThread(messageID?: string) {
     console.log('Thrad status Anfang:', this.threadOpen);
-    
+
     if (this.threadOpen) {
       console.log('Unsub');
-      this.unsubThread(); 
+      this.unsubThread();
     } else {
       this.createSubscribeThreadMessages(messageID);
     }
@@ -192,7 +192,7 @@ export class MainChatComponent implements OnInit , OnChanges {
   }
 
   unsubThreadMessages() {
-    this.unsubThread(); 
+    this.unsubThread();
     console.log('Unsub');
   }
 
@@ -202,13 +202,13 @@ export class MainChatComponent implements OnInit , OnChanges {
    * @param messageID {string} - id form the clicked message
    */
   async createSubscribeThreadMessages(messageID) {
-      let channelId = this.filteredChannels[1];
-      // console.log('Aktuelle Message ID : ', messageID);
-      //load right thread from firestore
-       this.unsubThread = onSnapshot(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`), async (doc) => { 
-        console.log('Thread with id :', messageID, 'updating');
-        await this.getThreadMessagesFromSingleMessage(messageID);
-      });
+    let channelId = this.filteredChannels[1];
+    // console.log('Aktuelle Message ID : ', messageID);
+    //load right thread from firestore
+    this.unsubThread = onSnapshot(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`), async (doc) => {
+      console.log('Thread with id :', messageID, 'updating');
+      await this.getThreadMessagesFromSingleMessage(messageID);
+    });
   }
 
   /**
@@ -229,51 +229,53 @@ export class MainChatComponent implements OnInit , OnChanges {
    * 
    */
   async messageSend() {
-    this.isSendingMessage = true;
-    this.message.from = this.userDataService.currentUser['name'];
-    if (this.message.from == 'Gast') {
-      this.message.profileImg = `./assets/characters/default_character.png`;
-    } else {
-      this.message.profileImg = `./assets/characters/character_${this.userDataService.currentUser['imgNr']}.png` ;
+    if (this.copiedText.length >= 1) {
+      this.isSendingMessage = true;
+      this.message.from = this.userDataService.currentUser['name'];
+      if (this.message.from == 'Gast') {
+        this.message.profileImg = `./assets/characters/default_character.png`;
+      } else {
+        this.message.profileImg = `./assets/characters/character_${this.userDataService.currentUser['imgNr']}.png`;
+      }
+      let date = new Date();
+      let hours = date.getHours();
+      let minutes = date.getMinutes();
+      const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+      this.message.calculatedTime = formattedTime;
+      this.message.time = date;
+      this.message.text = this.copiedText;
+      this.copiedText = '';
+      //add subcollection
+      let channelId = this.filteredChannels[1];
+      const singleRef = doc(this.firestore, 'channels', channelId);
+      const subcollectionMessages = await addDoc(collection(singleRef, 'messages'),
+        this.message.toJSON()
+      );
+      await updateDoc(doc(this.firestore, `channels/${channelId}/messages`, subcollectionMessages.id), {
+        id: subcollectionMessages.id,
+      });
+      //create thread subcollection
+      const messageRef = doc(this.firestore, `channels/${channelId}/messages`, subcollectionMessages.id);
+      // console.log(messageRef.id);
+      const threadSubcollection = await addDoc(collection(messageRef, `thread`),
+        this.message.toJSON()
+      );
+      this.isSendingMessage = false;
+      this.scrollToBottom();
     }
-    let date = new Date();
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-    this.message.calculatedTime = formattedTime;
-    this.message.time = date;
-    this.message.text = this.copiedText;
-    this.copiedText = '';
-    //add subcollection
-    let channelId = this.filteredChannels[1];
-    const singleRef = doc(this.firestore, 'channels', channelId);
-    const subcollectionMessages = await addDoc(collection(singleRef, 'messages'),
-      this.message.toJSON()
-    );
-    await updateDoc(doc(this.firestore, `channels/${channelId}/messages`, subcollectionMessages.id), {
-      id: subcollectionMessages.id,
-    });
-    //create thread subcollection
-    const messageRef = doc(this.firestore, `channels/${channelId}/messages`, subcollectionMessages.id);
-    // console.log(messageRef.id);
-    const threadSubcollection = await addDoc(collection(messageRef, `thread`),
-      this.message.toJSON()
-    );
-    this.isSendingMessage = false;
-    this.scrollToBottom();
   }
 
-   // function to get the user from a channel to display when clicking on @ in input field to tag somebody in the group
-   async getUsersFromChannel() {
+  // function to get the user from a channel to display when clicking on @ in input field to tag somebody in the group
+  async getUsersFromChannel() {
     let channelId = this.filteredChannels[1];
     this.usersFromChannels = [];
     const querySnapshotChannel = await getDocs(collection(this.firestore, `channels/${channelId}`));
-    
+
     querySnapshotChannel.forEach((doc) => {
       this.usersFromChannels.push(doc.data());
       console.log(this.usersFromChannels);
     })
-    
+
   }
 
   /**
@@ -292,22 +294,6 @@ export class MainChatComponent implements OnInit , OnChanges {
     console.log('Founded Messages :', this.channelMessagesFromDB);
     this.sortMessagesTime(this.channelMessagesFromDB);
   }
-
-  /**
-   * send ja message in a single thread
-   * 
-   */
-  // async sendThreadMessage() {
-  //   this.threadMessage.from = this.userDataService.currentUser['name'];
-  //   let date = new Date();
-  //   let hours = date.getHours();
-  //   let minutes = date.getMinutes();
-  //   const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-  //   this.threadMessage.calculatedTime = formattedTime ;
-  //   this.threadMessage.time = date;
-  //   this.threadMessage.text = this.copiedText;
-  //   this.copiedText = '';
-  // }
 
   /**
    * get the thread messages from a single message

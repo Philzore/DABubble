@@ -47,7 +47,18 @@ export class GroupAddMemberComponent implements OnInit{
     this.messageDropdown = !this.messageDropdown;
   }
 
-  addMember(user) {
-    console.log('geclickter User:' ,user);
+  addMember(userPosition) {
+    console.log('geclickter User:' ,userPosition);
+    console.log('geclickter User:' ,this.actMembers);
+
+    this.actAddMembers.push(this.actMembers[userPosition]);
+    this.actMembers.splice(userPosition,1);
+
+    console.log('User welche geaddet werden:' ,this.actAddMembers);
+  }
+
+  removeUser(userPosition) {
+    this.actMembers.push(this.actAddMembers[userPosition]);
+    this.actAddMembers.splice(userPosition,1);
   }
 }

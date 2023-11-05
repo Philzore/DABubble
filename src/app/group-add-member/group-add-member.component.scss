@@ -24,11 +24,23 @@ $purple: #535af1;
         padding: 0 0 20px 0;
     }
 
-    input {
-        width: 100%;
-        height: 30px;
+    .added-users {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .single-added-user {  
+        padding: 10px;
+        background-color: #535AF1;
+        color: white;
         border-radius: 30px;
-        margin-bottom: 10px;
+        transition: 0.2s;
+
+        &:hover {
+            cursor: pointer;
+            background-color: #797EF3;
+        }
     }
 
     .add-member-button-container {
@@ -37,15 +49,18 @@ $purple: #535af1;
         justify-content: end;
 
         button {
-            background-color: rgb(98, 96, 96);
+            background-color: #535AF1;
             color: #fff;
             border: none;
             padding: 10px;
             border-radius: 30px;
             border: transparent; 
+            transition: 0.2s;
+            outline: none;
 
             &:hover {
-                opacity: .8;
+                cursor: pointer;
+            background-color: #797EF3;
             }
         }
     }

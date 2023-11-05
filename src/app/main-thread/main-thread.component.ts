@@ -28,7 +28,7 @@ export class MainThreadComponent {
   constructor(
     public sharedService: SharedService,
     private userDataService: UserDataService,
-    private mainChat : MainChatComponent,
+    private mainChat: MainChatComponent,
     private firestore: Firestore,
     private renderer: Renderer2
   ) { }
@@ -73,37 +73,34 @@ export class MainThreadComponent {
   }
 
   closeThread() {
-    // this.mainChat.unsubThreadMessages();
-    // this.threadClosed.emit();
-    // this.mainChat.toggleThread();
     this.unsubThreadEvent.emit();
-    console.log('threadOpen Status :', this.mainChat.threadOpen);
   }
 
   async sendThreadMessage() {
-    this.threadMessage.from = this.userDataService.currentUser['name'];
+    if (this.copiedText.length >= 1) {
+      this.threadMessage.from = this.userDataService.currentUser['name'];
 
-    if (this.threadMessage.from == 'Gast') {
-      this.threadMessage.profileImg = `./assets/characters/default_character.png`;
-    } else {
-      this.threadMessage.profileImg = `./assets/characters/character_${this.userDataService.currentUser['imgNr']}.png` ;
+      if (this.threadMessage.from == 'Gast') {
+        this.threadMessage.profileImg = `./assets/characters/default_character.png`;
+      } else {
+        this.threadMessage.profileImg = `./assets/characters/character_${this.userDataService.currentUser['imgNr']}.png`;
+      }
+
+      let date = new Date();
+      let hours = date.getHours();
+      let minutes = date.getMinutes();
+      const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+      this.threadMessage.calculatedTime = formattedTime;
+      this.threadMessage.time = date;
+      this.threadMessage.text = this.copiedText;
+
+
+      const threadRef = await addDoc(collection(this.firestore, this.sharedService.threadPath),
+        this.threadMessage.toJSON()
+      );
+      this.copiedText = '';
     }
-
-    let date = new Date();
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-    this.threadMessage.calculatedTime = formattedTime ;
-    this.threadMessage.time = date;
-    this.threadMessage.text = this.copiedText;
-
-
-    const threadRef = await addDoc(collection(this.firestore, this.sharedService.threadPath),
-      this.threadMessage.toJSON()
-    );
-    this.copiedText = '';
   }
-
 
 
 }
