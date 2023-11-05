@@ -20,7 +20,7 @@
 // --------------------- AVATAR CONTAINER ------------------- // 
 
 .avatar-container {
-    width: 640px;
+    max-width: 640px;
     background-color: white;
     border-radius: 30px;
     box-sizing: border-box;
@@ -31,7 +31,8 @@
     align-items: center;
     gap: 24px;
 
-    position: relative;
+    margin-left: 16px;
+    margin-right: 16px;
 }
 
 //------------------ BACK ARROW ICON ------------------- //
@@ -40,9 +41,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    height: 40px;
-    width: 40px;
 
     transition: 0.2s;
 
@@ -192,7 +190,7 @@
 .button-container {
     display: flex;
     justify-content: flex-end;
-    width: 506px;
+    width: 100%;
 }
 
 .next-button {
