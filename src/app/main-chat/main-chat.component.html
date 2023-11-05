@@ -23,8 +23,6 @@
             <p>{{ this.filteredChannels[0].description }}</p>
         </div>
 
-            <div class="chat-divider-top"></div>
-
         <!-- MESSAGE DESIGN IF SOMEBODYS ELSE MESSAGE START -->
 
         <div *ngFor="let message of channelMessagesFromDB" class="message-container cursor">
@@ -60,6 +58,9 @@
                         Antwort 14:56</span>
                 </div>
             </div>
+            
+            <!-- <div class="chat-divider-top"></div> -->
+
         </div>
 
         <!-- MESSAGE DESIGN IF SOMEBODYS ELSE MESSAGE END -->
@@ -90,8 +91,6 @@
 
         <!-- Own Message Start -->
         
-        <div class="chat-divider-top"></div>
-
         <!-- OWN MESSAGE DESIGN START -->
 
         <!-- <div (click)="toggleThread(message.id)" *ngFor="let message of channelMessagesFromDB" class="message-container own-message">
