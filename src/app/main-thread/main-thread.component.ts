@@ -3,6 +3,7 @@ import { SharedService } from '../services/shared.service';
 import { Message } from '../models/message.class';
 import { UserDataService } from '../services/user-data.service';
 import { Firestore, addDoc, collection } from '@angular/fire/firestore';
+import { MainChatComponent } from '../main-chat/main-chat.component';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class MainThreadComponent {
   constructor(
     public sharedService: SharedService,
     private userDataService: UserDataService,
+    private mainChat : MainChatComponent,
     private firestore: Firestore,
     private renderer: Renderer2
   ) { }
@@ -69,7 +71,6 @@ export class MainThreadComponent {
   }
 
   closeThread() {
-    console.log('close thread');
     this.threadClosed.emit();
   }
 
@@ -81,7 +82,7 @@ export class MainThreadComponent {
     } else {
       this.threadMessage.profileImg = `./assets/characters/character_${this.userDataService.currentUser['imgNr']}.png` ;
     }
-    
+
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();

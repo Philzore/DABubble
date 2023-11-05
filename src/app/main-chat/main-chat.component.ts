@@ -175,6 +175,10 @@ export class MainChatComponent implements OnInit {
     this.threadOpen = !this.threadOpen;
   }
 
+  unsubThreadMessages() {
+    this.unsubThread(); 
+  }
+
   /**
    * create a subscribe for changes in thread messages
    * 

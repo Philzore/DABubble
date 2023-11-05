@@ -93,7 +93,7 @@ import { DialogReauthenticateComponent } from './dialog-reauthenticate/dialog-re
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule
   ],
-  providers: [{provide:LocationStrategy, useClass:HashLocationStrategy}, SharedService,AppComponent ],
+  providers: [{provide:LocationStrategy, useClass:HashLocationStrategy}, SharedService,AppComponent,MainChatComponent ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
