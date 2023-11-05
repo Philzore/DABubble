@@ -18,7 +18,7 @@
     <div class="chat-wrapper" #chatWrapper (scroll)="onScroll($event)">
        
 
-        <div class="chat-beginning-container" >
+        <div *ngIf="templateIsReady" class="chat-beginning-container" >
             <h2>Dies ist der Anfang vom Channel #{{ this.filteredChannels[0].name }}</h2>
             <p>{{ this.filteredChannels[0].description }}</p>
         </div>

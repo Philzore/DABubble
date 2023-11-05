@@ -159,24 +159,6 @@ export class MainChatComponent implements OnInit {
     this.templateIsReady = true;
   }
 
- 
-
-
-  // async getUsersFromDatabase() {
-  //   this.usersFromDatabase = [];
-  //   const querySnapshotUsers = await getDocs(collection(this.firestore, 'users'));
-  //   querySnapshotUsers.forEach((doc) => {
-  //     this.usersFromDatabase.push(doc.data());
-  //   });
-  // }
-
-  
-  // createSubscribeUsers() {
-  //   const unsubUsers = onSnapshot(collection(this.firestore, 'users'), async (doc) => {
-  //     await this.getUsersFromDatabase();
-  //   });
-  // }
-
   /**
    * open or close the thrad component
    * 

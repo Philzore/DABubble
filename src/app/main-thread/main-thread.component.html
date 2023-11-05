@@ -13,7 +13,7 @@
     <div class="chat-divider-top"></div>
 
     <div class="clicked-message">
-      <img src="./assets/characters/character_{{ sharedService.currentThreadContent[0].profileImg }}.png" alt="">
+      <img src="{{ sharedService.currentThreadContent[0].profileImg }}" alt="">
       <div class="message-info-thread">
         <!-- Message Content Container -->
         <div class="message-content-container">
@@ -41,7 +41,7 @@
     <!-- Text Response Container -->
     <div *ngFor="let message of sharedService.currentThreadContent; let first = first">
       <div *ngIf="!first" class="clicked-message">
-        <img src="./assets/characters/character_{{message.profileImg}}.png" alt="">
+        <img src="{{message.profileImg}}" alt="">
         <div class="message-info-thread">
           <!-- Message Response Container -->
           <div class="message-content-container">

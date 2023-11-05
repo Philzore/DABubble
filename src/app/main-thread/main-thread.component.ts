@@ -75,7 +75,13 @@ export class MainThreadComponent {
 
   async sendThreadMessage() {
     this.threadMessage.from = this.userDataService.currentUser['name'];
-    this.threadMessage.profileImg = this.userDataService.currentUser['imgNr'];
+    
+    if (this.threadMessage.from == 'Gast') {
+      this.threadMessage.profileImg = `./assets/characters/default_character.png`;
+    } else {
+      this.threadMessage.profileImg = `./assets/characters/character_${this.userDataService.currentUser['imgNr']}.png` ;
+    }
+    
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
