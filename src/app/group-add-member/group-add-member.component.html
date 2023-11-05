@@ -30,7 +30,7 @@
         <div>
           <!-- user container for direct messages -->
           <div class="list-container direct-message" *ngIf="messageDropdown" [@dropDownMenu]>
-            <div *ngFor="let user of userDataService.usersFromDatabase" class="single-entry">
+            <div *ngFor="let user of actMembers" (click)="addMember(user)" class="single-entry">
               <img src= '/assets/characters/character_{{user.avatar}}.png'>
               <span class="point">&#9679;</span>
               <p>{{user.name}}</p>
