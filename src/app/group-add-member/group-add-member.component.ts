@@ -26,6 +26,8 @@ import { SharedService } from '../services/shared.service';
 })
 export class GroupAddMemberComponent implements OnInit{
   messageDropdown: boolean = false;
+  actMembers = this.userDataService.usersFromDatabase;
+  actAddMembers = [] ;
 
   constructor(
     public dialogRef:MatDialogRef<GroupAddMemberComponent>,
@@ -43,5 +45,9 @@ export class GroupAddMemberComponent implements OnInit{
    */
    openDropdownMessages() {
     this.messageDropdown = !this.messageDropdown;
+  }
+
+  addMember(user) {
+    console.log('geclickter User:' ,user);
   }
 }

@@ -59,8 +59,8 @@ export class MainChatComponent implements OnInit {
       await this.getChannelsFromDataBase(value);
       await this.createSubscribeChannelMessages();
       await this.getUsersFromChannel();
-      this.templateIsReady = true ;
     });
+    
   }
 
   scrollToBottom() {
@@ -156,7 +156,7 @@ export class MainChatComponent implements OnInit {
       this.filteredChannels.push(doc.data(), doc.id);
       console.log(this.filteredChannels);
     });
-    // this.templateIsReady = true;
+    this.templateIsReady = true;
   }
 
  
@@ -228,7 +228,11 @@ export class MainChatComponent implements OnInit {
   async messageSend() {
     this.isSendingMessage = true;
     this.message.from = this.userDataService.currentUser['name'];
-    this.message.profileImg = this.userDataService.currentUser['imgNr'];
+    if (this.message.from == 'Gast') {
+      this.message.profileImg = `./assets/characters/default_character.png`;
+    } else {
+      this.message.profileImg = `./assets/characters/character_${this.userDataService.currentUser['imgNr']}.png` ;
+    }
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -266,6 +270,7 @@ export class MainChatComponent implements OnInit {
       this.usersFromChannels.push(doc.data());
       console.log(this.usersFromChannels);
     })
+    
   }
 
   /**
