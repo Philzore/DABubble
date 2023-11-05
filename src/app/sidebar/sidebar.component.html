@@ -63,7 +63,7 @@
         </div>
       </div>
       <div>
-        <!-- channel container for single channels -->
+        <!-- user container for direct messages -->
         <div class="list-container direct-message" *ngIf="messageDropdown" [@dropDownMenu]>
           <div *ngFor="let user of userDataService.usersFromDatabase" class="single-entry">
             <img src= '/assets/characters/character_{{user.avatar}}.png'>

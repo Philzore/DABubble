@@ -4,7 +4,7 @@
         <p>Leute hinzufügen</p> <i class="material-icons cursor" (click)="dialogRef.close()" >close</i>
     </div>
     
-    <div class="group-name"># Entwicklerteam</div>
+    <div class="group-name"># {{sharedService.currentActiveChannel.value}}</div>
 
 
     <input type="text">
@@ -12,5 +12,33 @@
     <div class="add-member-button-container">
         <button class="cursor">Hinzufügen</button>
     </div>
+
+    <!-- direct message drop down -->
+    <div class="dropdown-container">
+        <div class="dropdown-header">
+          <div class="dropdown-hover" (click)="openDropdownMessages()">
+            <div class="arrow">
+              <mat-icon *ngIf="!messageDropdown">arrow_right</mat-icon>
+              <mat-icon *ngIf="messageDropdown">arrow_drop_down</mat-icon>
+            </div>
+            <div class="dropdown-name">
+              <mat-icon>account_circle_outline</mat-icon>
+              <span><b>Alle Nutzer</b></span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <!-- user container for direct messages -->
+          <div class="list-container direct-message" *ngIf="messageDropdown" [@dropDownMenu]>
+            <div *ngFor="let user of userDataService.usersFromDatabase" class="single-entry">
+              <img src= '/assets/characters/character_{{user.avatar}}.png'>
+              <span class="point">&#9679;</span>
+              <p>{{user.name}}</p>
+            </div>
+          </div>
+          <!-- end channel container for single channels -->
+        </div>
+      </div>
+      <!-- end direct message drop down -->
     
 </div>

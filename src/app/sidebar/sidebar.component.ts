@@ -171,12 +171,6 @@ export class SidebarComponent implements OnInit {
    * close sidebar with animation
    * 
    */
-  // closeSidebar() {
-  //   this.sidebarClose = !this.sidebarClose;
-  //   this.workspaceText = this.sidebarClose ? 'öffnen' : 'schließen';
-  //   // this.sharedService.toggleSidebar();
-  // }
-
   closeSidebar() {
     this.sharedService.toggleSidebar();
     this.workspaceText = this.sidebarClose ? 'öffnen' : 'schließen';
