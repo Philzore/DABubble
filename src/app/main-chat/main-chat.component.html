@@ -29,7 +29,7 @@
 
         <div *ngFor="let message of channelMessagesFromDB" class="message-container cursor">
 
-            <img src="./assets/characters/character_{{message.profileImg}}.png" alt="">
+            <img src="{{message.profileImg}}" alt="">
             <div class="message-info-container">
 
                 <div class="info-row">
