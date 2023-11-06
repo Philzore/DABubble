@@ -1,6 +1,9 @@
 $main-purple: #eceefe;
 $purple: #535af1;
 
+.non-empty {
+  opacity: 1 !important;
+}
 
 .end {
     justify-content: flex-end;
@@ -25,7 +28,7 @@ $purple: #535af1;
 
     .chat-divider-bottom {
         text-align: center;
-        flex: 1;
+        flex: .5;
         border-top: 2px solid $main-purple;
     }
 }
@@ -132,6 +135,31 @@ $purple: #535af1;
             align-items: center;
             padding:10px 20px;
             margin: 20px 0;
+            position: relative;
+
+            &:hover {
+
+              .info-row-react {
+                opacity: 1;
+                right: 50px;
+              }
+
+            }
+
+            .info-row-react {
+              transition: 225ms ease-in-out;
+              opacity: 0;
+              position: absolute;
+              right: 30px;
+              top: -15px;
+              border-radius: 30px 30px 0 30px;
+              border: 1px solid #adb0d9;
+              padding: 5px 15px;
+              background: #fff;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
 
             img {
                 height: 50px;
@@ -153,6 +181,7 @@ $purple: #535af1;
         display: flex;
         flex-direction: column;
         align-items: center;
+        position: relative;
 
         .info-row-thread {
             display: flex;
@@ -332,6 +361,12 @@ $purple: #535af1;
 
           .input-send-right {
 
+            button {
+              opacity: .3;
+              background: transparent;
+              border: transparent;
+            }
+
             .material-icons {
               color: $purple;
 
@@ -364,5 +399,9 @@ $purple: #535af1;
         left: 0;
         width: 100vw;
         border-radius: 0;
+
+        .chat-divider-bottom {
+          flex: 2;
+      }
   }
 }

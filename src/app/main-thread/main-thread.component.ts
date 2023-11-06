@@ -22,6 +22,7 @@ export class MainThreadComponent {
   @ViewChild('scrollButton') scrollButton: ElementRef;
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
   showScrollButton = false;
+  isSendingMessage = false;
 
   @Output() unsubThreadEvent = new EventEmitter<any>();
 
@@ -79,7 +80,7 @@ export class MainThreadComponent {
   async sendThreadMessage() {
     if (this.copiedText.length >= 1) {
       this.threadMessage.from = this.userDataService.currentUser['name'];
-
+      this.isSendingMessage = true;
       if (this.threadMessage.from == 'Gast') {
         this.threadMessage.profileImg = `./assets/characters/default_character.png`;
       } else {
@@ -100,6 +101,7 @@ export class MainThreadComponent {
       );
       this.copiedText = '';
     }
+    this.isSendingMessage = false;
   }
 
 

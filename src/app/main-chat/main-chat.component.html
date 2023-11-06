@@ -23,8 +23,6 @@
             <p>{{ this.filteredChannels[0].description }}</p>
         </div>
 
-            <div class="chat-divider-top"></div>
-
         <!-- MESSAGE DESIGN IF SOMEBODYS ELSE MESSAGE START -->
 
         <div *ngFor="let message of channelMessagesFromDB" class="message-container cursor">
@@ -60,6 +58,9 @@
                         Antwort 14:56</span>
                 </div>
             </div>
+            
+            <!-- <div class="chat-divider-top"></div> -->
+
         </div>
 
         <!-- MESSAGE DESIGN IF SOMEBODYS ELSE MESSAGE END -->
@@ -90,8 +91,6 @@
 
         <!-- Own Message Start -->
         
-        <div class="chat-divider-top"></div>
-
         <!-- OWN MESSAGE DESIGN START -->
 
         <!-- <div (click)="toggleThread(message.id)" *ngFor="let message of channelMessagesFromDB" class="message-container own-message">
@@ -119,7 +118,7 @@
     </div>
 
     <section class="input-container">
-        <textarea [(ngModel)]="copiedText" placeholder="Nachricht an #Channelname"></textarea>
+        <textarea [(ngModel)]="copiedText" placeholder="Nachricht an #  {{ this.filteredChannels[0].name }}"></textarea>
         <div class="input-send">
             <div class="input-send-left">
                 <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
@@ -131,7 +130,7 @@
                 <div *ngIf="showAddDataPopup" class="add-data-popup">Datei anhängen</div>
                 <div *ngIf="showEmojiPopup" class="emoji-mart">
                     <emoji-mart
-                        [style]="{ position: 'absolute', bottom: '25px', left : '75px', 'border-radius': '15px', 'z-index': '2'}"></emoji-mart>
+                        [style]="{ position: 'absolute', bottom: '25px', left : '75px', 'border-radius': '15px', 'z-index': '11'}"></emoji-mart>
                 </div>
                 <div *ngIf="showPersonPopup" class="person-popup">
 
@@ -146,7 +145,7 @@
             </div>
 
             <div class="input-send-right">
-                <button (click)="messageSend()" [disabled]="isSendingMessage">
+                <button [class.non-empty]="copiedText !== ''" (click)="messageSend()" [disabled]="isSendingMessage">
                     <i class="material-icons">send</i>
                 </button>
             </div>
