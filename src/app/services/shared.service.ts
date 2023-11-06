@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, arrayUnion, doc, updateDoc } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -31,6 +31,11 @@ export class SharedService {
   async updateChannelInfoDatabase(content: object, id: string) {
     const channelRef = doc(this.firestore, 'channels', id);
     await updateDoc(channelRef, content);
+  }
+
+  async updateMembersInDatabase(members, id:string){
+    const channelRef = doc(this.firestore, 'channels', id);
+    await updateDoc(channelRef, {members: arrayUnion(members)});
   }
 
   /**

@@ -110,7 +110,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   openAddMemberPopUp(): void {
-    this.dialog.open(GroupAddMemberComponent, { position: { top: '180px', right: '50px' }, panelClass: 'custom-logout-dialog' });
+    this.dialog.open(GroupAddMemberComponent, { position: { top: '180px', right: '50px' }, panelClass: 'custom-logout-dialog', data : this.filteredChannels });
   }
 
   /**
@@ -269,7 +269,7 @@ export class MainChatComponent implements OnInit, OnChanges {
   async getUsersFromChannel() {
     let channelId = this.filteredChannels[1];
     this.usersFromChannels = [];
-    const querySnapshotChannel = await getDocs(collection(this.firestore, `channels/${channelId}`));
+    const querySnapshotChannel = await getDocs(collection(this.firestore, `channels/${channelId}`)); 
 
     querySnapshotChannel.forEach((doc) => {
       this.usersFromChannels.push(doc.data());
