@@ -34,13 +34,16 @@
 
     <!-- Chat Divider Bottom Container -->
     <div class="chat-divider-bottom-container">
-      <p>{{ (sharedService.currentThreadContent.length) }}</p>
+      <p> {{ (sharedService.currentThreadContent.length)}} Antworten</p>
       <div class="chat-divider-bottom"></div>
     </div>
 
     <!-- Text Response Container -->
     <div *ngFor="let message of sharedService.currentThreadContent; let first = first">
       <div *ngIf="!first" class="clicked-message">
+        <div class="info-row-react">
+          <i class="material-icons cursor" (click)="toggleEmojiPopup()">add_reaction</i>
+      </div>
         <img src="{{message.profileImg}}" alt="">
         <div class="message-info-thread">
           <!-- Message Response Container -->
@@ -100,7 +103,7 @@
     </div> 
 
     <section class="input-container">
-      <textarea [(ngModel)]="copiedText" placeholder="Nachricht an #Antwort"></textarea>
+      <textarea [(ngModel)]="copiedText" placeholder="Nachricht an {{ sharedService.currentThreadContent[0].from}}"></textarea>
       <div class="input-send">
         <div class="input-send-left">
           <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
@@ -112,7 +115,7 @@
           <div *ngIf="showAddDataPopup" class="add-data-popup">Datei anhängen</div>
           <div *ngIf="showEmojiPopup" class="emoji-mart">
             <emoji-mart
-              [style]="{ position: 'absolute', bottom: '25px', left : '75px', 'border-radius': '15px', 'z-index': '2'}"></emoji-mart>
+              [style]="{ position: 'absolute', bottom: '80px', left : '-50px', 'border-radius': '15px', 'z-index': '2'}"></emoji-mart>
           </div>
           <div *ngIf="showPersonPopup" class="person-popup">
 
@@ -146,8 +149,10 @@
         </div>
 
         <div class="input-send-right">
-          <i (click)="sendThreadMessage()" class="material-icons">send</i>
-        </div>
+          <button [class.non-empty]="copiedText !== ''" (click)="sendThreadMessage()" [disabled]="isSendingMessage">
+              <i class="material-icons">send</i>
+          </button>
+      </div>
       </div>
     </section>
 

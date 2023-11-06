@@ -35,7 +35,6 @@ export class MainChatComponent implements OnInit, OnChanges {
   unsubThread;
   showScrollButton = false;
   isSendingMessage = false;
-
   runtime = false;
 
   @ViewChild('scrollButton') scrollButton: ElementRef;
