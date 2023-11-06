@@ -4,12 +4,9 @@
     </div>
 
     <div *ngFor="let member of currentChannel.info.members; let i = index" class="group-members" id="members">
-        <img src="./assets/characters/character_1.png" alt=""> <p>{{ member }} <span *ngIf="false">(Du)</span></p>
+        <img src="./assets/characters/character_{{member.imgNr}}.png" alt=""> <p>{{ member.name }} <span *ngIf="member.name == userDataService.currentUser['name']">(Du)</span></p>
     </div>
-    <!-- <div class="group-members cursor">
-        <img src="./assets/characters/character_3.png" alt=""> <p>Sofia Müller</p>
-    </div> -->
-
+    
     <div class="add-member cursor">
         <i class="material-icons add-new-member cursor">person_add_alt</i>
         <p (click)="openAddMemberPopUp()">Mitglieder hinzufügen</p>

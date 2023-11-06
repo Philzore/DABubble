@@ -32,8 +32,7 @@ export class GroupMemberComponent implements OnInit {
   ngOnInit(): void {
     this.currentChannel.info = this.dialogData[0];
     this.currentChannel.id = this.dialogData[1];
-    console.log(this.currentChannel);
-    this.checkOwnUser();
+    console.log(this.currentChannel, this.currentChannel.info.members);
   }
 
   openAddMemberPopUp(): void {
@@ -52,28 +51,6 @@ export class GroupMemberComponent implements OnInit {
       <img src="./assets/characters/character_1.png" alt=""> <p>{{ member }} <span *ngIf="false">(Du)</span></p>
       `;
     }
-  }
-
-  /**
-   * to check who you are to show a simple (you) after the name
-   * 
-   */
-  checkOwnUser() {
-    let userName = this.userDataService.currentUser['name'];
-    console.log(userName);
-    console.log(this.currentChannel.info.members);
-    if (this.currentChannel.info.members.includes(userName) ) {
-      console.log('Ist dabei');
-      let index = this.currentChannel.info.members.indexOf(userName);
-    }
-  }
-
-  /**
-   * find the avatars of the members
-   * 
-   */
-  findAvatars() {
-
   }
 
 }

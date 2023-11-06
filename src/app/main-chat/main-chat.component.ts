@@ -59,10 +59,11 @@ export class MainChatComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.sharedService.currentActiveChannel$.subscribe(async (value) => {
       this.templateIsReady = false;
-      console.log('Änderungen :', value);
+      // console.log('Änderungen :', value);
       await this.getChannelsFromDataBase(value);
       await this.createSubscribeChannelMessages();
       await this.getUsersFromChannel();
+      console.log(this.filteredChannels);
     });
 
   }
@@ -109,7 +110,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   openAddMemberPopUp(): void {
-    this.dialog.open(GroupAddMemberComponent, { position: { top: '180px', right: '50px' }, panelClass: 'custom-logout-dialog', data : this.filteredChannels });
+    this.dialog.open(GroupAddMemberComponent, { position: { top: '180px', right: '50px' }, panelClass: 'custom-logout-dialog', data: this.filteredChannels });
   }
 
   /**
@@ -268,7 +269,7 @@ export class MainChatComponent implements OnInit, OnChanges {
   async getUsersFromChannel() {
     let channelId = this.filteredChannels[1];
     this.usersFromChannels = [];
-    const querySnapshotChannel = await getDocs(collection(this.firestore, `channels/${channelId}`)); 
+    const querySnapshotChannel = await getDocs(collection(this.firestore, `channels/${channelId}`));
 
     querySnapshotChannel.forEach((doc) => {
       this.usersFromChannels.push(doc.data());

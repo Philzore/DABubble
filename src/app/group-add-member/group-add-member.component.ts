@@ -78,7 +78,11 @@ export class GroupAddMemberComponent implements OnInit {
   saveNewUsers() {
     if (this.actAddMembers.length >= 1) {
       this.actAddMembers.forEach(async (user) => { 
-       await this.sharedService.updateMembersInDatabase(user.name, this.currentChannel.id);
+        let userInfo = {
+          name : user.name,
+          imgNr : user.avatar,
+        }
+       await this.sharedService.updateMembersInDatabase(userInfo, this.currentChannel.id);
       });
       
     }
