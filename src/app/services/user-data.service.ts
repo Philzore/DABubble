@@ -39,7 +39,7 @@ export class UserDataService implements OnInit{
    * @param userName {string} - name to storage
    * @param userMail {string} - email to storage
    */
-  saveCurrentUserLocalStorage(userName,userMail,profileImgNr) {
+  saveCurrentUserLocalStorage(userName:string,userMail:string,profileImgNr:string) {
     let object = {name : userName, mail:userMail, imgNr : profileImgNr}
     const objectString = JSON.stringify(object);
     localStorage.setItem('currentUser',objectString);
