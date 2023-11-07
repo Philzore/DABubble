@@ -40,14 +40,11 @@
 
 .back-icon-container{
     display: flex;
-
-
     position: absolute;
     left: 0;
 }
 
 .back-icon{
-    padding: 4px;
     transition: 0.2s;
     object-fit: cover;
     &:hover {
