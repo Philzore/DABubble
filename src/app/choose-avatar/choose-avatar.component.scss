@@ -12,6 +12,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    gap: 64px;
 }
 
 // --------------------- AVATAR CONTAINER ------------------- // 
@@ -73,6 +74,8 @@
 
 .avatar{
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     width: 100%;
 }
@@ -84,6 +87,7 @@
     justify-content: center;
     align-items: center;
     border: 4px solid transparent;
+    width: 100%;
 
         img{
             border-radius: 100%;
@@ -98,6 +102,8 @@
     font-size: 32px;
     line-height: 43.65px;
     font-weight: 700;
+    width: 100%;
+    text-align: center;
 }
 
 
@@ -201,11 +207,6 @@
 .impressum-datenschutz {
     display: flex;
     justify-content: space-evenly;
-    position: absolute;
-    bottom: 48px;
-
-    width: 270px;
-    height: 42px;
     gap: 16px;
 
     .impressum {
@@ -236,7 +237,7 @@
     .header{
         justify-content: center;
     }
-    
+
     .avatar-container{
         padding: 24px !important;
         gap: 16px !important;
@@ -262,5 +263,22 @@
         font-size: 16px !important;
     }
 
+    .image{
+        max-width: 45px !important;
+    }
 
+    .impressum{
+        font-size: 16px !important;
+    }
+
+    .datenschutz{
+        font-size: 16px !important;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .image{
+        max-width: 35px !important;
+    }
 }
