@@ -7,7 +7,7 @@
 <div class="content">
 
     <div class="avatar-container">
- 
+
         <div class="choose-avatar-headline-container">
             <div class="back-icon-container" routerLink="">
                 <img class="back-icon" src="assets/icons/arrow_back.png" alt="image of arrow-left icon">
@@ -25,34 +25,35 @@
             </span>
         </div>
 
-        <div class="choose-avatar-section">
+        <div class="choose-avatar-title">
             <span class="choose-from-list-span">
                 Aus der Liste wählen
             </span>
-            <div class="character-images-container">
-                <div class="image-container" *ngFor="let character of characters; let i = index">
-                    <img class="image" [src]="character" (click)="selectCharacter(i)" alt="Character">
-                </div>
-            </div>
+        </div>
 
-            <div class="choose-own-image-container">
-                <span class="choose-own-image-span">
-                    Eigenes Bild verwenden
-                </span>
-                <div>
-                    <button class="choose-own-image-button" (click)="openFileInput()">Bild hochladen</button>
-                    <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)">
-                </div>
+        <div class="character-images-container">
+            <div class="image-container" *ngFor="let character of characters; let i = index">
+                <img class="image" [src]="character" (click)="selectCharacter(i)" alt="Character">
             </div>
         </div>
 
-        
+
+        <div class="choose-own-image-container">
+            <span class="choose-own-image-span">
+                Eigenes Bild verwenden
+            </span>
+            <div>
+                <button class="choose-own-image-button" (click)="openFileInput()">Bild hochladen</button>
+                <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)">
+            </div>
+        </div>
+
+
+
 
 
         <div class="button-container">
-            <div>
-                <button class="next-button" (click)="register()">Weiter</button>
-            </div>
+            <button class="next-button" (click)="register()">Weiter</button>
         </div>
     </div>
 
@@ -68,5 +69,3 @@
         </div>
     </div>
 </div>
-
-
