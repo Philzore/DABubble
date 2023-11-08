@@ -28,7 +28,7 @@ export class DesktopHeaderComponent implements OnInit {
   }
 
   openDialog() {
-    this.sharedService.unsubChannels();
+    // this.sharedService.unsubChannels();
     const dialog = this.dialog.open(DialogEdituserLogoutComponent, { position: { top: '100px', right: '50px' }, panelClass: 'custom-logout-dialog' });
   }
 
