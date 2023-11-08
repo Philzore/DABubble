@@ -43,6 +43,7 @@ import { SharedService } from './services/shared.service';
 import { UserDataService } from './services/user-data.service';
 import { DesktopHeaderComponent } from './desktop-header/desktop-header.component';
 import { DialogReauthenticateComponent } from './dialog-reauthenticate/dialog-reauthenticate.component';
+import { GroupMemberInfoComponent } from './group-member-info/group-member-info.component';
 
 
 
@@ -69,6 +70,7 @@ import { DialogReauthenticateComponent } from './dialog-reauthenticate/dialog-re
     DialogEditProfilComponent,
     ChangePasswordComponent,
     DialogReauthenticateComponent,
+    GroupMemberInfoComponent,
     
   ],
   imports: [

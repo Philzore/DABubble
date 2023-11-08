@@ -97,12 +97,9 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.dialog.open(GroupInfoPopupComponent, { position: { top: '180px', left: '320px' }, panelClass: 'custom-channel-dialog', data: this.filteredChannels });
   }
 
-  /**
-   * open Group Member dialog
-   * 
-   */
-  openGroupMemberPopUp(): void {
-    this.dialog.open(GroupMemberComponent, { position: { top: '180px', right: '150px' }, panelClass: 'custom-logout-dialog', data: this.filteredChannels });
+  openGroupMemberPopUp() {
+    this.dialog.open(GroupMemberComponent, { position: { top: '180px', right: '50px' }, panelClass: 'custom-channel-dialog', data: this.filteredChannels });
+    
   }
 
   /**

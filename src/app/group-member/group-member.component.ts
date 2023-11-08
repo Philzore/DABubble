@@ -3,6 +3,9 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { GroupAddMemberComponent } from '../group-add-member/group-add-member.component';
 import { ChannelInfo } from '../models/channel-info.class';
 import { UserDataService } from '../services/user-data.service';
+import { GroupMemberInfoComponent } from '../group-member-info/group-member-info.component';
+import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc, where, getDoc } from '@angular/fire/firestore';
+
 
 @Component({
   selector: 'app-group-member',
@@ -20,16 +23,20 @@ export class GroupMemberComponent implements OnInit {
     id: ''
   };
 
+  filteredChannels = [];
+
   // testKlasse = new ChannelInfo() ;
 
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<GroupAddMemberComponent>,
     public userDataService:UserDataService,
+    private firestore: Firestore,
     @Inject(MAT_DIALOG_DATA) public dialogData: any) { }
 
 
   ngOnInit(): void {
+    this.openGroupMemberInfo();
     this.currentChannel.info = this.dialogData[0];
     this.currentChannel.id = this.dialogData[1];
     console.log(this.currentChannel, this.currentChannel.info.members);
@@ -37,6 +44,30 @@ export class GroupMemberComponent implements OnInit {
 
   openAddMemberPopUp(): void {
     this.dialog.open(GroupAddMemberComponent, { panelClass: 'custom-logout-dialog' });
+  }
+
+  openGroupMemberInfo() {
+    this.dialog.open(GroupMemberInfoComponent);
+  }
+
+  /**
+   * open Group Member dialog
+   * 
+   */
+  openGroupMemberPopUp(): void {
+    this.dialog.open(GroupMemberInfoComponent, { position: { top: '180px', right: '150px' }, panelClass: 'custom-logout-dialog', data: this.filteredChannels });
+  }
+
+  async getChannelsFromDataBase(name) {
+    this.filteredChannels = [];
+    const channelRef = collection(this.firestore, 'channels');
+    const filteredChannels = query(channelRef, where('name', "==", name))
+    const querySnapshot = await getDocs(filteredChannels);
+    querySnapshot.forEach((doc) => {
+      this.filteredChannels.push(doc.data(), doc.id);
+      console.log(this.filteredChannels);
+    });
+    // this.templateIsReady = true;
   }
 
   /**

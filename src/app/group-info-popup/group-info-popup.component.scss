@@ -1,44 +1,12 @@
 $main-purple: #eceefe;
 $purple: #535af1;
 
-.purple {
-    color: $purple;
-}
-
-.group-info-container {
+.popup-container {
     display: flex;
     flex-direction: column;
-    // max-width: 500px;
-    min-width: 800px;
+    min-width: 500px;
+    max-width: 600px;
     gap: 20px;
-    border-radius: 0px 15px 15px 15px !important;
-    border: none;
-    padding: 20px;
-
-    p {
-        margin: 0;
-    }
-
-    .group-info-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        .group-name {
-            font-size: 20px;
-        }
-
-        .close-button {
-            padding: 5px;
-            transition: 125ms ease-in-out;
-            outline: none;
-            &:hover {
-                background-color: $main-purple;
-                color: $purple;
-                border-radius: 15px;
-            }
-        }
-    }
 
     .group-info-name-container {
         border: 2px solid $main-purple;
@@ -49,16 +17,6 @@ $purple: #535af1;
             border: 2px solid transparent; // Shrink the border to zero when editing
             transition: all .3s ease-in;
         }
-    
-
-        // remov input and move it to the bottom for whole container
-
-        .group-info-name-heading {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 0 15px 0;
-        }
     }
 
     .group-info-description-container {
@@ -66,17 +24,8 @@ $purple: #535af1;
         border-radius: 15px;
         padding: 15px;
 
-        .group-info-description-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 0 15px 0;
-        }
-
         .group-creator-container {
-            p {
-                padding: 5px
-            }
+
             .group-creator {
                 color: $purple;
                 font-size: 18px;       

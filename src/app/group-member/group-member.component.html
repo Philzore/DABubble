@@ -1,9 +1,9 @@
-<div class="group-member-container">
-    <div class="group-member-header">
-        <p>Mitglieder</p> <i class="material-icons cursor" (click)="dialogRef.close()">close</i>
+<div class="popup-container">
+    <div class="header-container">
+        <h2>Mitglieder</h2> <i class="material-icons cursor close-button" (click)="dialogRef.close()">close</i>
     </div>
 
-    <div *ngFor="let member of currentChannel.info.members; let i = index" class="group-members" id="members">
+    <div (click)="openGroupMemberInfo()" *ngFor="let member of currentChannel.info.members; let i = index" class="group-members cursor" id="members">
         <img src="./assets/characters/character_{{member.imgNr}}.png" alt=""> <p>{{ member.name }} <span *ngIf="member.name == userDataService.currentUser['name']">(Du)</span></p>
     </div>
     

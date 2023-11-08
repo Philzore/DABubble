@@ -1,23 +1,8 @@
 $main-purple: #eceefe;
 $purple: #535af1;
 
-.add-member-container {
-    p {
-        margin: 0;
-    }
+.popup-container {
     width: 300px;
-    padding: 20px;
-    border-radius: 0 15px 15px 15px;
-
-    .add-member-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        p {
-            font-size: 20px;
-        }
-    }
 
     .group-name {
         color: $purple;
@@ -111,8 +96,6 @@ $purple: #535af1;
 
 .direct-message {
     max-height: 300px;
-
-
 }
 
 .single-entry {

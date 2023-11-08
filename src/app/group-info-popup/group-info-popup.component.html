@@ -1,13 +1,13 @@
-<div class="group-info-container">
+<div class="popup-container">
 
-    <div class="group-info-header">
-        <p class="group-name"># {{currentChannel.info.name}}</p> <i class="material-icons cursor close-button"
+    <div class="header-container">
+        <h2 class="group-name"># {{currentChannel.info.name}}</h2> <i class="material-icons cursor close-button"
             (click)="dialogRef.close()">close</i>
     </div>
 
     <div class="group-info-name-container" [ngClass]="{'is-editing': isEditing}">
-        <div class="group-info-name-heading">
-            <p class="bold">Channel - Name</p>
+        <div class="header-container">
+            <h3 class="bold">Channel - Name</h3>
             <p class="cursor purple" *ngIf="!isEditing" (click)="changeChannelName()">Bearbeiten</p>
             <p class="cursor purple" *ngIf="isEditing" (click)="saveChannelName()">Speichern</p>
         </div>
@@ -24,8 +24,8 @@
 
 
     <div class="group-info-description-container">
-        <div class="group-info-description-header">
-            <p class="bold">Beschreibung</p>
+        <div class="header-container">
+            <h3 class="bold">Beschreibung</h3>
             <p class="cursor purple" *ngIf="!hideEditDescription" (click)="changeChannelDescription()">Bearbeiten</p>
             <p class="cursor purple" *ngIf="hideEditDescription" (click)="saveChannelDescription()">Speichern</p>
         </div>
@@ -39,7 +39,7 @@
         </div>
         <hr>
         <div class="group-creator-container">
-            <p class="bold">Erstellt von</p>
+            <h3 class="bold">Erstellt von</h3>
             <p class="group-creator">{{currentChannel.info.created}}</p>
         </div>
     </div>

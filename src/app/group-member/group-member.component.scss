@@ -1,15 +1,11 @@
 $main-purple: #eceefe;
 $purple: #535af1;
 
+p {
+    margin: 0;
+}
 
-.group-member-container {
-
-    p {
-        margin: 0;
-    }
-
-    padding: 20px;
-    border-radius: 0 15px 15px 15px;
+.popup-container {
 
     .group-member-header {
         display: flex;
@@ -17,15 +13,12 @@ $purple: #535af1;
         justify-content: space-between;
         padding: 20px 0;
 
-        p {
-            font-size: 20px;
-        }
     }
 
     .group-members {
         display: flex;
         align-items: center;
-        padding: 5px;
+        padding: 10px;
 
         &:hover {
             background-color: $main-purple;
@@ -61,7 +54,7 @@ $purple: #535af1;
 
         i {
             margin: 0 10px 0 0;
-            padding: 5px;
+            padding: 5px ;
             background-color: $main-purple;
             border-radius: 50%;
         }

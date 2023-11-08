@@ -1,0 +1,54 @@
+$purple: #535af1;
+$main-purple: #eceefe;
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+p, h3 {
+    margin: 0;
+}
+
+.popup-container {
+    border-radius: 30px;
+    min-width: 300px;
+
+    .image-container {
+
+        img {
+            height: 150px;
+            width: 150px;
+            border-radius: 50%;
+        }
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .active-container {
+        display: flex;
+
+        .circle {
+            height: 30px;
+            width: 30px;
+            color: greenyellow;
+        }
+    }
+
+    .email-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .message-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        background-color:$purple ;
+        color: #fff;
+        gap: 30px;
+    }
+
+}

@@ -1,3 +1,6 @@
+$main-purple: #eceefe;
+$purple: #535af1;
+
 html,
 body {
     // height: 100%;
@@ -36,11 +39,15 @@ body {
 }
 
 .bold {
-    font-weight: 700 !important;
+    font-weight: 900 !important;
 }
 
 .cursor {
     cursor: pointer !important;
+}
+
+.pd-30 {
+    padding: 30px !important;
 }
 
 .icon-btn-hover {
@@ -98,3 +105,34 @@ body {
     background-color: rgb(165, 163, 163);
     border-radius: 100px;
   }
+
+/* General Styling for pop ups to reduce code*/
+
+.popup-container {
+    padding: 30px;
+
+
+    .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    
+        h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+    
+        .close-button {
+            padding: 5px;
+            transition: 125ms ease-in-out;
+            outline: none;
+            &:hover {
+                background-color: $main-purple;
+                color: $purple;
+                border-radius: 15px;
+            }
+        }
+    
+    }
+
+}
