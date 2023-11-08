@@ -5,6 +5,7 @@ import { DialogUserProfilComponent } from '../dialog-user-profil/dialog-user-pro
 import { getAuth, signOut } from "firebase/auth";
 import { Router } from '@angular/router';
 import { UserDataService } from '../services/user-data.service';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-dialog-edituser-logout',
@@ -18,7 +19,8 @@ export class DialogEdituserLogoutComponent implements OnInit {
     public dialogRef: MatDialogRef<DialogEdituserLogoutComponent>,
     public dialog: MatDialog,
     private router: Router,
-    private userDataService: UserDataService) { }
+    private userDataService: UserDataService,
+    private sharedService: SharedService) { }
 
 
   ngOnInit(): void {
@@ -32,6 +34,10 @@ export class DialogEdituserLogoutComponent implements OnInit {
   showProfil() {
     this.dialogRef.close();
     const dialog = this.dialog.open(DialogUserProfilComponent, { position: { top: '100px', right: '50px' }, panelClass: 'custom-logout-dialog' });
+
+    dialog.afterClosed().subscribe((result) => {
+      this.sharedService.unsubChannels();
+    });
   }
 
   logOut() {

@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { UserDataService } from '../services/user-data.service';
 import { DialogReauthenticateComponent } from '../dialog-reauthenticate/dialog-reauthenticate.component';
 import { AppComponent } from '../app.component';
+import { SharedService } from '../services/shared.service';
 
 
 @Component({
@@ -15,19 +16,24 @@ export class DialogEditProfilComponent implements OnInit {
   currentUserEmail: string = '';
   currentUserName: string = '';
 
+  oldName: string = '';
   newName: string = '';
   newEmail: string = '';
 
   nameChangeSuccessfull: boolean = false;
   emailChangeSuccessfull: boolean = false;
 
-  constructor(public dialog: MatDialog, public dialogRef: MatDialogRef<DialogEditProfilComponent>,
-    public userDataService: UserDataService, private auth: Auth, public appComponent: AppComponent) {
+  constructor(public dialog: MatDialog,
+    public dialogRef: MatDialogRef<DialogEditProfilComponent>,
+    public userDataService: UserDataService,
+    private sharedService: SharedService,
+    private auth: Auth,
+    public appComponent: AppComponent) {
 
   }
 
   ngOnInit(): void {
-
+    this.oldName = this.userDataService.currentUser['name'] ;
   }
 
   /**
@@ -57,6 +63,8 @@ export class DialogEditProfilComponent implements OnInit {
     updateEmail(user, this.newEmail).then(() => {
       // Email updated!
       console.log('Email succesful updated to', this.newEmail);
+      //update LocalStorage
+      this.userDataService.saveCurrentUserLocalStorage(this.userDataService.currentUser['name'], this.newEmail, this.userDataService.currentUser['imgNr'])
     }).catch((error) => {
       // An error occurred
       const dialogRef = this.dialog.open(DialogReauthenticateComponent, { width: '400px', panelClass: 'custom-normal-dialog' });
@@ -79,8 +87,10 @@ export class DialogEditProfilComponent implements OnInit {
     updateProfile(user, { displayName: this.newName }).then(() => {
       //Profil updated
       console.log('Name succesful updated to', this.newName);
+      this.sharedService.updateName(this.oldName,this.newName);
       //update LocalStorage
-      this.userDataService.saveCurrentUserLocalStorage(this.newName,this.userDataService.currentUser['mail'],this.userDataService.currentUser['imgNr'])
+      this.userDataService.saveCurrentUserLocalStorage(this.newName, this.userDataService.currentUser['mail'], this.userDataService.currentUser['imgNr']);
+      this.oldName = this.newName ;
     }).catch((error) => {
       //
     });

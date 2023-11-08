@@ -8,6 +8,7 @@ import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, query, updateD
 import { ChannelInfo } from '../models/channel-info.class';
 import { Message } from '../models/message.class';
 import { UserDataService } from '../services/user-data.service';
+import { Unsubscribe } from '@angular/fire/auth';
 
 
 @Component({
@@ -33,9 +34,11 @@ export class MainChatComponent implements OnInit, OnChanges {
   threadMessage = new Message();
   threadOpen = false;
   unsubThread;
+
   showScrollButton = false;
   isSendingMessage = false;
   runtime = false;
+
 
   @ViewChild('scrollButton') scrollButton: ElementRef;
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
@@ -61,7 +64,9 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.templateIsReady = false;
       // console.log('Änderungen :', value);
       await this.getChannelsFromDataBase(value);
+      // await this.sharedService.getChannelsFromDataBase(value);
       await this.createSubscribeChannelMessages();
+      // this.sharedService.createSubscribeChannelMessages();
       await this.getUsersFromChannel();
       console.log(this.filteredChannels);
     });
@@ -99,7 +104,7 @@ export class MainChatComponent implements OnInit, OnChanges {
 
   openGroupMemberPopUp() {
     this.dialog.open(GroupMemberComponent, { position: { top: '180px', right: '50px' }, panelClass: 'custom-channel-dialog', data: this.filteredChannels });
-    
+
   }
 
   /**
@@ -212,8 +217,10 @@ export class MainChatComponent implements OnInit, OnChanges {
    * create subscribe for changes in messages for a single channel
    * 
    */
-  async createSubscribeChannelMessages() {
+  createSubscribeChannelMessages() {
+    console.log('create channel sub');
     let channelId = this.filteredChannels[1];
+    
     const unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
       await this.getMessagesFromChannel();
     });
@@ -286,7 +293,6 @@ export class MainChatComponent implements OnInit, OnChanges {
     const querySnapshotMessages = await getDocs(collection(this.firestore, `channels/${channelId}/messages`));
     querySnapshotMessages.forEach((doc) => {
       this.channelMessagesFromDB.push(new Message(doc.data()));
-      // console.log(doc.data());
     });
     console.log('Founded Messages :', this.channelMessagesFromDB);
     this.sortMessagesTime(this.channelMessagesFromDB);
