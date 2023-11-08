@@ -36,7 +36,6 @@ export class GroupMemberComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.openGroupMemberInfo();
     this.currentChannel.info = this.dialogData[0];
     this.currentChannel.id = this.dialogData[1];
     console.log(this.currentChannel, this.currentChannel.info.members);
