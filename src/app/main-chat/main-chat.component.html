@@ -117,8 +117,11 @@
     </div>
 
     <section class="input-container">
+
         <textarea *ngIf="templateIsReady" [(ngModel)]="copiedText"
             placeholder="Nachricht an #  {{ this.filteredChannels[0].name }}"></textarea>
+
+        <!-- <textarea [(ngModel)]="copiedText" placeholder="Nachricht an #{{ this.filteredChannels[0].name }}"></textarea> -->
         <div class="input-send">
             <div class="input-send-left">
                 <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
