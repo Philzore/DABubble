@@ -17,6 +17,7 @@ import { Unsubscribe } from '@angular/fire/auth';
   styleUrls: ['./main-chat.component.scss']
 })
 export class MainChatComponent implements OnInit, OnChanges {
+
   copiedText: string = '';
   isSidebarOpen: boolean = true;
   showAddDataPopup: boolean = false;
@@ -34,7 +35,7 @@ export class MainChatComponent implements OnInit, OnChanges {
   threadMessage = new Message();
   threadOpen = false;
   unsubThread;
-
+  emojiMartVisible = false;
   showScrollButton = false;
   isSendingMessage = false;
   runtime = false;
@@ -93,6 +94,12 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.showScrollButton = true;
     }
   }
+
+
+  addEmoji(emoji:string) {
+    this.copiedText += emoji['emoji']['native'];
+  }
+
 
   /**
    * open Group Info dialog

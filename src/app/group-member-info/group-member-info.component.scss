@@ -28,17 +28,26 @@ p, h3 {
 
     .active-container {
         display: flex;
+        align-items: center;
 
         .circle {
-            height: 30px;
-            width: 30px;
-            color: greenyellow;
+            height: 20px;
+            width: 20px;
+            background-color: green;
+            border-radius: 50%;
+            margin: 0 10px 0 0;
         }
+
     }
 
     .email-container {
         display: flex;
         align-items: center;
+
+        .material-icons {
+            margin: 0 10px 0 0;
+        }
+
     }
 
     .message-container {
@@ -46,6 +55,7 @@ p, h3 {
         align-items: center;
         justify-content: center;
         padding: 10px;
+        border-radius: 15px;
         background-color:$purple ;
         color: #fff;
         gap: 30px;

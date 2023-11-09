@@ -33,6 +33,10 @@
                         <p>{{message.from}}</p> <span class="message-time">{{message.calculatedTime}}</span>
                     </div>
 
+                    <emoji-mart *ngIf="emojiMartVisible"
+                        [style]="{ position: 'absolute', bottom: '25px', left : '75px', 'border-radius': '15px', 'z-index': '11'}">
+                    </emoji-mart>
+
                     <div class="info-row-react">
                         <i class="material-icons checkmark">check_circle</i>
                         <i class="material-icons handshake">handshake</i>
@@ -119,7 +123,7 @@
     <section class="input-container">
 
         <textarea *ngIf="templateIsReady" [(ngModel)]="copiedText"
-            placeholder="Nachricht an #  {{ this.filteredChannels[0].name }}"></textarea>
+            placeholder="Nachricht an #{{ this.filteredChannels[0].name }}"></textarea>
 
         <!-- <textarea [(ngModel)]="copiedText" placeholder="Nachricht an #{{ this.filteredChannels[0].name }}"></textarea> -->
         <div class="input-send">
@@ -132,8 +136,9 @@
             <div class="input-popups">
                 <div *ngIf="showAddDataPopup" class="add-data-popup">Datei anhängen</div>
                 <div *ngIf="showEmojiPopup" class="emoji-mart">
-                    <emoji-mart
-                        [style]="{ position: 'absolute', bottom: '25px', left : '75px', 'border-radius': '15px', 'z-index': '11'}"></emoji-mart>
+                    <emoji-mart (emojiClick)="addEmoji($event)"
+                        [style]="{ position: 'absolute', bottom: '25px', left : '75px', 'border-radius': '15px', 'z-index': '11'}">
+                    </emoji-mart>
                 </div>
                 <div *ngIf="showPersonPopup" class="person-popup">
 
