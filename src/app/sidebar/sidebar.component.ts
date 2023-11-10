@@ -51,7 +51,6 @@ import { User } from '../models/user.class';
   ]
 })
 export class SidebarComponent implements OnInit {
-
   // @Output() sidebarToggled = new EventEmitter<boolean>();
   @Output() changeChannel = new EventEmitter<string>();
   specificWidth = 1000;

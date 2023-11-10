@@ -150,10 +150,11 @@ mat-card-header {
     position: absolute;
     background-color: white;
     box-sizing: border-box;
-    padding: 24px 14px;
+    /* padding: 24px 14px; */
+    padding: 15px;
     border-bottom-right-radius: 30px;
     border-bottom-left-radius: 30px;
-    left: -140px;
+    left: -147px;
     bottom: 200px;
     box-shadow: -4px 4px 7px rgba(0, 0, 0, 0.2);
     color: black;

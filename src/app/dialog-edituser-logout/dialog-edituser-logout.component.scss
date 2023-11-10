@@ -1,5 +1,5 @@
 .log-out-dialog {
-    padding: 30px;
+    padding: 10px;
     gap: 15px;
     display: flex;
     flex-direction: column;
@@ -7,10 +7,14 @@
     align-items: center;
     font-size: 24px;
     font-weight: 600;
+    min-width: 200px;
 
-    span{
-        padding: 10px 70px;
-        outline: none;
+    .logout-container {
+        padding:5px 10px;
+        gap: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
         &:hover {
             cursor: pointer;
@@ -18,5 +22,12 @@
             background-color: #ECEEFE;
             border-radius: 20px;
         }
+
+    }
+
+    span {
+        outline: none;
+        padding: 5px;
+        margin: 0;
     }
 }
