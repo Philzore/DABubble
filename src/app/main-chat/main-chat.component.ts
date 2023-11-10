@@ -205,7 +205,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     // console.log('Thrad status Anfang:', this.threadOpen);
 
     if (this.threadOpen) {
-      console.log('Unsub');
+      // console.log('Unsub');
       this.unsubThread();
     } else {
       this.createSubscribeThreadMessages(messageID);
@@ -217,7 +217,7 @@ export class MainChatComponent implements OnInit, OnChanges {
 
   unsubThreadMessages() {
     this.unsubThread();
-    console.log('Unsub');
+    // console.log('Unsub');
   }
 
   /**
