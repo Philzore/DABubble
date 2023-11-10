@@ -81,6 +81,7 @@
 <div class="workspace-closing" (click)="closeSidebar()">
   <div class="workspace-animation">
     <span #workspace_text>Workspace-Menü {{workspaceText}}</span>
-    <mat-icon>close</mat-icon>
+    <i *ngIf="!sidebarClose" class="material-icons deg-90">chevron_left</i>
+    <i *ngIf="sidebarClose" class="material-icons deg-90">chevron_right</i>
   </div>
 </div>
