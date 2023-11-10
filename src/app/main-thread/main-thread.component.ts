@@ -15,7 +15,7 @@ export class MainThreadComponent {
   showAddDataPopup: boolean;
   showEmojiPopup: boolean;
   showPersonPopup: boolean;
-  copiedText: string;
+  copiedText: string = '';
   threadContainerVisible: boolean; // Declare the property
   threadReady: boolean = false;
   threadMessage = new Message();
@@ -45,7 +45,7 @@ export class MainThreadComponent {
 
     setTimeout(() => {
       this.threadReady = true;
-    }, 300);
+    }, 300); 
   }
 
   scrollToBottom() {
@@ -67,6 +67,10 @@ export class MainThreadComponent {
 
   toggleEmojiPopup(): void {
     this.showEmojiPopup = !this.showEmojiPopup;
+  }
+
+  addEmoji(emoji:string) {
+    this.copiedText += emoji['emoji']['native'];
   }
 
   togglePersonPopup(): void {
