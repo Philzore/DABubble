@@ -36,6 +36,8 @@ export class MainChatComponent implements OnInit, OnChanges {
   threadOpen = false;
   unsubThread;
   emojiMartVisible = false;
+  selectedEmoji: string | null = null;
+  emojiCountMap: { [emoji: string]: number } = {}; // Map to store emoji counts
   showScrollButton = false;
   isSendingMessage = false;
   runtime = false;
@@ -69,7 +71,6 @@ export class MainChatComponent implements OnInit, OnChanges {
       console.log(this.sharedService.filteredChannels);
       
     });
-
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -109,12 +110,13 @@ export class MainChatComponent implements OnInit, OnChanges {
     console.log('Updated selected message ID:', this.selectedMessageId);
   }
 
-  addReactionToMessage() {
-
-
-
+  addReactionToMessage(emoji:string) {
+    console.log(emoji['emoji']['native']);
+    this.selectedEmoji = emoji['emoji']['native'];
+    if (this.selectedEmoji) {
+      this.emojiCountMap[this.selectedEmoji] = (this.emojiCountMap[this.selectedEmoji] || 0) + 1;
+    }
   }
-  
 
   /**
    * open Group Info dialog

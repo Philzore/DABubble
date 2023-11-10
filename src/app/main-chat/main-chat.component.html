@@ -33,7 +33,7 @@
                         <p>{{message.from}}</p> <span class="message-time">{{message.calculatedTime}}</span>
                     </div>
 
-                    <emoji-mart *ngIf="emojiMartVisible && selectedMessageId === message.id" (emojiClick)="addReactionToMessage()"
+                    <emoji-mart #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id" (emojiClick)="addReactionToMessage($event)"
                         [style]="{ position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '11'}">
                     </emoji-mart>
 
@@ -50,18 +50,15 @@
 
                 <div class="emoji-react-container">
                     <div class="emoji-wrapper">
-
-
-
-                        <!-- <i class="material-icons checkmark">check_circle</i>
-                        <span>1</span> -->
+                        <div *ngIf="selectedMessageId === message.id && selectedEmoji">
+                            {{ emojiCountMap[selectedEmoji] || 0 }}  {{ selectedEmoji }}
+                          </div>
                     </div>
                 </div>
 
                 <div class="last-response-row">
-                    <p (click)="toggleThread(message.id)" class="cursor">2 Antworten</p> <span
-                        class="message-time">Letzte
-                        Antwort 14:56</span>
+                    <p (click)="toggleThread(message.id)" class="cursor">2 Antworten</p>
+                    <span class="message-time">Letzte Antwort 14:56</span>
                 </div>
             </div>
         </div>
