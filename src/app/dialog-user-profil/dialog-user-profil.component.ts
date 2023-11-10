@@ -31,8 +31,8 @@ export class DialogUserProfilComponent implements OnInit {
     this.dialogRef.close();
     const dialog = this.dialog.open(DialogEditProfilComponent, { position: { top: '100px', right: '50px' }, panelClass: 'custom-logout-dialog' });
 
-    // dialog.afterClosed().subscribe(() => {
-    //   this.sharedService.unsubChannels();
-    // });
+    dialog.afterClosed().subscribe(() => {
+      this.sharedService.createSubscribeChannelMessages();
+    });
   }
 }

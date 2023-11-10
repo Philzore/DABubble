@@ -50,7 +50,7 @@ throw new Error('Method not implemented.');
 
     setTimeout(() => {
       this.threadReady = true;
-    }, 300); 
+    }, 500); 
   }
 
   scrollToBottom() {

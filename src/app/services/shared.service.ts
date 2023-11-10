@@ -4,6 +4,7 @@ import { Firestore, arrayUnion, collection, doc, getDocs, onSnapshot, query, upd
 import { BehaviorSubject, Observable, async } from 'rxjs';
 import { Message } from '../models/message.class';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -22,10 +23,12 @@ export class SharedService {
   filteredChannels: any[];
 
   unsubChannels;
+  templateIsReady = false ;
 
 
   constructor(private firestore: Firestore) {
     // Initialize your service here if needed.
+    
   }
 
   /**
@@ -74,6 +77,7 @@ export class SharedService {
    * 
    */
   async updateName(oldName: string, newName: string) {
+    this.unsubChannels();
     const channelCol = collection(this.firestore, 'channels');
     const channelSnapshot = await getDocs(channelCol);
     let channelMessagePath = '';
@@ -117,54 +121,55 @@ export class SharedService {
 
 
     });
+    
   }
 
-  // async getChannelsFromDataBase(name) {
-  //   this.filteredChannels = [];
-  //   const channelRef = collection(this.firestore, 'channels');
-  //   const filteredChannels = query(channelRef, where('name', "==", name))
-  //   const querySnapshot = await getDocs(filteredChannels);
-  //   querySnapshot.forEach((doc) => {
-  //     this.filteredChannels.push(doc.data(), doc.id);
-  //     console.log(this.filteredChannels);
-  //   });
-  //   // this.templateIsReady = true;
-  // }
+  async getChannelsFromDataBase(name) {
+    this.filteredChannels = [];
+    const channelRef = collection(this.firestore, 'channels');
+    const filteredChannels = query(channelRef, where('name', "==", name))
+    const querySnapshot = await getDocs(filteredChannels);
+    querySnapshot.forEach((doc) => {
+      this.filteredChannels.push(doc.data(), doc.id);
+      console.log(this.filteredChannels);
+    });
+    this.templateIsReady = true;
+  }
 
-  //   /**
-  //  * create subscribe for changes in messages for a single channel
-  //  * 
-  //  */
-  //   createSubscribeChannelMessages() {
-  //     console.log('create channel sub');
-  //     let channelId = this.filteredChannels[1];
+    /**
+   * create subscribe for changes in messages for a single channel
+   * 
+   */
+    createSubscribeChannelMessages() {
+      console.log('create channel sub');
+      let channelId = this.filteredChannels[1];
       
-  //     this.unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
-  //       await this.getMessagesFromChannel();
-  //     });
-  //   }
+      this.unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
+        await this.getMessagesFromChannel();
+      });
+    }
 
-  //     /**
-  //  * get the messages from the current active channel
-  //  * then sort it by time
-  //  * 
-  //  */
-  // async getMessagesFromChannel() {
-  //   let channelId = this.filteredChannels[1];
-  //   this.channelMessagesFromDB = [];
-  //   const querySnapshotMessages = await getDocs(collection(this.firestore, `channels/${channelId}/messages`));
-  //   querySnapshotMessages.forEach((doc) => {
-  //     this.channelMessagesFromDB.push(new Message(doc.data()));
-  //   });
-  //   console.log('Founded Messages :', this.channelMessagesFromDB);
-  //   this.sortMessagesTime(this.channelMessagesFromDB);
-  // }
+      /**
+   * get the messages from the current active channel
+   * then sort it by time
+   * 
+   */
+  async getMessagesFromChannel() {
+    let channelId = this.filteredChannels[1];
+    this.channelMessagesFromDB = [];
+    const querySnapshotMessages = await getDocs(collection(this.firestore, `channels/${channelId}/messages`));
+    querySnapshotMessages.forEach( async (doc) => {
+      this.channelMessagesFromDB.push(new Message(doc.data()));
+    });
+    console.log('Founded Messages :', this.channelMessagesFromDB);
+    this.sortMessagesTime(this.channelMessagesFromDB);
+  }
 
-  //   /**
-  //  * sort the messages by time
-  //  * 
-  //  */
-  //   sortMessagesTime(array) {
-  //     array.sort((a, b) => a.time - b.time);
-  //   }
+    /**
+   * sort the messages by time
+   * 
+   */
+    sortMessagesTime(array) {
+      array.sort((a, b) => a.time - b.time);
+    }
 }

@@ -1,13 +1,13 @@
 <div class="chat-container br-30">
-    <mat-toolbar *ngIf="templateIsReady">
+    <mat-toolbar *ngIf="sharedService.templateIsReady">
         <div class="chat-header-left cursor" (click)="openGroupInfoPopUp()">
-            <p># {{ filteredChannels[0]['name'] }}</p> <i class="material-icons">keyboard_arrow_down</i>
+            <p># {{ sharedService.filteredChannels[0]['name'] }}</p> <i class="material-icons">keyboard_arrow_down</i>
         </div>
         <div class="chat-header-right cursor">
             <div class="chat-members-images" (click)="openGroupMemberPopUp()">
-                <img *ngFor="let member of filteredChannels[0]['members']"
+                <img *ngFor="let member of sharedService.filteredChannels[0]['members']"
                     src="./assets/characters/character_{{member.imgNr}}.png" alt="">
-                <div class="chat-teamsize">{{ filteredChannels[0]['members'].length }}</div>
+                <div class="chat-teamsize">{{ sharedService.filteredChannels[0]['members'].length }}</div>
             </div>
             <i (click)="openAddMemberPopUp()" class="material-icons add-new-member cursor">person_add_alt</i>
         </div>
@@ -16,14 +16,14 @@
     <div class="chat-wrapper" #chatWrapper (scroll)="onScroll($event)">
 
 
-        <div *ngIf="templateIsReady" class="chat-beginning-container">
-            <h2>Dies ist der Anfang vom Channel #{{ this.filteredChannels[0].name }}</h2>
-            <p>{{ this.filteredChannels[0].description }}</p>
+        <div *ngIf="sharedService.templateIsReady" class="chat-beginning-container">
+            <h2>Dies ist der Anfang vom Channel #{{ sharedService.filteredChannels[0].name }}</h2>
+            <p>{{ sharedService.filteredChannels[0].description }}</p>
         </div>
 
         <!-- MESSAGE DESIGN IF SOMEBODYS ELSE MESSAGE START -->
 
-        <div *ngFor="let message of channelMessagesFromDB" class="message-container cursor">
+        <div *ngFor="let message of sharedService.channelMessagesFromDB" class="message-container cursor">
 
             <img src="{{message.profileImg}}" alt="">
             <div class="message-info-container">
@@ -122,8 +122,8 @@
 
     <section class="input-container">
 
-        <textarea *ngIf="templateIsReady" [(ngModel)]="copiedText"
-            placeholder="Nachricht an #{{ this.filteredChannels[0].name }}">
+        <textarea *ngIf="sharedService.templateIsReady" [(ngModel)]="copiedText"
+            placeholder="Nachricht an #{{ sharedService.filteredChannels[0].name }}">
         </textarea>
         <div class="input-send">
             <div class="input-send-left">
@@ -143,7 +143,7 @@
 
                     <div class="member-popup scrollbar">
                         <div class="chat-member-row">
-                            <p>{{ this.filteredChannels[0].members }}</p>
+                            <p>{{ sharedService.filteredChannels[0].members }}</p>
                         </div>
 
                     </div>

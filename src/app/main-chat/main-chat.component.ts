@@ -27,10 +27,10 @@ export class MainChatComponent implements OnInit, OnChanges {
   usersFromDatabase = [];
   usersFromChannels = [];
   userData = [];
-  filteredChannels = [];
-  channelMessagesFromDB = [];
+  // filteredChannels = [];
+  // channelMessagesFromDB = [];
   thradMessagesFromDB = [];
-  templateIsReady = false;
+  // templateIsReady = false;
   message = new Message();
   threadMessage = new Message();
   threadOpen = false;
@@ -59,14 +59,15 @@ export class MainChatComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.sharedService.currentActiveChannel$.subscribe(async (value) => {
-      this.templateIsReady = false;
+      this.sharedService.templateIsReady = false;
       // console.log('Änderungen :', value);
-      await this.getChannelsFromDataBase(value);
-      // await this.sharedService.getChannelsFromDataBase(value);
-      await this.createSubscribeChannelMessages();
-      // this.sharedService.createSubscribeChannelMessages();
+      // await this.getChannelsFromDataBase(value);
+      await this.sharedService.getChannelsFromDataBase(value);
+      // await this.createSubscribeChannelMessages();
+      this.sharedService.createSubscribeChannelMessages();
       await this.getUsersFromChannel();
-      console.log(this.filteredChannels);
+      console.log(this.sharedService.filteredChannels);
+      
     });
 
   }
@@ -120,11 +121,11 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   openGroupInfoPopUp(): void {
-    this.dialog.open(GroupInfoPopupComponent, { position: { top: '180px', left: '320px' }, panelClass: 'custom-channel-dialog', data: this.filteredChannels });
+    this.dialog.open(GroupInfoPopupComponent, { position: { top: '180px', left: '320px' }, panelClass: 'custom-channel-dialog', data: this.sharedService.filteredChannels });
   }
 
   openGroupMemberPopUp() {
-    this.dialog.open(GroupMemberComponent, { position: { top: '180px', right: '50px' }, panelClass: 'custom-channel-dialog', data: this.filteredChannels });
+    this.dialog.open(GroupMemberComponent, { position: { top: '180px', right: '50px' }, panelClass: 'custom-channel-dialog', data: this.sharedService.filteredChannels });
 
   }
 
@@ -133,7 +134,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   openAddMemberPopUp(): void {
-    this.dialog.open(GroupAddMemberComponent, { position: { top: '180px', right: '50px' }, panelClass: 'custom-logout-dialog', data: this.filteredChannels });
+    this.dialog.open(GroupAddMemberComponent, { position: { top: '180px', right: '50px' }, panelClass: 'custom-logout-dialog', data: this.sharedService.filteredChannels });
   }
 
   /**
@@ -183,17 +184,17 @@ export class MainChatComponent implements OnInit, OnChanges {
   }
 
 
-  async getChannelsFromDataBase(name) {
-    this.filteredChannels = [];
-    const channelRef = collection(this.firestore, 'channels');
-    const filteredChannels = query(channelRef, where('name', "==", name))
-    const querySnapshot = await getDocs(filteredChannels);
-    querySnapshot.forEach((doc) => {
-      this.filteredChannels.push(doc.data(), doc.id);
-      console.log(this.filteredChannels);
-    });
-    this.templateIsReady = true;
-  }
+  // async getChannelsFromDataBase(name) {
+  //   this.filteredChannels = [];
+  //   const channelRef = collection(this.firestore, 'channels');
+  //   const filteredChannels = query(channelRef, where('name', "==", name))
+  //   const querySnapshot = await getDocs(filteredChannels);
+  //   querySnapshot.forEach((doc) => {
+  //     this.filteredChannels.push(doc.data(), doc.id);
+  //     console.log(this.filteredChannels);
+  //   });
+  //   this.templateIsReady = true;
+  // }
 
   /**
    * open or close the thrad component
@@ -201,7 +202,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * @param messageID {string} - id form the clicked message
    */
   toggleThread(messageID?: string) {
-    console.log('Thrad status Anfang:', this.threadOpen);
+    // console.log('Thrad status Anfang:', this.threadOpen);
 
     if (this.threadOpen) {
       console.log('Unsub');
@@ -211,7 +212,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     }
     this.threadClosed.emit();
     this.threadOpen = !this.threadOpen;
-    console.log('Thrad status Ende:', this.threadOpen);
+    // console.log('Thrad status Ende:', this.threadOpen);
   }
 
   unsubThreadMessages() {
@@ -224,8 +225,8 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    * @param messageID {string} - id form the clicked message
    */
-  async createSubscribeThreadMessages(messageID) {
-    let channelId = this.filteredChannels[1];
+  async createSubscribeThreadMessages(messageID:string) {
+    let channelId = this.sharedService.filteredChannels[1];
     // console.log('Aktuelle Message ID : ', messageID);
     //load right thread from firestore
     this.unsubThread = onSnapshot(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`), async (doc) => {
@@ -238,14 +239,14 @@ export class MainChatComponent implements OnInit, OnChanges {
    * create subscribe for changes in messages for a single channel
    * 
    */
-  createSubscribeChannelMessages() {
-    console.log('create channel sub');
-    let channelId = this.filteredChannels[1];
+  // createSubscribeChannelMessages() {
+  //   console.log('create channel sub');
+  //   let channelId = this.filteredChannels[1];
     
-    const unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
-      await this.getMessagesFromChannel();
-    });
-  }
+  //   const unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
+  //     await this.getMessagesFromChannel();
+  //   });
+  // }
 
   /**
    * send a normal messgae in a channel
@@ -271,7 +272,7 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.message.text = this.copiedText;
       this.copiedText = '';
       //add subcollection
-      let channelId = this.filteredChannels[1];
+      let channelId = this.sharedService.filteredChannels[1];
       const singleRef = doc(this.firestore, 'channels', channelId);
       const subcollectionMessages = await addDoc(collection(singleRef, 'messages'),
         this.message.toJSON()
@@ -292,7 +293,7 @@ export class MainChatComponent implements OnInit, OnChanges {
 
   // function to get the user from a channel to display when clicking on @ in input field to tag somebody in the group
   async getUsersFromChannel() {
-    let channelId = this.filteredChannels[1];
+    let channelId = this.sharedService.filteredChannels[1];
     this.usersFromChannels = [];
     const querySnapshotChannel = await getDocs(collection(this.firestore, `channels/${channelId}`));
 
@@ -308,16 +309,16 @@ export class MainChatComponent implements OnInit, OnChanges {
    * then sort it by time
    * 
    */
-  async getMessagesFromChannel() {
-    let channelId = this.filteredChannels[1];
-    this.channelMessagesFromDB = [];
-    const querySnapshotMessages = await getDocs(collection(this.firestore, `channels/${channelId}/messages`));
-    querySnapshotMessages.forEach((doc) => {
-      this.channelMessagesFromDB.push(new Message(doc.data()));
-    });
-    console.log('Founded Messages :', this.channelMessagesFromDB);
-    this.sortMessagesTime(this.channelMessagesFromDB);
-  }
+  // async getMessagesFromChannel() {
+  //   let channelId = this.sharedService.filteredChannels[1];
+  //   this.sharedService.channelMessagesFromDB = [];
+  //   const querySnapshotMessages = await getDocs(collection(this.firestore, `channels/${channelId}/messages`));
+  //   querySnapshotMessages.forEach((doc) => {
+  //     this.sharedService.channelMessagesFromDB.push(new Message(doc.data()));
+  //   });
+  //   // console.log('Founded Messages :', this.sharedService.channelMessagesFromDB);
+  //   this.sortMessagesTime(this.sharedService.channelMessagesFromDB);
+  // }
 
   /**
    * get the thread messages from a single message
@@ -325,20 +326,20 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    * @param messageID {string} - id form the clicked message
    */
-  async getThreadMessagesFromSingleMessage(messageID) {
-    let channelId = this.filteredChannels[1];
+  async getThreadMessagesFromSingleMessage(messageID:string) {
+    let channelId = this.sharedService.filteredChannels[1];
     this.sharedService.currentThreadContent = [];
     const querySnapshotThread = await getDocs(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`));
     querySnapshotThread.forEach((doc) => {
       this.sharedService.currentThreadContent.push(new Message(doc.data()));
       // console.log('Thread Data:', doc.data());
-      // console.log(this.sharedService.currentThreadContent);
+      //  console.log(this.sharedService.currentThreadContent);
     });
     //set path in sharedService
     this.sharedService.threadPath = '';
     this.sharedService.threadPath = `channels/${channelId}/messages/${messageID}/thread`;
     this.sortMessagesTime(this.sharedService.currentThreadContent);
-    console.log(this.sharedService.currentThreadContent);
+    console.log('Thread Cotent',this.sharedService.currentThreadContent);
   }
 
   /**
