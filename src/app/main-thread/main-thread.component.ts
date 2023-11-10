@@ -12,10 +12,15 @@ import { MainChatComponent } from '../main-chat/main-chat.component';
   styleUrls: ['./main-thread.component.scss']
 })
 export class MainThreadComponent {
+addReactionToMessage() {
+throw new Error('Method not implemented.');
+}
   showAddDataPopup: boolean;
   showEmojiPopup: boolean;
   showPersonPopup: boolean;
+  selectedMessageId: string | null = null;
   copiedText: string = '';
+  emojiMartVisible = false;
   threadContainerVisible: boolean; // Declare the property
   threadReady: boolean = false;
   threadMessage = new Message();
@@ -71,6 +76,15 @@ export class MainThreadComponent {
 
   addEmoji(emoji:string) {
     this.copiedText += emoji['emoji']['native'];
+  }
+
+  toggleEmojiForMessage(messageID?: string) {
+    if (this.selectedMessageId === messageID) {
+      this.selectedMessageId = null; // Close the emoji-mart if it's already open for this message
+    } else {
+      this.selectedMessageId = messageID; // Open the emoji-mart for the selected message
+    }
+    this.emojiMartVisible = !this.emojiMartVisible;
   }
 
   togglePersonPopup(): void {

@@ -5,6 +5,7 @@ export class Message {
     calculatedTime:string;
     text: string;
     id:string;
+    reaction:string;
     
     constructor(obj?: any) {
         this.from = obj ? obj.from : '';
@@ -13,6 +14,7 @@ export class Message {
         this.calculatedTime = obj ? obj.calculatedTime : '';
         this.text = obj ? obj.text : '';
         this.id = obj ? obj.id : '';
+        this.reaction = obj ? obj.reaction : '';
     }
 
     public toJSON() {
@@ -23,6 +25,7 @@ export class Message {
             calculatedTime: this.calculatedTime,
             text: this.text,
             id: this.id,
+            reaction: this.reaction
         }
     }
 }

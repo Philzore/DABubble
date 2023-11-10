@@ -39,11 +39,9 @@ export class MainChatComponent implements OnInit, OnChanges {
   showScrollButton = false;
   isSendingMessage = false;
   runtime = false;
-
-
+  selectedMessageId: string | null = null;
   @ViewChild('scrollButton') scrollButton: ElementRef;
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
-
   @Input() threadToogleFromOutside: boolean;
   @Output() threadClosed = new EventEmitter<void>();
 
@@ -57,7 +55,6 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
     });
-    // this.openGroupInfoPopUp();
   }
 
   ngOnInit() {
@@ -100,6 +97,23 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.copiedText += emoji['emoji']['native'];
   }
 
+  // Function to toggle the visibility of the emoji-mart for a specific message
+  toggleEmojiForMessage(messageID?: string) {
+    if (this.selectedMessageId === messageID) {
+      this.selectedMessageId = null; // Close the emoji-mart if it's already open for this message
+    } else {
+      this.selectedMessageId = messageID; // Open the emoji-mart for the selected message
+    }
+    this.emojiMartVisible = !this.emojiMartVisible;
+    console.log('Updated selected message ID:', this.selectedMessageId);
+  }
+
+  addReactionToMessage() {
+
+
+
+  }
+  
 
   /**
    * open Group Info dialog

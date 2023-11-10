@@ -33,14 +33,14 @@
                         <p>{{message.from}}</p> <span class="message-time">{{message.calculatedTime}}</span>
                     </div>
 
-                    <emoji-mart *ngIf="emojiMartVisible"
-                        [style]="{ position: 'absolute', bottom: '25px', left : '75px', 'border-radius': '15px', 'z-index': '11'}">
+                    <emoji-mart *ngIf="emojiMartVisible && selectedMessageId === message.id" (emojiClick)="addReactionToMessage()"
+                        [style]="{ position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '11'}">
                     </emoji-mart>
 
                     <div class="info-row-react">
                         <i class="material-icons checkmark">check_circle</i>
                         <i class="material-icons handshake">handshake</i>
-                        <i class="material-icons">add_reaction</i>
+                        <i class="material-icons" (click)="toggleEmojiForMessage(message.id)">add_reaction</i>
                         <i (click)="toggleThread(message.id)" class="material-icons">text_snippet</i>
                     </div>
 
@@ -50,8 +50,11 @@
 
                 <div class="emoji-react-container">
                     <div class="emoji-wrapper">
-                        <i class="material-icons checkmark">check_circle</i>
-                        <span>1</span>
+
+                        
+
+                        <!-- <i class="material-icons checkmark">check_circle</i>
+                        <span>1</span> -->
                     </div>
                 </div>
 
@@ -61,9 +64,6 @@
                         Antwort 14:56</span>
                 </div>
             </div>
-
-            <!-- <div class="chat-divider-top"></div> -->
-
         </div>
 
         <!-- MESSAGE DESIGN IF SOMEBODYS ELSE MESSAGE END -->
@@ -123,9 +123,8 @@
     <section class="input-container">
 
         <textarea *ngIf="templateIsReady" [(ngModel)]="copiedText"
-            placeholder="Nachricht an #{{ this.filteredChannels[0].name }}"></textarea>
-
-        <!-- <textarea [(ngModel)]="copiedText" placeholder="Nachricht an #{{ this.filteredChannels[0].name }}"></textarea> -->
+            placeholder="Nachricht an #{{ this.filteredChannels[0].name }}">
+        </textarea>
         <div class="input-send">
             <div class="input-send-left">
                 <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
