@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GroupAddMemberComponent } from '../group-add-member/group-add-member.component';
 import { ChannelInfo } from '../models/channel-info.class';

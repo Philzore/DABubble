@@ -24,7 +24,7 @@ import {MatListModule} from '@angular/material/list';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, matFormFieldAnimations } from '@angular/material/form-field';
 import { GroupInfoPopupComponent } from './group-info-popup/group-info-popup.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MatDialog} from '@angular/material/dialog';
 import { GroupMemberComponent } from './group-member/group-member.component';
 import { GroupAddMemberComponent } from './group-add-member/group-add-member.component';
 import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
@@ -95,7 +95,16 @@ import { GroupMemberInfoComponent } from './group-member-info/group-member-info.
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule
   ],
-  providers: [{provide:LocationStrategy, useClass:HashLocationStrategy}, SharedService,AppComponent,MainChatComponent ],
+  providers: 
+  [{provide:LocationStrategy, useClass:HashLocationStrategy},
+  [
+    {
+      provide:MatDialogRef,
+      useValue: {}
+    }
+  ],
+  SharedService,AppComponent,MainChatComponent ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

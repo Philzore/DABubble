@@ -1,5 +1,5 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, AfterViewInit, Output, OnInit, ViewChild, AfterViewChecked, Renderer2, OnChanges, SimpleChanges } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, ElementRef, EventEmitter, HostListener, Input, AfterViewInit, Output, OnInit, ViewChild, AfterViewChecked, Renderer2, OnChanges, SimpleChanges, Inject, Optional } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.component';
 import { GroupMemberComponent } from '../group-member/group-member.component';
 import { GroupAddMemberComponent } from '../group-add-member/group-add-member.component';
@@ -49,6 +49,7 @@ export class MainChatComponent implements OnInit, OnChanges {
 
   constructor(
     public dialog: MatDialog,
+    @Optional() public dialogRef: MatDialogRef<GroupMemberComponent>,
     public sharedService: SharedService,
     public userDataService: UserDataService,
     private elementRef: ElementRef,
@@ -57,6 +58,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
     });
+
   }
 
   ngOnInit() {
