@@ -226,8 +226,9 @@ $main-purple: #eceefe;
                 display: flex;
                 align-items: center;
 
-                p {
-                  font-weight: 600;
+                h4 {
+                  font-size: 20px;
+                  margin: 0;
                 }
 
               }
@@ -241,7 +242,7 @@ $main-purple: #eceefe;
                 top: -15px;
                 border-radius: 30px 30px 0 30px;
                 border: 1px solid #adb0d9;
-                padding: 5px 15px;
+                padding: 8px 15px;
                 background: #fff;
                 display: flex;
                 align-items: center;
@@ -290,7 +291,7 @@ $main-purple: #eceefe;
             .last-response-row {
 
               p {
-                font-size: 14px;
+                font-size: 16px;
                 color: #98a3f4;
                 margin: 0;
               }
@@ -299,7 +300,7 @@ $main-purple: #eceefe;
 
             .message-time {
               opacity: .8;
-              font-size: 12px;
+              font-size: 14px;
               margin: 0 0 0 15px;
             }
           }
@@ -320,6 +321,11 @@ $main-purple: #eceefe;
         border: 1px solid $main-purple;
         border-radius: 10px;
         background: #fff;
+        transition: 225ms ease-in-out;
+
+        &:hover {
+          border: 1px solid $purple;
+        }
 
         .material-icons {
           margin: 0 0 0 15px;
@@ -346,6 +352,7 @@ $main-purple: #eceefe;
             border: none;
             outline: none;
 
+
           &::placeholder {
             opacity: .6;
           }
@@ -368,7 +375,7 @@ $main-purple: #eceefe;
               z-index: 1234;
               left: -20px;
               bottom: 105px;
-              max-height: 300px;
+              max-height: 150px;
               min-width: 250px; 
               box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
               padding: 10px;

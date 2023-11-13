@@ -30,7 +30,7 @@
 
                 <div class="info-row">
                     <div class="info-row-name">
-                        <p>{{message.from}}</p> <span class="message-time">{{message.calculatedTime}}</span>
+                        <h4>{{message.from}}</h4> <span class="message-time">{{message.calculatedTime}}</span>
                     </div>
 
                     <emoji-mart #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id" (emojiClick)="addReactionToMessage($event)"
@@ -126,7 +126,7 @@
             <div class="input-send-left">
                 <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
                 <i class="material-icons toggle-emoji" (click)="toggleEmojiPopup()">insert_emoticon</i>
-                <i class="material-icons toggle-person" (click)="openGroupMemberPopUp()">alternate_email</i>
+                <i class="material-icons toggle-person" (click)="togglePersonPopup()">alternate_email</i>
             </div>
 
             <div class="input-popups">
@@ -138,10 +138,16 @@
                 </div>
                 <div *ngIf="showPersonPopup" class="person-popup" >
 
-                    <div class="member-popup scrollbar">
-                        <!-- <div class="chat-member-row">
-                            <p>{{ sharedService.filteredChannels[0].members }}</p>
-                        </div> -->
+                    <div class="member-popup scroll-bar">
+                        
+                        <p>placeholder for members in group</p>
+                        <p>placeholder for members in group</p>
+                        <p>placeholder for members in group</p>
+                        <p>placeholder for members in group</p>
+                        <p>placeholder for members in group</p>
+                        <p>placeholder for members in group</p>
+                        <p>placeholder for members in group</p>
+                        <p>placeholder for members in group</p>
 
                     </div>
 

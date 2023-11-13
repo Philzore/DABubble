@@ -1,5 +1,5 @@
 import { Injectable , OnInit} from '@angular/core';
-import { Auth, EmailAuthProvider, getAuth, reauthenticateWithCredential } from '@angular/fire/auth';
+import { Auth, EmailAuthProvider, getAuth, reauthenticateWithCredential, updateProfile } from '@angular/fire/auth';
 
 
 @Injectable({

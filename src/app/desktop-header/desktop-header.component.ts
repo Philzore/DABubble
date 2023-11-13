@@ -3,6 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogEdituserLogoutComponent } from '../dialog-edituser-logout/dialog-edituser-logout.component';
 import { UserDataService } from '../services/user-data.service';
 import { SharedService } from '../services/shared.service';
+import { getAuth, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
+
+
 
 @Component({
   selector: 'app-desktop-header',
@@ -20,6 +23,8 @@ export class DesktopHeaderComponent implements OnInit {
     public userDataService: UserDataService) {
 
   }
+
+  auth = getAuth();
 
   ngOnInit(): void {
     this.sharedService.isSidebarOpen$().subscribe((state) => {
