@@ -33,6 +33,7 @@ export class DesktopHeaderComponent implements OnInit {
   }
 
   closeSidebar() {
+    
     this.sharedService.toggleSidebar();
   }
 

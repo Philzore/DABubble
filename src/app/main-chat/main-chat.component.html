@@ -126,7 +126,7 @@
             <div class="input-send-left">
                 <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
                 <i class="material-icons toggle-emoji" (click)="toggleEmojiPopup()">insert_emoticon</i>
-                <i class="material-icons toggle-person" (click)="togglePersonPopup()">alternate_email</i>
+                <i class="material-icons toggle-person" (click)="openGroupMemberPopUp()">alternate_email</i>
             </div>
 
             <div class="input-popups">
@@ -136,12 +136,12 @@
                         [style]="{ position: 'absolute', bottom: '25px', left : '75px', 'border-radius': '15px', 'z-index': '11'}">
                     </emoji-mart>
                 </div>
-                <div *ngIf="showPersonPopup" class="person-popup">
+                <div *ngIf="showPersonPopup" class="person-popup" >
 
                     <div class="member-popup scrollbar">
-                        <div class="chat-member-row">
+                        <!-- <div class="chat-member-row">
                             <p>{{ sharedService.filteredChannels[0].members }}</p>
-                        </div>
+                        </div> -->
 
                     </div>
 
@@ -156,6 +156,5 @@
         </div>
     </section>
 
-    <!-- <app-group-member></app-group-member> -->
 
 </div>
