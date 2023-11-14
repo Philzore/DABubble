@@ -47,6 +47,10 @@ export class GroupAddMemberComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public dialogData: any
   ) { }
 
+  /**
+   * init component
+   * 
+   */
   ngOnInit(): void {
     this.currentChannel.info = this.dialogData[0];
     this.currentChannel.id = this.dialogData[1];
@@ -60,6 +64,11 @@ export class GroupAddMemberComponent implements OnInit {
     this.messageDropdown = !this.messageDropdown;
   }
 
+  /**
+   * add meber to an array and splice in the available member array
+   * 
+   * @param userPosition {number} - to add the correct member
+   */
   addMember(userPosition) {
     console.log('geclickter User:', userPosition);
     console.log('geclickter User:', this.actMembers);
@@ -70,11 +79,20 @@ export class GroupAddMemberComponent implements OnInit {
     console.log('User welche geaddet werden:', this.actAddMembers);
   }
 
+  /**
+   * push to available members and splice from members you want to add
+   * 
+   * @param userPosition {number} - to remove the correct user
+   */
   removeUser(userPosition) {
     this.actMembers.push(this.actAddMembers[userPosition]);
     this.actAddMembers.splice(userPosition, 1);
   }
 
+  /**
+   * save users in the channel member info
+   * 
+   */
   saveNewUsers() {
     if (this.actAddMembers.length >= 1) {
       this.actAddMembers.forEach(async (user) => { 
@@ -84,12 +102,8 @@ export class GroupAddMemberComponent implements OnInit {
         }
        await this.sharedService.updateMembersInDatabase(userInfo, this.currentChannel.id);
       });
-      
     }
-    
   }
 
-  getActualMembers() {
 
-  }
 }

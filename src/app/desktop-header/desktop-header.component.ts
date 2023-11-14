@@ -28,6 +28,10 @@ export class DesktopHeaderComponent implements OnInit {
 
   
 
+  /**
+   * init component
+   * 
+   */
   ngOnInit(): void {
     this.sharedService.isSidebarOpen$().subscribe((state) => {
       this.sidebarClose = state;
@@ -40,10 +44,18 @@ export class DesktopHeaderComponent implements OnInit {
     }, 500);
   }
 
+  /**
+   * open dialog edit user logout
+   * 
+   */
   openDialog() {
     const dialog = this.dialog.open(DialogEdituserLogoutComponent, { position: { top: '100px', right: '50px' }, panelClass: 'custom-logout-dialog' });
   }
 
+  /**
+   * close sidebar
+   * 
+   */
   closeSidebar() {
     this.sharedService.toggleSidebar();
   }

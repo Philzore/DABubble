@@ -27,10 +27,9 @@ export class MainChatComponent implements OnInit, OnChanges {
   usersFromDatabase = [];
   usersFromChannels = [];
   userData = [];
-  // filteredChannels = [];
-  // channelMessagesFromDB = [];
+  
   thradMessagesFromDB = [];
-  // templateIsReady = false;
+  
   message = new Message();
   threadMessage = new Message();
   threadOpen = false;
@@ -75,6 +74,11 @@ export class MainChatComponent implements OnInit, OnChanges {
     });
   }
 
+  /**
+   * if @input is changing trigger this function
+   * 
+   * @param changes - react on bool changes
+   */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['threadToogleFromOutside'] && this.runtime) {
       console.log('Change');
@@ -122,6 +126,11 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.emojiMartVisible = false;
   }
 
+  /**
+   * add name to text are when click on @ symbol and the name
+   * 
+   * @param channelMember {string} - name of the channel member
+   */
   addNameToTextArea(channelMember: string) {
     this.copiedText += `@${channelMember} `;
     this.showPersonPopup = false;
@@ -182,30 +191,25 @@ export class MainChatComponent implements OnInit, OnChanges {
     }
   }
 
-  // Close popups with the Escape key
+  /**
+   * close pop ups with escape key
+   * 
+   * @param event {listener}
+   */
   @HostListener('document:keydown.escape', ['$event'])
   onEscapeKey(event: KeyboardEvent): void {
     this.closePopups();
   }
 
+  /**
+   * close pop ups
+   * 
+   */
   closePopups(): void {
     this.showAddDataPopup = false;
     this.showEmojiPopup = false;
     this.showPersonPopup = false;
   }
-
-
-  // async getChannelsFromDataBase(name) {
-  //   this.filteredChannels = [];
-  //   const channelRef = collection(this.firestore, 'channels');
-  //   const filteredChannels = query(channelRef, where('name', "==", name))
-  //   const querySnapshot = await getDocs(filteredChannels);
-  //   querySnapshot.forEach((doc) => {
-  //     this.filteredChannels.push(doc.data(), doc.id);
-  //     console.log(this.filteredChannels);
-  //   });
-  //   this.templateIsReady = true;
-  // }
 
   /**
    * open or close the thrad component
@@ -240,19 +244,6 @@ export class MainChatComponent implements OnInit, OnChanges {
       await this.getThreadMessagesFromSingleMessage(messageID);
     });
   }
-
-  /**
-   * create subscribe for changes in messages for a single channel
-   * 
-   */
-  // createSubscribeChannelMessages() {
-  //   console.log('create channel sub');
-  //   let channelId = this.filteredChannels[1];
-    
-  //   const unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
-  //     await this.getMessagesFromChannel();
-  //   });
-  // }
 
   /**
    * send a normal messgae in a channel
@@ -298,35 +289,6 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.sharedService.createSubscribeChannelMessages();
     }
   }
-
-  // function to get the user from a channel to display when clicking on @ in input field to tag somebody in the group
-  // async getUsersFromChannel() {
-  //   let channelId = this.sharedService.filteredChannels[1];
-  //   this.usersFromChannels = [];
-  //   const querySnapshotChannel = await getDocs(collection(this.firestore, `channels/${channelId}`));
-
-  //   querySnapshotChannel.forEach((doc) => {
-  //     this.usersFromChannels.push(doc.data());
-  //     console.log(this.usersFromChannels);
-  //   })
-
-  // }
-
-  /**
-   * get the messages from the current active channel
-   * then sort it by time
-   * 
-   */
-  // async getMessagesFromChannel() {
-  //   let channelId = this.sharedService.filteredChannels[1];
-  //   this.sharedService.channelMessagesFromDB = [];
-  //   const querySnapshotMessages = await getDocs(collection(this.firestore, `channels/${channelId}/messages`));
-  //   querySnapshotMessages.forEach((doc) => {
-  //     this.sharedService.channelMessagesFromDB.push(new Message(doc.data()));
-  //   });
-  //   // console.log('Founded Messages :', this.sharedService.channelMessagesFromDB);
-  //   this.sortMessagesTime(this.sharedService.channelMessagesFromDB);
-  // }
 
   /**
    * get the thread messages from a single message

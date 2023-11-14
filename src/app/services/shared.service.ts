@@ -18,12 +18,12 @@ export class SharedService {
   channelMessagesFromDB: any[];
   unsubChannels;
   filteredChannels: any[];
-  templateIsReady = false ;
+  templateIsReady = false;
 
 
   constructor(private firestore: Firestore) {
     // Initialize your service here if needed.
-    
+
   }
 
   /**
@@ -68,8 +68,10 @@ export class SharedService {
   }
 
   /**
-   * update user name when he change it
+   * update user name
    * 
+   * @param oldName - to check where in firestore to replace with the new name
+   * @param newName - replaced name with oldName
    */
   async updateName(oldName: string, newName: string) {
     this.unsubChannels();
@@ -116,9 +118,14 @@ export class SharedService {
 
 
     });
-    
+
   }
 
+  /**
+   * get channel content from firestore
+   * 
+   * @param name {string} - the channel name which content to get 
+   */
   async getChannelsFromDataBase(name) {
     this.filteredChannels = [];
     const channelRef = collection(this.firestore, 'channels');
@@ -131,40 +138,42 @@ export class SharedService {
     this.templateIsReady = true;
   }
 
-    /**
-   * create subscribe for changes in messages for a single channel
+  /**
+   * create subscribe for channel messages
    * 
    */
-    createSubscribeChannelMessages() {
-      console.log('create channel sub');
-      let channelId = this.filteredChannels[1];
-      
-      this.unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
-        await this.getMessagesFromChannel();
-      });
-    }
+  createSubscribeChannelMessages() {
+    console.log('create channel sub');
+    let channelId = this.filteredChannels[1];
 
-      /**
-   * get the messages from the current active channel
-   * then sort it by time
+    this.unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
+      await this.getMessagesFromChannel();
+    });
+  }
+
+
+  /**
+   * get the messages from firestore and then sort the array
    * 
    */
   async getMessagesFromChannel() {
     let channelId = this.filteredChannels[1];
     this.channelMessagesFromDB = [];
     const querySnapshotMessages = await getDocs(collection(this.firestore, `channels/${channelId}/messages`));
-    querySnapshotMessages.forEach( async (doc) => {
+    querySnapshotMessages.forEach(async (doc) => {
       this.channelMessagesFromDB.push(new Message(doc.data()));
     });
     console.log('Founded Messages :', this.channelMessagesFromDB);
     this.sortMessagesTime(this.channelMessagesFromDB);
   }
 
-    /**
-   * sort the messages by time
+  
+  /**
+   * sort messages by time
    * 
+   * @param array - which need to be sorted
    */
-    sortMessagesTime(array) {
-      array.sort((a, b) => a.time - b.time);
-    }
+  sortMessagesTime(array) {
+    array.sort((a, b) => a.time - b.time);
+  }
 }
