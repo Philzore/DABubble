@@ -69,7 +69,7 @@ export class MainChatComponent implements OnInit, OnChanges {
       await this.sharedService.getChannelsFromDataBase(value);
       // await this.createSubscribeChannelMessages();
       this.sharedService.createSubscribeChannelMessages();
-      await this.getUsersFromChannel();
+      // await this.getUsersFromChannel();
       console.log(this.sharedService.filteredChannels);
       
     });
@@ -298,17 +298,17 @@ export class MainChatComponent implements OnInit, OnChanges {
   }
 
   // function to get the user from a channel to display when clicking on @ in input field to tag somebody in the group
-  async getUsersFromChannel() {
-    let channelId = this.sharedService.filteredChannels[1];
-    this.usersFromChannels = [];
-    const querySnapshotChannel = await getDocs(collection(this.firestore, `channels/${channelId}`));
+  // async getUsersFromChannel() {
+  //   let channelId = this.sharedService.filteredChannels[1];
+  //   this.usersFromChannels = [];
+  //   const querySnapshotChannel = await getDocs(collection(this.firestore, `channels/${channelId}`));
 
-    querySnapshotChannel.forEach((doc) => {
-      this.usersFromChannels.push(doc.data());
-      console.log(this.usersFromChannels);
-    })
+  //   querySnapshotChannel.forEach((doc) => {
+  //     this.usersFromChannels.push(doc.data());
+  //     console.log(this.usersFromChannels);
+  //   })
 
-  }
+  // }
 
   /**
    * get the messages from the current active channel
