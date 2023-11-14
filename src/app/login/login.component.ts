@@ -65,7 +65,7 @@ export class LoginComponent {
         
         //Phil 
         this.userDataService.saveCurrentUserLocalStorage(auth.currentUser.displayName, auth.currentUser.email, auth.currentUser.photoURL);
-
+        debugger;
         if (await this.checkIfUserExists(auth.currentUser.displayName)) {
           // Benutzer existiert bereits
           // Führe hier die entsprechenden Aktionen aus
