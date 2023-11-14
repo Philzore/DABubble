@@ -268,7 +268,7 @@ export class MainChatComponent implements OnInit, OnChanges {
       if (this.message.from == 'Gast') {
         this.message.profileImg = `./assets/characters/default_character.png`;
       } else {
-        this.message.profileImg = `./assets/characters/character_${this.userDataService.currentUser['imgNr']}.png`;
+        this.message.profileImg = `${this.userDataService.currentUser['imgNr']}`;
       }
       let date = new Date();
       let hours = date.getHours();

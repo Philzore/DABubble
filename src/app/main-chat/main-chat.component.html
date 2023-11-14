@@ -6,7 +6,7 @@
         <div class="chat-header-right cursor">
             <div class="chat-members-images" (click)="openGroupMemberPopUp()">
                 <img *ngFor="let member of sharedService.filteredChannels[0]['members']"
-                    src="./assets/characters/character_{{member.imgNr}}.png" alt="">
+                    src="{{member.imgNr}}" alt="">
                 <div class="chat-teamsize">{{ sharedService.filteredChannels[0]['members'].length }}</div>
             </div>
             <i (click)="openAddMemberPopUp()" class="material-icons add-new-member cursor">person_add_alt</i>

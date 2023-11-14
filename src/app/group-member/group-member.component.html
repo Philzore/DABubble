@@ -4,7 +4,7 @@
     </div>
 
     <div (click)="openGroupMemberInfo()" *ngFor="let member of currentChannel.info.members; let i = index" class="group-members cursor" id="members">
-        <img src="./assets/characters/character_{{member.imgNr}}.png" alt=""> <p>{{ member.name }} <span *ngIf="member.name == userDataService.currentUser['name']">(Du)</span></p>
+        <img src="{{member.imgNr}}" alt=""> <p>{{ member.name }} <span *ngIf="member.name == userDataService.currentUser['name']">(Du)</span></p>
     </div>
     
     <div class="add-member cursor">

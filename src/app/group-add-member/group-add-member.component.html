@@ -37,7 +37,7 @@
           <!-- user container for direct messages -->
           <div class="list-container direct-message" *ngIf="messageDropdown" [@dropDownMenu]>
             <div *ngFor="let user of actMembers; let i = index " (click)="addMember(i)" id="userID-{{i}}" class="single-entry">
-              <img src= '/assets/characters/character_{{user.avatar}}.png'>
+              <img src= '{{user.avatar}}'>
               <span class="point">&#9679;</span>
               <p>{{user.name}}</p>
             </div>

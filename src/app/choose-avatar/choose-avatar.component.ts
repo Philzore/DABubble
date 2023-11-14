@@ -65,9 +65,11 @@ export class ChooseAvatarComponent {
         this.user.name = this.name;
         this.user.email = this.email;
         
-        if (this.selectedCharacterIndex !== null) {
-          this.user.avatar = (this.selectedCharacterIndex + 1).toString();
-        }
+        // if (this.selectedCharacterIndex !== null) {
+        //   this.user.avatar = (this.selectedCharacterIndex + 1).toString();
+        // }
+
+        this.user.avatar = this.characters[this.selectedCharacterIndex] ;
 
         // Fügt Nutzer bei Firebase hinzu ( Collection )
         this.createUserWithFirebase();
@@ -78,7 +80,7 @@ export class ChooseAvatarComponent {
         updateProfile(auth.currentUser, {
           displayName: this.name,
           //Phil addes photoUrl
-          photoURL : this.user.avatar,
+          photoURL : this.characters[this.selectedCharacterIndex],
         })
           .then(() => {
             // Anzeigenamen aktualisiert

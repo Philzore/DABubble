@@ -16,23 +16,31 @@ export class DesktopHeaderComponent implements OnInit {
 
   sidebarClose = false;
   currentUserName: string = '';
+  auth;
 
+  headerIsReady:boolean = false ;
 
-  constructor(public sharedService: SharedService,
+  constructor(
+    public sharedService: SharedService,
     public dialog: MatDialog,
     public userDataService: UserDataService) {
   }
 
-  auth = getAuth();
+  
 
   ngOnInit(): void {
     this.sharedService.isSidebarOpen$().subscribe((state) => {
       this.sidebarClose = state;
     });
+
+    this.auth = getAuth();
+
+    setTimeout(() => {
+      this.headerIsReady = true ;
+    }, 500);
   }
 
   openDialog() {
-    // this.sharedService.unsubChannels();
     const dialog = this.dialog.open(DialogEdituserLogoutComponent, { position: { top: '100px', right: '50px' }, panelClass: 'custom-logout-dialog' });
   }
 
