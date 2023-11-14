@@ -189,7 +189,7 @@ mat-card-header {
         left: 0;
         z-index: 123;
         height: calc(100vh - 120px);
-        border-radius: 0 ;
+        border-radius: 0;
     }
 
     .overview-card {
@@ -207,6 +207,10 @@ mat-card-header {
 
     .single-entry {
         max-width: none !important;
+    }
+
+    .header-section {
+        display: none;
     }
 
 }

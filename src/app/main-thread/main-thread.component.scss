@@ -83,17 +83,10 @@ $purple: #535af1;
         .thread-header {
             display: flex;
             justify-content: space-around;
-
-            .close-button {
-                display: flex;
-                align-items: center;
-            }
-
+            
         }
 
         
-
-
         .thread-header-info {
             display: flex;
             align-items: center;
@@ -107,7 +100,7 @@ $purple: #535af1;
 
         p {
             color: $purple;
-            margin: 0 0 0 5px;
+            margin: 0 0 0 15px;
             font-size: 12px;
         }
     }

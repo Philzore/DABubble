@@ -3,9 +3,9 @@
   <mat-toolbar>
     <div class="thread-header-info">
       <h3>Thread</h3>
-      <p># Entwicklerteam</p>
+      <p>{{ sharedService.filteredChannels[0].name }}</p>
     </div>
-    <i class="material-icons cursor close-button" (click)="closeThread()">close</i>
+    <i class="material-icons close-button" (click)="closeThread()">close</i>
   </mat-toolbar>
 
   <div #chatWrapper (scroll)="onScroll($event)" class="message-thread-container">

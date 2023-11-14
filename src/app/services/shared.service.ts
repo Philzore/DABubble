@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Firestore, arrayUnion, collection, doc, getDocs, onSnapshot, query, updateDoc, where } from '@angular/fire/firestore';
-
 import { BehaviorSubject, Observable, async } from 'rxjs';
 import { Message } from '../models/message.class';
 
