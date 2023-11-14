@@ -6,15 +6,19 @@ import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 import { MainChatComponent } from '../main-chat/main-chat.component';
 
 
+
 @Component({
   selector: 'app-main-thread',
   templateUrl: './main-thread.component.html',
-  styleUrls: ['./main-thread.component.scss']
+  styleUrls: ['./main-thread.component.scss'],
+  
 })
 export class MainThreadComponent {
-addReactionToMessage() {
-throw new Error('Method not implemented.');
-}
+
+  addReactionToMessage() {
+    throw new Error('Method not implemented.');
+  }
+
   showAddDataPopup: boolean;
   showEmojiPopup: boolean;
   showPersonPopup: boolean;
@@ -50,7 +54,7 @@ throw new Error('Method not implemented.');
 
     setTimeout(() => {
       this.threadReady = true;
-    }, 500); 
+    }, 500);
   }
 
   scrollToBottom() {
@@ -74,7 +78,7 @@ throw new Error('Method not implemented.');
     this.showEmojiPopup = !this.showEmojiPopup;
   }
 
-  addEmoji(emoji:string) {
+  addEmoji(emoji: string) {
     this.copiedText += emoji['emoji']['native'];
   }
 

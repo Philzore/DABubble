@@ -90,10 +90,11 @@ import { GroupMemberInfoComponent } from './group-member-info/group-member-info.
     MatButtonModule,
     MatListModule,
     PickerComponent,
+    BrowserAnimationsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    BrowserAnimationsModule
+    
   ],
   providers: 
   [{provide:LocationStrategy, useClass:HashLocationStrategy},

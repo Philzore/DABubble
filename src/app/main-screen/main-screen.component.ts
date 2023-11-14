@@ -1,12 +1,24 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { SharedService } from '../services/shared.service';
-import { browserLocalPersistence, getAuth, } from '@angular/fire/auth';
+import { trigger, state, style, animate, transition, sequence } from '@angular/animations';
 
 @Component({
   selector: 'app-main-screen',
   templateUrl: './main-screen.component.html',
-  styleUrls: ['./main-screen.component.scss']
+  styleUrls: ['./main-screen.component.scss'],
+  animations: [
+    trigger('enter', [
+      transition(':enter', [
+        style({ transform: 'translateX(100%)', opacity: 0 }),
+        animate('500ms', style({ transform: 'translateX(0)', opacity: 1 }))
+      ]),
+      transition(':leave', [
+        style({ transform: 'translateX(0)', opacity: 1 }),
+        animate('500ms', style({ transform: 'translateX(100%)', opacity: 0 }))
+      ])
+    ]),
+  ]
 })
 export class MainScreenComponent {
   hideThread = true;
