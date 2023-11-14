@@ -260,6 +260,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    */
   async messageSend() {
     if (this.copiedText.length >= 1) {
+      this.sharedService.unsubChannels();
       this.isSendingMessage = true;
       this.message.from = this.userDataService.currentUser['name'];
       if (this.message.from == 'Gast') {
@@ -292,6 +293,7 @@ export class MainChatComponent implements OnInit, OnChanges {
       );
       this.isSendingMessage = false;
       this.scrollToBottom();
+      this.sharedService.createSubscribeChannelMessages();
     }
   }
 
