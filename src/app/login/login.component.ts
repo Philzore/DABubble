@@ -61,6 +61,9 @@ export class LoginComponent {
         const user = result.user;
 
         if(this.checkIfUserExists(auth.currentUser.displayName)){
+          this.user.name = auth.currentUser.displayName;
+          this.user.email = auth.currentUser.email;
+          this.user.avatar = auth.currentUser.photoURL;
           this.createUserWithFirebase();
           console.log('User created with firebase', this.user)
         }
