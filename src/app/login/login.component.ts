@@ -9,7 +9,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { AppComponent } from '../app.component';
 import { UserDataService } from '../services/user-data.service';
 import { User } from '../models/user.class';
-import { Firestore, addDoc, collection, query, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, getDocs, query, where } from '@angular/fire/firestore';
 
 RouterLink
 @Component({
@@ -51,8 +51,9 @@ export class LoginComponent {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
 
+
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         console.log('Google Login worked sucessfully')
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -60,16 +61,24 @@ export class LoginComponent {
         // The signed-in user info.
         const user = result.user;
 
-        if(this.checkIfUserExists(auth.currentUser.displayName)){
+       
+        
+        //Phil 
+        this.userDataService.saveCurrentUserLocalStorage(auth.currentUser.displayName, auth.currentUser.email, auth.currentUser.photoURL);
+
+        if (await this.checkIfUserExists(auth.currentUser.displayName)) {
+          // Benutzer existiert bereits
+          // Führe hier die entsprechenden Aktionen aus
+          console.log('User with this name exists already')
+        } else {
+          // Benutzer existiert noch nicht
+          // Führe hier die entsprechenden Aktionen aus
           this.user.name = auth.currentUser.displayName;
           this.user.email = auth.currentUser.email;
           this.user.avatar = auth.currentUser.photoURL;
           this.createUserWithFirebase();
           console.log('User created with firebase', this.user)
         }
-
-        //Phil 
-        this.userDataService.saveCurrentUserLocalStorage(auth.currentUser.displayName, auth.currentUser.email, auth.currentUser.photoURL);
         // IdP data available using getAdditionalUserInfo(result)
         // ...
         this.router.navigate(['/main-page']);
@@ -87,18 +96,10 @@ export class LoginComponent {
   }
 
 
-  checkIfUserExists(loginUser) {
+  async checkIfUserExists(loginUser) {
     const userRef = collection(this.firestore, 'users');
-    const ifUserExists = query(userRef, where('name', '==', loginUser));
-    if (ifUserExists) {
-      console.log('User existiert bereits');
-      return true;
-
-    } else {
-      console.log('User existiert noch nicht');
-      return false;
-
-    }
+    const querySnapshot = await getDocs(query(userRef, where('name', '==', loginUser)));
+    return querySnapshot.docs.length > 0;
   }
 
   createUserWithFirebase() {
