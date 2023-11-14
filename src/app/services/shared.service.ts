@@ -9,19 +9,15 @@ import { Message } from '../models/message.class';
 })
 export class SharedService {
   public currentActiveChannel = new BehaviorSubject<string>('DaBubble');
-  currentActiveChannel$ = this.currentActiveChannel.asObservable();
-
-  private threadContainerVisibilitySubject = new BehaviorSubject<boolean>(true);
-  threadContainerVisibility$ = this.threadContainerVisibilitySubject.asObservable();
-
   public isSidebarOpen = new BehaviorSubject<boolean>(false);
-
+  private threadContainerVisibilitySubject = new BehaviorSubject<boolean>(true);
+  currentActiveChannel$ = this.currentActiveChannel.asObservable();
+  threadContainerVisibility$ = this.threadContainerVisibilitySubject.asObservable();
   currentThreadContent = [];
   threadPath: string = '';
   channelMessagesFromDB: any[];
-  filteredChannels: any[];
-
   unsubChannels;
+  filteredChannels: any[];
   templateIsReady = false ;
 
 

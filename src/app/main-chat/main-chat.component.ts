@@ -122,6 +122,11 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.emojiMartVisible = false;
   }
 
+  addNameToTextArea(channelMember: string) {
+    this.copiedText += `@${channelMember} `;
+    this.showPersonPopup = false;
+  }
+
   /**
    * open Group Info dialog
    * 
