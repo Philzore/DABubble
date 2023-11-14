@@ -8,6 +8,8 @@ import { signInWithPopup } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import { AppComponent } from '../app.component';
 import { UserDataService } from '../services/user-data.service';
+import { User } from '../models/user.class';
+import { Firestore, addDoc, collection, query, where } from '@angular/fire/firestore';
 
 RouterLink
 @Component({
@@ -22,8 +24,9 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
   errorMessage: string = '';
+  user = new User();
 
-  constructor(private router: Router, public appComponent:AppComponent,private userDataService:UserDataService) {}
+  constructor(private router: Router, public appComponent: AppComponent, private userDataService: UserDataService, private firestore: Firestore) { }
 
   login() {
     const auth = getAuth();
@@ -35,7 +38,7 @@ export class LoginComponent {
         const user = userCredential.user;
         //Phil 
         console.log(auth.currentUser);
-        this.userDataService.saveCurrentUserLocalStorage(auth.currentUser.displayName,auth.currentUser.email,auth.currentUser.photoURL);
+        this.userDataService.saveCurrentUserLocalStorage(auth.currentUser.displayName, auth.currentUser.email, auth.currentUser.photoURL);
         this.router.navigate(['/main-page']);
       })
       .catch((error) => {
@@ -56,8 +59,14 @@ export class LoginComponent {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
+
+        if(this.checkIfUserExists(auth.currentUser.displayName)){
+          this.createUserWithFirebase();
+          console.log('User created with firebase', this.user)
+        }
+
         //Phil 
-        this.userDataService.saveCurrentUserLocalStorage(auth.currentUser.displayName,auth.currentUser.email,auth.currentUser.photoURL);
+        this.userDataService.saveCurrentUserLocalStorage(auth.currentUser.displayName, auth.currentUser.email, auth.currentUser.photoURL);
         // IdP data available using getAdditionalUserInfo(result)
         // ...
         this.router.navigate(['/main-page']);
@@ -74,13 +83,39 @@ export class LoginComponent {
       });
   }
 
+
+  checkIfUserExists(loginUser) {
+    const userRef = collection(this.firestore, 'users');
+    const ifUserExists = query(userRef, where('name', '==', loginUser));
+    if (ifUserExists) {
+      console.log('User existiert bereits');
+      return true;
+
+    } else {
+      console.log('User existiert noch nicht');
+      return false;
+
+    }
+  }
+
+  createUserWithFirebase() {
+    let usersCollection = collection(this.firestore, 'users');
+    addDoc(usersCollection, this.user.toJSON())
+      .then(() => {
+        console.log('User added to Firestore successfully!');
+      })
+      .catch((error) => {
+        console.error('Error adding user to Firestore', error);
+      });
+  }
+
   async loginAsGuest() {
     const auth = getAuth();
     this.appComponent.showFeedback('Hallo Gast!');
     signInAnonymously(auth)
       .then(() => {
         console.log('User logged in as Guest successfully')
-        this.userDataService.saveCurrentUserLocalStorage('Gast','','');
+        this.userDataService.saveCurrentUserLocalStorage('Gast', '', '');
         this.router.navigate(['/main-page']);
         // Signed in..
       })
