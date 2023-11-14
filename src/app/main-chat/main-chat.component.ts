@@ -99,6 +99,7 @@ export class MainChatComponent implements OnInit, OnChanges {
 
   addEmoji(emoji:string) {
     this.copiedText += emoji['emoji']['native'];
+    this.showEmojiPopup = false;
   }
 
   // Function to toggle the visibility of the emoji-mart for a specific message
@@ -118,6 +119,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     if (this.selectedEmoji) {
       this.emojiCountMap[this.selectedEmoji] = (this.emojiCountMap[this.selectedEmoji] || 0) + 1;
     }
+    this.emojiMartVisible = false;
   }
 
   /**
@@ -206,22 +208,17 @@ export class MainChatComponent implements OnInit, OnChanges {
    * @param messageID {string} - id form the clicked message
    */
   toggleThread(messageID?: string) {
-    // console.log('Thrad status Anfang:', this.threadOpen);
-
     if (this.threadOpen) {
-      // console.log('Unsub');
       this.unsubThread();
     } else {
       this.createSubscribeThreadMessages(messageID);
     }
     this.threadClosed.emit();
     this.threadOpen = !this.threadOpen;
-    // console.log('Thrad status Ende:', this.threadOpen);
   }
 
   unsubThreadMessages() {
     this.unsubThread();
-    // console.log('Unsub');
   }
 
   /**

@@ -15,10 +15,7 @@ import { MainChatComponent } from '../main-chat/main-chat.component';
 })
 export class MainThreadComponent {
 
-  addReactionToMessage() {
-    throw new Error('Method not implemented.');
-  }
-
+  
   showAddDataPopup: boolean;
   showEmojiPopup: boolean;
   showPersonPopup: boolean;
@@ -80,6 +77,11 @@ export class MainThreadComponent {
 
   addEmoji(emoji: string) {
     this.copiedText += emoji['emoji']['native'];
+    this.showEmojiPopup = false;
+  }
+
+  addReactionToMessage() {
+    throw new Error('Method not implemented.');
   }
 
   toggleEmojiForMessage(messageID?: string) {

@@ -110,12 +110,14 @@ body {
 
 .popup-container {
     padding: 30px;
+}
 
 
     .header-container {
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
+    }
     
         h2 {
             font-size: 24px;
@@ -126,14 +128,15 @@ body {
             padding: 5px;
             transition: 125ms ease-in-out;
             outline: none;
+            cursor: pointer;
             &:hover {
                 background-color: $main-purple;
                 color: $purple;
                 border-radius: 15px;
             }
         }
-    }
-}
+    
+
 
 .deg-90 {
     transform: rotate(90deg);

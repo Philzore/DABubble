@@ -21,7 +21,6 @@ export class DesktopHeaderComponent implements OnInit {
   constructor(public sharedService: SharedService,
     public dialog: MatDialog,
     public userDataService: UserDataService) {
-
   }
 
   auth = getAuth();
@@ -38,7 +37,6 @@ export class DesktopHeaderComponent implements OnInit {
   }
 
   closeSidebar() {
-    
     this.sharedService.toggleSidebar();
   }
 
