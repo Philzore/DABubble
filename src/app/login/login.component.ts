@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { signInAnonymously } from "firebase/auth";
@@ -19,7 +19,7 @@ RouterLink
 })
 
 
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   hide = true;
   email: string = '';
   password: string = '';
@@ -27,6 +27,15 @@ export class LoginComponent {
   user = new User();
 
   constructor(private router: Router, public appComponent: AppComponent, private userDataService: UserDataService, private firestore: Firestore) { }
+
+  showIntro: boolean = true;
+
+  ngOnInit(): void {
+    // Verzögertes Ausblenden des Containers nach 3 Sekunden
+    setTimeout(() => {
+      this.showIntro = false;
+    }, 3000);
+  }
 
   login() {
     const auth = getAuth();

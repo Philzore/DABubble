@@ -318,10 +318,26 @@
 
 }
 
+//--------INTRO---------//
+.intro-background{
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9;
+    background-image: linear-gradient(to bottom, rgb(121, 126, 243), rgb(50, 59, 229));
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 //-------------RESPONSIVE-------------//
 @media (max-width: 600px) {
-    .login-container-header{
+    .login-container-header {
         gap: 16px !important;
     }
 
@@ -356,19 +372,19 @@
         font-size: 16px !important;
     }
 
-    .inputfield{
+    .inputfield {
         font-size: 16px !important;
     }
 
-    .forgot-password{
+    .forgot-password {
         font-size: 16px !important;
     }
 
-    .other{
+    .other {
         font-size: 16px !important;
     }
 
-    .google-login{
+    .google-login {
         font-size: 16px !important;
     }
 
@@ -386,18 +402,19 @@
         padding: 12px 13px !important;
     }
 
-    .question{
+    .question {
         font-size: 16px !important;
     }
 
-    .register-link{
+    .register-link {
         font-size: 16px !important;
     }
 
-    .impressum{
+    .impressum {
         font-size: 16px !important;
     }
-    .datenschutz{
+
+    .datenschutz {
         font-size: 16px !important;
     }
 }
@@ -417,14 +434,15 @@
         }
     }
 
-    .login-button{
+    .login-button {
         font-size: 16px !important;
     }
-   
+
     .guest-login-button {
         font-size: 16px !important;
     }
-    .button-container{
+
+    .button-container {
         width: 259px !important;
     }
 

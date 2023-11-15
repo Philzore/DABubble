@@ -1,3 +1,7 @@
+<div *ngIf="showIntro" class="intro-background">
+    <img src="assets/icons/logo.png" alt="">
+</div>
+
 <div class="header">
 
     <div class="image-container">
@@ -68,11 +72,11 @@
         <span class="register-link" routerLink="/register">Konto erstellen</span>
     </div>
 
-        <div class="impressum-datenschutz">
+    <div class="impressum-datenschutz">
         <div class="impressum-container">
             <a class="impressum" routerLink="/imprint">Impressum</a>
         </div>
-    
+
         <div class="datenschutz-container">
             <a class="datenschutz" routerLink="/dataprotection">Datenschutz</a>
         </div>
