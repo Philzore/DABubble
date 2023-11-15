@@ -36,7 +36,6 @@ export class GroupInfoPopupComponent implements OnInit {
     this.currentChannel.id = this.dialogData[1];
     this.channelName = this.currentChannel.info.name;
     this.channelDescription = this.currentChannel.info.description;
-    console.log(this.currentChannel);
   }
 
   saveChannelName() {
@@ -56,7 +55,5 @@ export class GroupInfoPopupComponent implements OnInit {
   changeChannelName() {
     this.isEditing = !this.isEditing;
   }
-
-
 
 }

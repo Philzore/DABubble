@@ -30,7 +30,6 @@ export class SharedService {
 
   constructor(private firestore: Firestore) {
     // Initialize your service here if needed.
-
   }
 
   /**

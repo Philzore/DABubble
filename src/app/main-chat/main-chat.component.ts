@@ -117,9 +117,8 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.emojiMartVisible = !this.emojiMartVisible;
     console.log('Updated selected message ID:', this.selectedMessageId);
   }
-
-  addReactionToMessage(emoji: string) {
-    console.log(emoji['emoji']['native']);
+  
+  addReactionToMessage(emoji:string) {
     this.selectedEmoji = emoji['emoji']['native'];
     if (this.selectedEmoji) {
       this.emojiCountMap[this.selectedEmoji] = (this.emojiCountMap[this.selectedEmoji] || 0) + 1;
@@ -133,7 +132,10 @@ export class MainChatComponent implements OnInit, OnChanges {
    * @param channelMember {string} - name of the channel member
    */
   addNameToTextArea(channelMember: string) {
-    this.copiedText += `@${channelMember} `;
+    const channelMemberName = `@ ${channelMember} `;
+    if(!this.copiedText.includes(channelMemberName)) {
+      this.copiedText += channelMemberName;
+    }
     this.showPersonPopup = false;
   }
 
@@ -273,6 +275,8 @@ export class MainChatComponent implements OnInit, OnChanges {
     });
   }
 
+
+  //TODO shorten the messageSend function
   /**
    * send a normal messgae in a channel
    * create subcollection messages in channel doc
@@ -317,6 +321,19 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.sharedService.createSubscribeChannelMessages();
     }
   }
+
+  // function to get the user from a channel to display when clicking on @ in input field to tag somebody in the group
+  // async getUsersFromChannel() {
+  //   let channelId = this.sharedService.filteredChannels[1];
+  //   this.usersFromChannels = [];
+  //   const querySnapshotChannel = await getDocs(collection(this.firestore, `channels/${channelId}`));
+
+  //   querySnapshotChannel.forEach((doc) => {
+  //     this.usersFromChannels.push(doc.data());
+  //     console.log(this.usersFromChannels);
+  //   })
+
+  // }
 
   /**
    * get the thread messages from a single message
