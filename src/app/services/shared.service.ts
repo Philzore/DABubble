@@ -8,18 +8,25 @@ import { Message } from '../models/message.class';
   providedIn: 'root',
 })
 export class SharedService {
+  //channels
   public currentActiveChannel = new BehaviorSubject<string>('DaBubble');
-  public isSidebarOpen = new BehaviorSubject<boolean>(false);
-  private threadContainerVisibilitySubject = new BehaviorSubject<boolean>(true);
   currentActiveChannel$ = this.currentActiveChannel.asObservable();
-  threadContainerVisibility$ = this.threadContainerVisibilitySubject.asObservable();
-  currentThreadContent = [];
-  threadPath: string = '';
-  channelMessagesFromDB: any[];
   unsubChannels;
   filteredChannels: any[];
+
+  //sidebar
+  public isSidebarOpen = new BehaviorSubject<boolean>(false);
+
+  //main chat
+  channelMessagesFromDB: any[];
   templateIsReady = false;
 
+  //thread
+  private threadContainerVisibilitySubject = new BehaviorSubject<boolean>(true);
+  threadContainerVisibility$ = this.threadContainerVisibilitySubject.asObservable();
+  threadPath: string = '';
+  currentThreadContent = [];
+  threadContentReady:boolean = false ;
 
   constructor(private firestore: Firestore) {
     // Initialize your service here if needed.
