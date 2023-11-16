@@ -33,8 +33,8 @@
                         <h4>{{message.from}}</h4> <span class="message-time">{{message.calculatedTime}}</span>
                     </div>
 
-                    <emoji-mart #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id" (emojiClick)="addReactionToMessage($event)"
-                        [style]="{ position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '11'}">
+                    <emoji-mart #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id" (emojiClick)="addReactionToMessage($event, message.id)"
+                        [style]="{ position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '11'}">
                     </emoji-mart>
 
                     <div class="info-row-react">
@@ -51,8 +51,8 @@
                 <div class="emoji-react-container">
                     <div class="emoji-wrapper">
                         <div *ngIf="selectedMessageId === message.id && selectedEmoji">
-                            {{ emojiCountMap[selectedEmoji] || 0 }}  {{ selectedEmoji }}
-                          </div>
+                            {{ emojiCountMap[selectedEmoji] || 0 }} {{ selectedEmoji }}
+                        </div>
                     </div>
                 </div>
 

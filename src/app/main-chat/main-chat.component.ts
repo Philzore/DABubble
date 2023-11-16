@@ -27,11 +27,9 @@ export class MainChatComponent implements OnInit, OnChanges {
   usersFromDatabase = [];
   usersFromChannels = [];
   userData = [];
-
   thradMessagesFromDB = [];
   threadRuntime: boolean = false;
   lastMessageId: string = '';
-
   message = new Message();
   threadMessage = new Message();
   threadOpen = false;
@@ -118,13 +116,19 @@ export class MainChatComponent implements OnInit, OnChanges {
     console.log('Updated selected message ID:', this.selectedMessageId);
   }
   
-  addReactionToMessage(emoji:string) {
+  addReactionToMessage(emoji: string, messageId: string) {
     this.selectedEmoji = emoji['emoji']['native'];
-    if (this.selectedEmoji) {
-      this.emojiCountMap[this.selectedEmoji] = (this.emojiCountMap[this.selectedEmoji] || 0) + 1;
+    if (this.selectedMessageId === messageId && this.selectedEmoji === this.selectedEmoji) {
+        // If yes, increment the count in the emojiCountMap
+        this.emojiCountMap[this.selectedEmoji] = (this.emojiCountMap[this.selectedEmoji] || 0) + 1;
+    } else {
+        // If not, set the selected emoji and reset the count
+        this.selectedMessageId = messageId;
+        this.emojiCountMap[this.selectedEmoji] = 1;
     }
+
     this.emojiMartVisible = false;
-  }
+}
 
   /**
    * add name to text are when click on @ symbol and the name
