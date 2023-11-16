@@ -27,9 +27,11 @@ export class MainChatComponent implements OnInit, OnChanges {
   usersFromDatabase = [];
   usersFromChannels = [];
   userData = [];
-  
+
   thradMessagesFromDB = [];
-  
+  threadRuntime: boolean = false;
+  lastMessageId: string = '';
+
   message = new Message();
   threadMessage = new Message();
   threadOpen = false;
@@ -70,7 +72,7 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.sharedService.createSubscribeChannelMessages();
       // await this.getUsersFromChannel();
       console.log(this.sharedService.filteredChannels);
-      
+
     });
   }
 
@@ -81,8 +83,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['threadToogleFromOutside'] && this.runtime) {
-      console.log('Change');
-      this.toggleThread();
+      this.closeThread();
     }
     this.runtime = true;
   }
@@ -101,7 +102,7 @@ export class MainChatComponent implements OnInit, OnChanges {
   }
 
 
-  addEmoji(emoji:string) {
+  addEmoji(emoji: string) {
     this.copiedText += emoji['emoji']['native'];
     this.showEmojiPopup = false;
   }
@@ -116,9 +117,8 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.emojiMartVisible = !this.emojiMartVisible;
     console.log('Updated selected message ID:', this.selectedMessageId);
   }
-
+  
   addReactionToMessage(emoji:string) {
-    console.log(emoji['emoji']['native']);
     this.selectedEmoji = emoji['emoji']['native'];
     if (this.selectedEmoji) {
       this.emojiCountMap[this.selectedEmoji] = (this.emojiCountMap[this.selectedEmoji] || 0) + 1;
@@ -132,7 +132,10 @@ export class MainChatComponent implements OnInit, OnChanges {
    * @param channelMember {string} - name of the channel member
    */
   addNameToTextArea(channelMember: string) {
-    this.copiedText += `@${channelMember} `;
+    const channelMemberName = `@ ${channelMember} `;
+    if(!this.copiedText.includes(channelMemberName)) {
+      this.copiedText += channelMemberName;
+    }
     this.showPersonPopup = false;
   }
 
@@ -216,18 +219,45 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    * @param messageID {string} - id form the clicked message
    */
-  toggleThread(messageID?: string) {
-    if (this.threadOpen) {
-      this.unsubThread();
-    } else {
-      this.createSubscribeThreadMessages(messageID);
+  toggleThread(messageID: string) {
+
+    if (!this.threadOpen && this.lastMessageId == '') {
+      this.openThread(messageID);
+      this.lastMessageId = messageID;
+      this.threadRuntime = true;
+    } else if ((this.lastMessageId == messageID) && this.threadOpen){
+      this.closeThread();
+    } else if ((this.lastMessageId != messageID) && this.threadOpen){
+      this.sharedService.currentThreadContent = [] ;
+      this.createSubscribeThreadMessages(messageID) ;
+      this.lastMessageId = messageID ;
     }
-    this.threadClosed.emit();
-    this.threadOpen = !this.threadOpen;
+
+    console.log('Last Msg ID : ' ,this.lastMessageId);
+
   }
 
-  unsubThreadMessages() {
+  /**
+   * open thread component
+   * 
+   * @param messageID {string} - id form the clicked message
+   */
+  openThread(messageID: string) {
+    this.threadClosed.emit();
+    this.createSubscribeThreadMessages(messageID);
+    this.threadOpen = true;
+  }
+
+  /**
+   * close thread component
+   * 
+   */
+  closeThread() {
     this.unsubThread();
+    this.threadClosed.emit();
+    this.threadOpen = false;
+    this.lastMessageId = '';
+    this.sharedService.currentThreadContent = [] ;
   }
 
   /**
@@ -235,7 +265,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    * @param messageID {string} - id form the clicked message
    */
-  async createSubscribeThreadMessages(messageID:string) {
+  async createSubscribeThreadMessages(messageID: string) {
     let channelId = this.sharedService.filteredChannels[1];
     // console.log('Aktuelle Message ID : ', messageID);
     //load right thread from firestore
@@ -245,6 +275,8 @@ export class MainChatComponent implements OnInit, OnChanges {
     });
   }
 
+
+  //TODO shorten the messageSend function
   /**
    * send a normal messgae in a channel
    * create subcollection messages in channel doc
@@ -290,26 +322,41 @@ export class MainChatComponent implements OnInit, OnChanges {
     }
   }
 
+  // function to get the user from a channel to display when clicking on @ in input field to tag somebody in the group
+  // async getUsersFromChannel() {
+  //   let channelId = this.sharedService.filteredChannels[1];
+  //   this.usersFromChannels = [];
+  //   const querySnapshotChannel = await getDocs(collection(this.firestore, `channels/${channelId}`));
+
+  //   querySnapshotChannel.forEach((doc) => {
+  //     this.usersFromChannels.push(doc.data());
+  //     console.log(this.usersFromChannels);
+  //   })
+
+  // }
+
   /**
    * get the thread messages from a single message
-   * push to thradMessagesFromDB with class Message
+   * push to thradMessagesFromDB with the class Message
    * 
    * @param messageID {string} - id form the clicked message
    */
-  async getThreadMessagesFromSingleMessage(messageID:string) {
+  async getThreadMessagesFromSingleMessage(messageID: string) {
+    this.sharedService.threadContentReady = false ;
     let channelId = this.sharedService.filteredChannels[1];
     this.sharedService.currentThreadContent = [];
     const querySnapshotThread = await getDocs(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`));
     querySnapshotThread.forEach((doc) => {
       this.sharedService.currentThreadContent.push(new Message(doc.data()));
       // console.log('Thread Data:', doc.data());
-      //  console.log(this.sharedService.currentThreadContent);
+      //console.log(this.sharedService.currentThreadContent.length);
     });
     //set path in sharedService
     this.sharedService.threadPath = '';
     this.sharedService.threadPath = `channels/${channelId}/messages/${messageID}/thread`;
     this.sortMessagesTime(this.sharedService.currentThreadContent);
-    console.log('Thread Cotent',this.sharedService.currentThreadContent);
+    console.log('Thread Cotent', this.sharedService.currentThreadContent);
+    this.sharedService.threadContentReady = true ;
   }
 
   /**

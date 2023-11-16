@@ -27,14 +27,10 @@ export class MainScreenComponent {
   OutputToogleThread ;
 
   @Input() changeChannel = new EventEmitter; 
-  // @Output() OutputToogleThread = new EventEmitter<any>();
 
   constructor(private sharedService: SharedService) {  }
 
   toogleThread(){
-    console.log('Toggle in main');
-    
-    // this.OutputToogleThread.emit();
     this.OutputToogleThread = !this.OutputToogleThread;
   }
 

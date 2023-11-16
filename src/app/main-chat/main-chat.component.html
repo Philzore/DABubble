@@ -140,7 +140,11 @@
 
                     <div class="member-popup scroll-bar">
                         <div *ngFor="let channelMember of sharedService.filteredChannels[0].members">
-                            <p  class="close-button" (click)="addNameToTextArea(channelMember.name)" >@ {{ channelMember.name }}</p>
+                            
+                            <div class="member-row">
+                                <p  class="close-button" (click)="addNameToTextArea(channelMember.name)" >@ {{ channelMember.name }}</p>
+                            </div>
+
                         </div>
                     </div>
                 </div>

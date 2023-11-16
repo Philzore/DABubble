@@ -108,7 +108,7 @@ export class MainThreadComponent {
       if (this.threadMessage.from == 'Gast') {
         this.threadMessage.profileImg = `./assets/characters/default_character.png`;
       } else {
-        this.threadMessage.profileImg = `./assets/characters/character_${this.userDataService.currentUser['imgNr']}.png`;
+        this.threadMessage.profileImg = `${this.userDataService.currentUser['imgNr']}`;
       }
 
       let date = new Date();
