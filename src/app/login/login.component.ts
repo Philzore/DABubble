@@ -31,10 +31,10 @@ export class LoginComponent implements OnInit{
   showIntro: boolean = true;
 
   ngOnInit(): void {
-    // Verzögertes Ausblenden des Containers nach 3 Sekunden
     setTimeout(() => {
       this.showIntro = false;
-    }, 3000);
+      document.querySelector('.intro-background')?.classList.add('loaded');
+    }, 2500);
   }
 
   login() {
