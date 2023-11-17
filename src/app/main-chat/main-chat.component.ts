@@ -1,15 +1,12 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, AfterViewInit, Output, OnInit, ViewChild, AfterViewChecked, Renderer2, OnChanges, SimpleChanges, Inject, Optional } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, OnInit, ViewChild, Renderer2, OnChanges, SimpleChanges, Optional } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.component';
 import { GroupMemberComponent } from '../group-member/group-member.component';
 import { GroupAddMemberComponent } from '../group-add-member/group-add-member.component';
 import { SharedService } from '../services/shared.service';
-import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc, where, getDoc } from '@angular/fire/firestore';
-import { ChannelInfo } from '../models/channel-info.class';
+import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { Message } from '../models/message.class';
 import { UserDataService } from '../services/user-data.service';
-import { Unsubscribe } from '@angular/fire/auth';
-
 
 @Component({
   selector: 'app-main-chat',
@@ -224,7 +221,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * @param messageID {string} - id form the clicked message
    */
   toggleThread(messageID: string) {
-
+    this.sharedService.threadContentReady = false ;
     if (!this.threadOpen && this.lastMessageId == '') {
       this.openThread(messageID);
       this.lastMessageId = messageID;
@@ -262,6 +259,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.threadOpen = false;
     this.lastMessageId = '';
     this.sharedService.currentThreadContent = [] ;
+    this.sharedService.threadContentReady = false ;
   }
 
   /**
@@ -346,7 +344,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * @param messageID {string} - id form the clicked message
    */
   async getThreadMessagesFromSingleMessage(messageID: string) {
-    this.sharedService.threadContentReady = false ;
+    
     let channelId = this.sharedService.filteredChannels[1];
     this.sharedService.currentThreadContent = [];
     const querySnapshotThread = await getDocs(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`));

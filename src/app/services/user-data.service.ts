@@ -1,5 +1,6 @@
 import { Injectable , OnInit} from '@angular/core';
 import { Auth, EmailAuthProvider, getAuth, reauthenticateWithCredential, updateProfile } from '@angular/fire/auth';
+import { SharedService } from './shared.service';
 
 
 @Injectable({
@@ -15,10 +16,13 @@ export class UserDataService implements OnInit{
 
   private userData: { name: string, email: string, password: string } = { name: '', email: '', password: '' };
 
-  constructor(private auth: Auth) { 
+  constructor(
+    private auth: Auth,
+    private sharedService: SharedService,
+    ) { 
+    sharedService.headerContentReady = false ;
     this.currentUser = this.getFromLocalStorage('currentUser');
     console.log(this.currentUser);
-    // this.guestUser = this.currentUser['imgNr'] == '' ? true : false ;
   }
   
   ngOnInit(): void {
@@ -75,6 +79,7 @@ export class UserDataService implements OnInit{
   getFromLocalStorage(key){
     const storedObjectString = localStorage.getItem(key);
     const storedObjectAsJSON = JSON.parse(storedObjectString);
+    this.sharedService.headerContentReady = true ;
     return storedObjectAsJSON;
   }
 

@@ -8,6 +8,9 @@ import { Message } from '../models/message.class';
   providedIn: 'root',
 })
 export class SharedService {
+  //header
+  headerContentReady:boolean = false ;
+
   //channels
   public currentActiveChannel = new BehaviorSubject<string>('DaBubble');
   currentActiveChannel$ = this.currentActiveChannel.asObservable();

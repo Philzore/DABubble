@@ -12,19 +12,19 @@
     <!-- Chat Divider Top -->
     <div class="chat-divider-top"></div>
 
-    <div class="clicked-message">
-      <img src="{{ sharedService.currentThreadContent[0].profileImg }}" alt="">
+    <div  class="clicked-message">
+      <img *ngIf="sharedService.threadContentReady" src="{{ sharedService.currentThreadContent[0].profileImg }}" alt="">
       <div class="message-info-thread">
         <!-- Message Content Container -->
         <div class="message-content-container">
           <!-- Info Row for Own Message -->
           <div class="info-row-thread">
-            <p class="bold">{{ sharedService.currentThreadContent[0].from }}</p>
-            <span class="message-time">{{ sharedService.currentThreadContent[0].calculatedTime }}</span>
+            <p *ngIf="sharedService.threadContentReady" class="bold">{{ sharedService.currentThreadContent[0].from }}</p>
+            <span *ngIf="sharedService.threadContentReady" class="message-time">{{ sharedService.currentThreadContent[0].calculatedTime }}</span>
           </div>
           <!-- Clicked Message Content -->
           <div class="clicked-message-content">
-            <p class="message-text">
+            <p *ngIf="sharedService.threadContentReady" class="message-text">
               {{ sharedService.currentThreadContent[0].text}}
             </p>
           </div>

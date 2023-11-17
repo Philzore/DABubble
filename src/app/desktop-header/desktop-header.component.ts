@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogEdituserLogoutComponent } from '../dialog-edituser-logout/dialog-edituser-logout.component';
 import { UserDataService } from '../services/user-data.service';
 import { SharedService } from '../services/shared.service';
-import { getAuth, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 
 
 
@@ -16,17 +16,13 @@ export class DesktopHeaderComponent implements OnInit {
 
   sidebarClose = false;
   currentUserName: string = '';
-  auth;
-
-  headerIsReady:boolean = false ;
+  // auth;
 
   constructor(
     public sharedService: SharedService,
     public dialog: MatDialog,
     public userDataService: UserDataService) {
   }
-
-  
 
   /**
    * init component
@@ -37,11 +33,7 @@ export class DesktopHeaderComponent implements OnInit {
       this.sidebarClose = state;
     });
 
-    this.auth = getAuth();
-
-    setTimeout(() => {
-      this.headerIsReady = true ;
-    }, 500);
+    // this.auth = getAuth();
   }
 
   /**
