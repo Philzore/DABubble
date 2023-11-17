@@ -65,7 +65,7 @@
       <div>
         <!-- user container for direct messages -->
         <div class="list-container direct-message" *ngIf="messageDropdown" [@dropDownMenu]>
-          <div *ngFor="let user of userDataService.usersFromDatabase" class="single-entry">
+          <div *ngFor="let user of userDataService.usersFromDatabase" class="single-entry" (click)="openDirectMsg(user.name, userDataService.currentUser['name'])">
             <img src= '{{user.avatar}}'>
             <span class="point">&#9679;</span>
             <p>{{user.name}}</p>

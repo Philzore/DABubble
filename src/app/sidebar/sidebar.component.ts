@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output, Injectable, ViewChild, Input, OnInit, 
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
 import { trigger, state, style, animate, transition, sequence } from '@angular/animations';
-import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
 import { AppComponent } from '../app.component';
 import { UserDataService } from '../services/user-data.service';
 import { SharedService } from '../services/shared.service';
@@ -183,5 +183,23 @@ export class SidebarComponent implements OnInit {
   /* Open Channel */
   openChannel(name) {
     this.sharedService.updateChannel(name);
+  }
+
+  async openDirectMsg(oppositeName:string,yourName:string) {
+    const directMsgCollRef = collection(this.firestore, 'directMessages');
+    this.checkDirectMsgExist(oppositeName,yourName,directMsgCollRef);
+    console.log('Opposite : ', oppositeName , 'Your Name : ', yourName);
+    
+
+    await addDoc((directMsgCollRef),{
+      between : [yourName,oppositeName],
+    });
+  }
+
+  checkDirectMsgExist(oppositeName:string,yourName:string,directMsgCollRef) {
+    
+    return true
+
+    return false
   }
 }
