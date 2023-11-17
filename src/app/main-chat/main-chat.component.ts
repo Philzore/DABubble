@@ -1,12 +1,15 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, OnInit, ViewChild, Renderer2, OnChanges, SimpleChanges, Optional } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, ElementRef, EventEmitter, HostListener, Input, AfterViewInit, Output, OnInit, ViewChild, AfterViewChecked, Renderer2, OnChanges, SimpleChanges, Inject, Optional } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.component';
 import { GroupMemberComponent } from '../group-member/group-member.component';
 import { GroupAddMemberComponent } from '../group-add-member/group-add-member.component';
 import { SharedService } from '../services/shared.service';
-import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc, where, getDoc } from '@angular/fire/firestore';
+import { ChannelInfo } from '../models/channel-info.class';
 import { Message } from '../models/message.class';
 import { UserDataService } from '../services/user-data.service';
+import { Unsubscribe } from '@angular/fire/auth';
+
 
 @Component({
   selector: 'app-main-chat',
@@ -33,10 +36,11 @@ export class MainChatComponent implements OnInit, OnChanges {
   unsubThread;
   emojiMartVisible = false;
   selectedEmoji: string | null = null;
-  emojiCountMap: { [emoji: string]: number } = {}; // Map to store emoji counts
   showScrollButton = false;
   isSendingMessage = false;
   runtime = false;
+  emojiMap: { [messageId: string]: string } = {};
+  emojiCountMap: { [emoji: string]: number } = {};
   selectedMessageId: string | null = null;
   @ViewChild('scrollButton') scrollButton: ElementRef;
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
@@ -102,30 +106,30 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.showEmojiPopup = false;
   }
 
-  // Function to toggle the visibility of the emoji-mart for a specific message
-  toggleEmojiForMessage(messageID?: string) {
+  // Function to open emoji-mart for a specific message
+  openEmojiForMessage(messageID?: string) {
     if (this.selectedMessageId === messageID) {
-      this.selectedMessageId = null; // Close the emoji-mart if it's already open for this message
+      this.emojiMartVisible = false;
     } else {
       this.selectedMessageId = messageID; // Open the emoji-mart for the selected message
     }
-    this.emojiMartVisible = !this.emojiMartVisible;
-    console.log('Updated selected message ID:', this.selectedMessageId);
+    this.emojiMartVisible = true;
   }
   
   addReactionToMessage(emoji: string, messageId: string) {
-    this.selectedEmoji = emoji['emoji']['native'];
-    if (this.selectedMessageId === messageId && this.selectedEmoji === this.selectedEmoji) {
-        // If yes, increment the count in the emojiCountMap
-        this.emojiCountMap[this.selectedEmoji] = (this.emojiCountMap[this.selectedEmoji] || 0) + 1;
-    } else {
-        // If not, set the selected emoji and reset the count
-        this.selectedMessageId = messageId;
-        this.emojiCountMap[this.selectedEmoji] = 1;
+    if (this.selectedMessageId === messageId) {
+        const existingEmoji = this.emojiMap[messageId];
+        if (existingEmoji === emoji['emoji']['native']) {
+            this.emojiCountMap[existingEmoji] = (this.emojiCountMap[existingEmoji] || 0) + 1;
+        } else if(existingEmoji !== emoji['emoji']['native']) {
+          this.emojiMap[messageId] = emoji['emoji']['native'];
+          this.emojiCountMap[this.emojiMap[messageId]] = 1;
+        }
     }
-
     this.emojiMartVisible = false;
 }
+
+
 
   /**
    * add name to text are when click on @ symbol and the name
@@ -221,7 +225,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * @param messageID {string} - id form the clicked message
    */
   toggleThread(messageID: string) {
-    this.sharedService.threadContentReady = false ;
+
     if (!this.threadOpen && this.lastMessageId == '') {
       this.openThread(messageID);
       this.lastMessageId = messageID;
@@ -259,7 +263,6 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.threadOpen = false;
     this.lastMessageId = '';
     this.sharedService.currentThreadContent = [] ;
-    this.sharedService.threadContentReady = false ;
   }
 
   /**
@@ -344,7 +347,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * @param messageID {string} - id form the clicked message
    */
   async getThreadMessagesFromSingleMessage(messageID: string) {
-    
+    this.sharedService.threadContentReady = false ;
     let channelId = this.sharedService.filteredChannels[1];
     this.sharedService.currentThreadContent = [];
     const querySnapshotThread = await getDocs(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`));
