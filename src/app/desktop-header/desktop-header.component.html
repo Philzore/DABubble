@@ -12,7 +12,7 @@
     <div class="user-info-container" (click)="openDialog()">
         <h2>{{userDataService.currentUser['name']}}</h2>
         <!-- <img *ngIf="!userDataService.guestUser" src="{{auth.currentUser.photoURL}}"> -->
-        <img *ngIf="!userDataService.guestUser" src="{{userDataService.currentUser['imgNr']}}">
+        <img *ngIf="!userDataService.guestUser" src="{{userDataService.currentUser['imgNr']}}" referrerpolicy="no-referrer">
         <img *ngIf="userDataService.guestUser" src="/assets/characters/default_character.png">
         <span class="point">&#9679;</span>
         <mat-icon>expand_more</mat-icon>
