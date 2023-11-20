@@ -121,15 +121,13 @@ export class MainChatComponent implements OnInit, OnChanges {
         const existingEmoji = this.emojiMap[messageId];
         if (existingEmoji === emoji['emoji']['native']) {
             this.emojiCountMap[existingEmoji] = (this.emojiCountMap[existingEmoji] || 0) + 1;
-        } else if(existingEmoji !== emoji['emoji']['native']) {
+        } else {
           this.emojiMap[messageId] = emoji['emoji']['native'];
           this.emojiCountMap[this.emojiMap[messageId]] = 1;
         }
     }
     this.emojiMartVisible = false;
-}
-
-
+  }
 
   /**
    * add name to text are when click on @ symbol and the name

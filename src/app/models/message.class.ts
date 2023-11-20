@@ -5,7 +5,7 @@ export class Message {
     calculatedTime:string;
     text: string;
     id:string;
-    reaction:string;
+    reaction:[];
     
     constructor(obj?: any) {
         this.from = obj ? obj.from : '';
