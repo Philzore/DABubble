@@ -48,11 +48,11 @@
                 <p class="message-text">{{message.text}}</p>
 
                 <div class="emoji-react-container">
-                    <div class="emoji-wrapper">
+                    <div class="emoji-wrapper" *ngFor="let emoji of emojiMap[message.id]">
                         <div>
-                            {{ emojiMap[message.id] }}
-                            <span *ngIf="emojiCountMap[emojiMap[message.id]] > 1">
-                                {{ emojiCountMap[emojiMap[message.id]]}}
+                            {{ emoji }}
+                            <span *ngIf="emojiCountMap[emoji] > 1">
+                                {{ emojiCountMap[emoji]}}
                             </span>
                         </div>
                     </div>

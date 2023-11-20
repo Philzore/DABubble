@@ -17,7 +17,7 @@ export class SharedService {
   unsubChannels;
   filteredChannels: any[];
 
-  //sidebar
+  //sidebarƒ
   public isSidebarOpen = new BehaviorSubject<boolean>(false);
 
   //main chat

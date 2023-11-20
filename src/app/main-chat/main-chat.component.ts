@@ -39,7 +39,7 @@ export class MainChatComponent implements OnInit, OnChanges {
   showScrollButton = false;
   isSendingMessage = false;
   runtime = false;
-  emojiMap: { [messageId: string]: string } = {};
+  emojiMap: { [messageId: string]: string[] } = {};
   emojiCountMap: { [emoji: string]: number } = {};
   selectedMessageId: string | null = null;
   @ViewChild('scrollButton') scrollButton: ElementRef;
@@ -100,7 +100,6 @@ export class MainChatComponent implements OnInit, OnChanges {
     }
   }
 
-
   addEmoji(emoji: string) {
     this.copiedText += emoji['emoji']['native'];
     this.showEmojiPopup = false;
@@ -118,12 +117,13 @@ export class MainChatComponent implements OnInit, OnChanges {
   
   addReactionToMessage(emoji: string, messageId: string) {
     if (this.selectedMessageId === messageId) {
-        const existingEmoji = this.emojiMap[messageId];
-        if (existingEmoji === emoji['emoji']['native']) {
-            this.emojiCountMap[existingEmoji] = (this.emojiCountMap[existingEmoji] || 0) + 1;
+        const existingEmojis = this.emojiMap[messageId] || [];
+        const emojiNative = emoji['emoji']['native'];
+        if(existingEmojis.includes(emojiNative) ) {
+            this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
         } else {
-          this.emojiMap[messageId] = emoji['emoji']['native'];
-          this.emojiCountMap[this.emojiMap[messageId]] = 1;
+          this.emojiMap[messageId] = [...existingEmojis, emojiNative];
+          this.emojiCountMap[emojiNative] = 1;
         }
     }
     this.emojiMartVisible = false;
