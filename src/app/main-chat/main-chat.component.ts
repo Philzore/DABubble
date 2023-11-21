@@ -155,8 +155,6 @@ export class MainChatComponent implements OnInit, OnChanges {
     }
   }
   
-  
-  
 
   /**
    * add name to text are when click on @ symbol and the name
