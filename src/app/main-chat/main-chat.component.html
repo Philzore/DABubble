@@ -33,13 +33,13 @@
                         <h4>{{message.from}}</h4> <span class="message-time">{{message.calculatedTime}}</span>
                     </div>
 
-                    <emoji-mart #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id" (emojiClick)="addReactionToMessage($event ,message.id)"
+                    <emoji-mart set="apple" #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id" (emojiClick)="addReactionToMessage($event ,message.id)"
                         [style]="{ position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '11'}">
                     </emoji-mart>
 
                     <div class="info-row-react">
-                        <i class="material-icons checkmark" (click)="addCheckMarkAsReaction()">check_circle</i>
-                        <i class="material-icons handshake">handshake</i>
+                        <ngx-emoji set="apple" class="material-icons" emoji="white_check_mark" (click)="addCheckMarkAsReaction({ native: '✅' }, message.id)"></ngx-emoji>
+                        <ngx-emoji set="apple" class="material-icons" emoji="raised_hands" (click)="addRaisedHandsAsReaction({  native: '🙌' }, message.id)"></ngx-emoji>
                         <i class="material-icons" (click)="openEmojiForMessage(message.id)">add_reaction</i>
                         <i (click)="toggleThread(message.id)" class="material-icons">text_snippet</i>
                     </div>

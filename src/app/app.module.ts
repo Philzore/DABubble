@@ -44,6 +44,10 @@ import { UserDataService } from './services/user-data.service';
 import { DesktopHeaderComponent } from './desktop-header/desktop-header.component';
 import { DialogReauthenticateComponent } from './dialog-reauthenticate/dialog-reauthenticate.component';
 import { GroupMemberInfoComponent } from './group-member-info/group-member-info.component';
+import { Emoji, EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+
+
+
 
 
 
@@ -89,6 +93,7 @@ import { GroupMemberInfoComponent } from './group-member-info/group-member-info.
     MatTreeModule,
     MatButtonModule,
     MatListModule,
+    EmojiComponent,
     PickerComponent,
     BrowserAnimationsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),

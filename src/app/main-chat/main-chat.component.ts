@@ -17,7 +17,6 @@ import { Unsubscribe } from '@angular/fire/auth';
   styleUrls: ['./main-chat.component.scss']
 })
 export class MainChatComponent implements OnInit, OnChanges {
-
   copiedText: string = '';
   isSidebarOpen: boolean = true;
   showAddDataPopup: boolean = false;
@@ -46,6 +45,8 @@ export class MainChatComponent implements OnInit, OnChanges {
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
   @Input() threadToogleFromOutside: boolean;
   @Output() threadClosed = new EventEmitter<void>();
+  // emojiNative = ['emoji']['native']['id'];
+
 
   constructor(
     public dialog: MatDialog,
@@ -126,12 +127,36 @@ export class MainChatComponent implements OnInit, OnChanges {
           this.emojiCountMap[emojiNative] = 1;
         }
     }
+    console.log(emoji);
     this.emojiMartVisible = false;
   }
 
-  addCheckMarkAsReaction() {
-    //TODO write a function to add the checkmark to the specific message
+  addCheckMarkAsReaction(emoji: { native: string }, messageId: string) {
+    const existingEmojis = this.emojiMap[messageId] || [];
+    const emojiNative = emoji.native;
+  
+    if (existingEmojis.includes(emojiNative)) {
+      this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
+    } else {
+      this.emojiMap[messageId] = [...existingEmojis, emojiNative];
+      this.emojiCountMap[emojiNative] = 1;
+    }
   }
+
+  addRaisedHandsAsReaction(emoji: { native: string }, messageId: string) {
+    const existingEmojis = this.emojiMap[messageId] || [];
+    const emojiNative = emoji.native;
+  
+    if (existingEmojis.includes(emojiNative)) {
+      this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
+    } else {
+      this.emojiMap[messageId] = [...existingEmojis, emojiNative];
+      this.emojiCountMap[emojiNative] = 1;
+    }
+  }
+  
+  
+  
 
   /**
    * add name to text are when click on @ symbol and the name

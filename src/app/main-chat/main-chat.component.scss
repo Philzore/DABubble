@@ -241,6 +241,9 @@ $main-purple: #eceefe;
 
 
               .info-row-react {
+                display: flex !important;
+                align-items: center !important;
+                gap: 10px;
                 transition: 225ms ease-in-out;
                 opacity: 0;
                 position: absolute;
@@ -248,16 +251,16 @@ $main-purple: #eceefe;
                 top: -15px;
                 border-radius: 30px 30px 0 30px;
                 border: 1px solid #adb0d9;
-                padding: 8px 15px;
+                padding: 4px 8px; 
                 background: #fff;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-              
 
                 .material-icons {
-                  margin-right: 15px;
-                  padding: 5px;
+                  height: 24px;
+                  width: 24px;
+                  padding: 10px;
                   border-radius: 50%;
 
                   &:hover {
@@ -265,6 +268,10 @@ $main-purple: #eceefe;
                   }
 
                 }
+              
+                  
+
+                
 
                 .handshake {
                   color: #FFDAB9;
