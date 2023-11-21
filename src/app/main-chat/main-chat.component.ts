@@ -129,6 +129,10 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.emojiMartVisible = false;
   }
 
+  addCheckMarkAsReaction() {
+    //TODO write a function to add the checkmark to the specific message
+  }
+
   /**
    * add name to text are when click on @ symbol and the name
    * 

@@ -213,6 +213,12 @@ $main-purple: #eceefe;
                 padding: 5px;
                 border: 1px solid $main-purple;
                 background: #fff;
+
+                .emoji {
+                  display: flex;
+                  align-items: center;
+                }
+
               }
 
             }

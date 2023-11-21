@@ -38,7 +38,7 @@
                     </emoji-mart>
 
                     <div class="info-row-react">
-                        <i class="material-icons checkmark">check_circle</i>
+                        <i class="material-icons checkmark" (click)="addCheckMarkAsReaction()">check_circle</i>
                         <i class="material-icons handshake">handshake</i>
                         <i class="material-icons" (click)="openEmojiForMessage(message.id)">add_reaction</i>
                         <i (click)="toggleThread(message.id)" class="material-icons">text_snippet</i>
@@ -49,11 +49,8 @@
 
                 <div class="emoji-react-container">
                     <div class="emoji-wrapper" *ngFor="let emoji of emojiMap[message.id]">
-                        <div>
-                            {{ emoji }}
-                            <span *ngIf="emojiCountMap[emoji] > 1">
-                                {{ emojiCountMap[emoji]}}
-                            </span>
+                        <div class="emoji">
+                            {{ emoji }} {{ emojiCountMap[emoji]}}
                         </div>
                     </div>
                 </div>

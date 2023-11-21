@@ -5,8 +5,6 @@ import { UserDataService } from '../services/user-data.service';
 import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 import { MainChatComponent } from '../main-chat/main-chat.component';
 
-
-
 @Component({
   selector: 'app-main-thread',
   templateUrl: './main-thread.component.html',
@@ -14,8 +12,6 @@ import { MainChatComponent } from '../main-chat/main-chat.component';
   
 })
 export class MainThreadComponent {
-
-  
   showAddDataPopup: boolean;
   showEmojiPopup: boolean;
   showPersonPopup: boolean;
@@ -25,12 +21,13 @@ export class MainThreadComponent {
   threadContainerVisible: boolean; // Declare the property
   threadReady: boolean = false;
   threadMessage = new Message();
-  @ViewChild('scrollButton') scrollButton: ElementRef;
-  @ViewChild('chatWrapper') private chatWrapper: ElementRef;
   showScrollButton = false;
   isSendingMessage = false;
-
+  emojiMap: { [messageId: string]: string[] } = {};
+  emojiCountMap: { [emoji: string]: number } = {};
   @Output() unsubThreadEvent = new EventEmitter<any>();
+  @ViewChild('scrollButton') scrollButton: ElementRef;
+  @ViewChild('chatWrapper') private chatWrapper: ElementRef;
 
   constructor(
     public sharedService: SharedService,
@@ -80,17 +77,28 @@ export class MainThreadComponent {
     this.showEmojiPopup = false;
   }
 
-  addReactionToMessage() {
-    throw new Error('Method not implemented.');
-  }
-
-  toggleEmojiForMessage(messageID?: string) {
+  openEmojiForMessage(messageID?: string) {
     if (this.selectedMessageId === messageID) {
-      this.selectedMessageId = null; // Close the emoji-mart if it's already open for this message
+      this.emojiMartVisible = false;
+      console.log('test');
     } else {
       this.selectedMessageId = messageID; // Open the emoji-mart for the selected message
     }
-    this.emojiMartVisible = !this.emojiMartVisible;
+    this.emojiMartVisible = true;
+  }
+
+  addReactionToMessage(emoji: string, messageId: string) {
+    if (this.selectedMessageId === messageId) {
+        const existingEmojis = this.emojiMap[messageId] || [];
+        const emojiNative = emoji['emoji']['native'];
+        if(existingEmojis.includes(emojiNative) ) {
+            this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
+        } else {
+          this.emojiMap[messageId] = [...existingEmojis, emojiNative];
+          this.emojiCountMap[emojiNative] = 1;
+        }
+    }
+    this.emojiMartVisible = false;
   }
 
   togglePersonPopup(): void {
