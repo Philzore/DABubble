@@ -349,37 +349,40 @@
 .intro-background {
     .logo {
       position: relative;
+      animation: slideInLogo 0.5s forwards ease-out;
   
       .project-name {
         position: absolute;
         top: 80px;
         left: 0px;
         animation: slideInTitle 0.5s forwards ease-out;
+        animation-delay: 0.5s; // Verzögerung um die Dauer der slideInLogo-Animation
+        opacity: 0;
       }
     }
   
-    &.loaded .logo .project-name {
-      animation: slideOutTitle 0.5s forwards ease-in;
-    }
   
+  
+    @keyframes slideInLogo {
+      from {
+        left: 0px;
+      }
+      to {
+        left: -100px;
+      }
+    }
+
     @keyframes slideInTitle {
       from {
         left: -200px;
+        opacity: 0;
       }
       to {
         left: 200px;
+        opacity: 1;
       }
     }
-  
-    @keyframes slideOutTitle {
-      from {
-        left: 0;
-      }
-      to {
-        left: 400px;
-      }
-    }
-  }
+}
 
 //-------------RESPONSIVE-------------//
 @media (max-width: 600px) {
