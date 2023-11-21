@@ -1,13 +1,9 @@
 <div class="chat-container br-30">
     <mat-toolbar *ngIf="sharedService.templateIsReady">
         <div class="chat-header-left cursor" (click)="openGroupInfoPopUp()">
-            <p *ngIf="sharedService.showChannelView"># {{ sharedService.filteredChannels[0]['name'] }}</p> <i *ngIf="sharedService.showChannelView" class="material-icons">keyboard_arrow_down</i>
-            <div class="direct-msg-user" *ngIf="sharedService.showDirectMessageView">
-                <img src="{{sharedService.oppositeUser.avatar}}">
-                <p>{{ sharedService.oppositeUser.name }}</p>
-            </div>
+            <p># {{ sharedService.filteredChannels[0]['name'] }}</p> <i class="material-icons">keyboard_arrow_down</i>
         </div>
-        <div *ngIf="sharedService.showChannelView" class="chat-header-right cursor">
+        <div class="chat-header-right cursor">
             <div class="chat-members-images" (click)="openGroupMemberPopUp()">
                 <img *ngFor="let member of sharedService.filteredChannels[0]['members']"
                     src="{{member.imgNr}}" alt="">
@@ -21,8 +17,8 @@
 
 
         <div *ngIf="sharedService.templateIsReady" class="chat-beginning-container">
-            <h2 *ngIf="sharedService.showChannelView">Dies ist der Anfang vom Channel #{{ sharedService.filteredChannels[0].name }}</h2>
-            <p *ngIf="sharedService.showChannelView">{{ sharedService.filteredChannels[0].description }}</p>
+            <h2>Dies ist der Anfang vom Channel #{{ sharedService.filteredChannels[0].name }}</h2>
+            <p>{{ sharedService.filteredChannels[0].description }}</p>
         </div>
 
         <!-- MESSAGE DESIGN IF SOMEBODYS ELSE MESSAGE START -->
@@ -154,10 +150,7 @@
             </div>
 
             <div class="input-send-right">
-                <button *ngIf="sharedService.showChannelView" [class.non-empty]="copiedText !== ''" (click)="messageSend()" [disabled]="isSendingMessage">
-                    <i class="material-icons">send</i>
-                </button>
-                <button *ngIf="sharedService.showDirectMessageView" [class.non-empty]="copiedText !== ''" (click)="sendDirectMsg()" [disabled]="isSendingMessage">
+                <button [class.non-empty]="copiedText !== ''" (click)="messageSend()" [disabled]="isSendingMessage">
                     <i class="material-icons">send</i>
                 </button>
             </div>

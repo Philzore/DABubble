@@ -397,7 +397,4 @@ export class MainChatComponent implements OnInit, OnChanges {
     array.sort((a, b) => a.time - b.time);
   }
 
-  sendDirectMsg() {
-    
-  }
 }

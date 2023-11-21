@@ -2,7 +2,8 @@
 
 <section class="chat-section">
     <app-sidebar ></app-sidebar>
-    <app-main-chat [threadToogleFromOutside]="OutputToogleThread"  (threadClosed)="hideThreadContainer()" ></app-main-chat>
+    <app-main-chat *ngIf="sharedService.showChannelView" [threadToogleFromOutside]="OutputToogleThread"  (threadClosed)="hideThreadContainer()" ></app-main-chat>
+    <app-direct-chat *ngIf="sharedService.showDirectMessageView"></app-direct-chat>
     <app-main-thread *ngIf="!hideThread" (unsubThreadEvent)="toogleThread()"  [@enter]=""></app-main-thread>
 </section>
 

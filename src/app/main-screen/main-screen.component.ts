@@ -28,7 +28,7 @@ export class MainScreenComponent {
 
   @Input() changeChannel = new EventEmitter; 
 
-  constructor(private sharedService: SharedService) {  }
+  constructor(public sharedService: SharedService) {  }
 
   toogleThread(){
     this.OutputToogleThread = !this.OutputToogleThread;

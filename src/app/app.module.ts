@@ -45,6 +45,7 @@ import { DesktopHeaderComponent } from './desktop-header/desktop-header.componen
 import { DialogReauthenticateComponent } from './dialog-reauthenticate/dialog-reauthenticate.component';
 import { GroupMemberInfoComponent } from './group-member-info/group-member-info.component';
 import { Emoji, EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { DirectChatComponent } from './direct-chat/direct-chat.component';
 
 
 
@@ -75,6 +76,7 @@ import { Emoji, EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
     ChangePasswordComponent,
     DialogReauthenticateComponent,
     GroupMemberInfoComponent,
+    DirectChatComponent,
     
   ],
   imports: [
