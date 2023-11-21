@@ -16,8 +16,9 @@ export class SharedService {
   currentActiveChannel$ = this.currentActiveChannel.asObservable();
   unsubChannels;
   filteredChannels: any[];
+  showChannelView:boolean = true;
 
-  //sidebarƒ
+  //sidebar
   public isSidebarOpen = new BehaviorSubject<boolean>(false);
 
   //main chat
@@ -30,6 +31,10 @@ export class SharedService {
   threadPath: string = '';
   currentThreadContent = [];
   threadContentReady:boolean = false ;
+
+  //direct messages
+  showDirectMessageView:boolean = false ;
+  oppositeUser ;
 
   constructor(private firestore: Firestore) {
     // Initialize your service here if needed.

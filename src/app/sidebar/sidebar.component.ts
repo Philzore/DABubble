@@ -2,11 +2,12 @@ import { Component, EventEmitter, Output, Injectable, ViewChild, Input, OnInit, 
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
 import { trigger, state, style, animate, transition, sequence } from '@angular/animations';
-import { Firestore, addDoc, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, getDocs, onSnapshot, query, where } from '@angular/fire/firestore';
 import { AppComponent } from '../app.component';
 import { UserDataService } from '../services/user-data.service';
 import { SharedService } from '../services/shared.service';
 import { User } from '../models/user.class';
+import { share } from 'rxjs';
 
 
 @Component({
@@ -51,7 +52,6 @@ import { User } from '../models/user.class';
   ]
 })
 export class SidebarComponent implements OnInit {
-  // @Output() sidebarToggled = new EventEmitter<boolean>();
   @Output() changeChannel = new EventEmitter<string>();
   specificWidth = 1000;
   channelDropdown: boolean = false;
@@ -70,7 +70,7 @@ export class SidebarComponent implements OnInit {
     private firestore: Firestore,
     public appComponent: AppComponent,
     public userDataService: UserDataService) {
-      
+
     this.createSubscribeChannels();
     this.createSubscribeUsers();
 
@@ -185,21 +185,40 @@ export class SidebarComponent implements OnInit {
     this.sharedService.updateChannel(name);
   }
 
-  async openDirectMsg(oppositeName:string,yourName:string) {
+  async openDirectMsg(user, yourName: string) {
+    console.log(user);
+    this.sharedService.oppositeUser = user ;
     const directMsgCollRef = collection(this.firestore, 'directMessages');
-    this.checkDirectMsgExist(oppositeName,yourName,directMsgCollRef);
-    console.log('Opposite : ', oppositeName , 'Your Name : ', yourName);
-    
+    console.log('Opposite : ', user.name, 'Your Name : ', yourName);
 
-    await addDoc((directMsgCollRef),{
-      between : [yourName,oppositeName],
-    });
+    if (! await this.checkDirectMsgExist(user.name, yourName, directMsgCollRef)) {
+      await addDoc((directMsgCollRef), {
+        between: [yourName, user.name],
+      });
+    }
+    this.showDirectMessageView();
   }
 
-  checkDirectMsgExist(oppositeName:string,yourName:string,directMsgCollRef) {
-    
-    return true
+  async checkDirectMsgExist(oppositeName: string, yourName: string, directMsgCollRef) {
+    const q = query(directMsgCollRef, where('between','==',[yourName,oppositeName]));
+    const querySnapshot = await getDocs(q);
+    console.log(querySnapshot.empty);
+    if (!querySnapshot.empty){
+      console.log('Chat schon vorhanden');
+      return true
+    } else {
+      console.log('Chat Nicht vorhanden');
+      return false
+    }
+  }
 
-    return false
+  showDirectMessageView() {
+    this.sharedService.showChannelView = false ;
+    this.sharedService.showDirectMessageView = true ;
+  }
+
+  showChannelView() {
+    this.sharedService.showDirectMessageView = true ;
+    this.sharedService.showChannelView = false ;
   }
 }

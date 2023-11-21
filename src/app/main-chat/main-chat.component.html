@@ -1,9 +1,13 @@
 <div class="chat-container br-30">
     <mat-toolbar *ngIf="sharedService.templateIsReady">
         <div class="chat-header-left cursor" (click)="openGroupInfoPopUp()">
-            <p># {{ sharedService.filteredChannels[0]['name'] }}</p> <i class="material-icons">keyboard_arrow_down</i>
+            <p *ngIf="sharedService.showChannelView"># {{ sharedService.filteredChannels[0]['name'] }}</p> <i *ngIf="sharedService.showChannelView" class="material-icons">keyboard_arrow_down</i>
+            <div class="direct-msg-user" *ngIf="sharedService.showDirectMessageView">
+                <img src="{{sharedService.oppositeUser.avatar}}">
+                <p>{{ sharedService.oppositeUser.name }}</p>
+            </div>
         </div>
-        <div class="chat-header-right cursor">
+        <div *ngIf="sharedService.showChannelView" class="chat-header-right cursor">
             <div class="chat-members-images" (click)="openGroupMemberPopUp()">
                 <img *ngFor="let member of sharedService.filteredChannels[0]['members']"
                     src="{{member.imgNr}}" alt="">
@@ -150,7 +154,10 @@
             </div>
 
             <div class="input-send-right">
-                <button [class.non-empty]="copiedText !== ''" (click)="messageSend()" [disabled]="isSendingMessage">
+                <button *ngIf="sharedService.showChannelView" [class.non-empty]="copiedText !== ''" (click)="messageSend()" [disabled]="isSendingMessage">
+                    <i class="material-icons">send</i>
+                </button>
+                <button *ngIf="sharedService.showDirectMessageView" [class.non-empty]="copiedText !== ''" (click)="sendDirectMsg()" [disabled]="isSendingMessage">
                     <i class="material-icons">send</i>
                 </button>
             </div>
