@@ -34,7 +34,9 @@ export class SharedService {
 
   //direct messages
   showDirectMessageView:boolean = false ;
-  oppositeUser ;
+  oppositeUser  ;
+  directMsgsFromDB = [];
+  currentDirectMsgID = '' ;
 
   constructor(private firestore: Firestore) {
     // Initialize your service here if needed.

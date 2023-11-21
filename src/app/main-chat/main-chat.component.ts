@@ -65,14 +65,9 @@ export class MainChatComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.sharedService.currentActiveChannel$.subscribe(async (value) => {
       this.sharedService.templateIsReady = false;
-      // console.log('Änderungen :', value);
-      // await this.getChannelsFromDataBase(value);
       await this.sharedService.getChannelsFromDataBase(value);
-      // await this.createSubscribeChannelMessages();
       this.sharedService.createSubscribeChannelMessages();
-      // await this.getUsersFromChannel();
       console.log(this.sharedService.filteredChannels);
-
     });
   }
 
@@ -250,7 +245,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * @param messageID {string} - id form the clicked message
    */
   toggleThread(messageID: string) {
-
+    this.sharedService.threadContentReady = false ;
     if (!this.threadOpen && this.lastMessageId == '') {
       this.openThread(messageID);
       this.lastMessageId = messageID;
@@ -262,8 +257,6 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.createSubscribeThreadMessages(messageID) ;
       this.lastMessageId = messageID ;
     }
-
-    console.log('Last Msg ID : ' ,this.lastMessageId);
 
   }
 
@@ -288,6 +281,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.threadOpen = false;
     this.lastMessageId = '';
     this.sharedService.currentThreadContent = [] ;
+    this.sharedService.threadContentReady = false ;
   }
 
   /**
@@ -351,19 +345,6 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.sharedService.createSubscribeChannelMessages();
     }
   }
-
-  // function to get the user from a channel to display when clicking on @ in input field to tag somebody in the group
-  // async getUsersFromChannel() {
-  //   let channelId = this.sharedService.filteredChannels[1];
-  //   this.usersFromChannels = [];
-  //   const querySnapshotChannel = await getDocs(collection(this.firestore, `channels/${channelId}`));
-
-  //   querySnapshotChannel.forEach((doc) => {
-  //     this.usersFromChannels.push(doc.data());
-  //     console.log(this.usersFromChannels);
-  //   })
-
-  // }
 
   /**
    * get the thread messages from a single message

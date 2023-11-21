@@ -10,7 +10,7 @@
 
 
     <div class="chat-wrapper">
-        <div  *ngFor="let message of sharedService.channelMessagesFromDB" class="message-container cursor">
+        <div  *ngFor="let message of sharedService.directMsgsFromDB" class="message-container cursor">
 
             <img src="{{message.profileImg}}" alt="">
             <div class="message-info-container">
