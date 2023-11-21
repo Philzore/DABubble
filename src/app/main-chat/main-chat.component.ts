@@ -169,12 +169,11 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   openGroupInfoPopUp(): void {
-    this.dialog.open(GroupInfoPopupComponent, { position: { top: '180px', left: '320px' }, panelClass: 'custom-channel-dialog', data: this.sharedService.filteredChannels });
+    this.dialog.open(GroupInfoPopupComponent, { position: { top: '180px', left: '320px' },panelClass: 'group-info-dialog', data: this.sharedService.filteredChannels });
   }
 
   openGroupMemberPopUp() {
-    this.dialog.open(GroupMemberComponent, { position: { top: '180px', right: '50px' }, panelClass: 'custom-channel-dialog', data: this.sharedService.filteredChannels });
-
+    this.dialog.open(GroupMemberComponent, { position: { top: '180px', right: '150px' }, panelClass: 'group-member-dialog', data: this.sharedService.filteredChannels });
   }
 
   /**
@@ -182,7 +181,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   openAddMemberPopUp(): void {
-    this.dialog.open(GroupAddMemberComponent, { position: { top: '180px', right: '50px' }, panelClass: 'custom-logout-dialog', data: this.sharedService.filteredChannels });
+    this.dialog.open(GroupAddMemberComponent, { position: { top: '180px', right: '70px' }, panelClass: 'custom-logout-dialog', data: this.sharedService.filteredChannels });
   }
 
   /**
