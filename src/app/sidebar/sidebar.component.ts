@@ -193,9 +193,11 @@ export class SidebarComponent implements OnInit {
     console.log('Opposite : ', user.name, 'Your Name : ', yourName);
 
     if (! await this.checkDirectMsgExist(user.name, yourName, directMsgCollRef)) {
-      await addDoc((directMsgCollRef), {
+      const docRef = await addDoc((directMsgCollRef), {
         between: [yourName, user.name],
       });
+      this.sharedService.currentDirectMsgID = docRef.id;
+      // console.log('Chat ID', this.sharedService.currentDirectMsgID);
     }
     this.showDirectMessageView();
   }
@@ -205,15 +207,20 @@ export class SidebarComponent implements OnInit {
     const querySnapshot = await getDocs(q);
     console.log(querySnapshot.empty);
     if (!querySnapshot.empty){
-      console.log('Chat schon vorhanden');
+      // console.log('Chat schon vorhanden');
+      querySnapshot.forEach((doc) => {
+        this.sharedService.currentDirectMsgID = doc.id;
+      });
+      // console.log('Chat ID', this.sharedService.currentDirectMsgID);
       return true
     } else {
-      console.log('Chat Nicht vorhanden');
+      // console.log('Chat Nicht vorhanden');
       return false
     }
   }
 
   showDirectMessageView() {
+    this.sharedService.unsubChannels();
     this.sharedService.showChannelView = false ;
     this.sharedService.showDirectMessageView = true ;
   }
@@ -221,5 +228,6 @@ export class SidebarComponent implements OnInit {
   showChannelView() {
     this.sharedService.showDirectMessageView = false ;
     this.sharedService.showChannelView = true ;
+    // this.sharedService.createSubscribeChannelMessages();
   }
 }

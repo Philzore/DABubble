@@ -66,4 +66,8 @@ export class DirectChatComponent {
       }
       this.emojiMartVisible = true;
     }
+
+    sendDirectMsg() {
+      
+    }
 }
