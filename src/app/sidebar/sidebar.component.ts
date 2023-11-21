@@ -182,6 +182,7 @@ export class SidebarComponent implements OnInit {
 
   /* Open Channel */
   openChannel(name) {
+    this.showChannelView();
     this.sharedService.updateChannel(name);
   }
 
@@ -218,7 +219,7 @@ export class SidebarComponent implements OnInit {
   }
 
   showChannelView() {
-    this.sharedService.showDirectMessageView = true ;
-    this.sharedService.showChannelView = false ;
+    this.sharedService.showDirectMessageView = false ;
+    this.sharedService.showChannelView = true ;
   }
 }

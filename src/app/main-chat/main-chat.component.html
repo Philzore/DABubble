@@ -21,13 +21,13 @@
 
 
         <div *ngIf="sharedService.templateIsReady" class="chat-beginning-container">
-            <h2>Dies ist der Anfang vom Channel #{{ sharedService.filteredChannels[0].name }}</h2>
-            <p>{{ sharedService.filteredChannels[0].description }}</p>
+            <h2 *ngIf="sharedService.showChannelView">Dies ist der Anfang vom Channel #{{ sharedService.filteredChannels[0].name }}</h2>
+            <p *ngIf="sharedService.showChannelView">{{ sharedService.filteredChannels[0].description }}</p>
         </div>
 
         <!-- MESSAGE DESIGN IF SOMEBODYS ELSE MESSAGE START -->
 
-        <div *ngFor="let message of sharedService.channelMessagesFromDB" class="message-container cursor">
+        <div  *ngFor="let message of sharedService.channelMessagesFromDB" class="message-container cursor">
 
             <img src="{{message.profileImg}}" alt="">
             <div class="message-info-container">
