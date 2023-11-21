@@ -15,7 +15,6 @@
 
     <div class="chat-wrapper" #chatWrapper (scroll)="onScroll($event)">
 
-
         <div *ngIf="sharedService.templateIsReady" class="chat-beginning-container">
             <h2>Dies ist der Anfang vom Channel #{{ sharedService.filteredChannels[0].name }}</h2>
             <p>{{ sharedService.filteredChannels[0].description }}</p>

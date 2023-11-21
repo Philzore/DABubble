@@ -1,7 +1,9 @@
 <div class="log-out-dialog">
-    <span *ngIf="!hideProfil" (click)="showProfil()">Profil</span>
-    <div class="header-container logout-container">
+    <div class="menu-item" *ngIf="!hideProfil" (click)="showProfil()">
+        <span>Profil</span>
+    </div>
+    <div class="header-container logout-container" (click)="logOut()">
         <i class="material-icons">logout</i>
-        <span (click)="logOut()">Logout</span>
+        <span>Logout</span>
     </div>
 </div>

@@ -9,25 +9,30 @@
     font-weight: 600;
     min-width: 200px;
 
-    .logout-container {
-        padding:5px 10px;
-        gap: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        &:hover {
-            cursor: pointer;
-            color: #535AF1;
-            background-color: #ECEEFE;
-            border-radius: 20px;
-        }
-
+    .menu-item:hover,
+    .logout-container:hover {
+        cursor: pointer;
+        color: #535AF1;
+        background-color: #ECEEFE;
+        border-radius: 20px;
     }
 
-    span {
-        outline: none;
+    .menu-item,
+    .logout-container {
+        display: flex;
+        align-items: center;
         padding: 5px;
-        margin: 0;
+
+        span {
+            outline: none;
+            padding: 5px;
+            margin: 0;
+        }
+    }
+
+    .logout-container {
+        padding: 5px 10px;
+        gap: 10px;
+        justify-content: space-between;
     }
 }
