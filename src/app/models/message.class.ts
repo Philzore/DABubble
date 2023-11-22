@@ -14,7 +14,8 @@ export class Message {
         this.calculatedTime = obj ? obj.calculatedTime : '';
         this.text = obj ? obj.text : '';
         this.id = obj ? obj.id : '';
-        this.reaction = obj ? obj.reaction : '';
+        this.reaction = obj ? obj.reaction : [];
+
     }
 
     public toJSON() {

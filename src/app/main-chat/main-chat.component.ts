@@ -108,45 +108,6 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.emojiMartVisible = true;
   }
   
-  addReactionToMessage(emoji: string, messageId: string) {
-    if (this.selectedMessageId === messageId) {
-        const existingEmojis = this.emojiMap[messageId] || [];
-        const emojiNative = emoji['emoji']['native'];
-        if(existingEmojis.includes(emojiNative) ) {
-            this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
-        } else {
-          this.emojiMap[messageId] = [...existingEmojis, emojiNative];
-          this.emojiCountMap[emojiNative] = 1;
-        }
-    }
-    console.log(emoji);
-    this.emojiMartVisible = false;
-  }
-
-  addCheckMarkAsReaction(emoji: { native: string }, messageId: string) {
-    const existingEmojis = this.emojiMap[messageId] || [];
-    const emojiNative = emoji.native;
-  
-    if (existingEmojis.includes(emojiNative)) {
-      this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
-    } else {
-      this.emojiMap[messageId] = [...existingEmojis, emojiNative];
-      this.emojiCountMap[emojiNative] = 1;
-    }
-  }
-
-  addRaisedHandsAsReaction(emoji: { native: string }, messageId: string) {
-    const existingEmojis = this.emojiMap[messageId] || [];
-    const emojiNative = emoji.native;
-  
-    if (existingEmojis.includes(emojiNative)) {
-      this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
-    } else {
-      this.emojiMap[messageId] = [...existingEmojis, emojiNative];
-      this.emojiCountMap[emojiNative] = 1;
-    }
-  }
-  
 
   /**
    * add name to text are when click on @ symbol and the name
@@ -321,7 +282,8 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.message.time = date;
       this.message.text = this.copiedText;
       this.copiedText = '';
-      //add subcollection
+
+      //add subcollection firestore logic
       let channelId = this.sharedService.filteredChannels[1];
       const singleRef = doc(this.firestore, 'channels', channelId);
       const subcollectionMessages = await addDoc(collection(singleRef, 'messages'),
@@ -339,6 +301,47 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.isSendingMessage = false;
       this.scrollToBottom();
       this.sharedService.createSubscribeChannelMessages();
+    }
+  }
+
+  async addReactionToMessage(emoji: string, messageId: string) {
+    if (this.selectedMessageId === messageId) {
+        const existingEmojis = this.emojiMap[messageId] || [];
+        const emojiNative = emoji['emoji']['native'];
+        if(existingEmojis.includes(emojiNative) ) {
+            this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
+
+        } else {
+          this.emojiMap[messageId] = [...existingEmojis, emojiNative];
+          this.emojiCountMap[emojiNative] = 1;
+        }
+        
+        (this.message.reaction as string[]) = this.emojiMap[messageId];
+    }
+    this.emojiMartVisible = false;
+  }
+
+  async addCheckMarkAsReaction(emoji: { native: string }, messageId: string) {
+    const existingEmojis = this.emojiMap[messageId] || [];
+    const emojiNative = emoji.native;
+  
+    if (existingEmojis.includes(emojiNative)) {
+      this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
+    } else {
+      this.emojiMap[messageId] = [...existingEmojis, emojiNative];
+      this.emojiCountMap[emojiNative] = 1;
+    }
+  }
+
+  addRaisedHandsAsReaction(emoji: { native: string }, messageId: string) {
+    const existingEmojis = this.emojiMap[messageId] || [];
+    const emojiNative = emoji.native;
+  
+    if (existingEmojis.includes(emojiNative)) {
+      this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
+    } else {
+      this.emojiMap[messageId] = [...existingEmojis, emojiNative];
+      this.emojiCountMap[emojiNative] = 1;
     }
   }
 

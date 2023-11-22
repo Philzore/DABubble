@@ -77,11 +77,11 @@ export class MainThreadComponent {
   }
 
   openEmojiForMessage(messageID?: string) {
+    console.log('this is the message id of clicked message', messageID);
     if (this.selectedMessageId === messageID) {
       this.emojiMartVisible = false;
-      console.log('test');
     } else {
-      this.selectedMessageId = messageID; // Open the emoji-mart for the selected message
+      this.selectedMessageId = messageID;
     }
     this.emojiMartVisible = true;
   }
@@ -107,6 +107,20 @@ export class MainThreadComponent {
   closeThread() {
     this.unsubThreadEvent.emit();
   }
+
+  /**
+   * add name to text are when click on @ symbol and the name
+   * 
+   * @param channelMember {string} - name of the channel member
+   */
+  addNameToTextArea(channelMember: string) {
+    const channelMemberName = `@ ${channelMember} `;
+    if(!this.copiedText.includes(channelMemberName)) {
+      this.copiedText += channelMemberName;
+    }
+    this.showPersonPopup = false;
+  }
+
 
   async sendThreadMessage() {
     if (this.copiedText.length >= 1) {

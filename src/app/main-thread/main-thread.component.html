@@ -51,7 +51,7 @@
             <div class="info-row-thread">
               <p class="bold">{{message.from}}</p>
 
-              <emoji-mart *ngIf="emojiMartVisible && selectedMessageId === message.id" (emojiClick)="addReactionToMessage($event ,message.id)"
+              <emoji-mart set="apple" #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id" (emojiClick)="addReactionToMessage($event ,message.id)"
                         [style]="{ position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '11'}">
               </emoji-mart>
 
@@ -99,35 +99,18 @@
               [style]="{ position: 'absolute', bottom: '80px', left : '-50px', 'border-radius': '15px', 'z-index': '2'}">
             </emoji-mart>
           </div>
-          <div *ngIf="showPersonPopup" class="person-popup">
+          <div *ngIf="showPersonPopup" class="person-popup" >
 
-            <div class="member-popup scrollbar">
+            <div class="member-popup scroll-bar">
+                <div *ngFor="let channelMember of sharedService.filteredChannels[0].members">
+                    
+                    <div class="member-row">
+                        <p  class="close-button" (click)="addNameToTextArea(channelMember.name)" >@ {{ channelMember.name }}</p>
+                    </div>
 
-
-              <div class="chat-member-row">
-                <img src="./assets/characters/character_1.png" alt="">
-                <!-- <p (click)="copyText(copyText('@' + name))">{{ '@' + name }} </p> -->
-              </div>
-              <div class="chat-member-row">
-                <img src="./assets/characters/character_1.png" alt="">
-                <!-- <p (click)="copyText(copyText('@' + name))">{{ '@' + name }} </p> -->
-              </div>
-              <div class="chat-member-row">
-                <img src="./assets/characters/character_1.png" alt="">
-                <!-- <p (click)="copyText(copyText('@' + name))">{{ '@' + name }} </p> -->
-              </div>
-              <div class="chat-member-row">
-                <img src="./assets/characters/character_1.png" alt="">
-                <!-- <p (click)="copyText(copyText('@' + name))">{{ '@' + name }} </p> -->
-              </div>
-              <div class="chat-member-row">
-                <img src="./assets/characters/character_1.png" alt="">
-                <p #personParagraph>Person 2</p>
-              </div>
-
+                </div>
             </div>
-
-          </div>
+        </div>
         </div>
 
         <div class="input-send-right">
