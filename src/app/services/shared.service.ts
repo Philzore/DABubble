@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, arrayUnion, collection, doc, getDocs, onSnapshot, query, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, arrayUnion, collection, doc, getDoc, getDocs, onSnapshot, query, updateDoc, where } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable, async } from 'rxjs';
 import { Message } from '../models/message.class';
 
@@ -53,9 +53,17 @@ export class SharedService {
     await updateDoc(channelRef, content);
   }
 
+  /**
+   * update channel members in database
+   * 
+   * @param members {object} - name and img from user
+   * @param id {string} - which channel the users add to members
+   */
   async updateMembersInDatabase(members, id: string) {
     const channelRef = doc(this.firestore, 'channels', id);
+    const channelSnap = await getDoc(channelRef);
     await updateDoc(channelRef, { members: arrayUnion(members) });
+    await this.getChannelsFromDataBase(channelSnap.data()['name']);
   }
 
   /**
@@ -145,7 +153,7 @@ export class SharedService {
    * 
    * @param name {string} - the channel name which content to get 
    */
-  async getChannelsFromDataBase(name) {
+  async getChannelsFromDataBase(name: string) {
     this.filteredChannels = [];
     const channelRef = collection(this.firestore, 'channels');
     const filteredChannels = query(channelRef, where('name', "==", name))
@@ -167,7 +175,6 @@ export class SharedService {
 
     this.unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
       await this.getMessagesFromChannel();
-      // render members
     });
   }
 
