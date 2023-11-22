@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output, ViewChild, ElementRef, Renderer2 } fro
 import { SharedService } from '../services/shared.service';
 import { Message } from '../models/message.class';
 import { UserDataService } from '../services/user-data.service';
-import { Firestore, addDoc, collection } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, updateDoc } from '@angular/fire/firestore';
 import { MainChatComponent } from '../main-chat/main-chat.component';
 
 @Component({
@@ -32,7 +32,6 @@ export class MainThreadComponent {
   constructor(
     public sharedService: SharedService,
     private userDataService: UserDataService,
-    private mainChat: MainChatComponent,
     private firestore: Firestore,
     private renderer: Renderer2
   ) { }
@@ -131,6 +130,9 @@ export class MainThreadComponent {
       const threadRef = await addDoc(collection(this.firestore, this.sharedService.threadPath),
         this.threadMessage.toJSON()
       );
+      await updateDoc(doc(this.firestore, this.sharedService.threadPath, threadRef.id),{
+        id : threadRef.id ,
+      });
       this.copiedText = '';
     }
     this.isSendingMessage = false;

@@ -40,7 +40,7 @@ $purple: #535af1;
 
     .leave-group {
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
 
         button {
             background-color: $purple;

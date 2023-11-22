@@ -662,7 +662,7 @@ $main-purple: #eceefe;
 .own-message {
   display: flex;
   padding: 20px;
-  justify-content: end;
+  justify-content: flex-end;
 
   &:hover {
     background-color: $main-purple;

@@ -63,8 +63,11 @@ export class SharedService {
    * 
    * @param newValue {string} - New value to update the channel information
    */
-  updateChannel(newValue: string) {
-    this.currentActiveChannel.next(newValue);
+  async updateChannel(newValue: string) {
+    this.templateIsReady = false;
+    await this.getChannelsFromDataBase(newValue);
+    this.createSubscribeChannelMessages();
+    //this.currentActiveChannel.next(newValue);
   }
 
   /**
@@ -164,6 +167,7 @@ export class SharedService {
 
     this.unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
       await this.getMessagesFromChannel();
+      // render members
     });
   }
 
