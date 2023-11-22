@@ -359,26 +359,7 @@ $main-purple: #eceefe;
               align-items: center;
             }
 
-            .emoji-react-container {
-              margin-bottom: 10px;
-
-              .emoji-wrapper {
-                display: flex;
-                align-items: center;
-                gap: 5px;
-                border-radius: 30px;
-                padding: 5px;
-                border: 1px solid $main-purple;
-                background: #fff;
-
-                .emoji {
-                  display: flex;
-                  align-items: center;
-                }
-
-              }
-
-            }
+            
 
             .info-row {
               display: flex;
@@ -654,6 +635,24 @@ $main-purple: #eceefe;
         }
 }
 
+
+.emoji-react-container {
+  margin-bottom: 10px;
+  }
+
+  .emoji-wrapper {
+    display: inline-block;
+    gap: 5px;
+    border-radius: 30px;
+    padding: 5px;
+    border: 1px solid $main-purple;
+    background: #fff;
+  }
+
+  .emoji {
+    display: flex !important;
+    align-items: center !important;
+  }
 /* Chat End*/
 
 
