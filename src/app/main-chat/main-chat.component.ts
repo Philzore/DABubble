@@ -38,6 +38,7 @@ export class MainChatComponent implements OnInit, OnChanges {
   showScrollButton = false;
   isSendingMessage = false;
   runtime = false;
+  isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
   emojiMap: { [messageId: string]: string[] } = {};
   emojiCountMap: { [emoji: string]: number } = {};
   selectedMessageId: string | null = null;
@@ -45,7 +46,6 @@ export class MainChatComponent implements OnInit, OnChanges {
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
   @Input() threadToogleFromOutside: boolean;
   @Output() threadClosed = new EventEmitter<void>();
-  // emojiNative = ['emoji']['native']['id'];
 
 
   constructor(
@@ -78,6 +78,11 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.closeThread();
     }
     this.runtime = true;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
   }
 
   scrollToBottom() {
@@ -127,7 +132,14 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   openGroupInfoPopUp(): void {
-    this.dialog.open(GroupInfoPopupComponent, { position: { top: '180px', left: '320px' },panelClass: 'group-info-dialog', data: this.sharedService.filteredChannels });
+    const dialogConfig = {
+      data: this.sharedService.filteredChannels
+    };
+    if (this.isScreenWidthGreaterThan1200) {
+      dialogConfig['position'] = { top: '180px', left: '320px' };
+      dialogConfig['panelClass'] = 'group-info-dialog';
+    }
+    this.dialog.open(GroupInfoPopupComponent, dialogConfig);
   }
 
   openGroupMemberPopUp() {

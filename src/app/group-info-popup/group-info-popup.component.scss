@@ -14,7 +14,7 @@ $purple: #535af1;
         padding: 15px;
 
         &.is-editing {
-            border: 2px solid transparent; // Shrink the border to zero when editing
+            border: 2px solid transparent;
             transition: all .3s ease-in;
         }
     }
@@ -65,11 +65,55 @@ $purple: #535af1;
         padding: 15px;
         width: calc(100% - 30px);
     }
+
+   .group-member-wrapper {
+    display: none;
+    padding: 15px;
+    border: 2px solid $main-purple;
+    border-radius: 15px;
+
+    .group-members {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin: 0 0 25px 0;
+
+        &:hover {
+        background-color: #eceefe;
+        border-radius: 30px;
+        }
+
+
+        img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+        }
+
+        p {
+            margin: 0;
+        }
+
+    }
+
+   }
+
 }
 
-@media (max-width:1000px) {
+@media (max-width:1200px) {
+
     .popup-container {
-        height: 100vh;
-        width: 100vw;
+        max-width: none;
+        min-width: unset;
+        overflow-x: hidden;
     }
+
+    .group-member-wrapper {
+        display: block !important;
+    }
+
+    .button-small-device {
+        display: block;
+    }
+
 }

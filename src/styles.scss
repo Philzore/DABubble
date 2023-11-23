@@ -3,7 +3,7 @@ $purple: #535af1;
 
 html,
 body {
-    // height: 100%;
+    overflow-x: hidden;
     background-color: #eceefe;
     font-family: Nunito, sans-serif !important;
 }
@@ -12,8 +12,6 @@ body {
     font-family: Nunito;
     src: url('./assets/fonts/nunito/static/Nunito-Regular.ttf');
 }
-
-
 
 body::-webkit-scrollbar {
     width: 8px;
@@ -176,23 +174,24 @@ $main-purple: #eceefe;
     .scroll-to-bottom-container {
       display: flex;
       align-items: center;
+      justify-content: center;
       position: absolute;
-      background-color: $purple; // Adjust the background color as needed
-      color: #fff; // Adjust the text color as needed
       bottom: 200px;
       z-index: 10;
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
       
-      button {
+      .material-icons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 125ms ease-in-out;
+        height: 50px;
+        width: 50px;
         background-color: $purple; // Adjust the background color as needed
         color: #fff; // Adjust the text color as needed
-        border: none;
-        border-radius: 5px;
-        padding: 15px 30px;
-        cursor: pointer;
-        transition: 125ms ease-in-out;
+        border-radius: 50%;
     
         &:hover {
           opacity: .8;
@@ -254,19 +253,24 @@ $main-purple: #eceefe;
             .chat-teamsize {
               margin: 0 0 0 15px;
             }
-      
             
       
             img {
-              height: 30px;
-              width: 30px;
+              height: 40px;
+              width: 40px;
               background-size: cover;
               border-radius: 50%;
             }
           }
+
           .add-new-member {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 30px;
+              width: 30px;
               padding: 5px;   
-              border-radius: 15px;
+              border-radius: 50%;
               background-color: $main-purple;
               
             &:hover {
@@ -277,12 +281,14 @@ $main-purple: #eceefe;
         }
       }
 
+
       /* Chat Start*/
       .chat-wrapper {
 
         scroll-behavior: smooth;
         max-height: calc(100% - 210px); 
         overflow-y: scroll;
+        overflow-x: hidden;
 
         .chat-beginning-container {
           display: flex;
@@ -677,11 +683,22 @@ $main-purple: #eceefe;
 /* Own Message Styling End */
 
 @media (max-width:1200px) {
+
+  app-group-info-popup {
+    display: block !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: 100%;
+  }
  
   .chat-container {
     border-radius: 0 !important;
     height: calc(100vh - 120px);
     margin: 0;
+    
+    .chat-members-images {
+      display: none !important;
+    }
 
   }
 

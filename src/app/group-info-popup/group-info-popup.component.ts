@@ -1,6 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SharedService } from '../services/shared.service';
+import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc, where, getDoc } from '@angular/fire/firestore';
+import { GroupMemberInfoComponent } from '../group-member-info/group-member-info.component';
+import { UserDataService } from '../services/user-data.service';
 
 @Component({
   selector: 'app-group-info-popup',
@@ -11,17 +14,16 @@ export class GroupInfoPopupComponent implements OnInit {
   currentChannel = {
     info: {
       name: '',
-      members: '',
+      members: [],
       created: '',
       description: ''
     },
     id: ''
   };
-  // currentChannel = [];
+  filteredChannels = [];
   isEditing = false;
   channelName = '';
   channelDescription = '';
-
   hideEditDescription = false;
 
   constructor(
@@ -29,6 +31,8 @@ export class GroupInfoPopupComponent implements OnInit {
     public dialogRef: MatDialogRef<GroupInfoPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     private sharedService:SharedService,
+    private firestore: Firestore,
+    public userDataService:UserDataService
     ) { }
 
   ngOnInit(): void {
@@ -52,8 +56,24 @@ export class GroupInfoPopupComponent implements OnInit {
     this.hideEditDescription = !this.hideEditDescription;
   }
 
+  openGroupMemberInfo() {
+    this.dialog.open(GroupMemberInfoComponent);
+  }
+
   changeChannelName() {
     this.isEditing = !this.isEditing;
+  }
+
+  async getChannelsFromDataBase(name) {
+    this.filteredChannels = [];
+    const channelRef = collection(this.firestore, 'channels');
+    const filteredChannels = query(channelRef, where('name', "==", name))
+    const querySnapshot = await getDocs(filteredChannels);
+    querySnapshot.forEach((doc) => {
+      this.filteredChannels.push(doc.data(), doc.id);
+      console.log(this.filteredChannels);
+    });
+    // this.templateIsReady = true;
   }
 
 }

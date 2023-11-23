@@ -5,13 +5,19 @@
         </div>
         <div class="chat-header-right cursor">
             <div class="chat-members-images" (click)="openGroupMemberPopUp()">
-                <img *ngFor="let member of sharedService.filteredChannels[0]['members']"
-                    src="{{member.imgNr}}" alt="">
-                <div class="chat-teamsize">{{ sharedService.filteredChannels[0]['members'].length }}</div>
+                <ng-container *ngFor="let member of sharedService.filteredChannels[0]['members']; let i = index">
+                    <ng-container *ngIf="i < 3">
+                        <img src="{{member.imgNr}}" alt="">
+                    </ng-container>
+                </ng-container>
+                <div *ngIf="sharedService.filteredChannels[0]['members'].length > 3" class="chat-teamsize">
+                    +{{ sharedService.filteredChannels[0]['members'].length - 3 }}
+                </div>
             </div>
             <i (click)="openAddMemberPopUp()" class="material-icons add-new-member cursor">person_add_alt</i>
         </div>
     </mat-toolbar>
+
 
     <div class="chat-wrapper" #chatWrapper (scroll)="onScroll($event)">
 
@@ -20,7 +26,7 @@
             <p>{{ sharedService.filteredChannels[0].description }}</p>
         </div>
 
-        <!-- <div class="chat-divider"></div> -->
+        <div class="chat-divider"></div>
 
         <!-- MESSAGE DESIGN IF SOMEBODYS ELSE MESSAGE START -->
 
@@ -117,8 +123,7 @@
     </div>
 
     <div *ngIf="showScrollButton" class="scroll-to-bottom-container">
-        <button *ngIf="showScrollButton" #scrollButton (click)="scrollToBottom()">Scroll to bottom</button>
-        <!-- <i class="material-icons">keyboard_arrow_down</i> -->
+            <i *ngIf="showScrollButton" #scrollButton (click)="scrollToBottom()" class="cursor material-icons">arrow_circle_down</i>
     </div>
 
     <section class="input-container">
