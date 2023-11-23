@@ -340,28 +340,22 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.scrollToBottom();
   }
 
-  async addCheckMarkAsReaction(emoji: { native: string }, messageId: string) {
+  async addReaction(emoji: { native: string }, messageId: string) {
     const existingEmojis = this.emojiMap[messageId] || [];
     const emojiNative = emoji.native;
-  
     if (existingEmojis.includes(emojiNative)) {
       this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
     } else {
       this.emojiMap[messageId] = [...existingEmojis, emojiNative];
       this.emojiCountMap[emojiNative] = 1;
     }
-  }
-
-  addRaisedHandsAsReaction(emoji: { native: string }, messageId: string) {
-    const existingEmojis = this.emojiMap[messageId] || [];
-    const emojiNative = emoji.native;
-  
-    if (existingEmojis.includes(emojiNative)) {
-      this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
-    } else {
-      this.emojiMap[messageId] = [...existingEmojis, emojiNative];
-      this.emojiCountMap[emojiNative] = 1;
-    }
+    (this.message.reactions as string[]) = this.emojiMap[messageId];
+    let channelId = this.sharedService.filteredChannels[1];
+    const singleRef = doc(this.firestore, 'channels', channelId);
+    const messageRef = doc(singleRef, 'messages', messageId);
+    await updateDoc(messageRef, {
+      reactions: this.message.reactions,
+    });
   }
 
   /**
