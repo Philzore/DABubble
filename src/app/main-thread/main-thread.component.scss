@@ -192,6 +192,8 @@ $purple: #535af1;
         }
 
         .clicked-message-content {
+                font-size: 18px;
+
 
             .message-text {
                 background-color: $main-purple;
@@ -199,6 +201,8 @@ $purple: #535af1;
                 padding: 10px;
                 margin: 10px;
                 border-radius: 15px 0px 15px 15px !important;
+                font-size: 18px;
+
             }
 
             .message-text-own {
@@ -382,7 +386,7 @@ $purple: #535af1;
 }
 
 
-@media (max-width:1000px) {
+@media (max-width:1200px) {
 
   .thread-container { 
         position: absolute;

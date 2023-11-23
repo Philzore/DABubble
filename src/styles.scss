@@ -322,6 +322,7 @@ $main-purple: #eceefe;
           padding:10px 30px;
           margin: 30px 0;
           position: relative;
+          font-size: 18px;
           &:hover {
             background-color: $main-purple;
             transition: 125ms ease-in-out;
@@ -675,7 +676,7 @@ $main-purple: #eceefe;
 
 /* Own Message Styling End */
 
-@media (max-width:1000px) {
+@media (max-width:1200px) {
  
   .chat-container {
     border-radius: 0 !important;

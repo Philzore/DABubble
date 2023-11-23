@@ -53,7 +53,7 @@ import { share } from 'rxjs';
 })
 export class SidebarComponent implements OnInit {
   @Output() changeChannel = new EventEmitter<string>();
-  specificWidth = 1000;
+  specificWidth = 1200;
   channelDropdown: boolean = false;
   messageDropdown: boolean = false;
   sidebarClose: boolean = false;

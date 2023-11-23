@@ -9,14 +9,14 @@ app-main-chat,app-direct-chat{
 
 app-main-thread {
     width: 35vw;
-    min-width: 400px;
-    max-width: 450px;
+    min-width: 350px;
+    max-width: 400px;
     background-color: #fff;
     margin: 0 20px 0 0;
     border-radius: 30px;
 }
 
-@media (max-width:1000px) {
+@media (max-width:1200px) {
 
     app-main-chat {
         position: absolute;
