@@ -317,6 +317,8 @@ export class MainChatComponent implements OnInit, OnChanges {
   }
 
   async addReactionToMessage(emoji: string, messageId: string) {
+    let channelId = this.sharedService.filteredChannels[1];
+    
     if (this.selectedMessageId === messageId) {
         const existingEmojis = this.emojiMap[messageId] || [];
         const emojiNative = emoji['emoji']['native'];
@@ -328,9 +330,15 @@ export class MainChatComponent implements OnInit, OnChanges {
           this.emojiCountMap[emojiNative] = 1;
         }
         
-        (this.message.reaction as string[]) = this.emojiMap[messageId];
+        (this.message.reactions as string[]) = this.emojiMap[messageId];
     }
+    const singleRef = doc(this.firestore, 'channels', channelId);
+    const messageRef = doc(singleRef, 'messages', messageId);
+    await updateDoc(messageRef, {
+      reactions: this.message.reactions,
+    })
     this.emojiMartVisible = false;
+    console.log(this.message.reactions);
   }
 
   async addCheckMarkAsReaction(emoji: { native: string }, messageId: string) {

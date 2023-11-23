@@ -38,7 +38,7 @@
 
                 <div class="info-row">
                     <div class="info-row-name">
-                        <h4>{{message.from}}</h4> <span class="message-time">{{message.calculatedTime}}</span>
+                        <h4>{{message}}</h4> <span class="message-time">{{message.calculatedTime}}</span>
                     </div>
 
                     <emoji-mart set="apple" #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id" (emojiClick)="addReactionToMessage($event ,message.id)"
@@ -56,9 +56,9 @@
                 <p class="message-text">{{message.text}}</p>
 
                 <div class="emoji-react-container">
-                    <div class="emoji-wrapper" *ngFor="let emoji of emojiMap[message.id]">
-                        <div class="emoji">
-                            {{ emoji }} {{ emojiCountMap[emoji]}}
+                    <div class="emoji-wrapper">
+                        <div class="emoji" *ngFor="let reaction of this.message.reactions">
+                            {{ reaction }} 
                         </div>
                     </div>
                 </div>
