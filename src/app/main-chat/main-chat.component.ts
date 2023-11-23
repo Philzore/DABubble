@@ -9,6 +9,7 @@ import { ChannelInfo } from '../models/channel-info.class';
 import { Message } from '../models/message.class';
 import { UserDataService } from '../services/user-data.service';
 import { Unsubscribe } from '@angular/fire/auth';
+import { ExpressionBinding } from '@angular/compiler';
 
 
 @Component({
@@ -293,6 +294,7 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.message.calculatedTime = formattedTime;
       this.message.time = date;
       this.message.text = this.copiedText;
+      this.message.reactions = [];
       this.copiedText = '';
 
       //add subcollection firestore logic
@@ -317,27 +319,25 @@ export class MainChatComponent implements OnInit, OnChanges {
   }
 
   async addReactionToMessage(emoji: string, messageId: string) {
-    let channelId = this.sharedService.filteredChannels[1];
-    
     if (this.selectedMessageId === messageId) {
         const existingEmojis = this.emojiMap[messageId] || [];
         const emojiNative = emoji['emoji']['native'];
         if(existingEmojis.includes(emojiNative) ) {
             this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
-
         } else {
           this.emojiMap[messageId] = [...existingEmojis, emojiNative];
           this.emojiCountMap[emojiNative] = 1;
         }
-        
         (this.message.reactions as string[]) = this.emojiMap[messageId];
     }
+    let channelId = this.sharedService.filteredChannels[1];
     const singleRef = doc(this.firestore, 'channels', channelId);
     const messageRef = doc(singleRef, 'messages', messageId);
     await updateDoc(messageRef, {
       reactions: this.message.reactions,
-    })
+    });
     this.emojiMartVisible = false;
+    this.scrollToBottom();
   }
 
   async addCheckMarkAsReaction(emoji: { native: string }, messageId: string) {

@@ -14,7 +14,7 @@ export class Message {
         this.calculatedTime = obj ? obj.calculatedTime : '';
         this.text = obj ? obj.text : '';
         this.id = obj ? obj.id : '';
-        this.reactions = obj ? obj.reaction : [];
+        this.reactions = obj ? obj.reactions : [];
 
     }
 
