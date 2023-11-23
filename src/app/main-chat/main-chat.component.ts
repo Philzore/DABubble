@@ -338,7 +338,6 @@ export class MainChatComponent implements OnInit, OnChanges {
       reactions: this.message.reactions,
     })
     this.emojiMartVisible = false;
-    console.log(this.message.reactions);
   }
 
   async addCheckMarkAsReaction(emoji: { native: string }, messageId: string) {
