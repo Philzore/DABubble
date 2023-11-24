@@ -40,6 +40,14 @@ export class GroupAddMemberComponent implements OnInit {
     id: ''
   };
 
+  /**
+   * run when class created
+   * 
+   * @param dialogRef 
+   * @param userDataService 
+   * @param sharedService 
+   * @param dialogData 
+   */
   constructor(
     public dialogRef: MatDialogRef<GroupAddMemberComponent>,
     public userDataService: UserDataService,
@@ -57,6 +65,20 @@ export class GroupAddMemberComponent implements OnInit {
   }
 
   /**
+   * close the dialog and push the members back to the selectable users
+   * 
+   */
+  closeDialog() {
+    if (this.actAddMembers) {
+      this.actAddMembers.forEach((member) => {
+        this.actMembers.push(member);
+      });
+    }
+    this.actAddMembers = [];
+    this.dialogRef.close();
+  }
+
+  /**
   * open drop down for direct messages
   * 
   */
@@ -69,7 +91,7 @@ export class GroupAddMemberComponent implements OnInit {
    * 
    * @param userPosition {number} - to add the correct member
    */
-  addMember(userPosition) {
+  addMember(userPosition: number) {
     console.log('geclickter User:', userPosition);
     console.log('geclickter User:', this.actMembers);
 
@@ -84,7 +106,7 @@ export class GroupAddMemberComponent implements OnInit {
    * 
    * @param userPosition {number} - to remove the correct user
    */
-  removeUser(userPosition) {
+  removeUser(userPosition: number) {
     this.actMembers.push(this.actAddMembers[userPosition]);
     this.actAddMembers.splice(userPosition, 1);
   }
