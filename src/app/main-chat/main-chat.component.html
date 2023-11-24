@@ -30,7 +30,7 @@
 
         <!-- MESSAGE DESIGN IF SOMEBODYS ELSE MESSAGE START -->
 
-        <div  *ngFor="let message of sharedService.channelMessagesFromDB" class="message-container cursor">
+        <div  *ngFor="let message of sharedService.channelMessagesFromDB" class="message-container cursor" [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}">
 
 
             <img src="{{message.profileImg}}" alt="">
@@ -53,7 +53,7 @@
                     </div>
                 </div>
 
-                <p class="message-text">{{message.text}}</p>
+                <p class="message-text" [ngClass]="{'message-text-own': message.from === userDataService.currentUser['name']}">{{message.text}}</p>
 
                 <div class="emoji-react-container">
                     <!-- <div class="emoji-wrapper"> -->
