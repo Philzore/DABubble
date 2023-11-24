@@ -45,8 +45,9 @@ export class GroupMemberComponent implements OnInit {
     this.dialog.open(GroupAddMemberComponent, { panelClass: 'custom-logout-dialog' });
   }
 
-  openGroupMemberInfo() {
-    this.dialog.open(GroupMemberInfoComponent);
+  openGroupMemberInfo(member: any) {
+    this.dialog.open(GroupMemberInfoComponent, { data: { member: member } });
+    console.log('current memberinfo:', member);
   }
 
   /**
