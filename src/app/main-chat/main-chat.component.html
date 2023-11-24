@@ -45,7 +45,10 @@
                         [style]="{ position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '11'}">
                     </emoji-mart>
 
-                    <div class="info-row-react">
+                    <div class="info-row-react" [ngClass]="{
+                        'left-30px': message.from === userDataService.currentUser['name'],
+                        'right-none': message.from === userDataService.currentUser['name']
+                      }">
                         <ngx-emoji set="apple" class="material-icons" emoji="white_check_mark" (click)="addReaction({ native: '✅' }, message.id)"></ngx-emoji>
                         <ngx-emoji set="apple" class="material-icons" emoji="raised_hands" (click)="addReaction({  native: '🙌' }, message.id)"></ngx-emoji>
                         <i class="material-icons" (click)="openEmojiForMessage(message.id)">add_reaction</i>
@@ -53,14 +56,22 @@
                     </div>
                 </div>
 
-                <p class="message-text" [ngClass]="{'message-text-own': message.from === userDataService.currentUser['name']}">{{message.text}}</p>
+                <p class="message-text" [ngClass]="{
+                    'message-text-own': message.from === userDataService.currentUser['name'],
+                    'own-message': message.from === userDataService.currentUser['name']
+                  }">
+                    {{ message.text }}
+                  </p>
+
+                <div class="emoji-wrapper" [ngClass]="{'justify-start': message.from === userDataService.currentUser['name']}">
+
+                    <i class="material-icons toggle-emoji" [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}" (click)="openEmojiForMessage(message.id)">add_reaction</i>
 
                 <div class="emoji-react-container">
-                    <!-- <div class="emoji-wrapper"> -->
                         <div class="emoji" *ngFor="let reaction of message.reactions">
                             {{ reaction }} 
-                        <!-- </div> -->
                     </div>
+                </div>
                 </div>
 
 
@@ -151,7 +162,7 @@
                         <div *ngFor="let channelMember of sharedService.filteredChannels[0].members">
                             
                             <div class="member-row">
-                                <p  class="close-button" (click)="addNameToTextArea(channelMember.name)" >@ {{ channelMember.name }}</p>
+                                <p  class="close-button" (click)="addNameToTextArea(channelMember.name)" > @ {{ channelMember.name }}</p>
                             </div>
 
                         </div>

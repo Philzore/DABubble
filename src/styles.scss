@@ -1,6 +1,31 @@
 $main-purple: #eceefe;
 $purple: #535af1;
 
+.message-text {
+  background-color: #fff;
+}
+
+.message-text-own {
+  background-color: $purple;
+}
+
+.left-30px {
+  left: 30px;
+  right: 0 !important;
+}
+
+.right-none {
+  right: unset !important;
+}
+
+.row-reverse {
+  flex-direction: row-reverse;
+}
+
+.justify-start {
+  justify-content: start;
+}
+
 html,
 body {
     overflow-x: hidden;
@@ -335,12 +360,15 @@ $main-purple: #eceefe;
             .message-text {
               background-color: white !important;
           }
+          .message-text-own {
+            background-color: $purple !important;
+          }
             .message-time {
               color: grey !important;
             }
             .info-row-react {
               opacity: 1 !important;
-              right: 50px !important;
+              right: 50px;
             }
 
           }
@@ -364,6 +392,7 @@ $main-purple: #eceefe;
             & > * {
               display: flex;
               align-items: center;
+              justify-content: end;
             }
 
             
@@ -644,16 +673,38 @@ $main-purple: #eceefe;
 
 
 .emoji-react-container {
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  }
+
+  .emoji {
+    padding: 5px;
+    border: 1px solid $main-purple;
+    border-radius: 50%;
   }
 
   .emoji-wrapper {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     gap: 5px;
     border-radius: 30px;
     padding: 5px;
-    border: 1px solid $main-purple;
-    background: #fff;
+
+    .toggle-emoji  {
+      display: none;
+      transition: 125ms ease-in-out;
+      border-radius: 50%;
+      padding: 5px !important;
+      background-color: #fff;
+      color: grey;
+
+      &:hover{
+        color: $purple;
+        background-color: $main-purple !important;
+      }
+
+    }
+
   }
 
   .emoji {
@@ -668,15 +719,19 @@ $main-purple: #eceefe;
 .own-message {
   display: flex;
   padding: 20px;
-  justify-content: flex-end;
+  flex-direction: row-reverse;
+  justify-content: right;
 
   &:hover {
     background-color: $main-purple;
     transition: 125ms ease-in-out;
     .message-text-own {
-      background-color: $purple !important; // Change the background color to white
       color: #fff   !important;
+      background-color: $purple;
   }
+  .toggle-emoji {
+    background-color: #fff;
+    }
 }
 }
 
@@ -695,6 +750,14 @@ $main-purple: #eceefe;
     border-radius: 0 !important;
     height: calc(100vh - 120px);
     margin: 0;
+
+    .emoji-wrapper {
+
+      .toggle-emoji {
+        display: flex !important;
+      }
+
+    }
     
     .chat-members-images {
       display: none !important;

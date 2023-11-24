@@ -2,8 +2,9 @@ import { Component, EventEmitter, Output, ViewChild, ElementRef, Renderer2 } fro
 import { SharedService } from '../services/shared.service';
 import { Message } from '../models/message.class';
 import { UserDataService } from '../services/user-data.service';
-import { Firestore, addDoc, collection, doc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDocs, updateDoc } from '@angular/fire/firestore';
 import { MainChatComponent } from '../main-chat/main-chat.component';
+
 
 @Component({
   selector: 'app-main-thread',
@@ -86,18 +87,29 @@ export class MainThreadComponent {
     this.emojiMartVisible = true;
   }
 
-  addReactionToMessage(emoji: string, messageId: string) {
-    if (this.selectedMessageId === messageId) {
-        const existingEmojis = this.emojiMap[messageId] || [];
+  async addReactionToMessage(emoji: string, messageID:string) {
+    console.log('is working')
+    if (this.selectedMessageId === messageID) {
+        const existingEmojis = this.emojiMap[messageID] || [];
         const emojiNative = emoji['emoji']['native'];
         if(existingEmojis.includes(emojiNative) ) {
             this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
         } else {
-          this.emojiMap[messageId] = [...existingEmojis, emojiNative];
+          this.emojiMap[messageID] = [...existingEmojis, emojiNative];
           this.emojiCountMap[emojiNative] = 1;
         }
+        (this.threadMessage.reactions as string[]) = this.emojiMap[messageID];
     }
+    let channelId = this.sharedService.filteredChannels[1];
+    const singleRef = doc(this.firestore, 'channels', channelId);
+    const messageRef = doc(singleRef, 'messages', messageID);
+    const querySnapshotThread = await getDocs(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`));
+    querySnapshotThread.forEach((doc) => {
+      reactions: this.threadMessage.reactions
+    })
+  
     this.emojiMartVisible = false;
+    this.scrollToBottom();
   }
 
   togglePersonPopup(): void {

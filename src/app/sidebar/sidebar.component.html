@@ -35,9 +35,9 @@
       <div>
         <!-- channel container for single channels -->
         <div class="list-container" *ngIf="channelDropdown" [@dropDownMenu]>
-          <div *ngFor="let channel of channelsFromDataBase; let i = index" class="single-entry" (click)="openChannel(channel.name)">
+          <div *ngFor="let channel of channelsFromDataBase; let i = index" class="single-entry" (click)="openChannel(channel.name)" (click)="closeSidebarResponsive()">
             <span>#</span>
-            <p (click)="closeSidebarResponsive()">{{channel.name}}</p>
+            <p >{{channel.name}}</p>
           </div>
           <div class="add-channel" (click)="openDialog()">
             <mat-icon class="no-overflow">add_circle_outline</mat-icon>

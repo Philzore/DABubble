@@ -64,10 +64,10 @@
               
 
               <div class="emoji-react-container">
-                <div class="emoji-wrapper" *ngFor="let emoji of emojiMap[message.id]">
-                    <div class="emoji">
-                        {{ emoji }} {{ emojiCountMap[emoji]}}
-                    </div>
+                <!-- <div class="emoji-wrapper"> -->
+                    <div class="emoji" *ngFor="let reaction of message.reactions">
+                        {{ reaction }} 
+                    <!-- </div> -->
                 </div>
             </div>
 
