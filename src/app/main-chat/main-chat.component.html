@@ -30,7 +30,8 @@
 
         <!-- MESSAGE DESIGN IF SOMEBODYS ELSE MESSAGE START -->
 
-        <div  *ngFor="let message of sharedService.channelMessagesFromDB" class="message-container cursor" [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}">
+        <div *ngFor="let message of sharedService.channelMessagesFromDB" class="message-container cursor"
+            [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}">
 
 
             <img src="{{message.profileImg}}" alt="">
@@ -41,7 +42,9 @@
                         <h4>{{message.from}}</h4> <span class="message-time">{{message.calculatedTime}}</span>
                     </div>
 
-                    <emoji-mart set="apple" #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id" (emojiClick)="addReactionToMessage($event ,message.id)"
+                    <emoji-mart set="apple" #emojiMartElement
+                        *ngIf="emojiMartVisible && selectedMessageId === message.id"
+                        (emojiClick)="addReactionToMessage($event ,message.id)"
                         [style]="{ position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '11'}">
                     </emoji-mart>
 
@@ -49,8 +52,10 @@
                         'left-30px': message.from === userDataService.currentUser['name'],
                         'right-none': message.from === userDataService.currentUser['name']
                       }">
-                        <ngx-emoji set="apple" class="material-icons" emoji="white_check_mark" (click)="addReaction({ native: '✅' }, message.id)"></ngx-emoji>
-                        <ngx-emoji set="apple" class="material-icons" emoji="raised_hands" (click)="addReaction({  native: '🙌' }, message.id)"></ngx-emoji>
+                        <ngx-emoji set="apple" class="material-icons" emoji="white_check_mark"
+                            (click)="addReaction({ native: '✅' }, message.id)"></ngx-emoji>
+                        <ngx-emoji set="apple" class="material-icons" emoji="raised_hands"
+                            (click)="addReaction({  native: '🙌' }, message.id)"></ngx-emoji>
                         <i class="material-icons" (click)="openEmojiForMessage(message.id)">add_reaction</i>
                         <i (click)="toggleThread(message.id)" class="material-icons">text_snippet</i>
                     </div>
@@ -61,17 +66,20 @@
                     'own-message': message.from === userDataService.currentUser['name']
                   }">
                     {{ message.text }}
-                  </p>
+                </p>
 
-                <div class="emoji-wrapper" [ngClass]="{'justify-start': message.from === userDataService.currentUser['name']}">
+                <div class="emoji-wrapper"
+                    [ngClass]="{'justify-start': message.from === userDataService.currentUser['name']}">
 
-                    <i class="material-icons toggle-emoji" [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}" (click)="openEmojiForMessage(message.id)">add_reaction</i>
+                    <i class="material-icons toggle-emoji"
+                        [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}"
+                        (click)="openEmojiForMessage(message.id)">add_reaction</i>
 
-                <div class="emoji-react-container">
+                    <div class="emoji-react-container">
                         <div class="emoji" *ngFor="let reaction of message.reactions">
-                            {{ reaction }} 
+                            {{ reaction }}
+                        </div>
                     </div>
-                </div>
                 </div>
 
 
@@ -134,7 +142,8 @@
     </div>
 
     <div *ngIf="showScrollButton" class="scroll-to-bottom-container">
-            <i *ngIf="showScrollButton" #scrollButton (click)="scrollToBottom()" class="cursor material-icons">arrow_circle_down</i>
+        <i *ngIf="showScrollButton" #scrollButton (click)="scrollToBottom()"
+            class="cursor material-icons">arrow_circle_down</i>
     </div>
 
     <section class="input-container">
@@ -156,13 +165,14 @@
                         [style]="{ position: 'absolute', bottom: '25px', left : '75px', 'border-radius': '15px', 'z-index': '11'}">
                     </emoji-mart>
                 </div>
-                <div *ngIf="showPersonPopup" class="person-popup" >
+                <div *ngIf="showPersonPopup" class="person-popup">
 
                     <div class="member-popup scroll-bar">
                         <div *ngFor="let channelMember of sharedService.filteredChannels[0].members">
-                            
+
                             <div class="member-row">
-                                <p  class="close-button" (click)="addNameToTextArea(channelMember.name)" > @ {{ channelMember.name }}</p>
+                                <p class="close-button" (click)="addNameToTextArea(channelMember.name)"> @ {{
+                                    channelMember.name }}</p>
                             </div>
 
                         </div>

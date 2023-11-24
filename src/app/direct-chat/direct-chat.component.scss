@@ -1,15 +1,56 @@
 .direct-msg-user {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  
-    img {
-      border-radius: 100%;
-      height: 50px;
-      width: 50px;
-    }
+  display: flex;
+  align-items: center;
+  gap: 20px;
 
-    p {
-      margin: 0;
+  img {
+    border-radius: 100%;
+    height: 50px;
+    width: 50px;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.direct-msg-info {
+  position: absolute;
+  bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+  gap: 10px;
+
+  .direct-msg-info-header {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+
+    h2 {
+      margin: 0
     }
   }
+
+  img {
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+  }
+
+  p {
+    font-size: 20px;
+  }
+
+  .light-blue {
+    color: #535AF1;
+    text-decoration: none;
+    transition: all 225ms ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+
+    }
+  }
+}

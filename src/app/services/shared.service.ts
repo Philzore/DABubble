@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Firestore, arrayUnion, collection, doc, getDoc, getDocs, onSnapshot, query, updateDoc, where } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable, async } from 'rxjs';
 import { Message } from '../models/message.class';
+import { User } from '../models/user.class';
+import { Channel } from '../models/channel.class';
 
 
 @Injectable({
@@ -9,14 +11,17 @@ import { Message } from '../models/message.class';
 })
 export class SharedService {
   //header
-  headerContentReady:boolean = false ;
+  headerContentReady: boolean = false;
 
   //channels
   public currentActiveChannel = new BehaviorSubject<string>('DaBubble');
   currentActiveChannel$ = this.currentActiveChannel.asObservable();
   unsubChannels;
-  filteredChannels: any[];
-  showChannelView:boolean = true;
+  filteredChannels: any[] = [{name : '',
+                              created : '',
+                              description : '',
+                              member : []}, ''];
+  showChannelView: boolean = true;
 
   //sidebar
   public isSidebarOpen = new BehaviorSubject<boolean>(false);
@@ -30,13 +35,15 @@ export class SharedService {
   threadContainerVisibility$ = this.threadContainerVisibilitySubject.asObservable();
   threadPath: string = '';
   currentThreadContent = [];
-  threadContentReady:boolean = false ;
+  threadContentReady: boolean = false;
 
   //direct messages
-  showDirectMessageView:boolean = false ;
-  oppositeUser  ;
+  showDirectMessageView: boolean = false;
+  oppositeUser:User;
   directMsgsFromDB = [];
-  currentDirectMsgID = '' ;
+  currentDirectMsgID = '';
+  directChatReady = false;
+  unsubDirectChat;
 
   constructor(private firestore: Firestore) {
     // Initialize your service here if needed.
@@ -170,7 +177,7 @@ export class SharedService {
    * 
    */
   createSubscribeChannelMessages() {
-    console.log('create channel sub');
+    console.log('create Main Chat sub');
     let channelId = this.filteredChannels[1];
 
     this.unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
@@ -194,7 +201,42 @@ export class SharedService {
     this.sortMessagesTime(this.channelMessagesFromDB);
   }
 
-  
+  /**
+    * create subscribe for channel messages
+    * 
+    */
+  createSubscribeDirectChat() {
+    console.log('create Direct Chat Sub');
+    // const directMsgRef = collection(this.firestore, 'directMessages' , this.currentDirectMsgID);
+    this.unsubDirectChat = onSnapshot(doc(this.firestore, 'directMessages' , this.currentDirectMsgID), async (doc) => {
+      await this.getDirectMsgFromDatabase();
+    });
+  }
+
+  /**
+   * get direct messages from database
+   * 
+   */
+  async getDirectMsgFromDatabase() {
+    this.directChatReady = false;
+    this.directMsgsFromDB = [];
+    const docRef = doc(this.firestore, 'directMessages', this.currentDirectMsgID);
+    const directMsgSnap = await getDoc(docRef);
+
+    if (directMsgSnap.exists && directMsgSnap.data()['messages']) {
+      console.log('direct msg data : ', directMsgSnap.data()['messages']);
+      directMsgSnap.data()['messages'].forEach((msg) => {
+        const directMessage = new Message(msg);
+        this.directMsgsFromDB.push(directMessage);
+      });
+    } else {
+      console.log('No direct MSG Document found, content empty');
+    }
+    console.log('Msgs for current direct content:', this.directMsgsFromDB);
+    this.directChatReady = true;
+  }
+
+
   /**
    * sort messages by time
    * 
@@ -203,4 +245,6 @@ export class SharedService {
   sortMessagesTime(array) {
     array.sort((a, b) => a.time - b.time);
   }
+
+  sharedServiceReady = true ;
 }
