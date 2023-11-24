@@ -86,7 +86,7 @@
                 <!-- TODO 2 Antworten und Letzte Antwort 14:56 replaced with real time data -->
                 <div class="last-response-row">
                     <p (click)="toggleThread(message.id)" class="cursor"> 2 Antworten</p>
-                    <span class="message-time">Letzte Antwort 14:56 </span>
+                    <span class="message-time">Letzte Antwort {{message.calculatedTime}} </span>
                 </div>
             </div>
         </div>

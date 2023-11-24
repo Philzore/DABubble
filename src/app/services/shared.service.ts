@@ -17,10 +17,7 @@ export class SharedService {
   public currentActiveChannel = new BehaviorSubject<string>('DaBubble');
   currentActiveChannel$ = this.currentActiveChannel.asObservable();
   unsubChannels;
-  filteredChannels: any[] = [{name : '',
-                              created : '',
-                              description : '',
-                              member : []}, ''];
+  filteredChannels: any[] ;
   showChannelView: boolean = true;
 
   //sidebar
@@ -233,6 +230,7 @@ export class SharedService {
       console.log('No direct MSG Document found, content empty');
     }
     console.log('Msgs for current direct content:', this.directMsgsFromDB);
+    this.sortMessagesTime(this.directMsgsFromDB);
     this.directChatReady = true;
   }
 
@@ -246,5 +244,5 @@ export class SharedService {
     array.sort((a, b) => a.time - b.time);
   }
 
-  sharedServiceReady = true ;
+
 }
