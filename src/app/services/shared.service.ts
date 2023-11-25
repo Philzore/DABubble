@@ -26,6 +26,7 @@ export class SharedService {
   //main chat
   channelMessagesFromDB: any[];
   templateIsReady = false;
+  messagePath:string = '' ;
 
   //thread
   private threadContainerVisibilitySubject = new BehaviorSubject<boolean>(true);

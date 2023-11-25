@@ -295,6 +295,7 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.message.time = date;
       this.message.text = this.copiedText;
       this.message.reactions = [];
+      this.message.numberOfThreadMsgs = 0 ;
       this.copiedText = '';
 
       //add subcollection firestore logic
@@ -375,7 +376,9 @@ export class MainChatComponent implements OnInit, OnChanges {
       //console.log(this.sharedService.currentThreadContent.length);
     });
     //set path in sharedService
+    this.sharedService.messagePath = '';
     this.sharedService.threadPath = '';
+    this.sharedService.messagePath = `channels/${channelId}/messages/${messageID}` ;
     this.sharedService.threadPath = `channels/${channelId}/messages/${messageID}/thread`;
     this.sortMessagesTime(this.sharedService.currentThreadContent);
     console.log('Thread Cotent', this.sharedService.currentThreadContent);

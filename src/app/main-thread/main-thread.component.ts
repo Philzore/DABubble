@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output, ViewChild, ElementRef, Renderer2 } fro
 import { SharedService } from '../services/shared.service';
 import { Message } from '../models/message.class';
 import { UserDataService } from '../services/user-data.service';
-import { Firestore, addDoc, collection, doc, getDocs, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDocs, increment, updateDoc } from '@angular/fire/firestore';
 import { MainChatComponent } from '../main-chat/main-chat.component';
 
 
@@ -162,6 +162,14 @@ export class MainThreadComponent {
       this.copiedText = '';
     }
     this.isSendingMessage = false;
+    await this.updateNumberOfThreadMsgs();
+  }
+
+  async updateNumberOfThreadMsgs() {
+    const msgRef = doc(this.firestore, this.sharedService.messagePath) ;
+    await updateDoc(msgRef, {
+      numberOfThreadMsgs: increment(1)
+  });
   }
 
 }

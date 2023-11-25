@@ -83,61 +83,13 @@
                 </div>
 
 
-                <!-- TODO 2 Antworten und Letzte Antwort 14:56 replaced with real time data -->
+                <!-- TODO theoretisch erledigt -->
                 <div class="last-response-row">
-                    <p (click)="toggleThread(message.id)" class="cursor"> 2 Antworten</p>
+                    <p (click)="toggleThread(message.id)" class="cursor"> {{message.numberOfThreadMsgs}} Antworten</p>
                     <span class="message-time">Letzte Antwort {{message.calculatedTime}} </span>
                 </div>
             </div>
         </div>
-
-
-        <!-- MESSAGE DESIGN IF SOMEBODYS ELSE MESSAGE END -->
-
-
-
-        <!-- <div class="message-container cursor">
-            <img src="./assets/characters/character_1.png" alt="">
-            <div class="message-info-container">
-
-                <div class="info-row">
-                    <div class="info-row-name">
-                        <p>Noah Braun</p> <span class="message-time">14:25 Uhr</span>
-                    </div>
-
-                    
-
-                </div>
-
-                <p class="message-text">Lorem ipsum dolor sit amet.</p>
-
-                <div class="last-response-row">
-                    <p (click)="toggleThread(message.id)" class="cursor">Toggle Thread</p> <span class="message-time">Letzte
-                        Antwort 14:56</span>
-                </div>
-            </div>
-        </div> -->
-
-        <!-- Own Message Start -->
-
-        <!-- OWN MESSAGE DESIGN START -->
-
-        <!-- <div (click)="toggleThread(message.id)" *ngFor="let message of channelMessagesFromDB" class="message-container own-message">
-
-            <div class="message-info-container">
-
-                <div class="info-row ">
-                    <p> {{ message.from }} </p> <span class="message-time"> {{ message.calculatedTime }} </span>
-                </div>
-
-                <p class="message-text-own"> {{ message.text }} </p>
-
-                <div class="last-response-row">
-                </div>
-            </div>
-            <img src="./assets/characters/character_2.png" alt="">
-        </div> -->
-        <!-- OWN MESSAGE DESIGN END -->
 
     </div>
 

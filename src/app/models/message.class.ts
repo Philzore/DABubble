@@ -5,6 +5,7 @@ export class Message {
     calculatedTime:string;
     text: string;
     id:string;
+    numberOfThreadMsgs:number
     reactions:[];
     
     constructor(obj?: any) {
@@ -14,6 +15,7 @@ export class Message {
         this.calculatedTime = obj ? obj.calculatedTime : '';
         this.text = obj ? obj.text : '';
         this.id = obj ? obj.id : '';
+        this.numberOfThreadMsgs = obj ? obj.numberOfThreadMsgs : 0 ;
         this.reactions = obj ? obj.reactions : [];
 
     }
@@ -26,6 +28,7 @@ export class Message {
             calculatedTime: this.calculatedTime,
             text: this.text,
             id: this.id,
+            numberOfThreadMsgs : this.numberOfThreadMsgs,
             reactions: this.reactions
         }
     }
