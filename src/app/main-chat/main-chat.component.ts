@@ -70,6 +70,18 @@ export class MainChatComponent implements OnInit, OnChanges {
   }
 
   /**
+   * check if enter key is pressed , if yes, send message
+   * 
+   * @param event 
+   */
+  onKeydown(event) {
+    if (event.key === "Enter") {
+      this.messageSend();
+    }
+  }
+  
+
+  /**
    * if @input is changing trigger this function
    * 
    * @param changes - react on bool changes
