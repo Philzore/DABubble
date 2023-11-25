@@ -68,7 +68,6 @@ export class SharedService {
     const channelRef = doc(this.firestore, 'channels', id);
     const channelSnap = await getDoc(channelRef);
     await updateDoc(channelRef, { members: arrayUnion(members) });
-    await this.getChannelsFromDataBase(channelSnap.data()['name']);
   }
 
   /**
@@ -80,7 +79,6 @@ export class SharedService {
     this.templateIsReady = false;
     await this.getChannelsFromDataBase(newValue);
     this.createSubscribeChannelMessages();
-    //this.currentActiveChannel.next(newValue);
   }
 
   /**

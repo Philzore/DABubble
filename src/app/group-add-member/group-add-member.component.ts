@@ -115,7 +115,7 @@ export class GroupAddMemberComponent implements OnInit {
    * save users in the channel member info
    * 
    */
-  saveNewUsers() {
+  async saveNewUsers() {
     if (this.actAddMembers.length >= 1) {
       this.actAddMembers.forEach(async (user) => { 
         let userInfo = {
@@ -124,6 +124,7 @@ export class GroupAddMemberComponent implements OnInit {
         }
        await this.sharedService.updateMembersInDatabase(userInfo, this.currentChannel.id);
       });
+      await this.sharedService.getChannelsFromDataBase(this.currentChannel.info.name); 
     }
   }
 

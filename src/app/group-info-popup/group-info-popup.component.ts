@@ -30,10 +30,10 @@ export class GroupInfoPopupComponent implements OnInit {
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<GroupInfoPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
-    private sharedService:SharedService,
+    private sharedService: SharedService,
     private firestore: Firestore,
-    public userDataService:UserDataService
-    ) { }
+    public userDataService: UserDataService
+  ) { }
 
   ngOnInit(): void {
     this.currentChannel.info = this.dialogData[0];
@@ -44,12 +44,12 @@ export class GroupInfoPopupComponent implements OnInit {
 
   saveChannelName() {
     this.currentChannel.info.name = this.channelName;
-    this.sharedService.updateChannelInfoDatabase({name : this.channelName},this.currentChannel.id);
+    this.sharedService.updateChannelInfoDatabase({ name: this.channelName }, this.currentChannel.id);
   }
 
   saveChannelDescription() {
     this.currentChannel.info.description = this.channelDescription;
-    this.sharedService.updateChannelInfoDatabase({description : this.channelDescription},this.currentChannel.id);
+    this.sharedService.updateChannelInfoDatabase({ description: this.channelDescription }, this.currentChannel.id);
   }
 
   changeChannelDescription() {
@@ -64,16 +64,19 @@ export class GroupInfoPopupComponent implements OnInit {
     this.isEditing = !this.isEditing;
   }
 
-  async getChannelsFromDataBase(name) {
-    this.filteredChannels = [];
-    const channelRef = collection(this.firestore, 'channels');
-    const filteredChannels = query(channelRef, where('name', "==", name))
-    const querySnapshot = await getDocs(filteredChannels);
-    querySnapshot.forEach((doc) => {
-      this.filteredChannels.push(doc.data(), doc.id);
-      console.log(this.filteredChannels);
-    });
-    // this.templateIsReady = true;
+  async leaveChannel() {
+    const isNameInArray = this.currentChannel.info.members.some(member => member.name === this.userDataService.currentUser['name']);
+
+    if (isNameInArray) {
+      let userPosition = this.currentChannel.info.members.findIndex(member => member.name === this.userDataService.currentUser['name']);
+      this.currentChannel.info.members.splice(userPosition, 1);
+
+      const channelRef = doc(this.firestore, 'channels', this.currentChannel.id);
+      const channelSnap = await getDoc(channelRef);
+      await updateDoc(channelRef, { members: this.currentChannel.info.members });
+    }
+    
+    this.dialogRef.close();
   }
 
 }

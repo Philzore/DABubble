@@ -52,18 +52,12 @@ export class DialogCreateNewChannelComponent implements OnInit {
         this.newChannel.name = this.channelName;
         this.newChannel.description = this.channelDescription;
         this.newChannel.created = this.currentUser;
-        this.newChannel.members.push(this.currentUser);
-        console.log(this.newChannel);
+        this.newChannel.members['name'] = this.userDataService.currentUser['name'];
+        this.newChannel.members['imgNr'] = this.userDataService.currentUser['imgNr'];
         /* added by hasan to display the channel name in main chat component */
         const docRef = await addDoc(collection(this.firestore, 'channels'),
           this.newChannel.toJSON()
         ).then(async (docRef) => {
-        //   console.log('DocRef :', docRef.id);
-        //   //add subcollection
-        //   const singleRef = doc(this.firestore,'channels',docRef.id);
-        //   const subcollection = await addDoc(collection(singleRef,'messages'),
-        //   this.message.toJSON()
-        // );
           this.channelName = '';
           this.channelDescription = '';
         }).then(() => {

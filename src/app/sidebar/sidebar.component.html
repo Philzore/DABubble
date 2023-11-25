@@ -68,7 +68,7 @@
           <div *ngFor="let user of userDataService.usersFromDatabase" class="single-entry" (click)="openDirectMsg(user, userDataService.currentUser['name'])" (click)="closeSidebarResponsive()">
             <img src= '{{user.avatar}}'>
             <span class="point">&#9679;</span>
-            <p>{{user.name}}</p>
+            <p>{{user.name}} <span *ngIf="user.name == userDataService.currentUser['name']">(Du)</span></p>
           </div>
         </div>
         <!-- end channel container for single channels -->

@@ -2,7 +2,10 @@ export class Channel {
     name: string;
     description: string;
     created: string;
-    members: string[];
+    members: {
+        name:string ,
+        imgNr:string,
+    }[];
     id : string ;
 
 
@@ -20,7 +23,7 @@ export class Channel {
             name: this.name,
             description: this.description,
             created: this.created,
-            members: this.members,
+            members: [{ name : this.members['name'], imgNr : this.members['imgNr']}],
             id : this.id ,
         }
     }

@@ -58,18 +58,6 @@ export class GroupMemberComponent implements OnInit {
     this.dialog.open(GroupMemberInfoComponent, { position: { top: '180px', right: '150px' }, panelClass: 'custom-logout-dialog', data: this.filteredChannels });
   }
 
-  async getChannelsFromDataBase(name) {
-    this.filteredChannels = [];
-    const channelRef = collection(this.firestore, 'channels');
-    const filteredChannels = query(channelRef, where('name', "==", name))
-    const querySnapshot = await getDocs(filteredChannels);
-    querySnapshot.forEach((doc) => {
-      this.filteredChannels.push(doc.data(), doc.id);
-      console.log(this.filteredChannels);
-    });
-    // this.templateIsReady = true;
-  }
-
   /**
    * render channel members html 
    * 

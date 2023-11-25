@@ -22,7 +22,7 @@ export class UserDataService implements OnInit{
     ) { 
     sharedService.headerContentReady = false ;
     this.currentUser = this.getFromLocalStorage('currentUser');
-    console.log(this.currentUser);
+    console.log('Current User :',this.currentUser);
   }
   
   ngOnInit(): void {

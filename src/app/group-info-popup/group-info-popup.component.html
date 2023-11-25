@@ -43,7 +43,7 @@
     </div>
 
     <div class="leave-group">
-        <button class="cursor" (click)="dialogRef.close()">Channel verlassen</button>
+        <button class="cursor" (click)="leaveChannel()">Channel verlassen</button>
     </div>
 
     
@@ -58,7 +58,5 @@
             <img src="{{member.imgNr}}" alt=""> <p>{{ member.name }} <span *ngIf="member.name == userDataService.currentUser['name']">(Du)</span></p>
         </div>
     </div>
-
-    <button class="cursor button-small-device" (click)="dialogRef.close()">Channel verlassen</button>
 
 </div>
