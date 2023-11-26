@@ -22,6 +22,7 @@ export class GroupMemberInfoComponent {
   }
 
   sendMessage(){
+    this.member.avatar = this.member.imgNr;
     this.sharedService.openDirectMsg(this.member, this.userDataService.currentUser['name'])
     this.dialogRef.close();
   }
