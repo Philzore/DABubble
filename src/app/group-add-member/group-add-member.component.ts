@@ -117,6 +117,7 @@ export class GroupAddMemberComponent implements OnInit {
    */
   async saveNewUsers() {
     if (this.actAddMembers.length >= 1) {
+      this.sharedService.templateIsReady = false ;
       this.actAddMembers.forEach(async (user) => { 
         let userInfo = {
           name : user.name,
