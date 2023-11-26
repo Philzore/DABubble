@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-group-member-info',
@@ -9,9 +9,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class GroupMemberInfoComponent {
   member: any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialog: MatDialog, public dialogRef: MatDialogRef<GroupMemberInfoComponent>) {
     this.member = data.member;
   }
   
-
 }
