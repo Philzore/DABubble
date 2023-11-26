@@ -27,6 +27,17 @@ export class GroupInfoPopupComponent implements OnInit {
   hideEditDescription = false;
   memberSubscriber:boolean = false ;
 
+  /**
+   * 
+   * init of the class
+   * 
+   * @param dialog 
+   * @param dialogRef 
+   * @param dialogData 
+   * @param sharedService 
+   * @param firestore 
+   * @param userDataService 
+   */
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<GroupInfoPopupComponent>,
@@ -36,6 +47,10 @@ export class GroupInfoPopupComponent implements OnInit {
     public userDataService: UserDataService
   ) { }
 
+  /**
+   * init of the component
+   * 
+   */
   ngOnInit(): void {
     this.currentChannel.info = this.dialogData[0];
     this.currentChannel.id = this.dialogData[1];
@@ -44,28 +59,52 @@ export class GroupInfoPopupComponent implements OnInit {
     this.memberSubscriber = this.checkIfMember() ;
   }
 
+  /**
+   * save the new channel name
+   * 
+   */
   saveChannelName() {
     this.currentChannel.info.name = this.channelName;
     this.sharedService.updateChannelInfoDatabase({ name: this.channelName }, this.currentChannel.id);
   }
 
+  /**
+   * save the new channel description
+   * 
+   */
   saveChannelDescription() {
     this.currentChannel.info.description = this.channelDescription;
     this.sharedService.updateChannelInfoDatabase({ description: this.channelDescription }, this.currentChannel.id);
   }
 
+  /**
+   * change view if edit the channel description
+   * 
+   */
   changeChannelDescription() {
     this.hideEditDescription = !this.hideEditDescription;
   }
 
+  /**
+   * open group member info component
+   * 
+   */
   openGroupMemberInfo() {
     this.dialog.open(GroupMemberInfoComponent);
   }
 
+  /**
+   * change view if edit the channel name
+   * 
+   */
   changeChannelName() {
     this.isEditing = !this.isEditing;
   }
 
+  /**
+   * leave the channel if the user is member
+   * 
+   */
   async leaveChannel() {
     const isNameInArray = this.currentChannel.info.members.some(member => member.name === this.userDataService.currentUser['name']);
 
@@ -81,6 +120,12 @@ export class GroupInfoPopupComponent implements OnInit {
     
   }
 
+  /**
+   * check if the user is member of the current channel
+   * 
+   * @returns true , if the user is already member
+   * @returns false , if the user is not a member
+   */
   checkIfMember(){
     if (this.currentChannel.info.members.some(member => member.name === this.userDataService.currentUser['name'])) {
       return true

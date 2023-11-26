@@ -15,7 +15,7 @@ $purple: #535af1;
         gap: 10px;
     }
 
-    .single-added-user {  
+    .single-added-user {
         padding: 10px;
         background-color: #535AF1;
         color: white;
@@ -39,13 +39,24 @@ $purple: #535af1;
             border: none;
             padding: 10px;
             border-radius: 30px;
-            border: transparent; 
+            border: transparent;
             transition: 0.2s;
             outline: none;
 
             &:hover {
                 cursor: pointer;
-            background-color: #797EF3;
+                background-color: #797EF3;
+            }
+
+
+        }
+
+        .disabled-btn {
+            opacity: 0.8;
+
+            &:hover {
+                cursor: not-allowed !important;
+                background-color: #535AF1;
             }
         }
     }

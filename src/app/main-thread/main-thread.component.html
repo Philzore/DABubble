@@ -24,7 +24,7 @@
           </div>
           <!-- Clicked Message Content -->
           <div class="clicked-message-content">
-            <p *ngIf="sharedService.threadContentReady" class="message-text">
+            <p *ngIf="sharedService.threadContentReady" class="message-text" >
               {{ sharedService.currentThreadContent[0].text}}
             </p>
           </div>
@@ -39,9 +39,12 @@
     </div>
 
     <!-- Text Response Container -->
-    <div *ngFor="let message of sharedService.currentThreadContent; let first = first">
+    <div *ngFor="let message of sharedService.currentThreadContent; let first = first" [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}">
       <div *ngIf="!first" class="clicked-message">
-        <div class="info-row-react">
+        <div class="info-row-react" [ngClass]="{
+          'left-30px': message.from === userDataService.currentUser['name'],
+          'right-none': message.from === userDataService.currentUser['name']
+        }">
           <i class="material-icons cursor" (click)="openEmojiForMessage(message.id)">add_reaction</i>
         </div>
         <img src="{{message.profileImg}}" alt="">
@@ -58,7 +61,10 @@
               <span class="message-time">{{message.calculatedTime}}</span>
             </div>
             <div class="clicked-message-content">
-              <p class="message-text">
+              <p class="message-text" [ngClass]="{
+                'message-text-own': message.from === userDataService.currentUser['name'],
+                'own-message': message.from === userDataService.currentUser['name']
+              }">
                 {{message.text}}
               </p>
               

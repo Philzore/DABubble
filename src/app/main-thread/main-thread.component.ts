@@ -32,7 +32,7 @@ export class MainThreadComponent {
 
   constructor(
     public sharedService: SharedService,
-    private userDataService: UserDataService,
+    public userDataService: UserDataService,
     private firestore: Firestore,
     private renderer: Renderer2
   ) { }

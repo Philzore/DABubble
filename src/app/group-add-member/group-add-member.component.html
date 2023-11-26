@@ -16,7 +16,7 @@
     </div>
 
     <div class="add-member-button-container">
-        <button class="cursor" (click)="saveNewUsers()">Hinzufügen</button>
+        <button class="cursor" (click)="saveNewUsers()" [disabled]="actAddMembers.length == 0" [class.disabled-btn]="actAddMembers.length == 0">Hinzufügen</button>
     </div>
 
     <!-- direct message drop down -->
