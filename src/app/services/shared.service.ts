@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, arrayUnion, collection, doc, getDoc, getDocs, onSnapshot, query, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, and, arrayUnion, collection, doc, getDoc, getDocs, onSnapshot, or, query, updateDoc, where } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable, async } from 'rxjs';
 import { Message } from '../models/message.class';
 import { User } from '../models/user.class';
@@ -241,6 +241,76 @@ export class SharedService {
    */
   sortMessagesTime(array) {
     array.sort((a, b) => a.time - b.time);
+  }
+
+
+
+  /**
+   * Direct Message to other User 
+   */
+  async openDirectMsg(user, yourName: string) {
+    if (this.showDirectMessageView) {
+      this.unsubDirectChat();
+    }
+    console.log(user);
+    this.oppositeUser = user ;
+    const directMsgCollRef = collection(this.firestore, 'directMessages');
+    console.log('Opposite : ', user.name, 'Your Name : ', yourName);
+
+    if (! await this.checkDirectMsgExist(user.name, yourName, directMsgCollRef)) {
+      const docRef = await addDoc((directMsgCollRef), {
+        between: { user1 : yourName, user2 : user.name},
+      });
+      this.currentDirectMsgID = docRef.id;
+      // console.log('Chat ID', this.sharedService.currentDirectMsgID);
+    }
+    this.showDirectMessageViewFct();
+  }
+
+  /**
+   * Checking if Chat between User already exists
+   */
+  async checkDirectMsgExist(oppositeName: string, yourName: string, directMsgCollRef) {
+    const chatBetween = [yourName, oppositeName] ;
+    const q = query(directMsgCollRef, or( and (where('between.user1','==', yourName),where('between.user2','==', oppositeName)),
+                                          and (where('between.user2','==', yourName),where('between.user1','==', oppositeName))
+                                          ) //end of or
+                                          ); //end of query function
+    const querySnapshot = await getDocs(q);
+    console.log(querySnapshot.empty);
+    if (!querySnapshot.empty){
+      console.log('Chat schon vorhanden');
+      querySnapshot.forEach((doc) => {
+        this.currentDirectMsgID = doc.id;
+      });
+      // console.log('Chat ID', this.sharedService.currentDirectMsgID);
+      return true
+    } else {
+      console.log('Chat Nicht vorhanden');
+      return false
+    }
+  }
+
+/**
+ * Showing directmessage view
+ */
+  showDirectMessageViewFct() {
+    this.unsubChannels();
+    this.showChannelView = false ;
+    this.showDirectMessageView = true ;
+    this.createSubscribeDirectChat();
+  }
+
+  /**
+   * Showing Channel view
+   */
+  showChannelViewFct() {
+    if (this.showDirectMessageView) {
+      this.unsubDirectChat();
+    }
+    this.showDirectMessageView = false ;
+    this.showChannelView = true ;
+    // this.sharedService.createSubscribeChannelMessages();
   }
 
 
