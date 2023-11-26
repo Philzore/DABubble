@@ -69,7 +69,7 @@
                 </p>
 
                 <div class="emoji-wrapper"
-                    [ngClass]="{'justify-start': message.from === userDataService.currentUser['name']}">
+                    [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
 
                     <i class="material-icons toggle-emoji"
                         [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}"
@@ -86,6 +86,9 @@
                 <!-- TODO theoretisch erledigt -->
                 <div class="last-response-row">
                     <p (click)="toggleThread(message.id)" class="cursor"> {{message.numberOfThreadMsgs}} Antworten</p>
+                <!-- TODO 2 Antworten und Letzte Antwort 14:56 replaced with real time data -->
+                <div class="last-response-row" [ngClass]="{'row-reverse': message.from === userDataService.currentUser['name']}"> 
+                    <p (click)="toggleThread(message.id)" class="cursor"> 2 Antworten</p>
                     <span class="message-time">Letzte Antwort {{message.calculatedTime}} </span>
                 </div>
             </div>

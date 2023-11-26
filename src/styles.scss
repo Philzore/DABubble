@@ -26,6 +26,10 @@ $purple: #535af1;
   justify-content: start;
 }
 
+.justify-end {
+  justify-content: end;
+}
+
 html,
 body {
     overflow-x: hidden;
@@ -388,13 +392,6 @@ $main-purple: #eceefe;
             flex-direction: column;
             justify-content: center;
             margin: 0 30px;
-
-            & > * {
-              display: flex;
-              align-items: center;
-              justify-content: end;
-            }
-
             
 
             .info-row {
@@ -476,6 +473,9 @@ $main-purple: #eceefe;
 
 
             .last-response-row {
+              display: flex;
+              padding: 10px;
+              gap: 10px;
 
               p {
                 font-size: 16px;
