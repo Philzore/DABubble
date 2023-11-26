@@ -43,7 +43,7 @@
     </div>
 
     <div class="leave-group">
-        <button class="cursor" (click)="leaveChannel()">Channel verlassen</button>
+        <button class="cursor" (click)="leaveChannel()" [disabled]="!memberSubscriber" [class.disabled-btn]="!memberSubscriber">Channel verlassen</button>
     </div>
 
     

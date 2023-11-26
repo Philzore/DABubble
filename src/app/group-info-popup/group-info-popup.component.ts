@@ -25,6 +25,7 @@ export class GroupInfoPopupComponent implements OnInit {
   channelName = '';
   channelDescription = '';
   hideEditDescription = false;
+  memberSubscriber:boolean = false ;
 
   constructor(
     public dialog: MatDialog,
@@ -40,6 +41,7 @@ export class GroupInfoPopupComponent implements OnInit {
     this.currentChannel.id = this.dialogData[1];
     this.channelName = this.currentChannel.info.name;
     this.channelDescription = this.currentChannel.info.description;
+    this.memberSubscriber = this.checkIfMember() ;
   }
 
   saveChannelName() {
@@ -73,10 +75,18 @@ export class GroupInfoPopupComponent implements OnInit {
 
       const channelRef = doc(this.firestore, 'channels', this.currentChannel.id);
       const channelSnap = await getDoc(channelRef);
-      await updateDoc(channelRef, { members: this.currentChannel.info.members });
+      await updateDoc(channelRef, { members: this.currentChannel.info.members }).then( ()=> {this.dialogRef.close({event : 'start'});});
+      
     }
     
-    this.dialogRef.close();
+  }
+
+  checkIfMember(){
+    if (this.currentChannel.info.members.some(member => member.name === this.userDataService.currentUser['name'])) {
+      return true
+    } else {
+      return false
+    }
   }
 
 }

@@ -54,6 +54,14 @@ $purple: #535af1;
                 opacity: .8;
             }
         }
+
+        .disabled-btn {
+            opacity: 0.8;
+        
+            &:hover{
+                cursor: not-allowed !important;
+            }
+        }
     }
 
     input {

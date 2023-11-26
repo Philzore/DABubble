@@ -121,10 +121,12 @@ export class GroupAddMemberComponent implements OnInit {
         let userInfo = {
           name : user.name,
           imgNr : user.avatar,
+          email : user.email,
         }
        await this.sharedService.updateMembersInDatabase(userInfo, this.currentChannel.id);
       });
       await this.sharedService.getChannelsFromDataBase(this.currentChannel.info.name); 
+      this.dialogRef.close({event : 'start'});
     }
   }
 

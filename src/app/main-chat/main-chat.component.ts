@@ -10,6 +10,7 @@ import { Message } from '../models/message.class';
 import { UserDataService } from '../services/user-data.service';
 import { Unsubscribe } from '@angular/fire/auth';
 import { ExpressionBinding } from '@angular/compiler';
+import { AppComponent } from '../app.component';
 
 
 @Component({
@@ -57,7 +58,8 @@ export class MainChatComponent implements OnInit, OnChanges {
     public userDataService: UserDataService,
     private elementRef: ElementRef,
     private renderer: Renderer2,
-    private firestore: Firestore) {
+    private firestore: Firestore,
+    public appComponent: AppComponent,) {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
     });
@@ -155,7 +157,15 @@ export class MainChatComponent implements OnInit, OnChanges {
       dialogConfig['position'] = { top: '180px', left: '320px' };
       dialogConfig['panelClass'] = 'group-info-dialog';
     }
-    this.dialog.open(GroupInfoPopupComponent, dialogConfig);
+    const dialogRef = this.dialog.open(GroupInfoPopupComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        if (result.event == 'start') {
+          this.appComponent.showFeedback('Du hast den Channel Verlassen');
+        }
+      }
+    });
   }
 
   openGroupMemberPopUp() {
@@ -167,7 +177,15 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   openAddMemberPopUp(): void {
-    this.dialog.open(GroupAddMemberComponent, { position: { top: '180px', right: '70px' }, panelClass: 'custom-logout-dialog', data: this.sharedService.filteredChannels });
+    const dialogRef = this.dialog.open(GroupAddMemberComponent, { position: { top: '180px', right: '70px' }, panelClass: 'custom-logout-dialog', data: this.sharedService.filteredChannels });
+  
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result){
+        if (result.event == 'start') {
+          this.appComponent.showFeedback('Die Nutzer wurden dem Channel hinzugefügt');
+        }
+      }
+    });
   }
 
   /**

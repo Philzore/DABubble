@@ -7,7 +7,7 @@
             <div class="chat-members-images" (click)="openGroupMemberPopUp()">
                 <ng-container *ngFor="let member of sharedService.filteredChannels[0]['members']; let i = index">
                     <ng-container *ngIf="i < 3">
-                        <img src="{{member.imgNr}}" alt="">
+                        <img src="{{member.imgNr}}" alt="" referrerpolicy="no-referrer">
                     </ng-container>
                 </ng-container>
                 <div *ngIf="sharedService.filteredChannels[0]['members'].length > 3" class="chat-teamsize">
