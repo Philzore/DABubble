@@ -46,6 +46,11 @@ export class DialogEdituserLogoutComponent implements OnInit {
       console.log('User logged out successfully')
       this.userDataService.clearCurrentUserLocalStorage();
       this.router.navigate(['/']);
+      this.sharedService.templateIsReady = false ;
+      this.sharedService.unsubChannels();
+      if (this.sharedService.unsubDirectChat){
+        this.sharedService.unsubDirectChat();
+      }
     }).catch((error) => {
       // An error happened.
       console.log('User could not log out')

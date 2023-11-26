@@ -18,6 +18,7 @@ import { ExpressionBinding } from '@angular/compiler';
   styleUrls: ['./main-chat.component.scss']
 })
 export class MainChatComponent implements OnInit, OnChanges {
+  
   copiedText: string = '';
   isSidebarOpen: boolean = true;
   showAddDataPopup: boolean = false;
@@ -60,13 +61,15 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
     });
-    this.sharedService.getChannelsFromDataBase('DaBubble');
-    this.sharedService.createSubscribeChannelMessages();
+    // this.sharedService.getChannelsFromDataBase('DaBubble');
+    // this.sharedService.createSubscribeChannelMessages();
     console.log('Main-Chat Constructor');
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     console.log('Main-Chat OnInit');
+    await this.sharedService.getChannelsFromDataBase('DaBubble');
+    this.sharedService.createSubscribeChannelMessages();
   }
 
   /**

@@ -10,6 +10,7 @@ import { AppComponent } from '../app.component';
 import { UserDataService } from '../services/user-data.service';
 import { User } from '../models/user.class';
 import { Firestore, addDoc, collection, getDocs, query, where } from '@angular/fire/firestore';
+import { SharedService } from '../services/shared.service';
 
 RouterLink
 @Component({
@@ -19,14 +20,18 @@ RouterLink
 })
 
 
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
   hide = true;
   email: string = '';
   password: string = '';
   errorMessage: string = '';
   user = new User();
 
-  constructor(private router: Router, public appComponent: AppComponent, private userDataService: UserDataService, private firestore: Firestore) { }
+  constructor(private router: Router,
+    public appComponent: AppComponent,
+    private userDataService: UserDataService,
+    private firestore: Firestore,
+    private sharedService: SharedService) { }
 
   showIntro: boolean = true;
 
@@ -37,11 +42,11 @@ export class LoginComponent implements OnInit{
     }, 2500);
   }
 
-  login() {
+  async login() {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, this.email, this.password)
 
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed in
         console.log('User loged in successfully')
         const user = userCredential.user;
@@ -69,12 +74,9 @@ export class LoginComponent implements OnInit{
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-
-       
-        
         //Phil 
         this.userDataService.saveCurrentUserLocalStorage(auth.currentUser.displayName, auth.currentUser.email, auth.currentUser.photoURL);
-       
+
         if (await this.checkIfUserExists(auth.currentUser.displayName)) {
           // Benutzer existiert bereits
           // Führe hier die entsprechenden Aktionen aus
@@ -91,6 +93,8 @@ export class LoginComponent implements OnInit{
         // IdP data available using getAdditionalUserInfo(result)
         // ...
         this.router.navigate(['/main-page']);
+        this.sharedService.getChannelsFromDataBase('DaBubble');
+        this.sharedService.createSubscribeChannelMessages();
       }).catch((error) => {
         console.log('Google Login Failed, Login does not work')
         // Handle Errors here.
