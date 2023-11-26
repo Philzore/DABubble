@@ -85,11 +85,11 @@
 
                 <!-- TODO theoretisch erledigt -->
                 <div class="last-response-row">
-                    <p (click)="toggleThread(message.id)" class="cursor"> {{message.numberOfThreadMsgs}} Antworten</p>
                 <!-- TODO 2 Antworten und Letzte Antwort 14:56 replaced with real time data -->
-                <div class="last-response-row" [ngClass]="{'row-reverse': message.from === userDataService.currentUser['name']}"> 
-                    <p (click)="toggleThread(message.id)" class="cursor"> 2 Antworten</p>
-                    <span class="message-time">Letzte Antwort {{message.calculatedTime}} </span>
+                <div class="last-response-row"   [ngClass]="{'row-reverse': message.from === userDataService.currentUser['name']}"> 
+                    <p *ngIf="message.numberOfThreadMsgs > 0" (click)="toggleThread(message.id)" class="cursor"> {{message.numberOfThreadMsgs}} Antworten</p>
+                    <p *ngIf="message.numberOfThreadMsgs <= 0" (click)="toggleThread(message.id)" class="cursor">Antworten ...</p>
+                    <span *ngIf="message.numberOfThreadMsgs > 0" class="message-time">Letzte Antwort {{message.calculatedTime}} </span>
                 </div>
             </div>
         </div>
