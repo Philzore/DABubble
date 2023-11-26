@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SharedService } from '../services/shared.service';
+import { UserDataService } from '../services/user-data.service';
 
 @Component({
   selector: 'app-group-member-info',
@@ -13,14 +14,16 @@ export class GroupMemberInfoComponent {
   constructor
   (@Inject(MAT_DIALOG_DATA) public data: any,
   public dialogRef: MatDialogRef<GroupMemberInfoComponent>,
-  private sharedService: SharedService
+  public sharedService: SharedService,
+  public userDataService: UserDataService
   ) 
   {
     this.member = data.member;
   }
 
   sendMessage(){
-    
+    this.sharedService.openDirectMsg(this.member, this.userDataService.currentUser['name'])
+    this.dialogRef.close();
   }
   
   

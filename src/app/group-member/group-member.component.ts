@@ -46,6 +46,7 @@ export class GroupMemberComponent implements OnInit {
   }
 
   openGroupMemberInfo(member: any) {
+    this.dialogRef.close();
     this.dialog.open(GroupMemberInfoComponent, { data: { member: member } });
     console.log('current memberinfo:', member);
   }
