@@ -9,7 +9,7 @@ import { Message } from '../models/message.class';
   templateUrl: './direct-chat.component.html',
   styleUrls: ['./direct-chat.component.scss']
 })
-export class DirectChatComponent implements OnInit{
+export class DirectChatComponent implements OnInit {
   copiedTextDirectMsg: string = '';
   emojiMap: { [messageId: string]: string[] } = {};
   emojiCountMap: { [emoji: string]: number } = {};
@@ -29,14 +29,25 @@ export class DirectChatComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    
-    
+
+
   }
 
   /**
- * open add Data dialog in chat
- * 
- */
+   * check if enter key is pressed , if yes, send message
+   * 
+   * @param event 
+   */
+  onKeydown(event) {
+    if (event.key === "Enter") {
+      this.sendDirectMsg();
+    }
+  }
+
+  /**
+   * open add Data dialog in chat
+   * 
+   */
   toggleAddDataPopup(): void {
     this.showAddDataPopup = !this.showAddDataPopup;
   }
