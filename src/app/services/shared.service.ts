@@ -27,6 +27,7 @@ export class SharedService {
   channelMessagesFromDB: any[];
   templateIsReady = false;
   messagePath:string = '' ;
+  showNewMessageInput:boolean = false ;
 
   //thread
   private threadContainerVisibilitySubject = new BehaviorSubject<boolean>(true);
@@ -297,6 +298,7 @@ export class SharedService {
   showDirectMessageViewFct() {
     this.unsubChannels();
     this.showChannelView = false ;
+    this.showNewMessageInput = false;
     this.showDirectMessageView = true ;
     this.createSubscribeDirectChat();
   }
@@ -309,8 +311,14 @@ export class SharedService {
       this.unsubDirectChat();
     }
     this.showDirectMessageView = false ;
+    this.showNewMessageInput = false;
     this.showChannelView = true ;
     // this.sharedService.createSubscribeChannelMessages();
+  }
+
+  showNewMessageHeader() {
+    this.showNewMessageInput = !this.showNewMessageInput
+    console.log('inout show' , this.showNewMessageInput);
   }
 
 

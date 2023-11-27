@@ -1,5 +1,5 @@
 <div class="chat-container br-30">
-    <mat-toolbar *ngIf="sharedService.templateIsReady">
+    <mat-toolbar *ngIf="sharedService.templateIsReady && !sharedService.showNewMessageInput">
         <div class="chat-header-left cursor" (click)="openGroupInfoPopUp()">
             <p># {{ sharedService.filteredChannels[0]['name'] }}</p> <i class="material-icons">keyboard_arrow_down</i>
         </div>
@@ -16,7 +16,15 @@
             </div>
             <i (click)="openAddMemberPopUp()" class="material-icons add-new-member cursor">person_add_alt</i>
         </div>
+
     </mat-toolbar>
+    <mat-toolbar class="chat-header"  *ngIf="sharedService.showNewMessageInput">
+        <div class="chat-header-search">
+            <h2>Neue Nachricht</h2>
+            <input placeholder="An: #channel, oder @jemand">
+        </div>
+    </mat-toolbar>
+
 
 
     <div class="chat-wrapper" #chatWrapper (scroll)="onScroll($event)">
@@ -85,63 +93,67 @@
 
                 <!-- TODO theoretisch erledigt -->
                 <div class="last-response-row">
-                <!-- TODO 2 Antworten und Letzte Antwort 14:56 replaced with real time data -->
-                <div class="last-response-row"   [ngClass]="{'row-reverse': message.from === userDataService.currentUser['name']}"> 
-                    <p *ngIf="message.numberOfThreadMsgs > 0" (click)="toggleThread(message.id)" class="cursor"> {{message.numberOfThreadMsgs}} Antworten</p>
-                    <p *ngIf="message.numberOfThreadMsgs <= 0" (click)="toggleThread(message.id)" class="cursor">Antworten ...</p>
-                    <span *ngIf="message.numberOfThreadMsgs > 0" class="message-time">Letzte Antwort {{message.calculatedTime}} </span>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div *ngIf="showScrollButton" class="scroll-to-bottom-container">
-        <i *ngIf="showScrollButton" #scrollButton (click)="scrollToBottom()"
-            class="cursor material-icons">arrow_circle_down</i>
-    </div>
-
-    <section class="input-container">
-
-        <textarea (keydown)="onKeydown($event)" *ngIf="sharedService.templateIsReady" [(ngModel)]="copiedText"
-            placeholder="Nachricht an #{{ sharedService.filteredChannels[0].name }}">
-        </textarea>
-        <div class="input-send">
-            <div class="input-send-left">
-                <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
-                <i class="material-icons toggle-emoji" (click)="toggleEmojiPopup()">insert_emoticon</i>
-                <i class="material-icons toggle-person" (click)="togglePersonPopup()">alternate_email</i>
-            </div>
-
-            <div class="input-popups">
-                <div *ngIf="showAddDataPopup" class="add-data-popup">Datei anhängen</div>
-                <div *ngIf="showEmojiPopup" class="emoji-mart">
-                    <emoji-mart (emojiClick)="addEmoji($event)"
-                        [style]="{ position: 'absolute', bottom: '25px', left : '75px', 'border-radius': '15px', 'z-index': '11'}">
-                    </emoji-mart>
-                </div>
-                <div *ngIf="showPersonPopup" class="person-popup">
-
-                    <div class="member-popup scroll-bar">
-                        <div *ngFor="let channelMember of sharedService.filteredChannels[0].members">
-
-                            <div class="member-row">
-                                <p class="close-button" (click)="addNameToTextArea(channelMember.name)"> @ {{
-                                    channelMember.name }}</p>
-                            </div>
-
-                        </div>
+                    <!-- TODO 2 Antworten und Letzte Antwort 14:56 replaced with real time data -->
+                    <div class="last-response-row"
+                        [ngClass]="{'row-reverse': message.from === userDataService.currentUser['name']}">
+                        <p *ngIf="message.numberOfThreadMsgs > 0" (click)="toggleThread(message.id)" class="cursor">
+                            {{message.numberOfThreadMsgs}} Antworten</p>
+                        <p *ngIf="message.numberOfThreadMsgs <= 0" (click)="toggleThread(message.id)" class="cursor">
+                            Antworten ...</p>
+                        <span *ngIf="message.numberOfThreadMsgs > 0" class="message-time">Letzte Antwort
+                            {{message.calculatedTime}} </span>
                     </div>
                 </div>
             </div>
 
-            <div class="input-send-right">
-                <button [class.non-empty]="copiedText !== ''" (click)="messageSend()" [disabled]="isSendingMessage">
-                    <i class="material-icons">send</i>
-                </button>
-            </div>
         </div>
-    </section>
+
+        <div *ngIf="showScrollButton" class="scroll-to-bottom-container">
+            <i *ngIf="showScrollButton" #scrollButton (click)="scrollToBottom()"
+                class="cursor material-icons">arrow_circle_down</i>
+        </div>
+
+        <section class="input-container">
+
+            <textarea (keydown)="onKeydown($event)" *ngIf="sharedService.templateIsReady" [(ngModel)]="copiedText"
+                placeholder="Nachricht an #{{ sharedService.filteredChannels[0].name }}">
+        </textarea>
+            <div class="input-send">
+                <div class="input-send-left">
+                    <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
+                    <i class="material-icons toggle-emoji" (click)="toggleEmojiPopup()">insert_emoticon</i>
+                    <i class="material-icons toggle-person" (click)="togglePersonPopup()">alternate_email</i>
+                </div>
+
+                <div class="input-popups">
+                    <div *ngIf="showAddDataPopup" class="add-data-popup">Datei anhängen</div>
+                    <div *ngIf="showEmojiPopup" class="emoji-mart">
+                        <emoji-mart (emojiClick)="addEmoji($event)"
+                            [style]="{ position: 'absolute', bottom: '25px', left : '75px', 'border-radius': '15px', 'z-index': '11'}">
+                        </emoji-mart>
+                    </div>
+                    <div *ngIf="showPersonPopup" class="person-popup">
+
+                        <div class="member-popup scroll-bar">
+                            <div *ngFor="let channelMember of sharedService.filteredChannels[0].members">
+
+                                <div class="member-row">
+                                    <p class="close-button" (click)="addNameToTextArea(channelMember.name)"> @ {{
+                                        channelMember.name }}</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-send-right">
+                    <button [class.non-empty]="copiedText !== ''" (click)="messageSend()" [disabled]="isSendingMessage">
+                        <i class="material-icons">send</i>
+                    </button>
+                </div>
+            </div>
+        </section>
 
 
-</div>
+    </div>
