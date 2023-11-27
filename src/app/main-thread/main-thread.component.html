@@ -88,7 +88,7 @@
     </div> 
 
     <section class="input-container">
-      <textarea [(ngModel)]="copiedText" placeholder="Nachricht an {{ sharedService.currentThreadContent[0].from}}"></textarea>
+      <textarea  (keydown)="onKeydown($event)" [(ngModel)]="copiedText" placeholder="Nachricht an {{ sharedService.currentThreadContent[0].from}}"></textarea>
       <div class="input-send">
         <div class="input-send-left">
           <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>

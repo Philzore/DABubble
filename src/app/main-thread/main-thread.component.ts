@@ -10,7 +10,7 @@ import { MainChatComponent } from '../main-chat/main-chat.component';
   selector: 'app-main-thread',
   templateUrl: './main-thread.component.html',
   styleUrls: ['./main-thread.component.scss'],
-  
+
 })
 export class MainThreadComponent {
   showAddDataPopup: boolean;
@@ -51,6 +51,17 @@ export class MainThreadComponent {
     }, 500);
   }
 
+  /**
+ * check if enter key is pressed , if yes, send message
+ * 
+ * @param event 
+ */
+  onKeydown(event) {
+    if (event.key === "Enter") {
+      this.sendThreadMessage();
+    }
+  }
+
   scrollToBottom() {
     const container: HTMLElement = this.chatWrapper.nativeElement;
     container.scrollTop = container.scrollHeight;
@@ -87,18 +98,18 @@ export class MainThreadComponent {
     this.emojiMartVisible = true;
   }
 
-  async addReactionToMessage(emoji: string, messageID:string) {
+  async addReactionToMessage(emoji: string, messageID: string) {
     console.log('is working')
     if (this.selectedMessageId === messageID) {
-        const existingEmojis = this.emojiMap[messageID] || [];
-        const emojiNative = emoji['emoji']['native'];
-        if(existingEmojis.includes(emojiNative) ) {
-            this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
-        } else {
-          this.emojiMap[messageID] = [...existingEmojis, emojiNative];
-          this.emojiCountMap[emojiNative] = 1;
-        }
-        (this.threadMessage.reactions as string[]) = this.emojiMap[messageID];
+      const existingEmojis = this.emojiMap[messageID] || [];
+      const emojiNative = emoji['emoji']['native'];
+      if (existingEmojis.includes(emojiNative)) {
+        this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
+      } else {
+        this.emojiMap[messageID] = [...existingEmojis, emojiNative];
+        this.emojiCountMap[emojiNative] = 1;
+      }
+      (this.threadMessage.reactions as string[]) = this.emojiMap[messageID];
     }
     let channelId = this.sharedService.filteredChannels[1];
     const singleRef = doc(this.firestore, 'channels', channelId);
@@ -107,7 +118,7 @@ export class MainThreadComponent {
     querySnapshotThread.forEach((doc) => {
       reactions: this.threadMessage.reactions
     })
-  
+
     this.emojiMartVisible = false;
     this.scrollToBottom();
   }
@@ -127,7 +138,7 @@ export class MainThreadComponent {
    */
   addNameToTextArea(channelMember: string) {
     const channelMemberName = `@ ${channelMember} `;
-    if(!this.copiedText.includes(channelMemberName)) {
+    if (!this.copiedText.includes(channelMemberName)) {
       this.copiedText += channelMemberName;
     }
     this.showPersonPopup = false;
@@ -156,8 +167,8 @@ export class MainThreadComponent {
       const threadRef = await addDoc(collection(this.firestore, this.sharedService.threadPath),
         this.threadMessage.toJSON()
       );
-      await updateDoc(doc(this.firestore, this.sharedService.threadPath, threadRef.id),{
-        id : threadRef.id ,
+      await updateDoc(doc(this.firestore, this.sharedService.threadPath, threadRef.id), {
+        id: threadRef.id,
       });
       this.copiedText = '';
     }
@@ -166,10 +177,10 @@ export class MainThreadComponent {
   }
 
   async updateNumberOfThreadMsgs() {
-    const msgRef = doc(this.firestore, this.sharedService.messagePath) ;
+    const msgRef = doc(this.firestore, this.sharedService.messagePath);
     await updateDoc(msgRef, {
       numberOfThreadMsgs: increment(1)
-  });
+    });
   }
 
 }
