@@ -17,7 +17,8 @@ export class SharedService {
   // options  = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
   options = [];
   filteredOptions: Observable<any[]>;
-  usersForFilter = [] ;
+  usersForFilter = [];
+  channelsForFilter = [];
 
   //header
   headerContentReady: boolean = false;
@@ -55,35 +56,61 @@ export class SharedService {
 
   constructor(
     private firestore: Firestore,
-    ) {
+  ) {
     // Initialize your service here if needed.
-    console.log('Constructor SharedService');
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => {
         
         const name = typeof value === 'string' ? value : value?.name;
+        
         return name ? this._filter(name as string) : this.options.slice();
       }),
     );
   }
 
-  displayFn(user): string {
-    return user && user.name ? user.name : '';
-  }
+  displayFn(value): string {
+    if (value && typeof value === 'object') {
+        const name = value.name;
+        const channel = value.channel;
+
+        if (name && channel) {
+            // Wenn sowohl name als auch channel vorhanden sind, zeige beide an
+            return `${name} (${channel})`;
+        } else if (name) {
+            // Wenn nur name vorhanden ist, zeige nur name an
+            return `${name}`;
+        } else if (channel) {
+            // Wenn nur channel vorhanden ist, zeige nur channel an
+            return `${channel}`;
+        }
+    }
+
+    // Wenn der Wert nicht korrekt verarbeitet werden kann, gib einen leeren String zurück
+    return '';
+}
 
   _filter(name: string): any[] {
     const filterValue = name.toLowerCase();
-    // console.log(this.options);
-    return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+    return this.options.filter(option => {
+      if (option.name) {
+        return option.name.toLowerCase().includes(filterValue);
+      } else if (option.channel) {
+        return option.channel.toLowerCase().includes(filterValue);
+      }
+      return false;
+    });
   }
 
   fillOptionsOfAutoComplete() {
     this.options = [];
     this.usersForFilter.forEach((user) => {
-      this.options.push({name : `@ ${user.name}`, channel : user.email});
+      this.options.push({ name: `@ ${user.name}` });
     });
-    console.log('Options :' ,this.options);
+    this.channelsForFilter.forEach((channel) => {
+      this.options.push({ channel: `# ${channel.name}` });
+    });
+    console.log('Options :', this.options);
   }
 
   /**
@@ -356,10 +383,10 @@ export class SharedService {
 
   showNewMessageHeader() {
     this.showNewMessageInput = !this.showNewMessageInput
-    if (this.showNewMessageInput){
+    if (this.showNewMessageInput) {
       this.fillOptionsOfAutoComplete();
     }
-    
+
   }
 
 

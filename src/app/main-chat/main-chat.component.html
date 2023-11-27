@@ -24,7 +24,8 @@
             <input type="text" placeholder="An: #channel, oder @jemand" matInput [formControl]="sharedService.myControl" [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete" [displayWith]="sharedService.displayFn">
                 <mat-option *ngFor="let option of sharedService.filteredOptions | async" [value]="option">
-                    {{option.name}}
+                    {{option.name}} 
+                    {{option.channel}}
                 </mat-option>
             </mat-autocomplete>
         </div>

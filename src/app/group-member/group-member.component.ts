@@ -5,6 +5,8 @@ import { ChannelInfo } from '../models/channel-info.class';
 import { UserDataService } from '../services/user-data.service';
 import { GroupMemberInfoComponent } from '../group-member-info/group-member-info.component';
 import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc, where, getDoc } from '@angular/fire/firestore';
+import { AppComponent } from '../app.component';
+import { SharedService } from '../services/shared.service';
 
 
 @Component({
@@ -30,8 +32,10 @@ export class GroupMemberComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<GroupAddMemberComponent>,
-    public userDataService:UserDataService,
+    public userDataService: UserDataService,
     private firestore: Firestore,
+    public appComponent: AppComponent,
+    public sharedService: SharedService,
     @Inject(MAT_DIALOG_DATA) public dialogData: any) { }
 
 
@@ -42,7 +46,16 @@ export class GroupMemberComponent implements OnInit {
   }
 
   openAddMemberPopUp(): void {
-    this.dialog.open(GroupAddMemberComponent, { panelClass: 'custom-logout-dialog' });
+    this.dialogRef.close();
+    const dialogRef = this.dialog.open(GroupAddMemberComponent, { position: { top: '180px', right: '70px' }, panelClass: 'custom-logout-dialog', data: this.sharedService.filteredChannels });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        if (result.event == 'start') {
+          this.appComponent.showFeedback('Die Nutzer wurden dem Channel hinzugefügt');
+        }
+      }
+    });
   }
 
   openGroupMemberInfo(member: any) {

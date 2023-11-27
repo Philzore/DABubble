@@ -127,6 +127,11 @@ export class GroupAddMemberComponent implements OnInit {
        await this.sharedService.updateMembersInDatabase(userInfo, this.currentChannel.id);
       });
       await this.sharedService.getChannelsFromDataBase(this.currentChannel.info.name); 
+      if (this.actAddMembers) {
+        this.actAddMembers.forEach((member) => {
+          this.actMembers.push(member);
+        });
+      }
       this.dialogRef.close({event : 'start'});
     }
   }

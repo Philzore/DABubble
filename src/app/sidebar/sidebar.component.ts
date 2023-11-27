@@ -93,6 +93,7 @@ export class SidebarComponent implements OnInit {
     querySnapshotChannels.forEach((doc) => {
       this.channelsFromDataBase.push(doc.data());
     });
+    this.sharedService.channelsForFilter = this.channelsFromDataBase ;
   }
 
   /**
@@ -104,8 +105,8 @@ export class SidebarComponent implements OnInit {
     const querySnapshotUsers = await getDocs(collection(this.firestore, 'users'));
     querySnapshotUsers.forEach((doc) => {
       this.userDataService.usersFromDatabase.push(new User(doc.data()));
-      this.sharedService.usersForFilter.push(new User(doc.data()));
     });
+    this.sharedService.usersForFilter = this.userDataService.usersFromDatabase
   }
 
   /**
