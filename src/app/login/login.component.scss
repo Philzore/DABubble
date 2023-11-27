@@ -396,9 +396,7 @@
     }
 
     to {
-        position: absolute;
-        left: 35px;
-        top: 35px;
+        transform: translate(-35px, -35px);
     }
 }
 
