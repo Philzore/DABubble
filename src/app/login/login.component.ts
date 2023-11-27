@@ -42,6 +42,17 @@ export class LoginComponent implements OnInit {
     }, 2500);
   }
 
+  /**
+   * check if enter key is pressed , if yes, send message
+   * 
+   * @param event 
+   */
+  onKeydown(event) {
+    if (event.key === "Enter") {
+      this.login();
+    }
+  }
+
   async login() {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, this.email, this.password)
