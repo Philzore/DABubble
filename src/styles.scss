@@ -464,7 +464,7 @@ $main-purple: #eceefe;
 
             .last-response-row {
               display: flex;
-              padding: 10px;
+              padding: 10px 0;
               gap: 10px;
 
               p {
@@ -707,7 +707,7 @@ $main-purple: #eceefe;
     align-items: center;
     gap: 5px;
     border-radius: 30px;
-    padding: 5px;
+    padding: 5px 0;
 
     .toggle-emoji  {
       display: none;

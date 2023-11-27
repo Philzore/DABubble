@@ -253,6 +253,11 @@ $purple: #535af1;
     border-radius: 10px;
     background: #fff;
 
+    &:hover {
+    border: 1px solid #535af1;
+    }
+
+
     .material-icons {
       margin: 0 0 0 15px;
       padding: 5px;
@@ -386,19 +391,20 @@ $purple: #535af1;
     display: none;
   }
 
-  @media (max-width: 1200px) {
-    .thread-container {
-      position: absolute;
-      height: calc(100vh - 120px);
-      bottom: 0;
-      right: 0;
-      left: 0;
-      width: 100vw;
-      border-radius: 0;
+}
 
-      .chat-divider-bottom {
-        flex: 2;
-      }
+@media (max-width: 1200px) {
+  .thread-container {
+    position: absolute;
+    height: calc(100vh - 120px);
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100vw;
+    border-radius: 0;
+
+    .chat-divider-bottom {
+      flex: 2;
     }
   }
 }
