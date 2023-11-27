@@ -1,15 +1,24 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Firestore, addDoc, and, arrayUnion, collection, doc, getDoc, getDocs, onSnapshot, or, query, updateDoc, where } from '@angular/fire/firestore';
-import { BehaviorSubject, Observable, async } from 'rxjs';
+import { BehaviorSubject, Observable, async, map, startWith } from 'rxjs';
 import { Message } from '../models/message.class';
 import { User } from '../models/user.class';
 import { Channel } from '../models/channel.class';
+import { FormControl } from '@angular/forms';
+import { UserDataService } from './user-data.service';
 
 
 @Injectable({
   providedIn: 'root',
 })
-export class SharedService {
+export class SharedService implements OnInit{
+  //auto complete
+  myControl = new FormControl<string | User>('');
+  // options  = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
+  options = [];
+  filteredOptions: Observable<any[]>;
+  usersForFilter = [] ;
+
   //header
   headerContentReady: boolean = false;
 
@@ -17,7 +26,7 @@ export class SharedService {
   public currentActiveChannel = new BehaviorSubject<string>('DaBubble');
   currentActiveChannel$ = this.currentActiveChannel.asObservable();
   unsubChannels;
-  filteredChannels: any[] ;
+  filteredChannels: any[];
   showChannelView: boolean = true;
 
   //sidebar
@@ -26,8 +35,8 @@ export class SharedService {
   //main chat
   channelMessagesFromDB: any[];
   templateIsReady = false;
-  messagePath:string = '' ;
-  showNewMessageInput:boolean = false ;
+  messagePath: string = '';
+  showNewMessageInput: boolean = false;
 
   //thread
   private threadContainerVisibilitySubject = new BehaviorSubject<boolean>(true);
@@ -38,14 +47,46 @@ export class SharedService {
 
   //direct messages
   showDirectMessageView: boolean = false;
-  oppositeUser:User;
+  oppositeUser: User;
   directMsgsFromDB = [];
   currentDirectMsgID = '';
   directChatReady = false;
   unsubDirectChat;
 
-  constructor(private firestore: Firestore) {
+  constructor(
+    private firestore: Firestore,
+    ) {
     // Initialize your service here if needed.
+    console.log('Constructor SharedService');
+    
+  }
+
+  ngOnInit(): void {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const name = typeof value === 'string' ? value : value?.name;
+        return name ? this._filter(name as string) : this.options.slice();
+      }),
+    );
+  }
+
+  displayFn(user: User): string {
+    return user && user.name ? user.name : '';
+  }
+
+  _filter(name: string): any[] {
+    const filterValue = name.toLowerCase();
+    // console.log(this.options);
+    return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
+
+  fillOptionsOfAutoComplete() {
+    this.options = [];
+    this.usersForFilter.forEach((user) => {
+      this.options.push({name : `@ ${user.name}`, email : user.email});
+    });
+    console.log('Options :' ,this.options);
   }
 
   /**
@@ -205,7 +246,7 @@ export class SharedService {
   createSubscribeDirectChat() {
     console.log('create Direct Chat Sub');
     // const directMsgRef = collection(this.firestore, 'directMessages' , this.currentDirectMsgID);
-    this.unsubDirectChat = onSnapshot(doc(this.firestore, 'directMessages' , this.currentDirectMsgID), async (doc) => {
+    this.unsubDirectChat = onSnapshot(doc(this.firestore, 'directMessages', this.currentDirectMsgID), async (doc) => {
       await this.getDirectMsgFromDatabase();
     });
   }
@@ -254,13 +295,13 @@ export class SharedService {
       this.unsubDirectChat();
     }
     console.log(user);
-    this.oppositeUser = user ;
+    this.oppositeUser = user;
     const directMsgCollRef = collection(this.firestore, 'directMessages');
     console.log('Opposite : ', user.name, 'Your Name : ', yourName);
 
     if (! await this.checkDirectMsgExist(user.name, yourName, directMsgCollRef)) {
       const docRef = await addDoc((directMsgCollRef), {
-        between: { user1 : yourName, user2 : user.name},
+        between: { user1: yourName, user2: user.name },
       });
       this.currentDirectMsgID = docRef.id;
       // console.log('Chat ID', this.sharedService.currentDirectMsgID);
@@ -272,14 +313,14 @@ export class SharedService {
    * Checking if Chat between User already exists
    */
   async checkDirectMsgExist(oppositeName: string, yourName: string, directMsgCollRef) {
-    const chatBetween = [yourName, oppositeName] ;
-    const q = query(directMsgCollRef, or( and (where('between.user1','==', yourName),where('between.user2','==', oppositeName)),
-                                          and (where('between.user2','==', yourName),where('between.user1','==', oppositeName))
-                                          ) //end of or
-                                          ); //end of query function
+    const chatBetween = [yourName, oppositeName];
+    const q = query(directMsgCollRef, or(and(where('between.user1', '==', yourName), where('between.user2', '==', oppositeName)),
+      and(where('between.user2', '==', yourName), where('between.user1', '==', oppositeName))
+    ) //end of or
+    ); //end of query function
     const querySnapshot = await getDocs(q);
     console.log(querySnapshot.empty);
-    if (!querySnapshot.empty){
+    if (!querySnapshot.empty) {
       console.log('Chat schon vorhanden');
       querySnapshot.forEach((doc) => {
         this.currentDirectMsgID = doc.id;
@@ -292,14 +333,14 @@ export class SharedService {
     }
   }
 
-/**
- * Showing directmessage view
- */
+  /**
+   * Showing directmessage view
+   */
   showDirectMessageViewFct() {
     this.unsubChannels();
-    this.showChannelView = false ;
+    this.showChannelView = false;
     this.showNewMessageInput = false;
-    this.showDirectMessageView = true ;
+    this.showDirectMessageView = true;
     this.createSubscribeDirectChat();
   }
 
@@ -310,18 +351,21 @@ export class SharedService {
     if (this.showDirectMessageView) {
       this.unsubDirectChat();
     }
-    this.showDirectMessageView = false ;
+    this.showDirectMessageView = false;
     this.showNewMessageInput = false;
-    this.showChannelView = true ;
+    this.showChannelView = true;
     // this.sharedService.createSubscribeChannelMessages();
   }
 
   showNewMessageHeader() {
     this.showNewMessageInput = !this.showNewMessageInput
-    console.log('inout show' , this.showNewMessageInput);
+    if (this.showNewMessageInput){
+      this.fillOptionsOfAutoComplete();
+    }
+    
   }
 
 
-  
+
 
 }

@@ -21,9 +21,9 @@
     <mat-toolbar class="chat-header" *ngIf="sharedService.showNewMessageInput">
         <div class="chat-header-search">
             <h2>Neue Nachricht</h2>
-            <input type="text" placeholder="Assignee" matInput [formControl]="myControl" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            <input type="text" placeholder="An: #channel, oder @jemand" matInput [formControl]="sharedService.myControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="sharedService.displayFn">
+                <mat-option *ngFor="let option of sharedService.filteredOptions | async" [value]="option">
                     {{option.name}}
                 </mat-option>
             </mat-autocomplete>
