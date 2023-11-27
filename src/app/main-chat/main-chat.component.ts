@@ -262,9 +262,10 @@ export class MainChatComponent implements OnInit, OnChanges {
     } else if ((this.lastMessageId == messageID) && this.threadOpen){
       this.closeThread();
     } else if ((this.lastMessageId != messageID) && this.threadOpen){
+      this.unsubThread();
       this.sharedService.currentThreadContent = [] ;
-      this.createSubscribeThreadMessages(messageID) ;
       this.lastMessageId = messageID ;
+      this.createSubscribeThreadMessages(messageID) ;
     }
 
   }

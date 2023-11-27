@@ -11,7 +11,7 @@ import { UserDataService } from './user-data.service';
 @Injectable({
   providedIn: 'root',
 })
-export class SharedService implements OnInit{
+export class SharedService {
   //auto complete
   myControl = new FormControl<string | User>('');
   // options  = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
@@ -68,10 +68,6 @@ export class SharedService implements OnInit{
     );
   }
 
-  ngOnInit(): void {
-    
-  }
-
   displayFn(user): string {
     return user && user.name ? user.name : '';
   }
@@ -85,7 +81,7 @@ export class SharedService implements OnInit{
   fillOptionsOfAutoComplete() {
     this.options = [];
     this.usersForFilter.forEach((user) => {
-      this.options.push({name : `@ ${user.name}`, email : user.email});
+      this.options.push({name : `@ ${user.name}`, channel : user.email});
     });
     console.log('Options :' ,this.options);
   }
