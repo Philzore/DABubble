@@ -13,10 +13,10 @@ import { getAuth } from 'firebase/auth';
   styleUrls: ['./desktop-header.component.scss']
 })
 export class DesktopHeaderComponent implements OnInit {
-
   sidebarClose = false;
   currentUserName: string = '';
-  // auth;
+  //filter variables
+  filterValue = '' ;
 
   constructor(
     public sharedService: SharedService,
@@ -32,8 +32,19 @@ export class DesktopHeaderComponent implements OnInit {
     this.sharedService.isSidebarOpen$().subscribe((state) => {
       this.sidebarClose = state;
     });
+  }
 
-    // this.auth = getAuth();
+  filterArray() {
+    if(this.sharedService.showChannelView) {
+      this.sharedService.channelMessagesFromDB = this.sharedService.originalArray.filter(item =>
+        item.text.toLowerCase().includes(this.filterValue.toLowerCase())
+      );
+    } else if (this.sharedService.showDirectMessageView){
+      this.sharedService.directMsgsFromDB = this.sharedService.originalArray.filter(item =>
+        item.text.toLowerCase().includes(this.filterValue.toLowerCase())
+      );
+    }
+    
   }
 
   /**

@@ -8,7 +8,7 @@
     </div>
 
     <img class="dabubble-logo" src="/assets/icons/logo_with_text.png">
-    <input placeholder="Code learning durchsuchen">
+    <input [(ngModel)]="filterValue" (input)="filterArray()" placeholder="Code learning durchsuchen">
     <div class="user-info-container" (click)="openDialog()">
         <h2>{{userDataService.currentUser['name']}}</h2>
         <!-- <img *ngIf="!userDataService.guestUser" src="{{auth.currentUser.photoURL}}"> -->

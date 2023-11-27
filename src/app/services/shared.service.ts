@@ -14,11 +14,13 @@ import { UserDataService } from './user-data.service';
 export class SharedService {
   //auto complete
   myControl = new FormControl<string | User>('');
-  // options  = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
   options = [];
   filteredOptions: Observable<any[]>;
   usersForFilter = [];
   channelsForFilter = [];
+
+  //filter header
+  originalArray = [] ;
 
   //header
   headerContentReady: boolean = false;
@@ -261,6 +263,7 @@ export class SharedService {
     });
     console.log('Founded Messages :', this.channelMessagesFromDB);
     this.sortMessagesTime(this.channelMessagesFromDB);
+    this.originalArray = this.channelMessagesFromDB ;
   }
 
   /**
@@ -297,6 +300,7 @@ export class SharedService {
     console.log('Msgs for current direct content:', this.directMsgsFromDB);
     this.sortMessagesTime(this.directMsgsFromDB);
     this.directChatReady = true;
+    this.originalArray = this.directMsgsFromDB ;
   }
 
 
