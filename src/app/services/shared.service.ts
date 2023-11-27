@@ -58,20 +58,21 @@ export class SharedService implements OnInit{
     ) {
     // Initialize your service here if needed.
     console.log('Constructor SharedService');
-    
-  }
-
-  ngOnInit(): void {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => {
+        
         const name = typeof value === 'string' ? value : value?.name;
         return name ? this._filter(name as string) : this.options.slice();
       }),
     );
   }
 
-  displayFn(user: User): string {
+  ngOnInit(): void {
+    
+  }
+
+  displayFn(user): string {
     return user && user.name ? user.name : '';
   }
 
