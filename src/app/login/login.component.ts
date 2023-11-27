@@ -38,8 +38,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.showIntro = false;
-      document.querySelector('.intro-background')?.classList.add('loaded');
-    }, 2500);
+    }, 3000);
   }
 
   /**

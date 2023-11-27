@@ -319,7 +319,7 @@
 }
 
 //--------INTRO---------//
-.intro-background{
+.intro-background {
     height: 100vh;
     width: 100%;
     position: absolute;
@@ -335,54 +335,73 @@
     align-items: center;
 }
 
-.logo-image{
-    vertical-align: middle;
-    z-index: 9;
+.logo-container {
+    position: relative;
+    animation: slideToLeftUpperCorner 1s;
+    animation-delay: 1.6s;
 }
 
-.project-name{
-    font-size: 60px;
-    font-weight: 600;
-    color: white;
-}
 
-.intro-background {
-    .logo {
-      position: relative;
-      animation: slideInLogo 0.5s forwards ease-out;
-  
-      .project-name {
+.logo {
+    position: relative;
+    animation: slideInLogo 0.5s forwards ease-out;
+
+    .logo-image {
+        vertical-align: middle;
+        z-index: 1;
+    }
+
+    .project-name {
+        font-size: 60px;
+        font-weight: 600;
+        color: white;
         position: absolute;
         top: 80px;
         left: 0px;
         animation: slideInTitle 0.5s forwards ease-out;
         animation-delay: 0.5s; // Verzögerung um die Dauer der slideInLogo-Animation
         opacity: 0;
-      }
-    }
-  
-  
-  
-    @keyframes slideInLogo {
-      from {
-        left: 0px;
-      }
-      to {
-        left: -100px;
-      }
-    }
-
-    @keyframes slideInTitle {
-      from {
-        left: -200px;
-        opacity: 0;
-      }
-      to {
-        left: 200px;
-        opacity: 1;
-      }
+        z-index: -1;
     }
 }
+
+
+// ANIMATION FOR LOGO TO SLIDE TO THE LEFT
+@keyframes slideInLogo {
+    from {
+        left: 0px;
+    }
+
+    to {
+        left: -100px;
+    }
+}
+
+// ANIMATION FOR LOGO-TITLE TO SLIDE TO THE RIGHT
+@keyframes slideInTitle {
+    from {
+        left: -200px;
+    }
+
+    to {
+        left: 200px;
+        opacity: 1;
+    }
+}
+
+// ANIMATION FOR WHOLE LOGO TO SLIDE TO UPPER LEFT CORNER
+@keyframes slideToLeftUpperCorner {
+    from {
+        transform: translate(0);
+    }
+
+    to {
+        position: absolute;
+        left: 35px;
+        top: 35px;
+    }
+}
+
 
 //-------------RESPONSIVE-------------//
 @media (max-width: 600px) {
