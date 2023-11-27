@@ -12,7 +12,7 @@
     <!-- Chat Divider Top -->
     <div class="chat-divider-top"></div>
 
-    <div  class="clicked-message">
+    <div class="clicked-message">
       <img *ngIf="sharedService.threadContentReady" src="{{ sharedService.currentThreadContent[0].profileImg }}" alt="">
       <div class="message-info-thread">
         <!-- Message Content Container -->
@@ -24,8 +24,8 @@
           </div>
           <!-- Clicked Message Content -->
           <div class="clicked-message-content">
-            <p *ngIf="sharedService.threadContentReady" class="message-text" >
-              {{ sharedService.currentThreadContent[0].text}}
+            <p *ngIf="sharedService.threadContentReady" class="message-text">
+              {{ sharedService.currentThreadContent[0].text }}
             </p>
           </div>
         </div>
@@ -34,49 +34,73 @@
 
     <!-- Chat Divider Bottom Container -->
     <div class="chat-divider-bottom-container">
-      <p> {{ (sharedService.currentThreadContent.length)}} Antworten</p>
+      <p> {{ sharedService.currentThreadContent.length }} Antworten</p>
       <div class="chat-divider-bottom"></div>
     </div>
 
     <!-- Text Response Container -->
-    <div *ngFor="let message of sharedService.currentThreadContent; let first = first" [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}">
-      <div *ngIf="!first" class="clicked-message">
+    <!-- To display own message on the right side -->
+    <div *ngFor="let message of sharedService.currentThreadContent; let first = first">
+      <div *ngIf="message.from === userDataService.currentUser['name']" class="own-message">
+        <div class="info-row-react" [ngClass]="{
+          'left-30px': true,
+          'right-none': true
+        }">
+          <i class="material-icons cursor" (click)="openEmojiForMessage(message.id)">add_reaction</i>
+        </div>
+        <img src="{{ message.profileImg }}" alt="">
+        <div class="message-info-thread">
+          <!-- Message Response Container -->
+          <div class="message-content-container">
+            <div class="info-row-thread">
+              <p class="bold">{{ message.from }}</p>
+              <emoji-mart set="apple" #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id"
+                (emojiClick)="addReactionToMessage($event ,message.id)"
+                [style]="{ position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '11'}">
+              </emoji-mart>
+              <span class="message-time">{{ message.calculatedTime }}</span>
+            </div>
+            <div class="clicked-message-content">
+              <p class="message-text message-text-own">
+                {{ message.text }}
+              </p>
+              <div class="emoji-react-container">
+                <div class="emoji" *ngFor="let reaction of message.reactions">
+                  {{ reaction }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!first && message.from !== userDataService.currentUser['name']" class="clicked-message">
         <div class="info-row-react" [ngClass]="{
           'left-30px': message.from === userDataService.currentUser['name'],
           'right-none': message.from === userDataService.currentUser['name']
         }">
           <i class="material-icons cursor" (click)="openEmojiForMessage(message.id)">add_reaction</i>
         </div>
-        <img src="{{message.profileImg}}" alt="">
+        <img src="{{ message.profileImg }}" alt="">
         <div class="message-info-thread">
           <!-- Message Response Container -->
           <div class="message-content-container">
             <div class="info-row-thread">
-              <p class="bold">{{message.from}}</p>
-
-              <emoji-mart set="apple" #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id" (emojiClick)="addReactionToMessage($event ,message.id)"
-                        [style]="{ position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '11'}">
+              <p class="bold">{{ message.from }}</p>
+              <emoji-mart set="apple" #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id"
+                (emojiClick)="addReactionToMessage($event ,message.id)"
+                [style]="{ position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '11'}">
               </emoji-mart>
-
-              <span class="message-time">{{message.calculatedTime}}</span>
+              <span class="message-time">{{ message.calculatedTime }}</span>
             </div>
             <div class="clicked-message-content">
-              <p class="message-text" [ngClass]="{
-                'message-text-own': message.from === userDataService.currentUser['name'],
-                'own-message': message.from === userDataService.currentUser['name']
-              }">
-                {{message.text}}
+              <p class="message-text">
+                {{ message.text }}
               </p>
-              
-
               <div class="emoji-react-container">
-                <!-- <div class="emoji-wrapper"> -->
-                    <div class="emoji" *ngFor="let reaction of message.reactions">
-                        {{ reaction }} 
-                    <!-- </div> -->
+                <div class="emoji" *ngFor="let reaction of message.reactions">
+                  {{ reaction }}
                 </div>
-            </div>
-
+              </div>
             </div>
           </div>
         </div>
@@ -84,11 +108,15 @@
     </div>
 
     <div *ngIf="showScrollButton" class="scroll-to-bottom-container">
-      <button *ngIf="showScrollButton" #scrollButton (click)="scrollToBottom()">Scroll to bottom</button>
-    </div> 
+      <i *ngIf="showScrollButton" #scrollButton (click)="scrollToBottom()" class="cursor material-icons">arrow_circle_down</i>
+    </div>
 
     <section class="input-container">
+<<<<<<< HEAD
       <textarea  (keydown)="onKeydown($event)" [(ngModel)]="copiedText" placeholder="Nachricht an {{ sharedService.currentThreadContent[0].from}}"></textarea>
+=======
+      <textarea [(ngModel)]="copiedText" placeholder="Nachricht an {{ sharedService.currentThreadContent[0].from }}"></textarea>
+>>>>>>> 4f856e7 (worked on main-chat design)
       <div class="input-send">
         <div class="input-send-left">
           <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
@@ -100,30 +128,20 @@
           <div *ngIf="showAddDataPopup" class="add-data-popup">Datei anhängen</div>
           <div *ngIf="showEmojiPopup" class="emoji-mart">
             <emoji-mart (emojiClick)="addEmoji($event)"
-              [style]="{ position: 'absolute', bottom: '80px', left : '-50px', 'border-radius': '15px', 'z-index': '2'}">
+              [style]="{ position: 'absolute', bottom: '80px', left : '-50px', 'border-radius': '15px', 'z-index': '2'}">
             </emoji-mart>
           </div>
-          <div *ngIf="showPersonPopup" class="person-popup" >
-
+          <div *ngIf="showPersonPopup" class="person-popup">
             <div class="member-popup scroll-bar">
-                <div *ngFor="let channelMember of sharedService.filteredChannels[0].members">
-                    
-                    <div class="member-row">
-                        <p  class="close-button" (click)="addNameToTextArea(channelMember.name)" >@ {{ channelMember.name }}</p>
-                    </div>
-
+              <div *ngFor="let channelMember of sharedService.filteredChannels[0].members">
+                <div class="member-row">
+                  <p class="close-button" (click)="addNameToTextArea(channelMember.name)">@ {{ channelMember.name }}</p>
                 </div>
+              </div>
             </div>
-        </div>
+          </div>
         </div>
 
         <div class="input-send-right">
           <button [class.non-empty]="copiedText !== ''" (click)="sendThreadMessage()" [disabled]="isSendingMessage">
-              <i class="material-icons">send</i>
-          </button>
-      </div>
-      </div>
-    </section>
-
-  </div>
-</div>
+           
