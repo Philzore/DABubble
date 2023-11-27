@@ -46,7 +46,7 @@ import { DialogReauthenticateComponent } from './dialog-reauthenticate/dialog-re
 import { GroupMemberInfoComponent } from './group-member-info/group-member-info.component';
 import { Emoji, EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { DirectChatComponent } from './direct-chat/direct-chat.component';
-
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 
@@ -98,6 +98,7 @@ import { DirectChatComponent } from './direct-chat/direct-chat.component';
     EmojiComponent,
     PickerComponent,
     BrowserAnimationsModule,
+    MatAutocompleteModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

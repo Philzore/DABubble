@@ -18,10 +18,15 @@
         </div>
 
     </mat-toolbar>
-    <mat-toolbar class="chat-header"  *ngIf="sharedService.showNewMessageInput">
+    <mat-toolbar class="chat-header" *ngIf="sharedService.showNewMessageInput">
         <div class="chat-header-search">
             <h2>Neue Nachricht</h2>
-            <input placeholder="An: #channel, oder @jemand">
+            <input type="text" placeholder="Assignee" matInput [formControl]="myControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option.name}}
+                </mat-option>
+            </mat-autocomplete>
         </div>
     </mat-toolbar>
 
@@ -72,9 +77,7 @@
                 <p class="message-text" [ngClass]="{
                     'message-text-own': message.from === userDataService.currentUser['name'],
                     'own-message': message.from === userDataService.currentUser['name']
-                  }">
-                    {{ message.text }}
-                </p>
+                  }">{{ message.text }}</p>
 
                 <div class="emoji-wrapper"
                     [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
@@ -157,3 +160,4 @@
 
 
     </div>
+</div>

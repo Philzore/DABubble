@@ -11,6 +11,9 @@ import { UserDataService } from '../services/user-data.service';
 import { Unsubscribe } from '@angular/fire/auth';
 import { ExpressionBinding } from '@angular/compiler';
 import { AppComponent } from '../app.component';
+import { FormControl } from '@angular/forms';
+import { Observable, map, startWith } from 'rxjs';
+import { User } from '../models/user.class';
 
 
 @Component({
@@ -19,7 +22,10 @@ import { AppComponent } from '../app.component';
   styleUrls: ['./main-chat.component.scss']
 })
 export class MainChatComponent implements OnInit, OnChanges {
-  
+  myControl = new FormControl<string | User>('');
+  options  = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
+  filteredOptions: Observable<any[]>;
+  //
   copiedText: string = '';
   isSidebarOpen: boolean = true;
   showAddDataPopup: boolean = false;
@@ -72,6 +78,25 @@ export class MainChatComponent implements OnInit, OnChanges {
     console.log('Main-Chat OnInit');
     await this.sharedService.getChannelsFromDataBase('DaBubble');
     this.sharedService.createSubscribeChannelMessages();
+
+
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const name = typeof value === 'string' ? value : value?.name;
+        return name ? this._filter(name as string) : this.options.slice();
+      }),
+    );
+  }
+
+  displayFn(user: User): string {
+    return user && user.name ? user.name : '';
+  }
+
+  private _filter(name: string): any[] {
+    const filterValue = name.toLowerCase();
+
+    return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
   /**
