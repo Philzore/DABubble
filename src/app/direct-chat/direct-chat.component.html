@@ -79,7 +79,7 @@
 
     <section class="input-container">
 
-        <textarea *ngIf="sharedService.templateIsReady" [(ngModel)]="copiedTextDirectMsg"
+        <textarea (keydown)="onKeydown($event)" *ngIf="sharedService.templateIsReady" [(ngModel)]="copiedTextDirectMsg"
             placeholder="Nachricht an {{ sharedService.oppositeUser.name }}">
         </textarea>
         <div class="input-send">
