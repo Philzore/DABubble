@@ -1,12 +1,23 @@
 <div class="chat-container br-30" *ngIf="sharedService.directChatReady">
 
-    <mat-toolbar *ngIf="sharedService.templateIsReady">
+    <mat-toolbar *ngIf="sharedService.templateIsReady && !sharedService.showNewMessageInput">
         <div class="direct-msg-user" *ngIf="sharedService.showDirectMessageView">
             <img src="{{sharedService.oppositeUser.avatar}}">
             <p>{{ sharedService.oppositeUser.name }}</p>
         </div>
     </mat-toolbar>
-
+    <mat-toolbar class="chat-header" *ngIf="sharedService.showNewMessageInput">
+        <div class="chat-header-search">
+            <h2>Neue Nachricht</h2>
+            <input type="text" placeholder="An: #channel, oder @jemand" matInput [formControl]="sharedService.myControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="sharedService.displayFn">
+                <mat-option *ngFor="let option of sharedService.filteredOptions | async" [value]="option">
+                    {{option.name}} 
+                    {{option.channel}}
+                </mat-option>
+            </mat-autocomplete>
+        </div>
+    </mat-toolbar>
 
     <div class="chat-wrapper">
         <div *ngFor="let message of sharedService.directMsgsFromDB" class="message-container cursor"

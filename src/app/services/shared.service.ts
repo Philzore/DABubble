@@ -20,7 +20,8 @@ export class SharedService {
   channelsForFilter = [];
 
   //filter header
-  originalArray = [] ;
+  originalArray = [];
+  currentUserName = '';
 
   //header
   headerContentReady: boolean = false;
@@ -63,34 +64,59 @@ export class SharedService {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => {
-        
+
         const name = typeof value === 'string' ? value : value?.name;
-        
+        this.checkInput(value)
         return name ? this._filter(name as string) : this.options.slice();
       }),
     );
   }
 
+  async checkInput(value) {
+    if (value && typeof value === 'object') {
+      const name = value.name;
+      const channel = value.channel;
+      let cuttedStr = { name: '', channel: '' };
+
+      if (name) {
+        cuttedStr.name = value.name.substring(2);
+        let index = this.usersForFilter.findIndex(obj => obj.name === cuttedStr.name);
+        await this.openDirectMsg(this.usersForFilter[index], this.currentUserName);
+      } else if (channel) {
+        cuttedStr.channel = value.channel.substring(2);
+        this.showChannelViewFct();
+        this.updateChannel(cuttedStr.channel);
+        console.log('return', channel);
+      }
+    }
+  }
+
+  /**
+   * 
+   * 
+   * @param value input
+   * @returns clicked option and display in html
+   */
   displayFn(value): string {
     if (value && typeof value === 'object') {
-        const name = value.name;
-        const channel = value.channel;
+      const name = value.name;
+      const channel = value.channel;
 
-        if (name && channel) {
-            // Wenn sowohl name als auch channel vorhanden sind, zeige beide an
-            return `${name} (${channel})`;
-        } else if (name) {
-            // Wenn nur name vorhanden ist, zeige nur name an
-            return `${name}`;
-        } else if (channel) {
-            // Wenn nur channel vorhanden ist, zeige nur channel an
-            return `${channel}`;
-        }
+      if (name && channel) {
+        // Wenn sowohl name als auch channel vorhanden sind, zeige beide an
+        return `${name} (${channel})`;
+      } else if (name) {
+        // Wenn nur name vorhanden ist, zeige nur name an
+        return `${name}`;
+      } else if (channel) {
+        // Wenn nur channel vorhanden ist, zeige nur channel an
+        return `${channel}`;
+      }
     }
 
     // Wenn der Wert nicht korrekt verarbeitet werden kann, gib einen leeren String zurück
     return '';
-}
+  }
 
   _filter(name: string): any[] {
     const filterValue = name.toLowerCase();
@@ -263,7 +289,7 @@ export class SharedService {
     });
     console.log('Founded Messages :', this.channelMessagesFromDB);
     this.sortMessagesTime(this.channelMessagesFromDB);
-    this.originalArray = this.channelMessagesFromDB ;
+    this.originalArray = this.channelMessagesFromDB;
   }
 
   /**
@@ -300,7 +326,7 @@ export class SharedService {
     console.log('Msgs for current direct content:', this.directMsgsFromDB);
     this.sortMessagesTime(this.directMsgsFromDB);
     this.directChatReady = true;
-    this.originalArray = this.directMsgsFromDB ;
+    this.originalArray = this.directMsgsFromDB;
   }
 
 
