@@ -269,7 +269,6 @@ export class SharedService {
   createSubscribeChannelMessages() {
     console.log('create Main Chat sub');
     let channelId = this.filteredChannels[1];
-
     this.unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
       await this.getMessagesFromChannel();
     });

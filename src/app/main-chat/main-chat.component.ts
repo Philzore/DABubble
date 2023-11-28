@@ -14,6 +14,8 @@ import { AppComponent } from '../app.component';
 import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { User } from '../models/user.class';
+import { NgZone } from '@angular/core';
+
 
 
 @Component({
@@ -23,7 +25,6 @@ import { User } from '../models/user.class';
 })
 export class MainChatComponent implements OnInit, OnChanges {
   
-  //
   copiedText: string = '';
   isSidebarOpen: boolean = true;
   showAddDataPopup: boolean = false;
@@ -63,6 +64,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     private elementRef: ElementRef,
     private renderer: Renderer2,
     private firestore: Firestore,
+    private ngZone: NgZone,
     public appComponent: AppComponent,) {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
@@ -354,8 +356,10 @@ export class MainChatComponent implements OnInit, OnChanges {
         this.message.toJSON()
       );
       this.isSendingMessage = false;
-      this.scrollToBottom();
       this.sharedService.createSubscribeChannelMessages();
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 100);
     }
   }
 
