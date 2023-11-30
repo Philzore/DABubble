@@ -62,7 +62,7 @@ export class DialogEditProfilComponent implements OnInit {
   refreshEmail(user) {
     updateEmail(user, this.newEmail).then(() => {
       // Email updated!
-      console.log('Email succesful updated to', this.newEmail);
+      // console.log('Email succesful updated to', this.newEmail);
       //update LocalStorage
       this.userDataService.saveCurrentUserLocalStorage(this.userDataService.currentUser['name'], this.newEmail, this.userDataService.currentUser['imgNr'])
     }).catch((error) => {
@@ -74,7 +74,7 @@ export class DialogEditProfilComponent implements OnInit {
           });
         }
       })
-      console.log('There was an error to update your email', error);
+      // console.log('There was an error to update your email', error);
     });
   }
 
@@ -86,7 +86,7 @@ export class DialogEditProfilComponent implements OnInit {
   refreshDisplayName(user) {
     updateProfile(user, { displayName: this.newName }).then(() => {
       //Profil updated
-      console.log('Name succesful updated to', this.newName);
+      // console.log('Name succesful updated to', this.newName);
       this.sharedService.updateName(this.oldName,this.newName);
       //update LocalStorage
       this.userDataService.saveCurrentUserLocalStorage(this.newName, this.userDataService.currentUser['mail'], this.userDataService.currentUser['imgNr']);

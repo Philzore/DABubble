@@ -22,7 +22,7 @@ export class UserDataService implements OnInit{
     ) { 
     sharedService.headerContentReady = false ;
     this.currentUser = this.getFromLocalStorage('currentUser');
-    sharedService.currentUserName = this.currentUser['name'] ;
+    // sharedService.currentUserName = this.currentUser['name'] ;
   }
   
   ngOnInit(): void {
@@ -49,6 +49,7 @@ export class UserDataService implements OnInit{
     localStorage.setItem('currentUser',objectString);
     this.currentUser = object;
     this.guestUser = userName === 'Gast' ;
+    this.sharedService.currentUserName = this.currentUser['name'] ;
   }
 
   /**

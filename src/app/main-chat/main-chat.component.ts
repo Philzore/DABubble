@@ -69,13 +69,9 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
     });
-    // this.sharedService.getChannelsFromDataBase('DaBubble');
-    // this.sharedService.createSubscribeChannelMessages();
-    console.log('Main-Chat Constructor');
   }
 
   async ngOnInit() {
-    console.log('Main-Chat OnInit');
     await this.sharedService.getChannelsFromDataBase('DaBubble');
     this.sharedService.createSubscribeChannelMessages();
   }
@@ -303,10 +299,10 @@ export class MainChatComponent implements OnInit, OnChanges {
    */
   async createSubscribeThreadMessages(messageID: string) {
     let channelId = this.sharedService.filteredChannels[1];
-    console.log('Aktuelle Message ID : ', messageID);
+    // console.log('Aktuelle Message ID : ', messageID);
     //load right thread from firestore
     this.unsubThread = onSnapshot(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`), async (doc) => {
-      console.log('Thread with id :', messageID, 'updating');
+      // console.log('Thread with id :', messageID, 'updating');
       await this.getThreadMessagesFromSingleMessage(messageID);
     });
   }
@@ -425,7 +421,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.sharedService.messagePath = `channels/${channelId}/messages/${messageID}` ;
     this.sharedService.threadPath = `channels/${channelId}/messages/${messageID}/thread`;
     this.sortMessagesTime(this.sharedService.currentThreadContent);
-    console.log('Thread Cotent', this.sharedService.currentThreadContent);
+    // console.log('Thread Cotent', this.sharedService.currentThreadContent);
     this.sharedService.threadContentReady = true ;
   }
 

@@ -86,7 +86,7 @@ export class SharedService {
         cuttedStr.channel = value.channel.substring(2);
         this.showChannelViewFct();
         this.updateChannel(cuttedStr.channel);
-        console.log('return', channel);
+        // console.log('return', channel);
       }
     }
   }
@@ -138,7 +138,7 @@ export class SharedService {
     this.channelsForFilter.forEach((channel) => {
       this.options.push({ channel: `# ${channel.name}` });
     });
-    console.log('Options :', this.options);
+    // console.log('Options :', this.options);
   }
 
   /**
@@ -198,51 +198,137 @@ export class SharedService {
    * @param newName - replaced name with oldName
    */
   async updateName(oldName: string, newName: string) {
-    this.unsubChannels();
+    if (this.unsubChannels) {
+      this.unsubChannels();
+    }
+    
     const channelCol = collection(this.firestore, 'channels');
     const channelSnapshot = await getDocs(channelCol);
-    let channelMessagePath = '';
-    let channelMessageThreadPath = '';
-    console.log('Old Name :', oldName);
-
-    //update channel creator
 
     channelSnapshot.forEach(async (Channeldoc) => {
-      console.log('Channel schleife', Channeldoc.id);
+      let channelMessagePath = '';
+      let channelMessageThreadPath = '';
+      
+      const singleChannel = doc(this.firestore, 'channels', Channeldoc.id)
+
+      // ************** update channel creator **************
+      if (Channeldoc.data()['created'] == oldName) {
+        await updateDoc(singleChannel, {
+          created: newName,
+        });
+      }
+      // ************** end update channel creator **************
+
+      // ************** update channel members **************
+      // get all members from current Channel
+      let membersOfCurrentChannel = Channeldoc.data()['members'];
+      const index = membersOfCurrentChannel.findIndex(member => member.name === oldName)
+
+      if (index !== -1) {
+        //update complete members array of channel
+        membersOfCurrentChannel[index].name = newName;
+        await updateDoc(singleChannel, {
+          members: membersOfCurrentChannel,
+        });
+      } else {
+        //wurde nicht gefunden im Array
+      }
+      // ************** end update channel members **************
+
+      // ************** update channel messages **************
       channelMessagePath = `channels/${Channeldoc.id}/messages`;
-
-
       const messageRef = collection(this.firestore, channelMessagePath);
-
       const queryMessage = query(messageRef, where('from', '==', oldName));
       const queryMessageFilter = await getDocs(queryMessage);
 
       //update docs in collection messages
       queryMessageFilter.forEach(async (docMsg) => {
-
-        console.log('Message Schleife', docMsg.id);
         const singleMessageRef = doc(this.firestore, channelMessagePath, docMsg.id);
         await updateDoc(singleMessageRef, {
           from: newName,
         });
+      });
+      // ************** end update channel messages **************
 
-        //update thread messages
-        channelMessageThreadPath = `channels/${Channeldoc.id}/messages/${docMsg.id}/thread`;
+      // ************** update Thred messages **************
+      const allMessages = await getDocs(messageRef);
+      for (const msgDoc of allMessages.docs) {
+        channelMessageThreadPath = `channels/${Channeldoc.id}/messages/${msgDoc.id}/thread`;
         const threadRef = collection(this.firestore, channelMessageThreadPath);
         const queryThread = query(threadRef, where('from', '==', oldName));
         const queryThreadFilter = await getDocs(queryThread);
-
-        queryThreadFilter.forEach(async (docThread) => {
-          const singleThreadRef = doc(this.firestore, channelMessageThreadPath, docThread.id);
-          await updateDoc(singleThreadRef, {
-            from: newName,
-          });
-        });
-      });
-
+        
+        await this.updateThreadMsgs(queryThreadFilter, channelMessageThreadPath, newName , Channeldoc.id ,msgDoc.id);
+      }
+      
 
     });
+    this.updateDirectMsgName(oldName, newName);
+  }
 
+  async updateThreadMsgs(queryThreadFilter, channelMessageThreadPath, newName, Channeldoc ,msgDoc) {
+    for (const docThread of queryThreadFilter.docs) {
+      const singleThreadRef = doc(this.firestore, channelMessageThreadPath, docThread.id);
+      await updateDoc(singleThreadRef, {
+        from: newName,
+      });
+    }
+    
+  }
+
+  async updateDirectMsgName(oldName: string, newName: string) {
+    if (this.unsubDirectChat) {
+      this.unsubDirectChat();
+    }
+
+    // get all Docs
+    const directMsgRef = collection(this.firestore, 'directMessages');
+    const directMsgDocs = await getDocs(directMsgRef);
+    let between = { user1: '', user2: '' };
+    let messages;
+
+    // ************** update between **************
+    directMsgDocs.forEach(async (directMsgdoc) => {
+
+      const singleDirectMsg = doc(this.firestore, 'directMessages', directMsgdoc.id)
+
+      between = directMsgdoc.data()['between'];
+
+      if (between.user1 === oldName) {
+        between.user1 = newName;
+        await updateDoc(singleDirectMsg, {
+          between: between,
+        });
+      } else if (between.user2 === oldName) {
+        between.user2 = newName;
+        await updateDoc(singleDirectMsg, {
+          between: between,
+        });
+      }
+
+      // ************** end update between **************
+
+      // ************** update messages **************
+      if (directMsgdoc.data()['messages']) {
+        messages = directMsgdoc.data()['messages'];
+
+        for (let index = 0; index < messages.length; index++) {
+          const message = messages[index];
+
+          if (message.from === oldName) {
+            messages[index].from = newName;
+          }
+        }
+        await updateDoc(singleDirectMsg, {
+          messages: messages,
+        });
+      }
+
+    });
+    // ************** end update messages **************
+    if (this.showDirectMessageView) {
+      this.createSubscribeDirectChat()
+    }
   }
 
   /**
@@ -257,7 +343,7 @@ export class SharedService {
     const querySnapshot = await getDocs(filteredChannels);
     querySnapshot.forEach((doc) => {
       this.filteredChannels.push(doc.data(), doc.id);
-      console.log(this.filteredChannels);
+      // console.log(this.filteredChannels);
     });
     this.templateIsReady = true;
   }
@@ -267,7 +353,7 @@ export class SharedService {
    * 
    */
   createSubscribeChannelMessages() {
-    console.log('create Main Chat sub');
+    // console.log('create Main Chat sub');
     let channelId = this.filteredChannels[1];
     this.unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
       await this.getMessagesFromChannel();
@@ -286,7 +372,7 @@ export class SharedService {
     querySnapshotMessages.forEach(async (doc) => {
       this.channelMessagesFromDB.push(new Message(doc.data()));
     });
-    console.log('Founded Messages :', this.channelMessagesFromDB);
+    // console.log('Founded Messages :', this.channelMessagesFromDB);
     this.sortMessagesTime(this.channelMessagesFromDB);
     this.originalArray = this.channelMessagesFromDB;
   }
@@ -296,8 +382,7 @@ export class SharedService {
     * 
     */
   createSubscribeDirectChat() {
-    console.log('create Direct Chat Sub');
-    // const directMsgRef = collection(this.firestore, 'directMessages' , this.currentDirectMsgID);
+    // console.log('create Direct Chat Sub');
     this.unsubDirectChat = onSnapshot(doc(this.firestore, 'directMessages', this.currentDirectMsgID), async (doc) => {
       await this.getDirectMsgFromDatabase();
     });
@@ -314,15 +399,15 @@ export class SharedService {
     const directMsgSnap = await getDoc(docRef);
 
     if (directMsgSnap.exists && directMsgSnap.data()['messages']) {
-      console.log('direct msg data : ', directMsgSnap.data()['messages']);
+      // console.log('direct msg data : ', directMsgSnap.data()['messages']);
       directMsgSnap.data()['messages'].forEach((msg) => {
         const directMessage = new Message(msg);
         this.directMsgsFromDB.push(directMessage);
       });
     } else {
-      console.log('No direct MSG Document found, content empty');
+      // console.log('No direct MSG Document found, content empty');
     }
-    console.log('Msgs for current direct content:', this.directMsgsFromDB);
+    // console.log('Msgs for current direct content:', this.directMsgsFromDB);
     this.sortMessagesTime(this.directMsgsFromDB);
     this.directChatReady = true;
     this.originalArray = this.directMsgsFromDB;
@@ -347,10 +432,10 @@ export class SharedService {
     if (this.showDirectMessageView) {
       this.unsubDirectChat();
     }
-    console.log(user);
+    // console.log(user);
     this.oppositeUser = user;
     const directMsgCollRef = collection(this.firestore, 'directMessages');
-    console.log('Opposite : ', user.name, 'Your Name : ', yourName);
+    // console.log('Opposite : ', user.name, 'Your Name : ', yourName);
 
     if (! await this.checkDirectMsgExist(user.name, yourName, directMsgCollRef)) {
       const docRef = await addDoc((directMsgCollRef), {
@@ -372,7 +457,7 @@ export class SharedService {
     ) //end of or
     ); //end of query function
     const querySnapshot = await getDocs(q);
-    console.log(querySnapshot.empty);
+    // console.log(querySnapshot.empty);
     if (!querySnapshot.empty) {
       console.log('Chat schon vorhanden');
       querySnapshot.forEach((doc) => {
