@@ -5,6 +5,7 @@ import { UserDataService } from '../services/user-data.service';
 import { DialogReauthenticateComponent } from '../dialog-reauthenticate/dialog-reauthenticate.component';
 import { AppComponent } from '../app.component';
 import { SharedService } from '../services/shared.service';
+import { Firestore, collection, doc, getDoc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class DialogEditProfilComponent implements OnInit {
     public userDataService: UserDataService,
     private sharedService: SharedService,
     private auth: Auth,
-    public appComponent: AppComponent) {
+    public appComponent: AppComponent,
+    private firestore: Firestore) {
 
   }
 
@@ -83,17 +85,32 @@ export class DialogEditProfilComponent implements OnInit {
    * 
    * @param user the current active user
    */
-  refreshDisplayName(user) {
-    updateProfile(user, { displayName: this.newName }).then(() => {
+  async refreshDisplayName(user) {
+    updateProfile(user, { displayName: this.newName }).then(async () => {
       //Profil updated
-      // console.log('Name succesful updated to', this.newName);
-      this.sharedService.updateName(this.oldName,this.newName);
+      await this.sharedService.updateName(this.oldName,this.newName);
       //update LocalStorage
       this.userDataService.saveCurrentUserLocalStorage(this.newName, this.userDataService.currentUser['mail'], this.userDataService.currentUser['imgNr']);
+      //update users in Database
+      await this.updateUserInDatabase();
       this.oldName = this.newName ;
     }).catch((error) => {
       //
     });
+  }
+
+  async updateUserInDatabase() {
+    const userRef = collection(this.firestore, 'users');
+    const userQuery = query(userRef, where("name", "==", this.oldName));
+    const querySnapshotUser = await getDocs(userQuery);
+
+    for (const userDoc of querySnapshotUser.docs){
+      const singleUser = doc(this.firestore, 'users', userDoc.id)
+      await updateDoc(singleUser, {
+        name : this.newName,
+      });
+    }
+
   }
 
   /**

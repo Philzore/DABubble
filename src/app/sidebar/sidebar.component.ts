@@ -106,7 +106,7 @@ export class SidebarComponent implements OnInit {
     querySnapshotUsers.forEach((doc) => {
       this.userDataService.usersFromDatabase.push(new User(doc.data()));
     });
-    this.sharedService.usersForFilter = this.userDataService.usersFromDatabase
+    this.sharedService.usersForFilter = this.userDataService.usersFromDatabase;
   }
 
   /**
