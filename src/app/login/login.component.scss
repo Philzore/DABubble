@@ -328,15 +328,17 @@
     right: 0;
     bottom: 0;
     z-index: 9;
-    background-image: linear-gradient(to bottom, rgb(121, 126, 243), rgb(50, 59, 229));
+    background-image: linear-gradient(to bottom, rgba(121, 126, 243, 1), rgba(50, 59, 229, 1));
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    animation: transparentBackground 0.4s forwards;
+    animation-delay: 1.6s;
 }
 
 .logo-container {
-    position: relative;
     animation: slideToLeftUpperCorner 1s;
     animation-delay: 1.6s;
 }
@@ -392,14 +394,59 @@
 // ANIMATION FOR WHOLE LOGO TO SLIDE TO UPPER LEFT CORNER
 @keyframes slideToLeftUpperCorner {
     from {
-        transform: translate(0);
     }
 
     to {
-        transform: translate(-35px, -35px);
     }
 }
 
+/*/
+@keyframes transparentBackground {
+    0% {
+        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 1), rgba(50, 59, 229, 1));
+    }
+
+    10% {
+        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.9), rgba(50, 59, 229, 0.9));
+    }
+
+    20% {
+        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.8), rgba(50, 59, 229, 0.8));
+    }
+
+    30% {
+        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.7), rgba(50, 59, 229, 0.7));
+    }
+
+    40% {
+        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.6), rgba(50, 59, 229, 0.6));
+    }
+
+    50% {
+        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.5), rgba(50, 59, 229, 0.5));
+    }
+
+    60% {
+        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.4), rgba(50, 59, 229, 0.4));
+    }
+
+    70% {
+        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.3), rgba(50, 59, 229, 0.3));
+    }
+
+    80% {
+        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.2), rgba(50, 59, 229, 0.2));
+    }
+
+    90% {
+        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.1), rgba(50, 59, 229, 0.1));
+    }
+
+    100% {
+        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0), rgba(50, 59, 229, 0));
+    }
+}
+/*/
 
 //-------------RESPONSIVE-------------//
 @media (max-width: 600px) {
