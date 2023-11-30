@@ -338,12 +338,6 @@
     animation-delay: 1.6s;
 }
 
-.logo-container {
-    animation: slideToLeftUpperCorner 1s;
-    animation-delay: 1.6s;
-}
-
-
 .logo {
     position: relative;
     animation: slideInLogo 0.5s forwards ease-out;
@@ -368,6 +362,7 @@
 }
 
 
+/*/
 // ANIMATION FOR LOGO TO SLIDE TO THE LEFT
 @keyframes slideInLogo {
     from {
@@ -390,13 +385,21 @@
         opacity: 1;
     }
 }
+/*/
+
+.logo-image {
+    animation: moveToLeftCorner 3s;
+
+}
 
 // ANIMATION FOR WHOLE LOGO TO SLIDE TO UPPER LEFT CORNER
-@keyframes slideToLeftUpperCorner {
+@keyframes moveToLeftCorner {
     from {
+        transform: translate(100%, 100%);
     }
 
     to {
+        transform: translate(0, 0);
     }
 }
 

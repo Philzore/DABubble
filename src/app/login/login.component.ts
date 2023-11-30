@@ -33,12 +33,8 @@ export class LoginComponent implements OnInit {
     private firestore: Firestore,
     private sharedService: SharedService) { }
 
-  showIntro: boolean = true;
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.showIntro = false;
-    }, 3000);
   }
 
   /**
