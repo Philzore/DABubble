@@ -332,7 +332,7 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.message.calculatedTime = formattedTime;
       this.message.time = date;
       this.message.text = this.copiedText;
-      this.message.reactions = {['']:['']};
+      this.message.reactions = [];
       this.message.numberOfThreadMsgs = 0 ;
       this.copiedText = '';
 
@@ -384,7 +384,6 @@ export class MainChatComponent implements OnInit, OnChanges {
             // Update Firebase with the updated reactions
             transaction.update(messageRef, {
                 reactions: this.emojiMap[messageId],
-                
             });
         });
         this.emojiMartVisible = false;
