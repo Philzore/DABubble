@@ -9,9 +9,10 @@ import { SharedService } from './shared.service';
 
 
 
-export class UserDataService implements OnInit{
+export class UserDataService {
   currentUser:object = {};
   usersFromDatabase = [];
+  
   guestUser:boolean ;
 
   private userData: { name: string, email: string, password: string } = { name: '', email: '', password: '' };
@@ -22,11 +23,6 @@ export class UserDataService implements OnInit{
     ) { 
     sharedService.headerContentReady = false ;
     this.currentUser = this.getFromLocalStorage('currentUser');
-    // sharedService.currentUserName = this.currentUser['name'] ;
-  }
-  
-  ngOnInit(): void {
-    
   }
   
   setUserData(data: { name: string, email: string, password: string }) {

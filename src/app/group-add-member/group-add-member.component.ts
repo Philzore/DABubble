@@ -33,7 +33,7 @@ export class GroupAddMemberComponent implements OnInit {
   currentChannel = {
     info: {
       name: '',
-      members: '',
+      members: [],
       created: '',
       description: ''
     },
@@ -62,6 +62,11 @@ export class GroupAddMemberComponent implements OnInit {
   ngOnInit(): void {
     this.currentChannel.info = this.dialogData[0];
     this.currentChannel.id = this.dialogData[1];
+
+    this.filterUsersNoMembers();
+
+    console.log(this.actMembers);
+
   }
 
   /**
@@ -78,6 +83,15 @@ export class GroupAddMemberComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  filterUsersNoMembers() {
+    
+    this.actMembers = this.actMembers.filter(user => {
+      const isUserInChannel = this.currentChannel.info.members.some(member => member.name === user.name);
+      return !isUserInChannel; // Behalte Benutzer, die nicht in currentChannel.info.members enthalten sind
+    });
+
+  }
+
   /**
   * open drop down for direct messages
   * 
@@ -92,13 +106,8 @@ export class GroupAddMemberComponent implements OnInit {
    * @param userPosition {number} - to add the correct member
    */
   addMember(userPosition: number) {
-    console.log('geclickter User:', userPosition);
-    console.log('geclickter User:', this.actMembers);
-
     this.actAddMembers.push(this.actMembers[userPosition]);
     this.actMembers.splice(userPosition, 1);
-
-    console.log('User welche geaddet werden:', this.actAddMembers);
   }
 
   /**
@@ -117,22 +126,24 @@ export class GroupAddMemberComponent implements OnInit {
    */
   async saveNewUsers() {
     if (this.actAddMembers.length >= 1) {
-      this.sharedService.templateIsReady = false ;
-      this.actAddMembers.forEach(async (user) => { 
+      this.sharedService.templateIsReady = false;
+      this.actAddMembers.forEach(async (user) => {
         let userInfo = {
-          name : user.name,
-          imgNr : user.avatar,
-          email : user.email,
+          name: user.name,
+          imgNr: user.avatar,
+          email: user.email,
         }
-       await this.sharedService.updateMembersInDatabase(userInfo, this.currentChannel.id);
+        await this.sharedService.updateMembersInDatabase(userInfo, this.currentChannel.id);
       });
-      await this.sharedService.getChannelsFromDataBase(this.currentChannel.info.name); 
+      await this.sharedService.getChannelsFromDataBase(this.currentChannel.info.name);
       if (this.actAddMembers) {
         this.actAddMembers.forEach((member) => {
           this.actMembers.push(member);
         });
       }
-      this.dialogRef.close({event : 'start'});
+      this.sharedService.templateIsReady = false ;
+      this.sharedService.getChannelsFromDataBase(this.currentChannel.info.name);
+      this.dialogRef.close({ event: 'start' });
     }
   }
 
