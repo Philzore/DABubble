@@ -6,7 +6,9 @@ export class Message {
     text: string;
     id:string;
     numberOfThreadMsgs:number
-    reactions:[];
+    reactionsCount: { [emoji: string]: number } = {};
+    reactions: [];
+;
     
     constructor(obj?: any) {
         this.from = obj ? obj.from : '';
@@ -16,6 +18,7 @@ export class Message {
         this.text = obj ? obj.text : '';
         this.id = obj ? obj.id : '';
         this.numberOfThreadMsgs = obj ? obj.numberOfThreadMsgs : 0 ;
+        this.reactionsCount = obj ? obj.reactionsCount : {};
         this.reactions = obj ? obj.reactions : [];
 
     }
@@ -29,6 +32,7 @@ export class Message {
             text: this.text,
             id: this.id,
             numberOfThreadMsgs : this.numberOfThreadMsgs,
+            reactionsCount: this.reactionsCount,
             reactions: this.reactions
         }
     }

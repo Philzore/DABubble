@@ -109,14 +109,14 @@ export class MainThreadComponent {
         this.emojiMap[messageID] = [...existingEmojis, emojiNative];
         this.emojiCountMap[emojiNative] = 1;
       }
-      (this.threadMessage.reactions as string[]) = this.emojiMap[messageID];
+      // (this.threadMessage.reactions as string[]) = this.emojiMap[messageID];
     }
     let channelId = this.sharedService.filteredChannels[1];
     const singleRef = doc(this.firestore, 'channels', channelId);
     const messageRef = doc(singleRef, 'messages', messageID);
     const querySnapshotThread = await getDocs(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`));
     querySnapshotThread.forEach((doc) => {
-      reactions: this.threadMessage.reactions
+      // reactions: this.threadMessage.reactions
     })
 
     this.emojiMartVisible = false;

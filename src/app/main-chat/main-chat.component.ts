@@ -332,7 +332,7 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.message.calculatedTime = formattedTime;
       this.message.time = date;
       this.message.text = this.copiedText;
-      this.message.reactions = [];
+      this.message.reactionsCount = {};
       this.message.numberOfThreadMsgs = 0 ;
       this.copiedText = '';
 
@@ -363,29 +363,35 @@ export class MainChatComponent implements OnInit, OnChanges {
     let channelId = this.sharedService.filteredChannels[1];
     const singleRef = doc(this.firestore, 'channels', channelId);
     const messageRef = doc(singleRef, 'messages', messageId);
-        // Use transaction to handle concurrency issues
-        await runTransaction(this.firestore, async (transaction) => {
-            // Retrieve existing reactions from Firebase
-            const messageSnapshot = await transaction.get(messageRef);
-            const existingEmojis = messageSnapshot.data()?.['reactions'] || [];
 
-            // Your existing logic for updating local emoji map and count
-            if (this.selectedMessageId === messageId) {
-                const emojiNative = emoji['emoji']['native'];
-                if (existingEmojis.includes(emojiNative)) {
-                    this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
-                } else {
-                    this.emojiMap[messageId] = [...existingEmojis, emojiNative];
-                    this.emojiCountMap[emojiNative] = 1;
-                }
-                (this.message.reactions as string[]) = this.emojiMap[messageId];
+    // Use transaction to handle concurrency issues
+    await runTransaction(this.firestore, async (transaction) => {
+        // Retrieve existing reactions from Firebase
+        const messageSnapshot = await transaction.get(messageRef);
+        const existingReactions = messageSnapshot.data()?.['reactions'] || [];
+        const exisitingsReactionsCount = messageSnapshot.data()?.['reactionsCount'] || {};
+        console.log(existingReactions);
+
+        // Your existing logic for updating local emoji map and count
+        if (this.selectedMessageId === messageId) {
+            const emojiNative = emoji['emoji']['native'];
+            if (existingReactions.includes(emojiNative)) {
+                exisitingsReactionsCount[emojiNative] = (exisitingsReactionsCount[emojiNative] || 0) + 1;
+            } else {
+                this.emojiMap[messageId] = [...existingReactions, emojiNative];
+                exisitingsReactionsCount[emojiNative] = 1;
             }
-            transaction.update(messageRef, {
-                reactions: this.emojiMap[messageId],
-            });
+            (this.message.reactions as string[]) = this.emojiMap[messageId];
+        }
+        
+        transaction.update(messageRef, {
+            reactions: this.emojiMap[messageId],
+            reactionsCount: exisitingsReactionsCount,
         });
-        this.emojiMartVisible = false;
-      }
+    });
+    this.emojiMartVisible = false;
+}
+
 
       addReaction(emoji: { native: string }, messageId: string) {
         const existingEmojis = this.emojiMap[messageId] || [];
@@ -407,14 +413,15 @@ export class MainChatComponent implements OnInit, OnChanges {
         }
     
         // Update the message reactions
-        (this.message.reactions as string[]) = existingEmojis;
+        //TODO Comment in when addReactionToMessage is finished
+        // this.message.reactionsCount = existingEmojis;
     
         // Update Firebase with the updated reactions
         let channelId = this.sharedService.filteredChannels[1];
         const singleRef = doc(this.firestore, 'channels', channelId);
         const messageRef = doc(singleRef, 'messages', messageId);
         updateDoc(messageRef, {
-            reactions: this.message.reactions,
+            reactions: this.message.reactionsCount,
         });
     
         // Optional: You may want to update other local state or UI here

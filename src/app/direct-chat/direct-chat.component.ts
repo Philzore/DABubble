@@ -148,7 +148,7 @@ export class DirectChatComponent implements OnInit {
       this.directMessage.calculatedTime = formattedTime;
       this.directMessage.time = date;
       this.directMessage.text = this.copiedTextDirectMsg;
-      this.directMessage.reactions = [];
+      this.directMessage.reactionsCount = {};
       this.copiedTextDirectMsg = '';
 
       //add subcollection firestore logic
@@ -157,7 +157,6 @@ export class DirectChatComponent implements OnInit {
       await updateDoc(doc(this.firestore, `directMessages`, directMsgID), {
         messages: arrayUnion(this.directMessage.toJSON()),
       });
-
       this.isSendingMessage = false;
       // this.scrollToBottom();
       // this.sharedService.createSubscribeChannelMessages();

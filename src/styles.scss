@@ -700,6 +700,24 @@ $main-purple: #eceefe;
     padding: 5px;
     border: 1px solid $main-purple;
     border-radius: 50%;
+    position: relative;
+
+    .emoji-counter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding:2px;
+      width: 10px;
+      height: 10px;
+      font-weight: 700;
+      border-radius: 50%;
+      background: #fff;
+      font-size: .8em;;
+    }
+
   }
 
   .emoji-wrapper {
