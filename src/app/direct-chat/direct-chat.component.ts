@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../services/shared.service';
 import { UserDataService } from '../services/user-data.service';
-import { Firestore, addDoc, arrayUnion, collection, doc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, arrayUnion, collection, doc, runTransaction, updateDoc } from '@angular/fire/firestore';
 import { Message } from '../models/message.class';
 
 @Component({
@@ -65,18 +65,29 @@ export class DirectChatComponent implements OnInit {
     this.showEmojiPopup = false;
   }
 
-  addReactionToMessage(emoji: string, messageId: string) {
-    if (this.selectedMessageId === messageId) {
-      const existingEmojis = this.emojiMap[messageId] || [];
-      const emojiNative = emoji['emoji']['native'];
-      if (existingEmojis.includes(emojiNative)) {
-        this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
-      } else {
-        this.emojiMap[messageId] = [...existingEmojis, emojiNative];
-        this.emojiCountMap[emojiNative] = 1;
+  async addReactionToMessage(emoji: string, messageId: string) {
+    // doc for specific document in a collection
+    const singleRef = doc(this.firestore, 'directMessages', this.sharedService.currentDirectMsgID);
+    const messageRef = doc(singleRef, 'messages', messageId);
+
+    await runTransaction(this.firestore, async(transction) => {
+
+      const messageSnapshot = await transction.get(messageRef);
+      const existingEmojis = messageSnapshot.data()?.['reactions'] || [];
+
+      if (this.selectedMessageId === messageId) {
+        const emojiNative = emoji['emoji']['native'];
+        if (existingEmojis.includes(emojiNative)) {
+          this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
+        } else {
+          this.emojiMap[messageId] = [...existingEmojis, emojiNative];
+          this.emojiCountMap[emojiNative] = 1;
+        }
       }
-    }
-    console.log(emoji);
+      transction.update(messageRef, {
+        reactions: this.emojiMap[messageId],
+      });
+    }) 
     this.emojiMartVisible = false;
   }
 

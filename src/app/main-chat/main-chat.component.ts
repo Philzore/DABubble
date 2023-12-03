@@ -380,8 +380,6 @@ export class MainChatComponent implements OnInit, OnChanges {
                 }
                 (this.message.reactions as string[]) = this.emojiMap[messageId];
             }
-
-            // Update Firebase with the updated reactions
             transaction.update(messageRef, {
                 reactions: this.emojiMap[messageId],
             });
