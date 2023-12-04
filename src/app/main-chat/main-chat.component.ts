@@ -392,6 +392,19 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.emojiMartVisible = false;
 }
 
+async addReactionTest(emoji: { native: string }, messageId: string) {
+
+  let channelId = this.sharedService.filteredChannels[1];
+  const singleRef = doc(this.firestore, 'channels', channelId);
+  const messageRef = doc(singleRef, 'messages', messageId);
+
+  await runTransaction(this.firestore, async(transaction) => {
+
+  })
+
+
+}
+
 
       addReaction(emoji: { native: string }, messageId: string) {
         const existingEmojis = this.emojiMap[messageId] || [];
