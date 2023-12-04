@@ -98,29 +98,14 @@ export class MainThreadComponent {
     this.emojiMartVisible = true;
   }
 
-  async addReactionToMessage(emoji: string, messageID: string) {
-    console.log('is working')
-    if (this.selectedMessageId === messageID) {
-      const existingEmojis = this.emojiMap[messageID] || [];
-      const emojiNative = emoji['emoji']['native'];
-      if (existingEmojis.includes(emojiNative)) {
-        this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
-      } else {
-        this.emojiMap[messageID] = [...existingEmojis, emojiNative];
-        this.emojiCountMap[emojiNative] = 1;
-      }
-      // (this.threadMessage.reactions as string[]) = this.emojiMap[messageID];
-    }
+  async addReactionToThreadMessage(emoji: string, messageID) {
     let channelId = this.sharedService.filteredChannels[1];
     const singleRef = doc(this.firestore, 'channels', channelId);
     const messageRef = doc(singleRef, 'messages', messageID);
-    const querySnapshotThread = await getDocs(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`));
-    querySnapshotThread.forEach((doc) => {
-      // reactions: this.threadMessage.reactions
-    })
 
-    this.emojiMartVisible = false;
-    this.scrollToBottom();
+
+
+
   }
 
   togglePersonPopup(): void {
@@ -162,7 +147,8 @@ export class MainThreadComponent {
       this.threadMessage.calculatedTime = formattedTime;
       this.threadMessage.time = date;
       this.threadMessage.text = this.copiedText;
-
+      this.threadMessage.reactions = [];
+      this.threadMessage.reactionsCount = {};
 
       const threadRef = await addDoc(collection(this.firestore, this.sharedService.threadPath),
         this.threadMessage.toJSON()

@@ -68,24 +68,25 @@ export class DirectChatComponent implements OnInit {
   async addReactionToMessage(emoji: string, messageId: string) {
     // doc for specific document in a collection
     const singleRef = doc(this.firestore, 'directMessages', this.sharedService.currentDirectMsgID);
-    const messageRef = doc(singleRef, 'messages', messageId);
-
+    // const messageRef = doc(singleRef, )
     await runTransaction(this.firestore, async(transction) => {
 
-      const messageSnapshot = await transction.get(messageRef);
-      const existingEmojis = messageSnapshot.data()?.['reactions'] || [];
+      const messageSnapshot = await transction.get(singleRef);
+      const existingReactions = messageSnapshot.data()?.['reactions'] || [];
+      const existingReactionsCount = messageSnapshot.data()?.['reactionsCount'] || {};
 
       if (this.selectedMessageId === messageId) {
         const emojiNative = emoji['emoji']['native'];
-        if (existingEmojis.includes(emojiNative)) {
-          this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
+        if (existingReactions.includes(emojiNative)) {
+          existingReactionsCount[emojiNative] = (existingReactionsCount[emojiNative] || 0) + 1;
         } else {
-          this.emojiMap[messageId] = [...existingEmojis, emojiNative];
-          this.emojiCountMap[emojiNative] = 1;
+          this.emojiMap[messageId] = [...existingReactions, emojiNative];
+          existingReactionsCount[emojiNative] = 1;
         }
       }
-      transction.update(messageRef, {
+      transction.update(singleRef, {
         reactions: this.emojiMap[messageId],
+        reactionsCount: existingReactionsCount,
       });
     }) 
     this.emojiMartVisible = false;
@@ -148,7 +149,8 @@ export class DirectChatComponent implements OnInit {
       this.directMessage.calculatedTime = formattedTime;
       this.directMessage.time = date;
       this.directMessage.text = this.copiedTextDirectMsg;
-      this.directMessage.reactionsCount = {};
+      // this.directMessage.reactionsCount = {};
+      // this.directMessage.reactions = [];
       this.copiedTextDirectMsg = '';
 
       //add subcollection firestore logic

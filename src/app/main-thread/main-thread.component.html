@@ -55,7 +55,7 @@
             <div class="info-row-thread">
               <p class="bold">{{ message.from }}</p>
               <emoji-mart set="apple" #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id"
-                (emojiClick)="addReactionToMessage($event ,message.id)"
+                (emojiClick)="addReactionToThreadMessage($event ,message.id)"
                 [style]="{ position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '11'}">
               </emoji-mart>
               <span class="message-time">{{ message.calculatedTime }}</span>
@@ -87,7 +87,7 @@
             <div class="info-row-thread">
               <p class="bold">{{ message.from }}</p>
               <emoji-mart set="apple" #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id"
-                (emojiClick)="addReactionToMessage($event ,message.id)"
+                (emojiClick)="addReactionToThreadMessage($event ,message.id)"
                 [style]="{ position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '11'}">
               </emoji-mart>
               <span class="message-time">{{ message.calculatedTime }}</span>
