@@ -86,6 +86,7 @@ export class MainChatComponent implements OnInit, OnChanges {
   onKeydown(event) {
     if (event.key === "Enter") {
       this.messageSend();
+      console.log(this.copiedText);
     }
   }
   
