@@ -57,6 +57,8 @@ export class MainThreadComponent {
  * @param event 
  */
   onKeydown(event) {
+    //to avoid the default action what would be the line break
+    event.preventDefault();
     if (event.key === "Enter") {
       this.sendThreadMessage();
     }

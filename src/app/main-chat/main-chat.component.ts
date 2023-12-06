@@ -85,6 +85,8 @@ export class MainChatComponent implements OnInit, OnChanges {
    */
   onKeydown(event) {
     if (event.key === "Enter") {
+      //to avoid the default action what would be the line break
+      event.preventDefault();
       this.messageSend();
       console.log(this.copiedText);
     }
