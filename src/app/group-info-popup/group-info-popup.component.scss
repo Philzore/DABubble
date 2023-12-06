@@ -1,6 +1,15 @@
 $main-purple: #eceefe;
 $purple: #535af1;
 
+.opacity-0-3 {
+    opacity: .3 !important;
+    cursor: default !important;
+}
+
+.opacity-1 {
+    opacity: 1;
+}
+
 .popup-container {
     display: flex;
     flex-direction: column;

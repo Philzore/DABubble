@@ -9,11 +9,11 @@
         <div class="header-container">
             <h3 class="bold">Channel - Name</h3>
             <p class="cursor purple" *ngIf="!isEditing" (click)="changeChannelName()">Bearbeiten</p>
-            <p class="cursor purple" *ngIf="isEditing" (click)="saveChannelName()">Speichern</p>
+            <p class="cursor purple" [class.opacity-0-3]="(channelName == '')" *ngIf="isEditing" (click)="saveChannelName()">Speichern</p>
         </div>
         <div class="group-info-name">
             <ng-container *ngIf="isEditing; else displayChannelName">
-                <input [(ngModel)]="channelName"/>
+                <input  [(ngModel)]="channelName" />
             </ng-container>
             <ng-template #displayChannelName>
                 <p># {{currentChannel.info.name}}</p>
@@ -25,7 +25,7 @@
         <div class="header-container">
             <h3 class="bold">Beschreibung</h3>
             <p class="cursor purple" *ngIf="!hideEditDescription" (click)="changeChannelDescription()">Bearbeiten</p>
-            <p class="cursor purple" *ngIf="hideEditDescription" (click)="saveChannelDescription()">Speichern</p>
+            <p class="cursor purple" [class.opacity-0-3]="(channelDescription == '')" *ngIf="hideEditDescription" (click)="saveChannelDescription()">Speichern</p>
         </div>
         <div class="group-info-name">
             <ng-container *ngIf="hideEditDescription; else displayDescription">

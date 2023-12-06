@@ -64,8 +64,11 @@ export class GroupInfoPopupComponent implements OnInit {
    * 
    */
   saveChannelName() {
-    this.currentChannel.info.name = this.channelName;
-    this.sharedService.updateChannelInfoDatabase({ name: this.channelName }, this.currentChannel.id);
+    if(this.channelName.length >= 1) {
+      this.currentChannel.info.name = this.channelName;
+      this.sharedService.updateChannelInfoDatabase({ name: this.channelName }, this.currentChannel.id);
+      this.isEditing = false;
+    }
   }
 
   /**
@@ -73,8 +76,10 @@ export class GroupInfoPopupComponent implements OnInit {
    * 
    */
   saveChannelDescription() {
-    this.currentChannel.info.description = this.channelDescription;
-    this.sharedService.updateChannelInfoDatabase({ description: this.channelDescription }, this.currentChannel.id);
+    if(this.channelDescription.length >= 1) {
+      this.currentChannel.info.description = this.channelDescription;
+      this.sharedService.updateChannelInfoDatabase({ description: this.channelDescription }, this.currentChannel.id);
+    }
   }
 
   /**
