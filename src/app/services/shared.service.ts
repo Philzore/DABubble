@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Firestore, addDoc, and, arrayUnion, collection, doc, getDoc, getDocs, onSnapshot, or, query, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, and, arrayUnion, collection, doc, getDoc, getDocs, limit, onSnapshot, or, query, updateDoc, where } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable, async, map, startWith } from 'rxjs';
 import { Message } from '../models/message.class';
 import { User } from '../models/user.class';
@@ -27,7 +27,7 @@ export class SharedService {
   headerContentReady: boolean = false;
 
   //channels
-  public currentActiveChannel = new BehaviorSubject<string>('DaBubble');
+  currentActiveChannel = new BehaviorSubject<string>('DaBubble');
   currentActiveChannel$ = this.currentActiveChannel.asObservable();
   unsubChannels;
   filteredChannels: any[];
@@ -201,14 +201,14 @@ export class SharedService {
     if (this.unsubChannels) {
       this.unsubChannels();
     }
-    
+
     const channelCol = collection(this.firestore, 'channels');
     const channelSnapshot = await getDocs(channelCol);
 
     channelSnapshot.forEach(async (Channeldoc) => {
       let channelMessagePath = '';
       let channelMessageThreadPath = '';
-      
+
       const singleChannel = doc(this.firestore, 'channels', Channeldoc.id)
 
       // ************** update channel creator **************
@@ -257,23 +257,23 @@ export class SharedService {
         const threadRef = collection(this.firestore, channelMessageThreadPath);
         const queryThread = query(threadRef, where('from', '==', oldName));
         const queryThreadFilter = await getDocs(queryThread);
-        
-        await this.updateThreadMsgs(queryThreadFilter, channelMessageThreadPath, newName , Channeldoc.id ,msgDoc.id);
+
+        await this.updateThreadMsgs(queryThreadFilter, channelMessageThreadPath, newName, Channeldoc.id, msgDoc.id);
       }
-      
+
 
     });
     this.updateDirectMsgName(oldName, newName);
   }
 
-  async updateThreadMsgs(queryThreadFilter, channelMessageThreadPath, newName, Channeldoc ,msgDoc) {
+  async updateThreadMsgs(queryThreadFilter, channelMessageThreadPath, newName, Channeldoc, msgDoc) {
     for (const docThread of queryThreadFilter.docs) {
       const singleThreadRef = doc(this.firestore, channelMessageThreadPath, docThread.id);
       await updateDoc(singleThreadRef, {
         from: newName,
       });
     }
-    
+
   }
 
   async updateDirectMsgName(oldName: string, newName: string) {
@@ -339,7 +339,12 @@ export class SharedService {
   async getChannelsFromDataBase(name: string) {
     this.filteredChannels = [];
     const channelRef = collection(this.firestore, 'channels');
-    const filteredChannels = query(channelRef, where('name', "==", name))
+    let filteredChannels ;
+    if (name != 'first') {
+      filteredChannels = query(channelRef, where('name', "==", name))
+    } else if (name == 'first') {
+      filteredChannels = query(channelRef, limit(1)) ;
+    }
     const querySnapshot = await getDocs(filteredChannels);
     querySnapshot.forEach((doc) => {
       this.filteredChannels.push(doc.data(), doc.id);

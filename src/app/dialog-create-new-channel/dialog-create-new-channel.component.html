@@ -11,12 +11,13 @@
         <h3>Channel-Name</h3>
         <input placeholder="# z.B. Kooperationsprojekte" [(ngModel)]="channelName">
         <span class="error-channel-exist" *ngIf="errChannelExist">Channel exisitert bereits</span>
+        <span class="error-channel-exist" *ngIf="channelName.length < 3">Channel muss mindestens drei Zeichen haben</span>
     </div>
     <div>
         <h3>Beschreibung <span>(optional)</span></h3>
         <input placeholder="Dein Text hier" [(ngModel)]="channelDescription">
     </div>
     <div class="create-btn">
-        <button mat-button (click)="saveNewChannel()">Erstellen</button>
+        <button mat-button  [disabled]="channelName.length < 3" [class.btn-disabled]="channelName.length < 3 " (click)="saveNewChannel()">Erstellen</button>
     </div>
 </div>

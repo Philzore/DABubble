@@ -71,4 +71,12 @@
             background-color: #797EF3;
         }
     }
+
+    .btn-disabled {
+        background-color: #797EF3;
+        &:hover {
+            cursor: not-allowed ;
+        }
+        
+    }
 }

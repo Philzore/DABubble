@@ -24,7 +24,7 @@ import { NgZone } from '@angular/core';
   styleUrls: ['./main-chat.component.scss']
 })
 export class MainChatComponent implements OnInit, OnChanges {
-  
+
   copiedText: string = '';
   isSidebarOpen: boolean = true;
   showAddDataPopup: boolean = false;
@@ -72,11 +72,11 @@ export class MainChatComponent implements OnInit, OnChanges {
   }
 
   async ngOnInit() {
-    await this.sharedService.getChannelsFromDataBase('DaBubble');
+    await this.sharedService.getChannelsFromDataBase('first');
     this.sharedService.createSubscribeChannelMessages();
   }
 
-  
+
 
   /**
    * check if enter key is pressed , if yes, send message
@@ -84,14 +84,13 @@ export class MainChatComponent implements OnInit, OnChanges {
    * @param event 
    */
   onKeydown(event) {
-    if (event.key === "Enter") {
+    if ((event.key === "Enter") && (this.copiedText.length >= 1)) {
       //to avoid the default action what would be the line break
       event.preventDefault();
       this.messageSend();
-      console.log(this.copiedText);
     }
   }
-  
+
 
   /**
    * if @input is changing trigger this function
@@ -137,7 +136,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     }
     this.emojiMartVisible = true;
   }
-  
+
 
   /**
    * add name to text are when click on @ symbol and the name
@@ -146,7 +145,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    */
   addNameToTextArea(channelMember: string) {
     const channelMemberName = `@ ${channelMember} `;
-    if(!this.copiedText.includes(channelMemberName)) {
+    if (!this.copiedText.includes(channelMemberName)) {
       this.copiedText += channelMemberName;
     }
     this.showPersonPopup = false;
@@ -185,9 +184,9 @@ export class MainChatComponent implements OnInit, OnChanges {
    */
   openAddMemberPopUp(): void {
     const dialogRef = this.dialog.open(GroupAddMemberComponent, { position: { top: '180px', right: '70px' }, panelClass: 'custom-logout-dialog', data: this.sharedService.filteredChannels });
-  
+
     dialogRef.afterClosed().subscribe((result) => {
-      if (result){
+      if (result) {
         if (result.event == 'start') {
           this.appComponent.showFeedback('Die Nutzer wurden dem Channel hinzugefügt');
         }
@@ -255,18 +254,18 @@ export class MainChatComponent implements OnInit, OnChanges {
    * @param messageID {string} - id form the clicked message
    */
   toggleThread(messageID: string) {
-    this.sharedService.threadContentReady = false ;
+    this.sharedService.threadContentReady = false;
     if (!this.threadOpen && this.lastMessageId == '') {
       this.openThread(messageID);
       this.lastMessageId = messageID;
       this.threadRuntime = true;
-    } else if ((this.lastMessageId == messageID) && this.threadOpen){
+    } else if ((this.lastMessageId == messageID) && this.threadOpen) {
       this.closeThread();
-    } else if ((this.lastMessageId != messageID) && this.threadOpen){
+    } else if ((this.lastMessageId != messageID) && this.threadOpen) {
       this.unsubThread();
-      this.sharedService.currentThreadContent = [] ;
-      this.lastMessageId = messageID ;
-      this.createSubscribeThreadMessages(messageID) ;
+      this.sharedService.currentThreadContent = [];
+      this.lastMessageId = messageID;
+      this.createSubscribeThreadMessages(messageID);
     }
 
   }
@@ -291,8 +290,8 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.threadClosed.emit();
     this.threadOpen = false;
     this.lastMessageId = '';
-    this.sharedService.currentThreadContent = [] ;
-    this.sharedService.threadContentReady = false ;
+    this.sharedService.currentThreadContent = [];
+    this.sharedService.threadContentReady = false;
   }
 
   /**
@@ -337,7 +336,7 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.message.text = this.copiedText;
       this.message.reactionsCount = {};
       this.message.reactions = [];
-      this.message.numberOfThreadMsgs = 0 ;
+      this.message.numberOfThreadMsgs = 0;
       this.copiedText = '';
 
       //add subcollection firestore logic
@@ -361,6 +360,7 @@ export class MainChatComponent implements OnInit, OnChanges {
         this.scrollToBottom();
       }, 100);
     }
+    this.scrollToBottom() ;
   }
 
   async addReactionToMessage(emoji: string, messageId: string) {
@@ -370,61 +370,61 @@ export class MainChatComponent implements OnInit, OnChanges {
 
     // Use transaction to handle concurrency issues
     await runTransaction(this.firestore, async (transaction) => {
-        // Retrieve existing reactions from Firebase
-        const messageSnapshot = await transaction.get(messageRef);
-        const existingReactions = messageSnapshot.data()?.['reactions'] || [];
-        const exisitingsReactionsCount = messageSnapshot.data()?.['reactionsCount'] || {};
-        console.log(existingReactions);
+      // Retrieve existing reactions from Firebase
+      const messageSnapshot = await transaction.get(messageRef);
+      const existingReactions = messageSnapshot.data()?.['reactions'] || [];
+      const exisitingsReactionsCount = messageSnapshot.data()?.['reactionsCount'] || {};
+      console.log(existingReactions);
 
-        // Your existing logic for updating local emoji map and count
-        if (this.selectedMessageId === messageId) {
-            const emojiNative = emoji['emoji']['native'];
-            if (existingReactions.includes(emojiNative)) {
-                exisitingsReactionsCount[emojiNative] = (exisitingsReactionsCount[emojiNative] || 0) + 1;
-            } else {
-                this.emojiMap[messageId] = [...existingReactions, emojiNative];
-                exisitingsReactionsCount[emojiNative] = 1;
-            }
-            (this.message.reactions as string[]) = this.emojiMap[messageId];
+      // Your existing logic for updating local emoji map and count
+      if (this.selectedMessageId === messageId) {
+        const emojiNative = emoji['emoji']['native'];
+        if (existingReactions.includes(emojiNative)) {
+          exisitingsReactionsCount[emojiNative] = (exisitingsReactionsCount[emojiNative] || 0) + 1;
+        } else {
+          this.emojiMap[messageId] = [...existingReactions, emojiNative];
+          exisitingsReactionsCount[emojiNative] = 1;
         }
-        
-        transaction.update(messageRef, {
-            reactions: this.emojiMap[messageId],
-            reactionsCount: exisitingsReactionsCount,
-        });
+        (this.message.reactions as string[]) = this.emojiMap[messageId];
+      }
+
+      transaction.update(messageRef, {
+        reactions: this.emojiMap[messageId],
+        reactionsCount: exisitingsReactionsCount,
+      });
     });
     this.emojiMartVisible = false;
-}
-
-async addReaction(emoji: { native: string }, messageId: string) {
-
-  let channelId = this.sharedService.filteredChannels[1];
-  const singleRef = doc(this.firestore, 'channels', channelId);
-  const messageRef = doc(singleRef, 'messages', messageId);
-
-  await runTransaction(this.firestore, async(transaction) => {
-    const emojiNative = emoji.native;
-    const messageSnapshot = await transaction.get(messageRef);
-    const existingReactions = messageSnapshot.data()?.['reactions'] || [];
-    const exisitingsReactionsCount = messageSnapshot.data()?.['reactionsCount'] || {};
-
-    if (existingReactions.includes(emojiNative)) {
-        exisitingsReactionsCount[emojiNative] = (exisitingsReactionsCount[emojiNative] || 0) + 1;
-  } else {
-    this.emojiMap[messageId] = [...existingReactions, emojiNative];
-    exisitingsReactionsCount[emojiNative] = 1;
   }
-  (this.message.reactions as string[]) = this.emojiMap[messageId];
 
-  transaction.update(messageRef, {
-    reactions:this.emojiMap[messageId],
-    reactionsCount: exisitingsReactionsCount,
+  async addReaction(emoji: { native: string }, messageId: string) {
 
+    let channelId = this.sharedService.filteredChannels[1];
+    const singleRef = doc(this.firestore, 'channels', channelId);
+    const messageRef = doc(singleRef, 'messages', messageId);
+
+    await runTransaction(this.firestore, async (transaction) => {
+      const emojiNative = emoji.native;
+      const messageSnapshot = await transaction.get(messageRef);
+      const existingReactions = messageSnapshot.data()?.['reactions'] || [];
+      const exisitingsReactionsCount = messageSnapshot.data()?.['reactionsCount'] || {};
+
+      if (existingReactions.includes(emojiNative)) {
+        exisitingsReactionsCount[emojiNative] = (exisitingsReactionsCount[emojiNative] || 0) + 1;
+      } else {
+        this.emojiMap[messageId] = [...existingReactions, emojiNative];
+        exisitingsReactionsCount[emojiNative] = 1;
+      }
+      (this.message.reactions as string[]) = this.emojiMap[messageId];
+
+      transaction.update(messageRef, {
+        reactions: this.emojiMap[messageId],
+        reactionsCount: exisitingsReactionsCount,
+
+      });
     });
-  });
-}
+  }
 
-    
+
 
   /**
    * get the thread messages from a single message
@@ -433,7 +433,7 @@ async addReaction(emoji: { native: string }, messageId: string) {
    * @param messageID {string} - id form the clicked message
    */
   async getThreadMessagesFromSingleMessage(messageID: string) {
-    this.sharedService.threadContentReady = false ;
+    this.sharedService.threadContentReady = false;
     let channelId = this.sharedService.filteredChannels[1];
     this.sharedService.currentThreadContent = [];
     const querySnapshotThread = await getDocs(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`));
@@ -445,11 +445,11 @@ async addReaction(emoji: { native: string }, messageId: string) {
     //set path in sharedService
     this.sharedService.messagePath = '';
     this.sharedService.threadPath = '';
-    this.sharedService.messagePath = `channels/${channelId}/messages/${messageID}` ;
+    this.sharedService.messagePath = `channels/${channelId}/messages/${messageID}`;
     this.sharedService.threadPath = `channels/${channelId}/messages/${messageID}/thread`;
     this.sortMessagesTime(this.sharedService.currentThreadContent);
     // console.log('Thread Cotent', this.sharedService.currentThreadContent);
-    this.sharedService.threadContentReady = true ;
+    this.sharedService.threadContentReady = true;
   }
 
   /**

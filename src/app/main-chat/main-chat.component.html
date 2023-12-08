@@ -155,7 +155,7 @@
                 </div>
 
                 <div class="input-send-right">
-                    <button [class.non-empty]="copiedText !== ''" (click)="messageSend()" [disabled]="isSendingMessage">
+                    <button [class.non-empty]="copiedText !== ''" (click)="messageSend()" [disabled]="isSendingMessage || copiedText.length < 1">
                         <i class="material-icons">send</i>
                     </button>
                 </div>
