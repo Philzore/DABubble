@@ -149,6 +149,7 @@ export class DirectChatComponent implements OnInit {
       this.directMessage.calculatedTime = formattedTime;
       this.directMessage.time = date;
       this.directMessage.text = this.copiedTextDirectMsg;
+      this.directMessage.id = String(this.sharedService.directMsgsFromDB.length) ;
       // this.directMessage.reactionsCount = {};
       // this.directMessage.reactions = [];
       this.copiedTextDirectMsg = '';
