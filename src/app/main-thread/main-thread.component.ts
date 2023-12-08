@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output, ViewChild, ElementRef, Renderer2 } fro
 import { SharedService } from '../services/shared.service';
 import { Message } from '../models/message.class';
 import { UserDataService } from '../services/user-data.service';
-import { Firestore, addDoc, collection, doc, getDocs, increment, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDocs, increment, runTransaction, updateDoc } from '@angular/fire/firestore';
 import { MainChatComponent } from '../main-chat/main-chat.component';
 
 
@@ -58,7 +58,6 @@ export class MainThreadComponent {
  */
   onKeydown(event) {
     //to avoid the default action what would be the line break
-    event.preventDefault();
     if ((event.key === "Enter") && (this.copiedText.length >= 1)) {
       this.sendThreadMessage();
     }
@@ -100,14 +99,36 @@ export class MainThreadComponent {
     this.emojiMartVisible = true;
   }
 
-  async addReactionToThreadMessage(emoji: string, messageID) {
+  async addReactionToThreadMessage(emoji: string, messageId: string) {
     let channelId = this.sharedService.filteredChannels[1];
     const singleRef = doc(this.firestore, 'channels', channelId);
-    const messageRef = doc(singleRef, 'messages', messageID);
+    console.log(`${this.sharedService.threadPath}/${messageId}`);
 
+    const messageRef = doc(this.firestore, this.sharedService.threadPath, messageId);
+    await runTransaction(this.firestore, async (transaction) => {
+      // Retrieve existing reactions from Firebase
+      const messageSnapshot = await transaction.get(messageRef);
+      const existingReactions = messageSnapshot.data()?.['reactions'] || [];
+      const exisitingsReactionsCount = messageSnapshot.data()?.['reactionsCount'] || {};
 
+      // Your existing logic for updating local emoji map and count+
+      if (this.selectedMessageId === messageId) {
+        const emojiNative = emoji['emoji']['native'];
+        if (existingReactions.includes(emojiNative)) {
+          exisitingsReactionsCount[emojiNative] = (exisitingsReactionsCount[emojiNative] || 0) + 1;
+        } else {
+          this.emojiMap[messageId] = [...existingReactions, emojiNative];
+          exisitingsReactionsCount[emojiNative] = 1;
+        }
+        (this.threadMessage.reactions as string[]) = this.emojiMap[messageId];
+      }
 
-
+      transaction.update(messageRef, {
+        reactions: this.emojiMap[messageId],
+        reactionsCount: exisitingsReactionsCount,
+      });
+    });
+    this.emojiMartVisible = false;
   }
 
   togglePersonPopup(): void {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../services/shared.service';
 import { UserDataService } from '../services/user-data.service';
-import { Firestore, addDoc, arrayUnion, collection, doc, runTransaction, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, arrayUnion, collection, doc, getDoc, runTransaction, updateDoc } from '@angular/fire/firestore';
 import { Message } from '../models/message.class';
 
 @Component({
@@ -68,7 +68,10 @@ export class DirectChatComponent implements OnInit {
   async addReactionToMessage(emoji: string, messageId: string) {
     // doc for specific document in a collection
     const singleRef = doc(this.firestore, 'directMessages', this.sharedService.currentDirectMsgID);
-    // const messageRef = doc(singleRef, )
+    const messageRefSnap = await getDoc(singleRef);
+    let allMessages =  messageRefSnap.data()['messages'];
+    allMessages[messageId];
+
     await runTransaction(this.firestore, async(transction) => {
 
       const messageSnapshot = await transction.get(singleRef);
