@@ -33,6 +33,11 @@ $purple: #535af1;
         border-radius: 15px;
         padding: 15px;
 
+        &.is-editing {
+            border: 2px solid transparent;
+            transition: all .3s ease-in;
+        }
+
         .group-creator-container {
 
             .group-creator {

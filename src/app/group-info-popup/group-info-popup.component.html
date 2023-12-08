@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div class="group-info-description-container">
+    <div class="group-info-description-container" [ngClass]="{'is-editing': hideEditDescription}">
         <div class="header-container">
             <h3 class="bold">Beschreibung</h3>
             <p class="cursor purple" *ngIf="!hideEditDescription" (click)="changeChannelDescription()">Bearbeiten</p>
@@ -35,7 +35,8 @@
                 <p>{{currentChannel.info.description}}</p>
             </ng-template>
         </div>
-        <hr>
+        <hr *ngIf="!hideEditDescription">
+        <br *ngIf="hideEditDescription">
         <div class="group-creator-container">
             <h3 class="bold">Erstellt von</h3>
             <p class="group-creator">{{currentChannel.info.created}}</p>

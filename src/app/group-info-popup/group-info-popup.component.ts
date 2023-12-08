@@ -80,6 +80,7 @@ export class GroupInfoPopupComponent implements OnInit {
       this.currentChannel.info.description = this.channelDescription;
       this.sharedService.updateChannelInfoDatabase({ description: this.channelDescription }, this.currentChannel.id);
     }
+    this.hideEditDescription = false;
   }
 
   /**
