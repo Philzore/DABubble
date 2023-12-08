@@ -65,10 +65,13 @@
                 {{ message.text }}
               </p>
               <div class="emoji-react-container">
-                <div class="emoji" *ngFor="let reaction of message.reactions">
-                  {{ reaction }}
+                <div class="emoji" *ngFor="let reaction of message.reactionsCount | keyvalue ">
+                    {{ reaction.key }}
+                    <div class="emoji-counter">
+                        {{ reaction.value }}
+                    </div>
                 </div>
-              </div>
+            </div>
             </div>
           </div>
         </div>
@@ -96,11 +99,12 @@
               <p class="message-text">
                 {{ message.text }}
               </p>
-              <div class="emoji-react-container">
-                <div class="emoji" *ngFor="let reaction of message.reactions">
-                  {{ reaction }}
+              <div class="emoji" *ngFor="let reaction of message.reactionsCount | keyvalue ">
+                {{ reaction.key }}
+                <div class="emoji-counter">
+                    {{ reaction.value }}
                 </div>
-              </div>
+            </div>
             </div>
           </div>
         </div>
