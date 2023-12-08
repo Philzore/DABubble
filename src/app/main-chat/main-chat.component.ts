@@ -163,6 +163,11 @@ export class MainChatComponent implements OnInit, OnChanges {
       dialogConfig['position'] = { top: '180px', left: '320px' };
       dialogConfig['panelClass'] = 'group-info-dialog';
     }
+    // to remove border-radius when on full screen
+    else {
+      dialogConfig['position'] = { top: '180px', left: '320px' };
+      
+    }
     const dialogRef = this.dialog.open(GroupInfoPopupComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {

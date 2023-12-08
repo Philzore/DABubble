@@ -1,6 +1,16 @@
 $main-purple: #eceefe;
 $purple: #535af1;
 
+
+
+button {
+    background-color: $purple;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 15px;
+}
+
 .opacity-0-3 {
     opacity: .3 !important;
     cursor: default !important;
@@ -57,7 +67,7 @@ $purple: #535af1;
         justify-content: flex-end;
 
         button {
-            background-color: $purple;
+            background-color: rgb(245, 14, 14);
             color: #fff;
             border: none;
             padding: 10px;

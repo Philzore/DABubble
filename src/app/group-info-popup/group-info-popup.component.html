@@ -8,8 +8,8 @@
     <div class="group-info-name-container" [ngClass]="{'is-editing': isEditing}">
         <div class="header-container">
             <h3 class="bold">Channel - Name</h3>
-            <p class="cursor purple" *ngIf="!isEditing" (click)="changeChannelName()">Bearbeiten</p>
-            <p class="cursor purple" [class.opacity-0-3]="(channelName == '')" *ngIf="isEditing" (click)="saveChannelName()">Speichern</p>
+            <button class="cursor purple" *ngIf="!isEditing" (click)="changeChannelName()">Bearbeiten</button>
+            <button class="cursor purple" [class.opacity-0-3]="(channelName == '')" *ngIf="isEditing" (click)="saveChannelName()">Speichern</button>
         </div>
         <div class="group-info-name">
             <ng-container *ngIf="isEditing; else displayChannelName">
@@ -24,8 +24,8 @@
     <div class="group-info-description-container" [ngClass]="{'is-editing': hideEditDescription}">
         <div class="header-container">
             <h3 class="bold">Beschreibung</h3>
-            <p class="cursor purple" *ngIf="!hideEditDescription" (click)="changeChannelDescription()">Bearbeiten</p>
-            <p class="cursor purple" [class.opacity-0-3]="(channelDescription == '')" *ngIf="hideEditDescription" (click)="saveChannelDescription()">Speichern</p>
+            <button class="cursor purple" *ngIf="!hideEditDescription" (click)="changeChannelDescription()">Bearbeiten</button>
+            <button class="cursor purple" [class.opacity-0-3]="(channelDescription == '')" *ngIf="hideEditDescription" (click)="saveChannelDescription()">Speichern</button>
         </div>
         <div class="group-info-name">
             <ng-container *ngIf="hideEditDescription; else displayDescription">
