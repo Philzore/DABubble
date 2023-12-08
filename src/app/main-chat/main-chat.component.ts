@@ -84,7 +84,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * @param event 
    */
   onKeydown(event) {
-    if ((event.key === "Enter") && (this.copiedText.length >= 1)) {
+    if ((event.key === "Enter") && (this.copiedText.length >= 1) && !this.isWhitespace(this.copiedText)) {
       //to avoid the default action what would be the line break
       event.preventDefault();
       this.messageSend();
@@ -318,7 +318,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   async messageSend() {
-    if (this.copiedText.length >= 1) {
+    if (this.copiedText.length >= 1 && !this.isWhitespace(this.copiedText)) {
       this.sharedService.unsubChannels();
       this.isSendingMessage = true;
       this.message.from = this.userDataService.currentUser['name'];
@@ -460,4 +460,11 @@ export class MainChatComponent implements OnInit, OnChanges {
     array.sort((a, b) => a.time - b.time);
   }
 
+  /**
+   * check if textare has empty lines
+   * 
+   */
+  isWhitespace(line: string): boolean {
+    return /[\s\n]/.test(line);
+  }
 }

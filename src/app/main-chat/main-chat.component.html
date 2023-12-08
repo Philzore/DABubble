@@ -21,10 +21,11 @@
     <mat-toolbar class="chat-header" *ngIf="sharedService.showNewMessageInput">
         <div class="chat-header-search">
             <h2>Neue Nachricht</h2>
-            <input type="text" placeholder="An: #channel, oder @jemand" matInput [formControl]="sharedService.myControl" [matAutocomplete]="auto">
+            <input type="text" placeholder="An: #channel, oder @jemand" matInput [formControl]="sharedService.myControl"
+                [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete" [displayWith]="sharedService.displayFn">
                 <mat-option *ngFor="let option of sharedService.filteredOptions | async" [value]="option">
-                    {{option.name}} 
+                    {{option.name}}
                     {{option.channel}}
                 </mat-option>
             </mat-autocomplete>
@@ -89,9 +90,9 @@
 
                     <div class="emoji-react-container">
                         <div class="emoji" *ngFor="let reaction of message.reactionsCount | keyvalue ">
-                            {{ reaction.key }} 
+                            {{ reaction.key }}
                             <div class="emoji-counter">
-                                {{ reaction.value }} 
+                                {{ reaction.value }}
                             </div>
                         </div>
                     </div>
@@ -155,7 +156,8 @@
                 </div>
 
                 <div class="input-send-right">
-                    <button [class.non-empty]="copiedText !== ''" (click)="messageSend()" [disabled]="isSendingMessage || copiedText.length < 1">
+                    <button [class.non-empty]="(copiedText !== '') && !isWhitespace(copiedText)" (click)="messageSend()"
+                        [disabled]="isSendingMessage || isWhitespace(copiedText)">
                         <i class="material-icons">send</i>
                     </button>
                 </div>
