@@ -58,7 +58,7 @@ export class MainThreadComponent {
  */
   onKeydown(event) {
     //to avoid the default action what would be the line break
-    event.preventDefault();
+    
     if ((event.key === "Enter") && (this.copiedText.length >= 1)) {
       this.sendThreadMessage();
     }
