@@ -563,6 +563,7 @@ $main-purple: #eceefe;
           bottom: 10px;
 
           .input-popups {
+            position: relative;
 
             .member-popup {
               overflow-y:scroll;
@@ -584,9 +585,9 @@ $main-purple: #eceefe;
               .emoji-mart {
 
                   position: absolute;
-                  z-index: 2;
-                  left: 75px;
-                  bottom: 25px;
+                  // z-index: 2;
+                  // left: 75px;
+                  // bottom: 25px;
 
               }
 

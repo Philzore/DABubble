@@ -60,7 +60,7 @@
                     <emoji-mart set="apple" #emojiMartElement
                         *ngIf="emojiMartVisible && selectedMessageId === message.id"
                         (emojiClick)="addReactionToMessage($event ,message.id)"
-                        [style]="{ position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '11'}">
+                        [style]="{ position: 'absolute', bottom: '-250px', right : '100px', 'border-radius': '15px', 'z-index': '11'}">
                     </emoji-mart>
 
                     <div class="info-row-react" [ngClass]="{
@@ -137,7 +137,7 @@
                     <div *ngIf="showAddDataPopup" class="add-data-popup">Datei anhängen</div>
                     <div *ngIf="showEmojiPopup" class="emoji-mart">
                         <emoji-mart (emojiClick)="addEmoji($event)"
-                            [style]="{ position: 'absolute', bottom: '25px', left : '75px', 'border-radius': '15px', 'z-index': '11'}">
+                            [style]="{ position: 'absolute', bottom: '25px', right : '14350px', 'border-radius': '15px', 'z-index': '11'}">
                         </emoji-mart>
                     </div>
                     <div *ngIf="showPersonPopup" class="person-popup">
