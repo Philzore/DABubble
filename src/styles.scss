@@ -34,6 +34,22 @@ $purple: #535af1;
   right: 0 !important;
 }
 
+.reverse-info-row {
+  flex-direction: row-reverse;
+}
+
+.left-100px {
+  position: absolute;
+  left: 100px !important;
+  right: auto !important;
+}
+
+.right-100px {
+  position: absolute;
+  right: 100px !important;
+  left: auto !important;
+}
+
 .right-none {
   right: unset !important;
 }
@@ -580,15 +596,6 @@ $main-purple: #eceefe;
 
               p {
                 margin: 0;
-              }
-
-              .emoji-mart {
-
-                  position: absolute;
-                  // z-index: 2;
-                  // left: 75px;
-                  // bottom: 25px;
-
               }
 
               .chat-member-row {

@@ -58,14 +58,23 @@
                     </div>
 
                     <emoji-mart set="apple" #emojiMartElement
-                        *ngIf="emojiMartVisible && selectedMessageId === message.id"
-                        (emojiClick)="addReactionToMessage($event ,message.id)"
-                        [style]="{ position: 'absolute', bottom: '-250px', right : '100px', 'border-radius': '15px', 'z-index': '11'}">
-                    </emoji-mart>
+                    *ngIf="emojiMartVisible && selectedMessageId === message.id"
+                    (emojiClick)="addReactionToMessage($event, message.id)"
+                    [style]="{
+                        position: 'absolute',
+                        bottom: '-250px',
+                        'border-radius': '15px',
+                        'z-index': '11',
+                        'left': message.from === userDataService.currentUser['name'] ? '100px' : 'auto',
+                        'right': message.from !== userDataService.currentUser['name'] ? '100px' : 'auto'
+                    }">
+                    {{ message.from }}
+                </emoji-mart>
 
                     <div class="info-row-react" [ngClass]="{
                         'left-30px': message.from === userDataService.currentUser['name'],
-                        'right-none': message.from === userDataService.currentUser['name']
+                        'right-none': message.from === userDataService.currentUser['name'],
+                        'reverse-info-row': message.from === userDataService.currentUser['name']
                       }">
                         <ngx-emoji set="apple" class="material-icons" emoji="white_check_mark"
                             (click)="addReaction({ native: '✅' }, message.id)"></ngx-emoji>
@@ -136,8 +145,9 @@
                 <div class="input-popups">
                     <div *ngIf="showAddDataPopup" class="add-data-popup">Datei anhängen</div>
                     <div *ngIf="showEmojiPopup" class="emoji-mart">
+                        <!-- Emoji popup for message -->
                         <emoji-mart (emojiClick)="addEmoji($event)"
-                            [style]="{ position: 'absolute', bottom: '25px', right : '14350px', 'border-radius': '15px', 'z-index': '11'}">
+                            [style]="{ position: 'absolute', bottom: '25px', right : '50px', 'border-radius': '15px', 'z-index': '11'}">
                         </emoji-mart>
                     </div>
                     <div *ngIf="showPersonPopup" class="person-popup">
