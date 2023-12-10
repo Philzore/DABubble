@@ -57,7 +57,7 @@
                         <h4>{{message.from}}</h4> <span class="message-time">{{message.calculatedTime}}</span>
                     </div>
 
-                    <emoji-mart set="apple" #emojiMartElement
+                    <emoji-mart class="emoji-mart-message" set="apple" #emojiMartElement
                     *ngIf="emojiMartVisible && selectedMessageId === message.id"
                     (emojiClick)="addReactionToMessage($event, message.id)"
                     [style]="{
@@ -68,7 +68,6 @@
                         'left': message.from === userDataService.currentUser['name'] ? '100px' : 'auto',
                         'right': message.from !== userDataService.currentUser['name'] ? '100px' : 'auto'
                     }">
-                    {{ message.from }}
                 </emoji-mart>
 
                     <div class="info-row-react" [ngClass]="{
@@ -146,7 +145,7 @@
                     <div *ngIf="showAddDataPopup" class="add-data-popup">Datei anhängen</div>
                     <div *ngIf="showEmojiPopup" class="emoji-mart">
                         <!-- Emoji popup for message -->
-                        <emoji-mart (emojiClick)="addEmoji($event)"
+                        <emoji-mart class="emoji-mart-input" (emojiClick)="addEmoji($event)"
                             [style]="{ position: 'absolute', bottom: '25px', right : '50px', 'border-radius': '15px', 'z-index': '11'}">
                         </emoji-mart>
                     </div>

@@ -130,12 +130,15 @@ export class MainChatComponent implements OnInit, OnChanges {
   // Function to open emoji-mart for a specific message
   openEmojiForMessage(messageID?: string) {
     if (this.selectedMessageId === messageID) {
-      this.emojiMartVisible = false;
+      // Toggle the emoji-mart visibility if clicking on the same message again
+      this.emojiMartVisible = !this.emojiMartVisible;
     } else {
-      this.selectedMessageId = messageID; // Open the emoji-mart for the selected message
+      // Open the emoji-mart for the selected message
+      this.selectedMessageId = messageID;
+      this.emojiMartVisible = true;
     }
-    this.emojiMartVisible = true;
   }
+  
 
 
   /**
