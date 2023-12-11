@@ -39,9 +39,9 @@
 
                     <div class="info-row-react">
                         <ngx-emoji set="apple" class="material-icons" emoji="white_check_mark"
-                            (click)="addCheckMarkAsReaction({ native: '✅' }, message.id)"></ngx-emoji>
+                            (click)="addReaction({ native: '✅' }, message.id)"></ngx-emoji>
                         <ngx-emoji set="apple" class="material-icons" emoji="raised_hands"
-                            (click)="addRaisedHandsAsReaction({  native: '🙌' }, message.id)"></ngx-emoji>
+                            (click)="addReaction({  native: '🙌' }, message.id)"></ngx-emoji>
                         <i class="material-icons" (click)="openEmojiForMessage(message.id)">add_reaction</i>
 
                     </div>

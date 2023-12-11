@@ -402,7 +402,6 @@ export class MainChatComponent implements OnInit, OnChanges {
   }
 
   async addReaction(emoji: { native: string }, messageId: string) {
-
     let channelId = this.sharedService.filteredChannels[1];
     const singleRef = doc(this.firestore, 'channels', channelId);
     const messageRef = doc(singleRef, 'messages', messageId);
