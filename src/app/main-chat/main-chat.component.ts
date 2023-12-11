@@ -139,8 +139,6 @@ export class MainChatComponent implements OnInit, OnChanges {
     }
   }
   
-
-
   /**
    * add name to text are when click on @ symbol and the name
    * 
@@ -168,7 +166,8 @@ export class MainChatComponent implements OnInit, OnChanges {
     }
     // to remove border-radius when on full screen
     else {
-      dialogConfig['position'] = { top: '180px', left: '320px' };
+      dialogConfig['position'] = { top: '50%', left: '50%' };
+
       
     }
     const dialogRef = this.dialog.open(GroupInfoPopupComponent, dialogConfig);
@@ -382,7 +381,6 @@ export class MainChatComponent implements OnInit, OnChanges {
       const messageSnapshot = await transaction.get(messageRef);
       const existingReactions = messageSnapshot.data()?.['reactions'] || [];
       const exisitingsReactionsCount = messageSnapshot.data()?.['reactionsCount'] || {};
-      console.log(existingReactions);
 
       // Your existing logic for updating local emoji map and count
       if (this.selectedMessageId === messageId) {
@@ -395,7 +393,6 @@ export class MainChatComponent implements OnInit, OnChanges {
         }
         (this.message.reactions as string[]) = this.emojiMap[messageId];
       }
-
       transaction.update(messageRef, {
         reactions: this.emojiMap[messageId],
         reactionsCount: exisitingsReactionsCount,

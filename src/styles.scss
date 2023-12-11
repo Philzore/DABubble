@@ -816,12 +816,6 @@ $main-purple: #eceefe;
     margin: 15px !important;
   }
 
-  .cdk-overlay-pane {
-    max-width: 100vw !important;
-    position: static !important;
-    margin: 0 !important;
-  }
-
   app-group-info-popup {
     display: block !important;
     width: 100vw !important;
@@ -853,6 +847,12 @@ $main-purple: #eceefe;
 @media (max-width:500px) {
   .message-container {
     padding: 5px 15px !important;
+  }
+
+  .cdk-overlay-pane {
+    max-width: 100vw !important;
+    position: static !important;
+    margin: 0 !important;
   }
 
   .emoji-mart {
