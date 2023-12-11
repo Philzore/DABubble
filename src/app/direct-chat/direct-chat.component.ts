@@ -71,7 +71,7 @@ export class DirectChatComponent implements OnInit {
     const messageRefSnap = await getDoc(singleRef);
     let allMessages =  messageRefSnap.data()['messages'];
     allMessages[messageId];
-
+    
     await runTransaction(this.firestore, async(transction) => {
 
       const messageSnapshot = await transction.get(singleRef);
@@ -87,6 +87,7 @@ export class DirectChatComponent implements OnInit {
           existingReactionsCount[emojiNative] = 1;
         }
       }
+      
       transction.update(singleRef, {
         reactions: this.emojiMap[messageId],
         reactionsCount: existingReactionsCount,
