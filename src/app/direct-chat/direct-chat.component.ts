@@ -3,6 +3,7 @@ import { SharedService } from '../services/shared.service';
 import { UserDataService } from '../services/user-data.service';
 import { Firestore, addDoc, arrayUnion, collection, doc, getDoc, runTransaction, updateDoc } from '@angular/fire/firestore';
 import { Message } from '../models/message.class';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-direct-chat',
@@ -66,36 +67,40 @@ export class DirectChatComponent implements OnInit {
   }
 
   async addReactionToMessage(emoji: string, messageId: string) {
-    // doc for specific document in a collection
     const singleRef = doc(this.firestore, 'directMessages', this.sharedService.currentDirectMsgID);
     const messageRefSnap = await getDoc(singleRef);
-    let allMessages =  messageRefSnap.data()['messages'];
-    allMessages[messageId];
-    
-    await runTransaction(this.firestore, async(transction) => {
-
-      const messageSnapshot = await transction.get(singleRef);
+    let allMessages = messageRefSnap.data()['messages'];
+  
+    await runTransaction(this.firestore, async (transaction) => {
+      const messageSnapshot = await transaction.get(singleRef);
       const existingReactions = messageSnapshot.data()?.['reactions'] || [];
       const existingReactionsCount = messageSnapshot.data()?.['reactionsCount'] || {};
-
+  
       if (this.selectedMessageId === messageId) {
         const emojiNative = emoji['emoji']['native'];
         if (existingReactions.includes(emojiNative)) {
           existingReactionsCount[emojiNative] = (existingReactionsCount[emojiNative] || 0) + 1;
         } else {
-          this.emojiMap[messageId] = [...existingReactions, emojiNative];
-          existingReactionsCount[emojiNative] = 1;
+          // Update the specific message's reactions and counts
+          if (!allMessages[messageId].reactions) {
+            allMessages[messageId].reactions = [];
+          }
+          if (!allMessages[messageId].reactionsCount) {
+            allMessages[messageId].reactionsCount = {};
+          }
+          allMessages[messageId].reactions.push(emojiNative);
+          allMessages[messageId].reactionsCount[emojiNative] = 1;
         }
       }
-      
-      transction.update(singleRef, {
-        reactions: this.emojiMap[messageId],
-        reactionsCount: existingReactionsCount,
+      // Update the entire messages array in the transaction
+      transaction.update(singleRef, {
+        messages: allMessages,
       });
-    }) 
+    });
     this.emojiMartVisible = false;
   }
-
+  
+  
   addCheckMarkAsReaction(emoji: { native: string }, messageId: string) {
     const existingEmojis = this.emojiMap[messageId] || [];
     const emojiNative = emoji.native;
