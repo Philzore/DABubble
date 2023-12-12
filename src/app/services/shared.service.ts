@@ -48,7 +48,6 @@ export class SharedService {
   threadPath: string = '';
   currentThreadContent = [];
   threadContentReady: boolean = false;
-  closingThreadFromSidebar:boolean = false;
 
   //direct messages
   showDirectMessageView: boolean = false;

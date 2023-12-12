@@ -296,7 +296,10 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   closeThread() {
-    this.unsubThread();
+    if (this.unsubThread) {
+      this.unsubThread();
+    }
+    
     this.threadClosed.emit();
     this.threadOpen = false;
     this.lastMessageId = '';

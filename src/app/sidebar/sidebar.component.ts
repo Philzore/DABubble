@@ -52,7 +52,7 @@ import { share } from 'rxjs';
   ]
 })
 export class SidebarComponent implements OnInit {
-  @Output() changeChannel = new EventEmitter<string>();
+  @Output() openDirectMsg = new EventEmitter<string>();
   specificWidth = 1200;
   channelDropdown: boolean = false;
   messageDropdown: boolean = false;
@@ -81,6 +81,11 @@ export class SidebarComponent implements OnInit {
       this.sidebarClose = state;
     });
     this.userData = this.userDataService.getCurrentUser();
+
+  }
+
+  closeThread(){
+    this.openDirectMsg.emit();
   }
 
   /**

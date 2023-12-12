@@ -1,10 +1,10 @@
 <app-desktop-header></app-desktop-header>
 
 <section class="chat-section">
-    <app-sidebar ></app-sidebar>
+    <app-sidebar (openDirectMsg)="toogleThread()"></app-sidebar>
     <app-main-chat [hidden]="sharedService.showDirectMessageView" [threadToogleFromOutside]="OutputToogleThread"  (threadClosed)="hideThreadContainer()" ></app-main-chat>
     <app-direct-chat [hidden]="sharedService.showChannelView"></app-direct-chat>
-    <app-main-thread *ngIf="!hideThread" (unsubThreadEvent)="toogleThread()"  [@enter]=""></app-main-thread>
+    <app-main-thread *ngIf="!hideThread && !sharedService.showDirectMessageView" (unsubThreadEvent)="toogleThread()"  [@enter]=""></app-main-thread>
 </section>
 
 

@@ -65,7 +65,7 @@
       <div>
         <!-- user container for direct messages -->
         <div class="list-container direct-message" *ngIf="messageDropdown" [@dropDownMenu]>
-          <div *ngFor="let user of userDataService.usersFromDatabase" class="single-entry" (click)="this.sharedService.openDirectMsg(user, userDataService.currentUser['name'])" (click)="closeSidebarResponsive()">
+          <div *ngFor="let user of userDataService.usersFromDatabase" class="single-entry" (click)="this.sharedService.openDirectMsg(user, userDataService.currentUser['name'])" (click)="closeSidebarResponsive()" (click)="closeThread()">
             <img src= '{{user.avatar}}' referrerpolicy="no-referrer">
             <span class="point">&#9679;</span>
             <p>{{user.name}} <span *ngIf="user.name == userDataService.currentUser['name']">(Du)</span></p>
