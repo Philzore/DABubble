@@ -101,29 +101,34 @@ export class DirectChatComponent implements OnInit {
   }
   
   
-  addCheckMarkAsReaction(emoji: { native: string }, messageId: string) {
-    const existingEmojis = this.emojiMap[messageId] || [];
+  async addReaction(emoji: { native: string }, messageId: string) {
+    const singleRef = doc(this.firestore, 'directMessages', this.sharedService.currentDirectMsgID);
+    const messageRefSnap = await getDoc(singleRef);
+    const allMessages = messageRefSnap.data()?.['messages'] || {};
+  
     const emojiNative = emoji.native;
-
-    if (existingEmojis.includes(emojiNative)) {
-      this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
-    } else {
-      this.emojiMap[messageId] = [...existingEmojis, emojiNative];
-      this.emojiCountMap[emojiNative] = 1;
+  
+    if (allMessages[messageId]) {
+      // Update the specific message's reactions and counts
+      allMessages[messageId].reactions = allMessages[messageId].reactions || [];
+      allMessages[messageId].reactionsCount = allMessages[messageId].reactionsCount || {};
+  
+      if (allMessages[messageId].reactions.includes(emojiNative)) {
+        allMessages[messageId].reactionsCount[emojiNative] = (allMessages[messageId].reactionsCount[emojiNative] || 0) + 1;
+      } else {
+        allMessages[messageId].reactions.push(emojiNative);
+        allMessages[messageId].reactionsCount[emojiNative] = 1;
+      }
+  
+      // Update the entire messages array
+      await updateDoc(singleRef, {
+        messages: allMessages,
+      });
     }
+  
+    this.emojiMartVisible = false;
   }
-
-  addRaisedHandsAsReaction(emoji: { native: string }, messageId: string) {
-    const existingEmojis = this.emojiMap[messageId] || [];
-    const emojiNative = emoji.native;
-
-    if (existingEmojis.includes(emojiNative)) {
-      this.emojiCountMap[emojiNative] = (this.emojiCountMap[emojiNative] || 0) + 1;
-    } else {
-      this.emojiMap[messageId] = [...existingEmojis, emojiNative];
-      this.emojiCountMap[emojiNative] = 1;
-    }
-  }
+  
 
   // Function to open emoji-mart for a specific message
   openEmojiForMessage(messageID?: string) {
