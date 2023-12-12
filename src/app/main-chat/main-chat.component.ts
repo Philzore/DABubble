@@ -55,6 +55,8 @@ export class MainChatComponent implements OnInit, OnChanges {
   @Input() threadToogleFromOutside: boolean;
   @Output() threadClosed = new EventEmitter<void>();
 
+  
+
 
   constructor(
     public dialog: MatDialog,
@@ -69,6 +71,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
     });
+    
   }
 
   async ngOnInit() {
