@@ -816,6 +816,12 @@ $main-purple: #eceefe;
     margin: 15px !important;
   }
 
+  .cdk-overlay-pane {
+    max-width: 100vw !important;
+    position: static !important;
+    margin: 0 !important;
+  }
+
   app-group-info-popup {
     display: block !important;
     width: 100vw !important;
@@ -849,12 +855,6 @@ $main-purple: #eceefe;
     padding: 5px 15px !important;
   }
 
-  .cdk-overlay-pane {
-    max-width: 100vw !important;
-    position: static !important;
-    margin: 0 !important;
-  }
-
   .emoji-mart {
     max-width: 400px;
     left:30px !important;
@@ -869,6 +869,8 @@ $main-purple: #eceefe;
       white-space: nowrap;
     }
 
+    
+
     span {
       white-space: nowrap;
     }
@@ -876,6 +878,13 @@ $main-purple: #eceefe;
 
   .input-container {
     margin: 15px !important;
+  }
+
+  app-group-add-member {
+    display: block !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: 100%;
   }
 
 }

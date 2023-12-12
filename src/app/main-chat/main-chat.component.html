@@ -45,7 +45,7 @@
 
         <!-- MESSAGE DESIGN IF SOMEBODYS ELSE MESSAGE START -->
 
-        <div *ngFor="let message of sharedService.channelMessagesFromDB" class="message-container cursor"
+        <div *ngFor="let message of sharedService.channelMessagesFromDB" #messageContainer class="message-container cursor"
             [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}">
 
 

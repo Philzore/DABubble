@@ -47,6 +47,7 @@ import { GroupMemberInfoComponent } from './group-member-info/group-member-info.
 import { Emoji, EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { DirectChatComponent } from './direct-chat/direct-chat.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { RouterModule, Routes } from '@angular/router';
 
 
 

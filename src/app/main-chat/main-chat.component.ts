@@ -15,6 +15,10 @@ import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { User } from '../models/user.class';
 import { NgZone } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+
+
 
 
 
@@ -52,6 +56,7 @@ export class MainChatComponent implements OnInit, OnChanges {
   selectedMessageId: string | null = null;
   @ViewChild('scrollButton') scrollButton: ElementRef;
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
+  @ViewChild('messageContainer') private messageContainer: ElementRef;
   @Input() threadToogleFromOutside: boolean;
   @Output() threadClosed = new EventEmitter<void>();
 
@@ -67,6 +72,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     private renderer: Renderer2,
     private firestore: Firestore,
     private ngZone: NgZone,
+    private router: Router,
     public appComponent: AppComponent,) {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
@@ -78,8 +84,6 @@ export class MainChatComponent implements OnInit, OnChanges {
     await this.sharedService.getChannelsFromDataBase('first');
     this.sharedService.createSubscribeChannelMessages();
   }
-
-
 
   /**
    * check if enter key is pressed , if yes, send message
@@ -167,11 +171,9 @@ export class MainChatComponent implements OnInit, OnChanges {
       dialogConfig['position'] = { top: '180px', left: '320px' };
       dialogConfig['panelClass'] = 'group-info-dialog';
     }
-    // to remove border-radius when on full screen
     else {
-      dialogConfig['position'] = { top: '50%', left: '50%' };
+      dialogConfig['position'] = { top: '180px', left: '320px' };
 
-      
     }
     const dialogRef = this.dialog.open(GroupInfoPopupComponent, dialogConfig);
 
@@ -193,16 +195,23 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   openAddMemberPopUp(): void {
-    const dialogRef = this.dialog.open(GroupAddMemberComponent, { position: { top: '180px', right: '70px' }, panelClass: 'custom-logout-dialog', data: this.sharedService.filteredChannels });
-
+    const isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
+  
+    const dialogConfig = {
+      data: this.sharedService.filteredChannels,
+      position: isScreenWidthGreaterThan1200 ? { top: '180px', right: '70px' } : {},
+      ...(isScreenWidthGreaterThan1200 ? { panelClass: 'custom-logout-dialog' } : {})
+    };
+  
+    const dialogRef = this.dialog.open(GroupAddMemberComponent, dialogConfig);
+  
     dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        if (result.event == 'start') {
-          this.appComponent.showFeedback('Die Nutzer wurden dem Channel hinzugefügt');
-        }
+      if (result && result.event === 'start') {
+        this.appComponent.showFeedback('Die Nutzer wurden dem Channel hinzugefügt');
       }
     });
   }
+  
 
   /**
    * open add Data dialog in chat
@@ -377,20 +386,61 @@ export class MainChatComponent implements OnInit, OnChanges {
   }
 
   async addReactionToMessage(emoji: string, messageId: string) {
-    let channelId = this.sharedService.filteredChannels[1];
-    const singleRef = doc(this.firestore, 'channels', channelId);
-    const messageRef = doc(singleRef, 'messages', messageId);
+    try {
+      let channelId = this.sharedService.filteredChannels[1];
+      const singleRef = doc(this.firestore, 'channels', channelId);
+      const messageRef = doc(singleRef, 'messages', messageId);
+  
+      // Use transaction to handle concurrency issues
+      await runTransaction(this.firestore, async (transaction) => {
+        // Retrieve existing reactions from Firebase
+        const messageSnapshot = await transaction.get(messageRef);
+        const existingReactions = messageSnapshot.data()?.['reactions'] || [];
+        const exisitingsReactionsCount = messageSnapshot.data()?.['reactionsCount'] || {};
+  
+        // Your existing logic for updating local emoji map and count
+        if (this.selectedMessageId === messageId) {
+          const emojiNative = emoji['emoji']['native'];
+          if (existingReactions.includes(emojiNative)) {
+            exisitingsReactionsCount[emojiNative] = (exisitingsReactionsCount[emojiNative] || 0) + 1;
+          } else {
+            this.emojiMap[messageId] = [...existingReactions, emojiNative];
+            exisitingsReactionsCount[emojiNative] = 1;
+          }
+          (this.message.reactions as string[]) = this.emojiMap[messageId];
+        }
+  
+        // Ensure this.emojiMap[messageId] is defined before updating Firestore
+        if (this.emojiMap[messageId] !== undefined) {
+          transaction.update(messageRef, {
+            reactions: this.emojiMap[messageId],
+            reactionsCount: exisitingsReactionsCount,
+          });
+        } else {
+          console.error(`this.emojiMap[${messageId}] is undefined`);
+        }
+      });
+  
+      this.emojiMartVisible = false;
+    } catch (error) {
+      console.error('Error adding reaction:', error);
+    }
+    
+  }
+  
 
-    // Use transaction to handle concurrency issues
-    await runTransaction(this.firestore, async (transaction) => {
-      // Retrieve existing reactions from Firebase
-      const messageSnapshot = await transaction.get(messageRef);
-      const existingReactions = messageSnapshot.data()?.['reactions'] || [];
-      const exisitingsReactionsCount = messageSnapshot.data()?.['reactionsCount'] || {};
-
-      // Your existing logic for updating local emoji map and count
-      if (this.selectedMessageId === messageId) {
-        const emojiNative = emoji['emoji']['native'];
+  async addReaction(emoji: { native: string }, messageId: string) {
+    try {
+      let channelId = this.sharedService.filteredChannels[1];
+      const singleRef = doc(this.firestore, 'channels', channelId);
+      const messageRef = doc(singleRef, 'messages', messageId);
+  
+      await runTransaction(this.firestore, async (transaction) => {
+        const emojiNative = emoji.native;
+        const messageSnapshot = await transaction.get(messageRef);
+        const existingReactions = messageSnapshot.data()?.['reactions'] || [];
+        const exisitingsReactionsCount = messageSnapshot.data()?.['reactionsCount'] || {};
+  
         if (existingReactions.includes(emojiNative)) {
           exisitingsReactionsCount[emojiNative] = (exisitingsReactionsCount[emojiNative] || 0) + 1;
         } else {
@@ -398,41 +448,23 @@ export class MainChatComponent implements OnInit, OnChanges {
           exisitingsReactionsCount[emojiNative] = 1;
         }
         (this.message.reactions as string[]) = this.emojiMap[messageId];
-      }
-      transaction.update(messageRef, {
-        reactions: this.emojiMap[messageId],
-        reactionsCount: exisitingsReactionsCount,
+  
+        // Ensure this.emojiMap[messageId] is defined before updating Firestore
+        if (this.emojiMap[messageId] !== undefined) {
+          transaction.update(messageRef, {
+            reactions: this.emojiMap[messageId],
+            reactionsCount: exisitingsReactionsCount,
+          });
+        } else {
+          console.error(`this.emojiMap[${messageId}] is undefined`);
+        }
       });
-    });
-    this.emojiMartVisible = false;
+    } catch (error) {
+      console.error('Error adding reaction:', error);
+    }
+    
   }
-
-  async addReaction(emoji: { native: string }, messageId: string) {
-    let channelId = this.sharedService.filteredChannels[1];
-    const singleRef = doc(this.firestore, 'channels', channelId);
-    const messageRef = doc(singleRef, 'messages', messageId);
-
-    await runTransaction(this.firestore, async (transaction) => {
-      const emojiNative = emoji.native;
-      const messageSnapshot = await transaction.get(messageRef);
-      const existingReactions = messageSnapshot.data()?.['reactions'] || [];
-      const exisitingsReactionsCount = messageSnapshot.data()?.['reactionsCount'] || {};
-
-      if (existingReactions.includes(emojiNative)) {
-        exisitingsReactionsCount[emojiNative] = (exisitingsReactionsCount[emojiNative] || 0) + 1;
-      } else {
-        this.emojiMap[messageId] = [...existingReactions, emojiNative];
-        exisitingsReactionsCount[emojiNative] = 1;
-      }
-      (this.message.reactions as string[]) = this.emojiMap[messageId];
-
-      transaction.update(messageRef, {
-        reactions: this.emojiMap[messageId],
-        reactionsCount: exisitingsReactionsCount,
-
-      });
-    });
-  }
+  
 
 
 

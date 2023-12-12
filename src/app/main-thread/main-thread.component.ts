@@ -90,13 +90,12 @@ export class MainThreadComponent {
   }
 
   openEmojiForMessage(messageID?: string) {
-    console.log('this is the message id of clicked message', messageID);
     if (this.selectedMessageId === messageID) {
-      this.emojiMartVisible = false;
+      this.emojiMartVisible = !this.emojiMartVisible;
     } else {
       this.selectedMessageId = messageID;
+      this.emojiMartVisible = true;
     }
-    this.emojiMartVisible = true;
   }
 
   async addReactionToThreadMessage(emoji: string, messageId: string) {
