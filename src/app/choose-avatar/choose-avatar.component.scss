@@ -1,6 +1,7 @@
 //---------------------------------- HEADER ----------------------- //
 .header {
     margin: 32px;
+    display: flex;
     position: absolute;
     top: 0;
     left: 0;
@@ -36,25 +37,6 @@
     gap: 16px;
 }
 
-//------------------ BACK ARROW ICON ------------------- //
-
-.back-icon-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    transition: 0.2s;
-
-    position: absolute;
-    left: 0;
-
-    &:hover {
-        background-color: #ECEEFE;
-        border-radius: 50px;
-        cursor: pointer;
-    }
-}
-
 //--------------- CHOOSE AVATAR HEADER CONTAINER ---------------- // 
 
 .choose-avatar-headline-container {
@@ -65,10 +47,21 @@
 
     position: relative;
 
+    .back-icon{
+        position: absolute;
+        left: 0;
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+
     .choose-avatar-headline {
         color: #444DF2;
         font-size: 40px;
         font-weight: 700;
+        width: 100%;
+        text-align: center;
     }
 }
 
@@ -243,36 +236,24 @@
     .header {
         justify-content: center;
     }
-
-    .avatar-container {
-        padding: 24px !important;
-        gap: 16px !important;
-    }
-
     .choose-avatar-headline {
         font-size: 24px !important;
     }
-
     .choose-from-list-span {
         font-size: 16px !important;
     }
-
     .choose-own-image-span {
         font-size: 16px !important;
     }
-
     .choose-own-image-button {
         font-size: 16px !important;
     }
-
     .next-button {
         font-size: 16px !important;
     }
-
     .impressum {
         font-size: 16px !important;
     }
-
     .datenschutz {
         font-size: 16px !important;
     }
