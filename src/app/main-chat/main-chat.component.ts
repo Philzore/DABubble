@@ -540,7 +540,8 @@ export class MainChatComponent implements OnInit, OnChanges {
    * check if textare has empty lines
    * 
    */
-  isWhitespace(line: string): boolean {
-    return /[\s\n]/.test(line);
+
+ isWhitespace(line: string): any {
+    //return /[\s\n]/.test(line);
   }
 }

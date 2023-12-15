@@ -48,6 +48,7 @@
     box-sizing: border-box;
 
     max-width: 500px;
+    width: 100%;
 
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); //
 
@@ -361,32 +362,6 @@
     }
 }
 
-
-/*/
-// ANIMATION FOR LOGO TO SLIDE TO THE LEFT
-@keyframes slideInLogo {
-    from {
-        left: 0px;
-    }
-
-    to {
-        left: -100px;
-    }
-}
-
-// ANIMATION FOR LOGO-TITLE TO SLIDE TO THE RIGHT
-@keyframes slideInTitle {
-    from {
-        left: -200px;
-    }
-
-    to {
-        left: 200px;
-        opacity: 1;
-    }
-}
-/*/
-
 .logo-image {
     animation: moveToLeftCorner 3s;
 
@@ -402,54 +377,6 @@
         transform: translate(0, 0);
     }
 }
-
-/*/
-@keyframes transparentBackground {
-    0% {
-        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 1), rgba(50, 59, 229, 1));
-    }
-
-    10% {
-        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.9), rgba(50, 59, 229, 0.9));
-    }
-
-    20% {
-        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.8), rgba(50, 59, 229, 0.8));
-    }
-
-    30% {
-        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.7), rgba(50, 59, 229, 0.7));
-    }
-
-    40% {
-        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.6), rgba(50, 59, 229, 0.6));
-    }
-
-    50% {
-        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.5), rgba(50, 59, 229, 0.5));
-    }
-
-    60% {
-        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.4), rgba(50, 59, 229, 0.4));
-    }
-
-    70% {
-        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.3), rgba(50, 59, 229, 0.3));
-    }
-
-    80% {
-        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.2), rgba(50, 59, 229, 0.2));
-    }
-
-    90% {
-        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0.1), rgba(50, 59, 229, 0.1));
-    }
-
-    100% {
-        background-image: linear-gradient(to bottom, rgba(121, 126, 243, 0), rgba(50, 59, 229, 0));
-    }
-}
-/*/
 
 //-------------RESPONSIVE-------------//
 @media (max-width: 600px) {
