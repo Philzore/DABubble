@@ -17,6 +17,8 @@ import { User } from '../models/user.class';
 import { NgZone } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+
 
 
 
@@ -50,7 +52,10 @@ export class MainChatComponent implements OnInit, OnChanges {
   showScrollButton = false;
   isSendingMessage = false;
   runtime = false;
+  groupInfoPopUpOpen: boolean = false; 
+  groupMemberPopUpOpen: boolean = false;
   isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
+  isSmallScreen: boolean;
   emojiMap: { [messageId: string]: string[] } = {};
   emojiCountMap: { [emoji: string]: number } = {};
   selectedMessageId: string | null = null;
@@ -69,6 +74,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     public sharedService: SharedService,
     public userDataService: UserDataService,
     private elementRef: ElementRef,
+    private breakpointObserver: BreakpointObserver,
     private renderer: Renderer2,
     private firestore: Firestore,
     private ngZone: NgZone,
@@ -80,10 +86,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     
   }
 
-  async ngOnInit() {
-    await this.sharedService.getChannelsFromDataBase('first');
-    this.sharedService.createSubscribeChannelMessages();
-  }
+  
 
   /**
    * check if enter key is pressed , if yes, send message
@@ -96,6 +99,13 @@ export class MainChatComponent implements OnInit, OnChanges {
       event.preventDefault();
       this.messageSend();
     }
+  }
+
+  closeGroupMemberPopUp() {
+      if(this.isSmallScreen) {
+      this.dialogRef.close();
+      }
+      this.groupMemberPopUpOpen = false;
   }
 
 
@@ -164,6 +174,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   openGroupInfoPopUp(): void {
+    this.groupInfoPopUpOpen = true;
     const dialogConfig = {
       data: this.sharedService.filteredChannels
     };
@@ -184,11 +195,34 @@ export class MainChatComponent implements OnInit, OnChanges {
         }
       }
     });
+    this.groupInfoPopUpOpen = false;
   }
 
-  openGroupMemberPopUp() {
-    this.dialog.open(GroupMemberComponent, { position: { top: '180px', right: '150px' }, panelClass: 'group-member-dialog', data: this.sharedService.filteredChannels });
+  async ngOnInit() {
+    await this.sharedService.getChannelsFromDataBase('first');
+    this.sharedService.createSubscribeChannelMessages();
+    this.breakpointObserver.observe('(max-width: 1199px)').subscribe(result => {
+      this.isSmallScreen = result.matches;
+      if(this.isSmallScreen) {
+        if(this.groupMemberPopUpOpen) {
+          this.closeGroupMemberPopUp();
+          if(!this.groupInfoPopUpOpen) {
+            this.openGroupInfoPopUp();
+          }
+        }
+      }
+    });
   }
+
+    openGroupMemberPopUp() {
+      this.groupMemberPopUpOpen = true;
+      this.dialogRef = this.dialog.open(GroupMemberComponent, {
+        position: { top: '180px', right: '150px' },
+        panelClass: 'group-member-dialog',
+        data: this.sharedService.filteredChannels
+      });
+    }
+
 
   /**
    * open Add Member dialog
