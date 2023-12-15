@@ -1,7 +1,5 @@
 //---------------------------------- HEADER ----------------------- //
 .header {
-    display: flex;
-    align-items: center;
     margin: 32px;
     position: absolute;
     left: 0;
@@ -32,15 +30,10 @@
     border-radius: 30px;
     box-sizing: border-box;
     padding: 32px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
-
-    margin-left: 16px;
-    margin-right: 16px;
-
     position: relative;
 }
 
@@ -192,8 +185,12 @@
 
 .impressum-datenschutz {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     gap: 16px;
+    position: absolute;
+    bottom: 2em;
+    left: 0;
+    right: 0;
 
     .impressum {
         font-size: 18px;
@@ -223,6 +220,7 @@
 .error-message {
     color: red;
     font-size: 16px !important;
+    text-align: center;
 }
 
 //-------------RESPONSIVE-------------//
@@ -231,51 +229,29 @@
     .header {
         justify-content: center;
     }
-
     .register-container{
         gap: 16px !important;
-        padding: 24px !important;
     }
-
     .register-headline-container{
         gap: 16px !important;
     }
-
     .register-headline {
         font-size: 24px !important;
     }
-
     .register-notice {
         font-size: 16px !important;
         line-height: unset !important;
     }
-
     .inputfield{
         font-size: 16px !important;
     }
-
-    .next-button{
+ .next-button{
         font-size: 16px !important;
     }
-
-    .register-container {
-        padding: 40px !important;
-        gap: 24px !important;
-    }
-
- 
-
     .impressum{
         font-size: 16px !important;
     }
     .datenschutz{
         font-size: 16px !important;
-    }
-}
-
-@media (max-width: 440px) {
-    .register-container {
-        padding-left: 16px !important;
-        padding-right: 16px !important;
     }
 }

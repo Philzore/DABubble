@@ -1,10 +1,12 @@
-<div class="header">
+
+
+<div class="content">
+
+    <div class="header">
     <div class="image-container">
         <img src="assets/icons/logo_with_text.png">
     </div>
 </div>
-
-<div class="content">
 
     <div class="avatar-container">
 
@@ -25,17 +27,20 @@
             </span>
         </div>
 
-        <div class="choose-avatar-title">
-            <span class="choose-from-list-span">
-                Aus der Liste wählen
-            </span>
-        </div>
-
-        <div class="character-images-container">
-            <div class="image-container" *ngFor="let character of characters; let i = index">
-                <img class="image" [src]="character" (click)="selectCharacter(i)" alt="Character">
+        <div class="choose-own-character">
+            <div class="choose-avatar-title">
+                <span class="choose-from-list-span">
+                    Aus der Liste wählen
+                </span>
+            </div>
+    
+            <div class="character-images-container">
+                <div class="image-container" *ngFor="let character of characters; let i = index">
+                    <img class="image" [src]="character" (click)="selectCharacter(i)" alt="Character">
+                </div>
             </div>
         </div>
+    
 
 
         <div class="choose-own-image-container">

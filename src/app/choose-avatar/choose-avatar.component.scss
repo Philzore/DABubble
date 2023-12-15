@@ -1,8 +1,10 @@
 //---------------------------------- HEADER ----------------------- //
 .header {
-    display: flex;
-    align-items: center;
     margin: 32px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 // -------------------- CONTENT ------------------------ //
@@ -13,6 +15,9 @@
     align-items: center;
     flex-direction: column;
     gap: 64px;
+    height: 100vh;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 // --------------------- AVATAR CONTAINER ------------------- // 
@@ -28,10 +33,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px;
-
-    margin-left: 16px;
-    margin-right: 16px;
+    gap: 16px;
 }
 
 //------------------ BACK ARROW ICON ------------------- //
@@ -72,7 +74,7 @@
 
 // ---------------- CHOOSE AVATAR ICON CONTAINER ------------------ // 
 
-.avatar{
+.avatar {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -89,14 +91,13 @@
     border: 4px solid transparent;
     width: 100%;
 
-        img{
-            border-radius: 100%;
-            height: 150px;
-            width: 150px;
-            object-fit: cover;
-        }
+    img {
+        border-radius: 100%;
+        height: 10em;
+        width: 10em;
+        object-fit: cover;
+    }
 }
-
 
 .registered-user-name {
     font-size: 32px;
@@ -119,16 +120,16 @@
 
 .character-images-container {
     display: flex;
-    justify-content: space-between;
     width: 100%;
+    gap: 4px;
 
 
     .image {
-        max-width: 60px;
-        border-radius: 100%;
+        width: 75%;
         border-radius: 100%;
         border: 4px solid transparent;
         transition: 0.2s;
+
         &:hover {
             cursor: pointer;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
@@ -139,9 +140,10 @@
 
 
 // ----------------- CHOOSE OWN IMAGE SPAN -------------------- //
-.choose-avatar-title{
+.choose-avatar-title {
     width: 100%;
 }
+
 .choose-own-image-container {
     display: flex;
     align-items: center;
@@ -206,8 +208,12 @@
 
 .impressum-datenschutz {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     gap: 16px;
+    position: absolute;
+    bottom: 2em;
+    left: 0;
+    right: 0;
 
     .impressum {
         font-size: 18px;
@@ -234,11 +240,11 @@
 
 //-------------RESPONSIVE-------------//
 @media (max-width: 600px) {
-    .header{
+    .header {
         justify-content: center;
     }
 
-    .avatar-container{
+    .avatar-container {
         padding: 24px !important;
         gap: 16px !important;
     }
@@ -247,38 +253,38 @@
         font-size: 24px !important;
     }
 
-    .choose-from-list-span{
+    .choose-from-list-span {
         font-size: 16px !important;
     }
 
-    .choose-own-image-span{
+    .choose-own-image-span {
         font-size: 16px !important;
     }
 
-    .choose-own-image-button{
+    .choose-own-image-button {
         font-size: 16px !important;
     }
 
-    .next-button{
+    .next-button {
         font-size: 16px !important;
     }
 
-    .image{
-        max-width: 45px !important;
-    }
-
-    .impressum{
+    .impressum {
         font-size: 16px !important;
     }
 
-    .datenschutz{
+    .datenschutz {
         font-size: 16px !important;
     }
 }
 
 @media (max-width: 450px) {
-
-    .image{
-        max-width: 35px !important;
+    .choose-own-image-container {
+        flex-direction: column;
     }
+
+    .choose-avatar-title {
+        text-align: center;
+    }
+
 }
