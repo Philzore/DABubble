@@ -43,7 +43,8 @@
     align-items: center;
     flex-direction: column;
     gap: 64px;
-    padding: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
     height: 100vh;
 }
 
@@ -111,7 +112,7 @@
     box-sizing: border-box;
     outline: none;
     width: 100%;
-    height: 55px;
+    height: 3em;
     background: #ECEEFE;
     border-radius: 100px;
 
@@ -178,7 +179,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 55px;
+    height: 3em;
     width: 100%;
     border-radius: 100px;
     background-color: #ECEEFE;
@@ -212,15 +213,25 @@
 
 .button-container {
     display: flex;
-    justify-content: space-evenly;
     align-items: center;
+    justify-content: center;
     width: 100%;
+    gap: 3em;
+
+    .login-button-container{
+        width: 100%;
+    }
+
+    .guest-login-button-container{
+        width: 100%;
+    }
 
     .login-button {
         font-size: 18px;
         font-weight: 600;
-        padding: 12px 25px;
+        padding: 16px 24px;
         border-radius: 25px;
+        width: 100%;
         color: white;
         background-color: #444DF2;
         outline: none;
@@ -238,8 +249,9 @@
     .guest-login-button {
         font-size: 18px;
         font-weight: 700;
-        padding: 12px 25px;
+        padding: 16px 24px;
         border-radius: 25px;
+        width: 100%;
         color: #444DF2;
         background-color: white;
         border: 1px solid #797EF3;
@@ -264,6 +276,10 @@
     justify-content: center;
 
     gap: 16px;
+    position: absolute;
+    bottom: 1em;
+    left: 0;
+    right: 0;
 
     .impressum {
         font-size: 18px;
@@ -299,9 +315,11 @@
 //------- MOBILE REGISTER CONTAINER-------//
 
 .mobile-register-container {
-    display: flex;
-    flex-direction: column;
     display: none;
+    flex-direction: column;
+    position: absolute;
+    bottom: 5em;
+
 
     .question {
         font-weight: 400;
@@ -427,10 +445,6 @@
 
     .google-login {
         font-size: 16px !important;
-    }
-
-    .button-container {
-        width: 280px;
     }
 
     .login-button {
