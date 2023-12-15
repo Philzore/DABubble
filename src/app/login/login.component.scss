@@ -1,5 +1,4 @@
 //---------------------------------- HEADER ----------------------- //
-
 .header {
     display: flex;
     justify-content: space-between;
@@ -9,23 +8,19 @@
     top: 0;
     left: 0;
     right: 0;
-
     .register-container {
         display: flex;
         flex-direction: column;
-
         .question {
             font-weight: 400;
             font-size: 18px;
         }
-
         .register-link {
             color: #797EF3;
             font-weight: 400;
             font-size: 18px;
             text-align: center;
             transition: 0.2s;
-
             &:hover {
                 color: #444DF2;
                 cursor: pointer;
@@ -33,41 +28,29 @@
         }
     }
 }
-
-
-
 /*/----------------- LOGIN CONTAINER -------------/*/
 .content {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    gap: 64px;
     padding-left: 16px;
     padding-right: 16px;
     height: 100vh;
 }
-
 .login-container {
     background-color: white;
     border-radius: 30px;
     padding: 32px;
     box-sizing: border-box;
-
     max-width: 450px;
     width: 100%;
-
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); //
-
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
 }
-
-
 /*/----------- LOGIN HEADER -----------------/*/
-
 .login-container-header {
     display: flex;
     flex-direction: column;
@@ -75,13 +58,11 @@
     justify-content: space-between;
     gap: 43px;
     width: 100%;
-
     .login-headline {
         color: #444DF2;
         font-size: 40px;
         font-weight: 700;
     }
-
     .recommendation {
         font-size: 18px;
         font-weight: 400;
@@ -89,16 +70,11 @@
         line-height: 24px;
     }
 }
-
-
-
 //----------------- FORGOT PASSWORD CONTAINER ------------- //
 .forgot-password-container {
     display: flex;
     justify-content: center;
     width: 100%;
-
-
     .forgot-password {
         display: flex;
         justify-content: center;
@@ -111,7 +87,6 @@
         height: 32px;
         border-radius: 30px;
         transition: 0.2s;
-
         &:hover {
             color: #444DF2;
             cursor: pointer;
@@ -120,31 +95,24 @@
         }
     }
 }
-
-
 // ---------------------- OR CONTAINER -------------------- //
 .or-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-
     .other {
         font-size: 18px;
         font-weight: 400;
         line-height: 24.55px;
         padding: 5px 15px;
     }
-
     img {
         height: 5px;
         width: 100%;
     }
 }
-
-
 // ------------------- GOOGLE-LOGIN----------------------- //
-
 .google-container {
     display: flex;
     justify-content: center;
@@ -156,11 +124,9 @@
     outline: none;
     border: 1px solid transparent;
     transition: 0.2s;
-
     img {
         margin-right: 16px;
     }
-
     &:hover {
         cursor: pointer;
         border: 1px solid grey;
@@ -171,31 +137,25 @@
         }
     }
 }
-
 .google-login {
     font-size: 18px;
     font-weight: 400;
     line-height: 21.6px;
     color: #444DF2;
 }
-
 // -------------------- BUTTONS CONTAINER ---------------- //
-
 .button-container {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     gap: 3em;
-
     .login-button-container{
         width: 100%;
     }
-
     .guest-login-button-container{
         width: 100%;
     }
-
     .login-button {
         font-size: 18px;
         font-weight: 600;
@@ -208,14 +168,11 @@
         border: none;
         box-sizing: border-box;
         transition: 0.2s;
-
         &:hover {
             background-color: #797EF3;
             cursor: pointer;
         }
     }
-
-
     .guest-login-button {
         font-size: 18px;
         font-weight: 700;
@@ -227,7 +184,6 @@
         border: 1px solid #797EF3;
         box-sizing: border-box;
         transition: 0.2s;
-
         &:hover {
             cursor: pointer;
             background-color: #444DF2;
@@ -236,81 +192,62 @@
         }
     }
 }
-
-
-
 // ------------------ IMPRESSUM UND DATENSCHUTZ --------------- // 
 .impressum-datenschutz {
     display: flex;
     align-items: center;
     justify-content: center;
-
     gap: 16px;
     position: absolute;
     bottom: 2em;
     left: 0;
     right: 0;
-
     .impressum {
         font-size: 18px;
         font-weight: 400px;
         text-decoration: none;
         color: #797EF3;
-
         &:hover {
             color: #444DF2;
         }
     }
-
     .datenschutz {
         font-size: 18px;
         font-weight: 400px;
         text-decoration: none;
         color: #797EF3;
-
         &:hover {
             color: #444DF2;
         }
     }
 }
-
-
 // --------------- ERROR MESSAGE ---------------- // 
-
 .error-message {
     color: red;
     text-align: center;
 }
-
 //------- MOBILE REGISTER CONTAINER-------//
-
 .mobile-register-container {
     display: none;
     flex-direction: column;
     position: absolute;
     bottom: 5em;
-
-
     .question {
         font-weight: 400;
         font-size: 18px;
     }
-
     .register-link {
         color: #797EF3;
         font-weight: 400;
         font-size: 18px;
         text-align: center;
         transition: 0.2s;
-
         &:hover {
             color: #444DF2;
             cursor: pointer;
         }
     }
-
 }
-
 //--------INTRO---------//
 .intro-background {
     height: 100vh;
@@ -322,24 +259,19 @@
     bottom: 0;
     z-index: 9;
     background-image: linear-gradient(to bottom, rgba(121, 126, 243, 1), rgba(50, 59, 229, 1));
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     animation: transparentBackground 0.4s forwards;
     animation-delay: 1.6s;
 }
-
 .logo {
     position: relative;
     animation: slideInLogo 0.5s forwards ease-out;
-
     .logo-image {
         vertical-align: middle;
         z-index: 1;
     }
-
     .project-name {
         font-size: 60px;
         font-weight: 600;
@@ -353,104 +285,80 @@
         z-index: -1;
     }
 }
-
 .logo-image {
     animation: moveToLeftCorner 3s;
-
 }
-
 // ANIMATION FOR WHOLE LOGO TO SLIDE TO UPPER LEFT CORNER
 @keyframes moveToLeftCorner {
     from {
         transform: translate(100%, 100%);
     }
-
     to {
         transform: translate(0, 0);
     }
 }
-
 //-------------RESPONSIVE-------------//
 @media (max-width: 600px) {
     .login-container-header {
         gap: 16px !important;
     }
-
     .login-container {
         padding: 24px !important;
         gap: 16px !important;
     }
-
     .register-container {
         display: none !important;
     }
-
     .mobile-register-container {
         display: flex !important;
     }
-
     .header {
         justify-content: center;
     }
-
     .login-headline {
         font-size: 24px !important;
     }
-
     .recommendation {
         font-size: 16px !important;
     }
-
     .inputfield {
         font-size: 16px !important;
     }
-
     .forgot-password {
         font-size: 16px !important;
     }
-
     .other {
         font-size: 16px !important;
     }
-
     .google-login {
         font-size: 16px !important;
     }
-
     .login-button {
         font-size: 16px !important;
         padding: 12px 20px !important;
     }
-
     .guest-login-button {
         font-size: 16px !important;
         padding: 12px 13px !important;
     }
-
     .question {
         font-size: 16px !important;
     }
-
     .register-link {
         font-size: 16px !important;
     }
-
     .impressum {
         font-size: 16px !important;
     }
-
     .datenschutz {
         font-size: 16px !important;
     }
 }
 
-
-
 @media (max-width: 440px) {
     .login-button {
         font-size: 16px !important;
     }
-
     .guest-login-button {
         font-size: 16px !important;
     }

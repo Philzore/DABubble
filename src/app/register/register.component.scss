@@ -7,23 +7,16 @@
     top: 0;
     right: 0;
 }
-
-
 // -------------------- CONTENT ------------------------ //
-
 .content {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    gap: 64px;
     height: 100vh;
     padding-left: 16px;
     padding-right: 16px;
 }
-
 // --------------------- REGISTER CONTAINER ------------------- // 
-
 .register-container {
     max-width: 450px;
     width: 100%;
@@ -39,13 +32,11 @@
 }
 
 //------------------ BACK ARROW ICON ------------------- //
-
 .back-icon-container{
     display: flex;
     position: absolute;
     left: 0;
 }
-
 .back-icon{
     transition: 0.2s;
     object-fit: cover;
@@ -57,22 +48,18 @@
 }
 
 //--------------- REGISTER HEADER CONTAINER ---------------- // 
-
 .register-headline-container {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-
     position: relative;
-
     .register-headline {
         color: #444DF2;
         font-size: 40px;
         font-weight: 700;
     }
 }
-
 .register-notice-container {
     text-align: center;
     .register-notice{
@@ -89,11 +76,7 @@
     width: 100%;
     gap: 8px;
 }
-
 .checkbox-container {
-    display: flex;
-    align-items: center;
-
     input {
         &:hover {
             cursor: pointer;
@@ -104,27 +87,22 @@
         cursor: pointer;
     }
 }
-
 .checkbox-sentence {
     font-size: 16px;
     color: #42526E;
     margin-left: 8px;
 }
-
 .data-protection-word {
     font-size: 16px;
     font-weight: 400;
     color: #797EF3;
 }
-
 //------------------ WEITER BUTTON --------------------- //
-
 .button-container {
     display: flex;
     justify-content: flex-end;
     width: 100%;
 }
-
 .next-button {
     font-size: 18px;
     font-weight: 600;
@@ -136,21 +114,16 @@
     border: none;
     box-sizing: border-box;
     transition: 0.2s;
-
     &:hover {
         background-color: #797EF3;
         cursor: pointer;
     }
 }
-
-
 .next-button:disabled {
     background-color: rgb(104, 104, 104);
     cursor: not-allowed;
 }
-
-// ------------------ IMPRESSUM UND DATENSCHUTZ --------------- // 
-
+// ----------------- IMPRESSUM UND DATENSCHUTZ --------------- // 
 .impressum-datenschutz {
     display: flex;
     justify-content: center;
@@ -159,24 +132,20 @@
     bottom: 2em;
     left: 0;
     right: 0;
-
     .impressum {
         font-size: 18px;
         font-weight: 400px;
         text-decoration: none;
         color: #797EF3;
-
         &:hover {
             color: #444DF2;
         }
     }
-
     .datenschutz {
         font-size: 18px;
         font-weight: 400px;
         text-decoration: none;
         color: #797EF3;
-
         &:hover {
             color: #444DF2;
         }
@@ -184,15 +153,13 @@
 }
 
 // --------------- ERROR MESSAGE ---------------- // 
-
 .error-message {
     color: red;
-    font-size: 16px !important;
+    font-size: 14px !important;
     text-align: center;
 }
 
 //-------------RESPONSIVE-------------//
-
 @media (max-width: 600px) {
     .header {
         justify-content: center;
