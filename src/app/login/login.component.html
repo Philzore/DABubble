@@ -1,20 +1,16 @@
 
-<div class="header">
-
-    <div class="image-container">
-        <img class="logo-image" src="assets/icons/logo_with_text.png">
-    </div>
-
-    <div class="register-container">
-        <span class="question">Neu bei DABubble?</span>
-        <span class="register-link" routerLink="/register">Konto erstellen</span>
-    </div>
-
-</div>
-
-
-
 <div class="content">
+
+    <div class="header">
+        <div class="image-container">
+            <img class="logo-image" src="assets/icons/logo_with_text.png">
+        </div>
+    
+        <div class="register-container">
+            <span class="question">Neu bei DABubble?</span>
+            <span class="register-link" routerLink="/register">Konto erstellen</span>
+        </div>
+    </div>
 
     <div (keydown)="onKeydown($event)" class="login-container">
         <div class="login-container-header">
@@ -43,9 +39,14 @@
 
 
         <div class="or-container">
-            <img src="assets/icons/line.png" alt="image of line icon">
+            <div>
+                <img src="assets/icons/line.png" alt="image of line icon">
+            </div>
+            
             <span class="other">ODER</span>
-            <img src="assets/icons/line.png" alt="image of line icon">
+            <div>
+                <img src="assets/icons/line.png" alt="image of line icon">
+            </div>
         </div>
 
         <div class="google-container" (click)="loginWithGoogle()">

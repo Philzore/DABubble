@@ -5,6 +5,10 @@
     justify-content: space-between;
     align-items: center;
     margin: 32px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
 
     .register-container {
         display: flex;
@@ -39,6 +43,8 @@
     align-items: center;
     flex-direction: column;
     gap: 64px;
+    padding: 16px;
+    height: 100vh;
 }
 
 .login-container {
@@ -47,7 +53,7 @@
     padding: 32px;
     box-sizing: border-box;
 
-    max-width: 500px;
+    max-width: 450px;
     width: 100%;
 
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); //
@@ -55,9 +61,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px;
-    margin-left: 16px;
-    margin-right: 16px;
+    gap: 16px;
 }
 
 
@@ -69,6 +73,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 43px;
+    width: 100%;
 
     .login-headline {
         color: #444DF2;
@@ -120,6 +125,7 @@
 .forgot-password-container {
     display: flex;
     justify-content: center;
+    width: 100%;
 
 
     .forgot-password {
@@ -150,6 +156,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 
     .other {
         font-size: 18px;
@@ -160,7 +167,7 @@
 
     img {
         height: 5px;
-        width: 200px;
+        width: 100%;
     }
 }
 
@@ -204,13 +211,10 @@
 // -------------------- BUTTONS CONTAINER ---------------- //
 
 .button-container {
-    width: 320px;
-    height: 49px;
-
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
-
+    width: 100%;
 
     .login-button {
         font-size: 18px;
@@ -389,12 +393,6 @@
         gap: 16px !important;
     }
 
-    .or-container {
-        img {
-            width: 103px;
-        }
-    }
-
     .register-container {
         display: none !important;
     }
@@ -465,18 +463,6 @@
 
 
 @media (max-width: 440px) {
-    .login-container {
-        padding-left: 16px !important;
-        padding-right: 16px !important;
-    }
-
-    .or-container {
-
-        img {
-            width: 90px;
-        }
-    }
-
     .login-button {
         font-size: 16px !important;
     }
@@ -484,9 +470,4 @@
     .guest-login-button {
         font-size: 16px !important;
     }
-
-    .button-container {
-        width: 259px !important;
-    }
-
 }
