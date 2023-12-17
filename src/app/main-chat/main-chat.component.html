@@ -64,7 +64,7 @@
                         position: 'absolute',
                         bottom: '-250px',
                         'border-radius': '15px',
-                        'z-index': '11',
+                        'z-index': '4',
                         'left': message.from === userDataService.currentUser['name'] ? '100px' : 'auto',
                         'right': message.from !== userDataService.currentUser['name'] ? '100px' : 'auto'
                     }">
@@ -146,7 +146,7 @@
                     <div *ngIf="showEmojiPopup" class="emoji-mart">
                         <!-- Emoji popup for message -->
                         <emoji-mart class="emoji-mart-input" (emojiClick)="addEmoji($event)"
-                            [style]="{ position: 'absolute', bottom: '25px', right : '50px', 'border-radius': '15px', 'z-index': '11'}">
+                            [style]="{ position: 'absolute', bottom: '25px', right : '50px', 'border-radius': '15px', 'z-index': '4'}">
                         </emoji-mart>
                     </div>
                     <div *ngIf="showPersonPopup" class="person-popup">

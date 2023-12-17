@@ -86,7 +86,21 @@ export class MainChatComponent implements OnInit, OnChanges {
     
   }
 
-  
+  async ngOnInit() {
+    await this.sharedService.getChannelsFromDataBase('first');
+    this.sharedService.createSubscribeChannelMessages();
+    this.breakpointObserver.observe('(max-width: 1199px)').subscribe(result => {
+      this.isSmallScreen = result.matches;
+      if(this.isSmallScreen) {
+        if(this.groupMemberPopUpOpen) {
+          this.closeGroupMemberPopUp();
+          if(!this.groupInfoPopUpOpen) {
+            this.openGroupInfoPopUp();
+          }
+        }
+      }
+    });
+  }
 
   /**
    * check if enter key is pressed , if yes, send message
@@ -198,22 +212,6 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.groupInfoPopUpOpen = false;
   }
 
-  async ngOnInit() {
-    await this.sharedService.getChannelsFromDataBase('first');
-    this.sharedService.createSubscribeChannelMessages();
-    this.breakpointObserver.observe('(max-width: 1199px)').subscribe(result => {
-      this.isSmallScreen = result.matches;
-      if(this.isSmallScreen) {
-        if(this.groupMemberPopUpOpen) {
-          this.closeGroupMemberPopUp();
-          if(!this.groupInfoPopUpOpen) {
-            this.openGroupInfoPopUp();
-          }
-        }
-      }
-    });
-  }
-
     openGroupMemberPopUp() {
       this.groupMemberPopUpOpen = true;
       this.dialogRef = this.dialog.open(GroupMemberComponent, {
@@ -320,7 +318,8 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.lastMessageId = messageID;
       this.createSubscribeThreadMessages(messageID);
     }
-
+    // ? only for mobilephone or also on larger devices ? 
+    this.emojiMartVisible = false;
   }
 
   /**
