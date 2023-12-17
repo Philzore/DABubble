@@ -129,11 +129,23 @@
                 class="cursor material-icons">arrow_circle_down</i>
         </div>
 
+        <!-- <div class="uploaded-content-container">
+            <i class="material-icons">attach_file</i>
+            <a href="">IMG_6076.pjeg</a>
+            <i class="material-icons">close_button</i>
+        </div> -->
+
         <section class="input-container">
 
-            <textarea (keydown)="onKeydown($event)" *ngIf="sharedService.templateIsReady" [(ngModel)]="copiedText"
+            <!-- <div class="image-preview-container" *ngIf="filePreview">
+                <a [href]="filePreview" target="_blank">
+                  <img [src]="filePreview" alt="Selected File" class="image-preview">
+                </a>
+            </div> -->
+              
+              <textarea (keydown)="onKeydown($event)" *ngIf="sharedService.templateIsReady" [(ngModel)]="copiedText"
                 placeholder="Nachricht an #{{ sharedService.filteredChannels[0].name }}">
-        </textarea>
+            </textarea>
             <div class="input-send">
                 <div class="input-send-left">
                     <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
@@ -142,12 +154,21 @@
                 </div>
 
                 <div class="input-popups">
-                    <div *ngIf="showAddDataPopup" class="add-data-popup">Datei anhängen</div>
+
+
+
+                    <div *ngIf="showAddDataPopup" class="add-data-popup cursor">
+                        <label class="cursor" for="fileInput">Datei auswählen</label>
+                        <input class="cursor" type="file" id="fileInput" (change)="onFileSelected($event)">
+                    </div>
+
+
+
                     <div *ngIf="showEmojiPopup" class="emoji-mart">
                         <!-- Emoji popup for message -->
-                        <emoji-mart class="emoji-mart-input" (emojiClick)="addEmoji($event)"
-                            [style]="{ position: 'absolute', bottom: '25px', right : '50px', 'border-radius': '15px', 'z-index': '4'}">
-                        </emoji-mart>
+                    <emoji-mart class="emoji-mart-input" (emojiClick)="addEmoji($event)"
+                            [style]="{ position: 'absolute', bottom: '50px', left:'75px', 'border-radius': '15px', 'z-index': '1'}">
+                    </emoji-mart>
                     </div>
                     <div *ngIf="showPersonPopup" class="person-popup">
 

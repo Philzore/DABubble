@@ -64,6 +64,8 @@ export class MainChatComponent implements OnInit, OnChanges {
   @ViewChild('messageContainer') private messageContainer: ElementRef;
   @Input() threadToogleFromOutside: boolean;
   @Output() threadClosed = new EventEmitter<void>();
+  filePreview: string | ArrayBuffer | null = null;
+
 
   
 
@@ -251,6 +253,8 @@ export class MainChatComponent implements OnInit, OnChanges {
    */
   toggleAddDataPopup(): void {
     this.showAddDataPopup = !this.showAddDataPopup;
+    this.showEmojiPopup = false;
+    this.showPersonPopup = false;
   }
 
   /**
@@ -259,6 +263,8 @@ export class MainChatComponent implements OnInit, OnChanges {
    */
   toggleEmojiPopup(): void {
     this.showEmojiPopup = !this.showEmojiPopup;
+    this.showAddDataPopup = false;
+    this.showPersonPopup = false;
   }
 
   /**
@@ -267,6 +273,8 @@ export class MainChatComponent implements OnInit, OnChanges {
    */
   togglePersonPopup(): void {
     this.showPersonPopup = !this.showPersonPopup;
+    this.showAddDataPopup = false;
+    this.showEmojiPopup = false;
   }
 
 
@@ -416,6 +424,32 @@ export class MainChatComponent implements OnInit, OnChanges {
       }, 100);
     }
     this.scrollToBottom() ;
+  }
+
+  onFileSelected(event: any): void {
+    const fileInput = event.target;
+    const file = fileInput.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (file.type.startsWith('image/')) {
+          // If it's an image file, display it in the img element
+          this.filePreview = reader.result;
+          this.copiedText = ''; // Clear the copiedText in case it's not an image
+        } else {
+          // For other file types, you can handle differently or show in the textarea
+          this.copiedText = reader.result as string;
+          this.filePreview = null; // Clear the file preview if it's not an image
+        }
+      };
+
+      reader.readAsDataURL(file);
+    } else {
+      this.copiedText = '';
+      this.filePreview = null;
+    }
   }
 
   async addReactionToMessage(emoji: string, messageId: string) {
