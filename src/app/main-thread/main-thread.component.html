@@ -91,7 +91,7 @@
               <p class="bold">{{ message.from }}</p>
               <emoji-mart set="apple" #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id"
                 (emojiClick)="addReactionToThreadMessage($event ,message.id)"
-                [style]="{ position: 'absolute', bottom: '-110px', right : '30px', 'border-radius': '15px', 'z-index': '11'}">
+                [style]="{ position: 'absolute', top: '80px', right : '-115px', 'border-radius': '15px', 'z-index': '11', 'width': '250px'}">
               </emoji-mart>
               <span class="message-time">{{ message.calculatedTime }}</span>
             </div>
