@@ -16,7 +16,8 @@
     </div>
 
     <div class="add-member-button-container">
-        <button class="cursor" (click)="saveNewUsers()" [disabled]="actAddMembers.length == 0" [class.disabled-btn]="actAddMembers.length == 0">Hinzufügen</button>
+        <button *ngIf="!addSuccess" class="cursor" (click)="saveNewUsers()" [disabled]="actAddMembers.length == 0" [class.disabled-btn]="actAddMembers.length == 0">Hinzufügen</button>
+        <mat-icon *ngIf="addSuccess" class="add-done">done</mat-icon>
     </div>
 
     <!-- direct message drop down -->

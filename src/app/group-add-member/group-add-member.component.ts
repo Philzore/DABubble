@@ -29,6 +29,7 @@ export class GroupAddMemberComponent implements OnInit {
   messageDropdown: boolean = false;
   actMembers = this.userDataService.usersFromDatabase;
   actAddMembers = [];
+  addSuccess = false ;
 
   currentChannel = {
     info: {
@@ -143,7 +144,11 @@ export class GroupAddMemberComponent implements OnInit {
       }
       this.sharedService.templateIsReady = false ;
       this.sharedService.getChannelsFromDataBase(this.currentChannel.info.name);
-      this.dialogRef.close({ event: 'start' });
+      this.addSuccess = true ;
+      setTimeout(() => {
+        this.dialogRef.close();
+      }, 1000);
+      
     }
   }
 
