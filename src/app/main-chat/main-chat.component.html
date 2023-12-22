@@ -52,7 +52,7 @@
             <img src="{{message.profileImg}}" alt="" referrerpolicy="no-referrer">
             <div class="message-info-container">
 
-                <div class="info-row">
+                <div class="info-row" [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
                     <div class="info-row-name">
                         <h4>{{message.from}}</h4> <span class="message-time">{{message.calculatedTime}}</span>
                     </div>
@@ -84,10 +84,12 @@
                     </div>
                 </div>
 
-                <p class="message-text" [ngClass]="{
-                    'message-text-own': message.from === userDataService.currentUser['name'],
-                    'own-message': message.from === userDataService.currentUser['name']
-                  }">{{ message.text }}</p>
+                    <div class="message-text-container" [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
+                        <p class="message-text" [ngClass]="{
+                            'message-text-own': message.from === userDataService.currentUser['name'],
+                            'own-message': message.from === userDataService.currentUser['name']
+                          }">{{ message.text }}</p>
+                    </div>
 
                 <div class="emoji-wrapper"
                     [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
@@ -142,7 +144,7 @@
                 </a>
             </div> -->
               
-              <textarea (keydown)="onKeydown($event)" *ngIf="sharedService.templateIsReady" [(ngModel)]="copiedText"
+              <textarea (click)="closeEmojiPopUp()" (keydown)="onKeydown($event)" *ngIf="sharedService.templateIsReady" [(ngModel)]="copiedText"
                 placeholder="Nachricht an #{{ sharedService.filteredChannels[0].name }}">
             </textarea>
             <div class="input-send">

@@ -107,15 +107,6 @@ export class MainChatComponent implements OnInit, OnChanges {
 
   
 
-  ngAfterViewInit() {
-        this.renderer.listen('window', 'click', (e: Event) => {
-          if (e.target !== this.toggleEmojiButton.nativeElement && e.target !== this.emojiMartElement.nativeElement) {
-            this.emojiMartVisible = false;
-          }
-        });
-  }
-
-
   /**
    * check if enter key is pressed , if yes, send message
    * 
@@ -136,6 +127,9 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.groupMemberPopUpOpen = false;
   }
 
+  closeEmojiPopUp() {
+    this.emojiMartVisible = false;
+  }
 
   /**
    * if @input is changing trigger this function

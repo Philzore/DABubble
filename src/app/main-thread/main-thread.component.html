@@ -52,7 +52,7 @@
         <div class="message-info-thread">
           <!-- Message Response Container -->
           <div class="message-content-container">
-            <div class="info-row-thread">
+            <div class="info-row-thread" [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
               <p class="bold">{{ message.from }}</p>
               <emoji-mart set="apple" #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id"
                 (emojiClick)="addReactionToThreadMessage($event ,message.id)"
@@ -64,15 +64,21 @@
               <p class="message-text message-text-own">
                 {{ message.text }}
               </p>
+              <div class="emoji-wrapper"
+              [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
+
+              <i class="material-icons toggle-emoji" #toggleEmojiButton
+                  [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}"
+                  (click)="openEmojiForMessage(message.id)">add_reaction</i>
               <div class="emoji-react-container">
-                <div class="emoji" *ngFor="let reaction of message.reactionsCount | keyvalue ">
-                    {{ reaction.key }}
-                    <div class="emoji-counter">
-                        {{ reaction.value }}
-                    </div>
-                </div>
-            </div>
-            </div>
+                  <div class="emoji" *ngFor="let reaction of message.reactionsCount | keyvalue ">
+                      {{ reaction.key }}
+                      <div class="emoji-counter">
+                          {{ reaction.value }}
+                      </div>
+                  </div>
+              </div>
+          </div>
           </div>
         </div>
       </div>

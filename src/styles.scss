@@ -7,7 +7,6 @@ input[type="file"] {
 
 .message-text {
   background-color: #fff;
-  word-wrap: break-word !important;
 }
 
 .message-text-own {
@@ -48,7 +47,7 @@ input[type="file"] {
 }
 
 .justify-end {
-  justify-content: end;
+  justify-content: end !important;
 }
 
 html,
@@ -467,10 +466,19 @@ $main-purple: #eceefe;
               }
             }
 
-            .message-text {
-              background-color: $main-purple;
-              padding: 10px;
-              border-radius: 0px 15px 15px 15px;
+            .message-text-container {
+
+              display: flex;
+              justify-content: start;
+
+              .message-text {
+                background-color: $main-purple;
+                padding: 10px;
+                border-radius: 0px 15px 15px 15px;
+                line-break: anywhere;
+
+  
+              }
             }
 
             .message-text-own {
@@ -478,6 +486,8 @@ $main-purple: #eceefe;
               color: #fff;
               padding: 10px;
               border-radius: 15px 0px 15px 15px !important;    
+              line-break: anywhere;
+
             }
 
 
@@ -902,10 +912,9 @@ $main-purple: #eceefe;
   }
 
   .emoji-mart {
-    max-width: 400px;
-    left:30px !important;
-    right: 30px !important;
-    width: auto !important;
+    max-width: 250px;
+    // left:30px !important;
+    // right: 30px !important;
     bottom: 20px !important;
   }
 
