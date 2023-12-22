@@ -68,7 +68,7 @@
                         'left': message.from === userDataService.currentUser['name'] ? '100px' : 'auto',
                         'right': message.from !== userDataService.currentUser['name'] ? '100px' : 'auto'
                     }">
-                </emoji-mart>
+                    </emoji-mart>
 
                     <div class="info-row-react" [ngClass]="{
                         'left-30px': message.from === userDataService.currentUser['name'],
@@ -92,10 +92,9 @@
                 <div class="emoji-wrapper"
                     [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
 
-                    <i class="material-icons toggle-emoji"
+                    <i class="material-icons toggle-emoji" #toggleEmojiButton
                         [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}"
                         (click)="openEmojiForMessage(message.id)">add_reaction</i>
-
                     <div class="emoji-react-container">
                         <div class="emoji" *ngFor="let reaction of message.reactionsCount | keyvalue ">
                             {{ reaction.key }}

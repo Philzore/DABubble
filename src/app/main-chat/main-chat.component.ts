@@ -62,6 +62,8 @@ export class MainChatComponent implements OnInit, OnChanges {
   @ViewChild('scrollButton') scrollButton: ElementRef;
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
   @ViewChild('messageContainer') private messageContainer: ElementRef;
+  @ViewChild('emojiMartElement') private emojiMartElement: ElementRef;
+  @ViewChild('toggleEmojiButton') private toggleEmojiButton: ElementRef;
   @Input() threadToogleFromOutside: boolean;
   @Output() threadClosed = new EventEmitter<void>();
   filePreview: string | ArrayBuffer | null = null;
@@ -85,7 +87,6 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
     });
-    
   }
 
   async ngOnInit() {
@@ -103,6 +104,17 @@ export class MainChatComponent implements OnInit, OnChanges {
       }
     });
   }
+
+  
+
+  ngAfterViewInit() {
+        this.renderer.listen('window', 'click', (e: Event) => {
+          if (e.target !== this.toggleEmojiButton.nativeElement && e.target !== this.emojiMartElement.nativeElement) {
+            this.emojiMartVisible = false;
+          }
+        });
+  }
+
 
   /**
    * check if enter key is pressed , if yes, send message
@@ -162,15 +174,17 @@ export class MainChatComponent implements OnInit, OnChanges {
 
   // Function to open emoji-mart for a specific message
   openEmojiForMessage(messageID?: string) {
+    // Check if the emoji picker is already open for this message
     if (this.selectedMessageId === messageID) {
-      // Toggle the emoji-mart visibility if clicking on the same message again
+      // Toggle the visibility of the emoji picker
       this.emojiMartVisible = !this.emojiMartVisible;
     } else {
-      // Open the emoji-mart for the selected message
+      // Open the emoji picker for the new message and ensure it's visible
       this.selectedMessageId = messageID;
       this.emojiMartVisible = true;
     }
   }
+  
   
   /**
    * add name to text are when click on @ symbol and the name
