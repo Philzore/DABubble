@@ -857,6 +857,10 @@ $main-purple: #eceefe;
 
 @media (max-width:1200px) {
 
+  app-group-info-popup {
+    max-width: 400px;
+  }
+
   mat-toolbar {
     height: unset !important;
     padding: 15px !important;
@@ -876,13 +880,6 @@ $main-purple: #eceefe;
     position: static !important;
     margin: 0 !important;
   }
-
-  app-group-info-popup {
-    display: block !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    max-width: 100%;
-  }
  
   .chat-container {
     border-radius: 0 !important;
@@ -894,11 +891,6 @@ $main-purple: #eceefe;
       .toggle-emoji {
         display: flex !important;
       }
-
-    }
-    
-    .chat-members-images {
-      display: none !important;
     }
   }
 }
@@ -930,11 +922,10 @@ $main-purple: #eceefe;
     margin: 15px !important;
   }
 
-  app-group-add-member {
+  app-group-add-member, app-group-member, app-group-info-popup {
     display: block !important;
     width: 100vw !important;
     height: 100vh !important;
     max-width: 100%;
   }
-
 }

@@ -92,17 +92,6 @@ export class MainChatComponent implements OnInit, OnChanges {
   async ngOnInit() {
     await this.sharedService.getChannelsFromDataBase('first');
     this.sharedService.createSubscribeChannelMessages();
-    this.breakpointObserver.observe('(max-width: 1199px)').subscribe(result => {
-      this.isSmallScreen = result.matches;
-      if(this.isSmallScreen) {
-        if(this.groupMemberPopUpOpen) {
-          this.closeGroupMemberPopUp();
-          if(!this.groupInfoPopUpOpen) {
-            this.openGroupInfoPopUp();
-          }
-        }
-      }
-    });
   }
 
   
@@ -118,13 +107,6 @@ export class MainChatComponent implements OnInit, OnChanges {
       event.preventDefault();
       this.messageSend();
     }
-  }
-
-  closeGroupMemberPopUp():void {
-      if(this.isSmallScreen) {
-      this.dialogRef.close();
-      }
-      this.groupMemberPopUpOpen = false;
   }
 
   closeEmojiPopUp():void {
@@ -194,42 +176,47 @@ export class MainChatComponent implements OnInit, OnChanges {
   }
 
   /**
-   * open Group Info dialog
-   * 
-   */
-  openGroupInfoPopUp(): void {
-    this.groupInfoPopUpOpen = true;
+ * open Group Info dialog
+ * 
+ */
+openGroupInfoPopUp(): void {
+  this.groupInfoPopUpOpen = true;
+
+  // Determine if the screen width is greater than 1200px
+  const isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
+
+  // Configure the dialog settings based on screen width
+  const dialogConfig = {
+    position: isScreenWidthGreaterThan1200 ? { top: '180px', left: '320px' } : {},
+    panelClass: isScreenWidthGreaterThan1200 ? 'group-info-dialog' : 'br-30',
+    data: this.sharedService.filteredChannels
+  };
+
+  // Open the dialog with the configured settings
+  const dialogRef = this.dialog.open(GroupInfoPopupComponent, dialogConfig);
+
+  dialogRef.afterClosed().subscribe((result) => {
+    if (result && result.event === 'start') {
+      this.appComponent.showFeedback('Du hast den Channel Verlassen');
+    }
+  });
+}
+
+
+  openGroupMemberPopUp() {
+    // Determine if the screen width is greater than 1200px
+    const isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
+  
+    // Configure the dialog settings based on screen width
     const dialogConfig = {
+      position: isScreenWidthGreaterThan1200 ? { top: '180px', right: '150px' } : {},
+      panelClass: isScreenWidthGreaterThan1200 ? 'custom-logout-dialog' : 'br-30',
       data: this.sharedService.filteredChannels
     };
-    if (this.isScreenWidthGreaterThan1200) {
-      dialogConfig['position'] = { top: '180px', left: '320px' };
-      dialogConfig['panelClass'] = 'group-info-dialog';
-    }
-    else {
-      dialogConfig['position'] = { top: '180px', left: '320px' };
-
-    }
-    const dialogRef = this.dialog.open(GroupInfoPopupComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        if (result.event == 'start') {
-          this.appComponent.showFeedback('Du hast den Channel Verlassen');
-        }
-      }
-    });
-    this.groupInfoPopUpOpen = false;
+  
+    // Open the dialog with the configured settings
+    this.dialogRef = this.dialog.open(GroupMemberComponent, dialogConfig);
   }
-
-    openGroupMemberPopUp() {
-      this.groupMemberPopUpOpen = true;
-      this.dialogRef = this.dialog.open(GroupMemberComponent, {
-        position: { top: '180px', right: '150px' },
-        panelClass: 'group-member-dialog',
-        data: this.sharedService.filteredChannels
-      });
-    }
 
 
   /**

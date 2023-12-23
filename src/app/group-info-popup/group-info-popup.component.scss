@@ -23,7 +23,7 @@ button {
 .popup-container {
     display: flex;
     flex-direction: column;
-    min-width: 500px;
+    // min-width: 400px;
     max-width: 600px;
     gap: 20px;
 
@@ -136,7 +136,7 @@ button {
 
     .popup-container {
         max-width: none;
-        min-width: unset;
+        // min-width: unset;
         overflow-x: hidden;
     }
 

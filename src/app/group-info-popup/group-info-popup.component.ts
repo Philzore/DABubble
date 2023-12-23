@@ -96,6 +96,7 @@ export class GroupInfoPopupComponent implements OnInit {
    * 
    */
   openGroupMemberInfo() {
+    console.log('open group member');
     this.dialog.open(GroupMemberInfoComponent);
   }
 
