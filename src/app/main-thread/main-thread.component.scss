@@ -227,6 +227,7 @@ $purple: #535af1;
         margin: 10px;
         border-radius: 15px 0px 15px 15px !important;
         font-size: 18px;
+        line-break: anywhere;
       }
 
       .message-text-own {
@@ -234,6 +235,7 @@ $purple: #535af1;
         color: #fff;
         padding: 10px;
         margin: 10px;
+        line-break: anywhere;
         border-radius: 15px 0px 15px 15px !important;
       }
     }

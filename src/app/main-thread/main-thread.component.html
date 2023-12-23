@@ -61,9 +61,12 @@
               <span class="message-time">{{ message.calculatedTime }}</span>
             </div>
             <div class="clicked-message-content">
-              <p class="message-text message-text-own">
-                {{ message.text }}
-              </p>
+              <div class="message-text-container" [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
+                <p class="message-text" [ngClass]="{
+                    'message-text-own': message.from === userDataService.currentUser['name'],
+                    'own-message': message.from === userDataService.currentUser['name']
+                  }">{{ message.text }}</p>
+            </div>
               <div class="emoji-wrapper"
               [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
 

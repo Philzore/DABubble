@@ -13,8 +13,8 @@ input[type="file"] {
   background-color: $purple !important;
 }
 
-.left-30px {
-  left: 30px;
+.left-45px {
+  left: 45px;
   right: 0 !important;
 }
 
@@ -39,14 +39,17 @@ input[type="file"] {
 }
 
 .row-reverse {
+  display: flex;
   flex-direction: row-reverse;
 }
 
 .justify-start {
+  display: flex;
   justify-content: start;
 }
 
 .justify-end {
+  display: flex;
   justify-content: end !important;
 }
 
@@ -426,7 +429,7 @@ $main-purple: #eceefe;
                 transition: 225ms ease-in-out;
                 opacity: 0;
                 position: absolute;
-                right: 30px;
+                right: 45px;
                 top: -15px;
                 border-radius: 30px 30px 0 30px;
                 border: 1px solid #adb0d9;
@@ -543,7 +546,7 @@ $main-purple: #eceefe;
         bottom: 0px;
         left: 0px;
         right: 0px;
-        margin: 30px;
+        margin: 30px 15px;
         border: 1px solid $main-purple;
         border-radius: 10px;
         background: #fff;
@@ -738,6 +741,8 @@ $main-purple: #eceefe;
 .emoji-react-container {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
   }
 
   .emoji {
@@ -767,6 +772,8 @@ $main-purple: #eceefe;
   .emoji-wrapper {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    max-width: 100%;
     gap: 5px;
     border-radius: 30px;
     padding: 5px 0;
@@ -848,17 +855,6 @@ $main-purple: #eceefe;
   }
 }
 
-
-@media (max-width:720px) {
-
-  .member-popup {
-    // top: 50% !important;
-    // left: 50% !important;
-    // transform: translate(-50%, -50%) !important;
-  }
-
-}
-
 @media (max-width:1200px) {
 
   mat-toolbar {
@@ -871,7 +867,8 @@ $main-purple: #eceefe;
   }
 
   .message-container {
-    margin: 15px !important;
+    margin: 30px 15px !important;
+    margin-right: 0px !important;
   }
 
   .cdk-overlay-pane {

@@ -71,7 +71,7 @@
                     </emoji-mart>
 
                     <div class="info-row-react" [ngClass]="{
-                        'left-30px': message.from === userDataService.currentUser['name'],
+                        'left-45px': message.from === userDataService.currentUser['name'],
                         'right-none': message.from === userDataService.currentUser['name'],
                         'reverse-info-row': message.from === userDataService.currentUser['name']
                       }">
@@ -109,7 +109,6 @@
 
 
                 <!-- TODO theoretisch erledigt -->
-                <div class="last-response-row">
                     <!-- TODO 2 Antworten und Letzte Antwort 14:56 replaced with real time data -->
                     <div class="last-response-row"
                         [ngClass]="{'row-reverse': message.from === userDataService.currentUser['name']}">
@@ -121,7 +120,6 @@
                             {{message.calculatedTime}} </span>
                     </div>
                 </div>
-            </div>
 
         </div>
 

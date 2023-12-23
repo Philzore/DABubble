@@ -54,3 +54,9 @@
     }
   }
 }
+
+@media(max-width:1200px) {
+  .message-container {
+    margin: 40px 15px !important;
+  }
+}

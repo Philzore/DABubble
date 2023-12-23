@@ -120,14 +120,14 @@ export class MainChatComponent implements OnInit, OnChanges {
     }
   }
 
-  closeGroupMemberPopUp() {
+  closeGroupMemberPopUp():void {
       if(this.isSmallScreen) {
       this.dialogRef.close();
       }
       this.groupMemberPopUpOpen = false;
   }
 
-  closeEmojiPopUp() {
+  closeEmojiPopUp():void {
     this.emojiMartVisible = false;
   }
 

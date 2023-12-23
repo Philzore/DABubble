@@ -47,10 +47,12 @@
                     </div>
                 </div>
 
-                <p class="message-text" [ngClass]="{
-                    'message-text-own': message.from === userDataService.currentUser['name'],
-                    'own-message': message.from === userDataService.currentUser['name']
-                  }">{{message.text}}</p>
+                <div class="message-text-container" [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
+                    <p class="message-text" [ngClass]="{
+                        'message-text-own': message.from === userDataService.currentUser['name'],
+                        'own-message': message.from === userDataService.currentUser['name']
+                      }">{{ message.text }}</p>
+                </div>
 
                 <div class="emoji-wrapper"
                     [ngClass]="{'justify-start': message.from === userDataService.currentUser['name']}">
