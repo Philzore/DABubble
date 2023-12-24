@@ -23,9 +23,8 @@ button {
 .popup-container {
     display: flex;
     flex-direction: column;
-    // min-width: 400px;
-    max-width: 600px;
     gap: 20px;
+    min-width: 400px;
 
     .group-info-name-container {
         border: 2px solid $main-purple;
@@ -133,12 +132,6 @@ button {
 }
 
 @media (max-width:1200px) {
-
-    .popup-container {
-        max-width: none;
-        // min-width: unset;
-        overflow-x: hidden;
-    }
 
     .group-member-wrapper {
         display: block !important;
