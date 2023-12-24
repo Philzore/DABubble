@@ -7,7 +7,8 @@ import { AppComponent } from '../app.component';
 import { UserDataService } from '../services/user-data.service';
 import { SharedService } from '../services/shared.service';
 import { User } from '../models/user.class';
-import { share } from 'rxjs';
+import { Subscription, share } from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 
 @Component({
@@ -69,8 +70,8 @@ export class SidebarComponent implements OnInit {
     public sharedService: SharedService,
     private firestore: Firestore,
     public appComponent: AppComponent,
+    private breakpointObserver: BreakpointObserver,
     public userDataService: UserDataService) {
-
     this.createSubscribeChannels();
     this.createSubscribeUsers();
 
