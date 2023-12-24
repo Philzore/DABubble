@@ -1,7 +1,11 @@
 $main-purple: #eceefe;
 $purple: #535af1;
 
-
+::ng-deep .unique-dialog-class .cdk-overlay-pane {
+    max-width: unset !important;
+    position: static !important;
+    margin: unset !important;
+}
 
 button {
     background-color: $purple;

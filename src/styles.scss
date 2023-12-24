@@ -857,10 +857,6 @@ $main-purple: #eceefe;
 
 @media (max-width:1200px) {
 
-  app-group-info-popup {
-    max-width: 400px;
-  }
-
   mat-toolbar {
     height: unset !important;
     padding: 15px !important;
@@ -873,12 +869,6 @@ $main-purple: #eceefe;
   .message-container {
     margin: 30px 15px !important;
     margin-right: 0px !important;
-  }
-
-  .cdk-overlay-pane {
-    max-width: 100vw !important;
-    position: static !important;
-    margin: 0 !important;
   }
  
   .chat-container {
@@ -896,14 +886,24 @@ $main-purple: #eceefe;
 }
 
 @media (max-width:500px) {
+  ::ng-deep .unique-dialog-class .cdk-overlay-pane {
+    max-width: unset !important;
+    position: static !important;
+    margin: unset !important;
+}
+
+  .cdk-overlay-pane {
+    max-width: 100vw !important;
+    position: static !important;
+    margin: 0 !important;
+  }
+
   .message-container {
     padding: 5px 15px !important;
   }
 
   .emoji-mart {
     max-width: 250px;
-    // left:30px !important;
-    // right: 30px !important;
     bottom: 20px !important;
   }
 

@@ -80,6 +80,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     private elementRef: ElementRef,
     private breakpointObserver: BreakpointObserver,
     private renderer: Renderer2,
+    private GroupInfoDialogRef: MatDialogRef<GroupInfoPopupComponent>,
     private firestore: Firestore,
     private ngZone: NgZone,
     private router: Router,
@@ -180,8 +181,6 @@ export class MainChatComponent implements OnInit, OnChanges {
  * 
  */
 openGroupInfoPopUp(): void {
-  this.groupInfoPopUpOpen = true;
-
   // Determine if the screen width is greater than 1200px
   const isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
 
