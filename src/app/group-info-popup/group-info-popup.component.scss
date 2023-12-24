@@ -1,12 +1,6 @@
 $main-purple: #eceefe;
 $purple: #535af1;
 
-::ng-deep .unique-dialog-class .cdk-overlay-pane {
-    max-width: unset !important;
-    position: static !important;
-    margin: unset !important;
-}
-
 button {
     background-color: $purple;
     color: #fff;
@@ -28,7 +22,7 @@ button {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    min-width: 400px;
+    min-width: 340px;
 
     .group-info-name-container {
         border: 2px solid $main-purple;

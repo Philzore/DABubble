@@ -149,8 +149,8 @@ $purple: #535af1;
     }
 }
 
-@media(max-width:500px) {
+@media(max-width:800px) {
     .popup-container {
-        width: unset;
+        width: unset !important;
     }
 }

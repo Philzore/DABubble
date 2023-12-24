@@ -885,6 +885,22 @@ $main-purple: #eceefe;
   }
 }
 
+@media (max-width:800px) {
+  app-group-add-member, app-group-member, app-group-info-popup {
+    display: block !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: 100%;
+  }
+
+  .cdk-overlay-pane {
+    max-width: 100vw !important;
+    position: static !important;
+    margin: 0 !important;
+  }
+
+}
+
 @media (max-width:500px) {
   ::ng-deep .unique-dialog-class .cdk-overlay-pane {
     max-width: unset !important;
@@ -892,11 +908,7 @@ $main-purple: #eceefe;
     margin: unset !important;
 }
 
-  .cdk-overlay-pane {
-    max-width: 100vw !important;
-    position: static !important;
-    margin: 0 !important;
-  }
+  
 
   .message-container {
     padding: 5px 15px !important;
@@ -920,12 +932,5 @@ $main-purple: #eceefe;
 
   .input-container {
     margin: 15px !important;
-  }
-
-  app-group-add-member, app-group-member, app-group-info-popup {
-    display: block !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    max-width: 100%;
   }
 }
