@@ -194,60 +194,6 @@ export class SidebarComponent implements OnInit {
   }
 
 
-  // async openDirectMsg(user, yourName: string) {
-  //   if (this.sharedService.showDirectMessageView) {
-  //     this.sharedService.unsubDirectChat();
-  //   }
-  //   console.log(user);
-  //   this.sharedService.oppositeUser = user ;
-  //   const directMsgCollRef = collection(this.firestore, 'directMessages');
-  //   console.log('Opposite : ', user.name, 'Your Name : ', yourName);
 
-  //   if (! await this.checkDirectMsgExist(user.name, yourName, directMsgCollRef)) {
-  //     const docRef = await addDoc((directMsgCollRef), {
-  //       between: { user1 : yourName, user2 : user.name},
-  //     });
-  //     this.sharedService.currentDirectMsgID = docRef.id;
-  //     // console.log('Chat ID', this.sharedService.currentDirectMsgID);
-  //   }
-  //   this.showDirectMessageView();
-  // }
-
-  // async checkDirectMsgExist(oppositeName: string, yourName: string, directMsgCollRef) {
-  //   const chatBetween = [yourName, oppositeName] ;
-  //   const q = query(directMsgCollRef, or( and (where('between.user1','==', yourName),where('between.user2','==', oppositeName)),
-  //                                         and (where('between.user2','==', yourName),where('between.user1','==', oppositeName))
-  //                                         ) //end of or
-  //                                         ); //end of query function
-  //   const querySnapshot = await getDocs(q);
-  //   console.log(querySnapshot.empty);
-  //   if (!querySnapshot.empty){
-  //     console.log('Chat schon vorhanden');
-  //     querySnapshot.forEach((doc) => {
-  //       this.sharedService.currentDirectMsgID = doc.id;
-  //     });
-  //     // console.log('Chat ID', this.sharedService.currentDirectMsgID);
-  //     return true
-  //   } else {
-  //     console.log('Chat Nicht vorhanden');
-  //     return false
-  //   }
-  // }
-
-  // showDirectMessageView() {
-  //   this.sharedService.unsubChannels();
-  //   this.sharedService.showChannelView = false ;
-  //   this.sharedService.showDirectMessageView = true ;
-  //   this.sharedService.createSubscribeDirectChat();
-  // }
-
-  // showChannelView() {
-  //   if (this.sharedService.showDirectMessageView) {
-  //     this.sharedService.unsubDirectChat();
-  //   }
-  //   this.sharedService.showDirectMessageView = false ;
-  //   this.sharedService.showChannelView = true ;
-  //   // this.sharedService.createSubscribeChannelMessages();
-  // }
 
 }

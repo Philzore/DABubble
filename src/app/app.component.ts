@@ -30,9 +30,7 @@ export class AppComponent {
     this.activateFadeInOverlay = true;
     this.activateFadeIn = true;
     this.fadeInText = message;
-    console.log('starte animation');
     this.cdr.detectChanges();
-
 
   }
 

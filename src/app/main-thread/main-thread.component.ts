@@ -101,7 +101,6 @@ export class MainThreadComponent {
   async addReactionToThreadMessage(emoji: string, messageId: string) {
     let channelId = this.sharedService.filteredChannels[1];
     const singleRef = doc(this.firestore, 'channels', channelId);
-    console.log(`${this.sharedService.threadPath}/${messageId}`);
 
     const messageRef = doc(this.firestore, this.sharedService.threadPath, messageId);
     await runTransaction(this.firestore, async (transaction) => {

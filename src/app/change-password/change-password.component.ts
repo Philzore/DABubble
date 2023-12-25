@@ -26,7 +26,6 @@ export class ChangePasswordComponent {
       confirmPasswordReset(auth, this.oobCode, newPassword)
         .then((value) => {
           this.appComponent.showFeedback('Dein Passwort wurde erfolgreich geändert!')
-          console.log(value, 'Changed password sucessfully');
         })
         .catch((err) => {
           console.error(err);

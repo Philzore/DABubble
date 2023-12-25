@@ -43,7 +43,6 @@ export class DialogEdituserLogoutComponent implements OnInit {
     signOut(auth).then(() => {
       // Sign-out successful.
       this.dialogRef.close();
-      console.log('User logged out successfully')
       this.userDataService.clearCurrentUserLocalStorage();
       this.router.navigate(['/']);
       this.sharedService.templateIsReady = false ;
@@ -53,7 +52,6 @@ export class DialogEdituserLogoutComponent implements OnInit {
       }
     }).catch((error) => {
       // An error happened.
-      console.log('User could not log out')
     });
   }
 }

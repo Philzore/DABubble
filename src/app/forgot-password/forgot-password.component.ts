@@ -17,9 +17,6 @@ export class ForgotPasswordComponent {
     sendPasswordResetEmail(auth, this.email)
       .then(() => {
         this.appComponent.showFeedback('Email wurde erfolgreich gesendet!')
-        console.log('Email to reset password was sent')
-        // Password reset email sent!
-        // ..
       })
       .catch((error) => {
         const errorCode = error.code;

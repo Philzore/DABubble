@@ -54,15 +54,11 @@ export class LoginComponent implements OnInit {
 
       .then(async (userCredential) => {
         // Signed in
-        console.log('User loged in successfully')
         const user = userCredential.user;
-        //Phil 
-        console.log(auth.currentUser);
         this.userDataService.saveCurrentUserLocalStorage(auth.currentUser.displayName, auth.currentUser.email, auth.currentUser.photoURL);
         this.router.navigate(['/main-page']);
       })
       .catch((error) => {
-        console.log('User could not log in');
         this.errorMessage = 'Uncorrect Information. Please check your email and password';
       });
   }
@@ -74,7 +70,6 @@ export class LoginComponent implements OnInit {
 
     signInWithPopup(auth, provider)
       .then(async (result) => {
-        console.log('Google Login worked sucessfully')
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
@@ -86,7 +81,6 @@ export class LoginComponent implements OnInit {
         if (await this.checkIfUserExists(auth.currentUser.displayName)) {
           // Benutzer existiert bereits
           // Führe hier die entsprechenden Aktionen aus
-          console.log('User with this name already exists')
         } else {
           // Benutzer existiert noch nicht
           // Führe hier die entsprechenden Aktionen aus
@@ -94,7 +88,6 @@ export class LoginComponent implements OnInit {
           this.user.email = auth.currentUser.email;
           this.user.avatar = auth.currentUser.photoURL;
           this.createUserWithFirebase();
-          console.log('User created with firebase', this.user)
         }
         // IdP data available using getAdditionalUserInfo(result)
         // ...
@@ -102,7 +95,6 @@ export class LoginComponent implements OnInit {
         this.sharedService.getChannelsFromDataBase('DaBubble');
         this.sharedService.createSubscribeChannelMessages();
       }).catch((error) => {
-        console.log('Google Login Failed, Login does not work')
         // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -125,7 +117,6 @@ export class LoginComponent implements OnInit {
     let usersCollection = collection(this.firestore, 'users');
     addDoc(usersCollection, this.user.toJSON())
       .then(() => {
-        console.log('User added to Firestore successfully!');
       })
       .catch((error) => {
         console.error('Error adding user to Firestore', error);
@@ -137,13 +128,11 @@ export class LoginComponent implements OnInit {
     this.appComponent.showFeedback('Hallo Gast!');
     signInAnonymously(auth)
       .then(() => {
-        console.log('User logged in as Guest successfully')
         this.userDataService.saveCurrentUserLocalStorage('Gast', '', '');
         this.router.navigate(['/main-page']);
         // Signed in..
       })
       .catch((error) => {
-        console.log('ERROR, User could NOT log in as Guest')
         const errorCode = error.code;
         const errorMessage = error.message;
         // ...

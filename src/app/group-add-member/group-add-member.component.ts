@@ -63,11 +63,7 @@ export class GroupAddMemberComponent implements OnInit {
   ngOnInit(): void {
     this.currentChannel.info = this.dialogData[0];
     this.currentChannel.id = this.dialogData[1];
-
     this.filterUsersNoMembers();
-
-    console.log(this.actMembers);
-
   }
 
   /**

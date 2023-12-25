@@ -110,10 +110,8 @@ export class UserDataService {
 
     const emailAuthProvider = EmailAuthProvider.credential(this.auth.currentUser.email, password);
     reauthenticateWithCredential(this.auth.currentUser, emailAuthProvider).then(() => {
-      console.log('Reauthentication succesful');
       reAuthenticateSuccess = true;
     }).catch((error) => {
-      console.log('Reauthenticate error :', error);
       reAuthenticateSuccess = false;
     });
     return reAuthenticateSuccess;

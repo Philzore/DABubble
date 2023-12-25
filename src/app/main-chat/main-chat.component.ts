@@ -353,10 +353,8 @@ openGroupInfoPopUp(): void {
    */
   async createSubscribeThreadMessages(messageID: string) {
     let channelId = this.sharedService.filteredChannels[1];
-    // console.log('Aktuelle Message ID : ', messageID);
     //load right thread from firestore
     this.unsubThread = onSnapshot(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`), async (doc) => {
-      // console.log('Thread with id :', messageID, 'updating');
       await this.getThreadMessagesFromSingleMessage(messageID);
     });
   }
@@ -402,7 +400,6 @@ openGroupInfoPopUp(): void {
       });
       //create thread subcollection
       const messageRef = doc(this.firestore, `channels/${channelId}/messages`, subcollectionMessages.id);
-      // console.log(messageRef.id);
       const threadSubcollection = await addDoc(collection(messageRef, `thread`),
         this.message.toJSON()
       );
@@ -530,8 +527,6 @@ openGroupInfoPopUp(): void {
     const querySnapshotThread = await getDocs(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`));
     querySnapshotThread.forEach((doc) => {
       this.sharedService.currentThreadContent.push(new Message(doc.data()));
-      // console.log('Thread Data:', doc.data());
-      //console.log(this.sharedService.currentThreadContent.length);
     });
     //set path in sharedService
     this.sharedService.messagePath = '';
@@ -539,7 +534,6 @@ openGroupInfoPopUp(): void {
     this.sharedService.messagePath = `channels/${channelId}/messages/${messageID}`;
     this.sharedService.threadPath = `channels/${channelId}/messages/${messageID}/thread`;
     this.sortMessagesTime(this.sharedService.currentThreadContent);
-    // console.log('Thread Cotent', this.sharedService.currentThreadContent);
     this.sharedService.threadContentReady = true;
   }
 

@@ -14,11 +14,6 @@ export class DialogReauthenticateComponent {
   constructor(public dialogRef: MatDialogRef<DialogReauthenticateComponent>, public userDataService:UserDataService) { }
 
   reauthenticate() {
-    // Führen Sie die Reauthentifizierung durch
-    // Überprüfen Sie das Passwort und senden Sie 'success' oder 'error' an das Hauptdialogfenster
-    // Je nach Ergebnis kann die Hauptkomponente die E-Mail-Adresse aktualisieren oder einen Fehler anzeigen
-    // Sie müssen hier die Reauthentifizierungslogik implementieren
-    // Zum Beispiel:
     if (this.userDataService.reAuthenticate(this.currentPassword)) {
       this.dialogRef.close({event : 'success'});
     } else {

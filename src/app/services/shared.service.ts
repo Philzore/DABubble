@@ -86,7 +86,6 @@ export class SharedService {
         cuttedStr.channel = value.channel.substring(2);
         this.showChannelViewFct();
         this.updateChannel(cuttedStr.channel);
-        // console.log('return', channel);
       }
     }
   }
@@ -138,7 +137,6 @@ export class SharedService {
     this.channelsForFilter.forEach((channel) => {
       this.options.push({ channel: `# ${channel.name}` });
     });
-    // console.log('Options :', this.options);
   }
 
   /**
@@ -348,7 +346,6 @@ export class SharedService {
     const querySnapshot = await getDocs(filteredChannels);
     querySnapshot.forEach((doc) => {
       this.filteredChannels.push(doc.data(), doc.id);
-      // console.log(this.filteredChannels);
     });
     this.templateIsReady = true;
   }
@@ -358,7 +355,6 @@ export class SharedService {
    * 
    */
   createSubscribeChannelMessages() {
-    // console.log('create Main Chat sub');
     let channelId = this.filteredChannels[1];
     this.unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
       await this.getMessagesFromChannel();
@@ -377,7 +373,6 @@ export class SharedService {
     querySnapshotMessages.forEach(async (doc) => {
       this.channelMessagesFromDB.push(new Message(doc.data()));
     });
-    // console.log('Founded Messages :', this.channelMessagesFromDB);
     this.sortMessagesTime(this.channelMessagesFromDB);
     this.originalArray = this.channelMessagesFromDB;
   }
@@ -387,7 +382,6 @@ export class SharedService {
     * 
     */
   createSubscribeDirectChat() {
-    // console.log('create Direct Chat Sub');
     this.unsubDirectChat = onSnapshot(doc(this.firestore, 'directMessages', this.currentDirectMsgID), async (doc) => {
       await this.getDirectMsgFromDatabase();
     });
@@ -404,15 +398,12 @@ export class SharedService {
     const directMsgSnap = await getDoc(docRef);
 
     if (directMsgSnap.exists && directMsgSnap.data()['messages']) {
-      // console.log('direct msg data : ', directMsgSnap.data()['messages']);
       directMsgSnap.data()['messages'].forEach((msg) => {
         const directMessage = new Message(msg);
         this.directMsgsFromDB.push(directMessage);
       });
     } else {
-      // console.log('No direct MSG Document found, content empty');
     }
-    // console.log('Msgs for current direct content:', this.directMsgsFromDB);
     this.sortMessagesTime(this.directMsgsFromDB);
     this.directChatReady = true;
     this.originalArray = this.directMsgsFromDB;
@@ -437,17 +428,14 @@ export class SharedService {
     if (this.showDirectMessageView) {
       this.unsubDirectChat();
     }
-    // console.log(user);
     this.oppositeUser = user;
     const directMsgCollRef = collection(this.firestore, 'directMessages');
-    // console.log('Opposite : ', user.name, 'Your Name : ', yourName);
 
     if (! await this.checkDirectMsgExist(user.name, yourName, directMsgCollRef)) {
       const docRef = await addDoc((directMsgCollRef), {
         between: { user1: yourName, user2: user.name },
       });
       this.currentDirectMsgID = docRef.id;
-      // console.log('Chat ID', this.sharedService.currentDirectMsgID);
     }
     this.showDirectMessageViewFct();
   }
@@ -462,16 +450,12 @@ export class SharedService {
     ) //end of or
     ); //end of query function
     const querySnapshot = await getDocs(q);
-    // console.log(querySnapshot.empty);
     if (!querySnapshot.empty) {
-      console.log('Chat schon vorhanden');
       querySnapshot.forEach((doc) => {
         this.currentDirectMsgID = doc.id;
       });
-      // console.log('Chat ID', this.sharedService.currentDirectMsgID);
       return true
     } else {
-      console.log('Chat Nicht vorhanden');
       return false
     }
   }

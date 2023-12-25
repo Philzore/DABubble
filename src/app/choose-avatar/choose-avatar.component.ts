@@ -44,7 +44,7 @@ export class ChooseAvatarComponent {
     let usersCollection = collection(this.firestore, 'users');
     addDoc(usersCollection, this.user.toJSON())
       .then(() => {
-        console.log('User added to Firestore successfully!');
+        
       })
       .catch((error) => {
         console.error('Error adding user to Firestore', error);
@@ -59,8 +59,6 @@ export class ChooseAvatarComponent {
         this.appComponent.showFeedback('Du hast dich erfolgreich registriert!');
         const user = userCredential.user;
         // Registrierung erfolgreich
-
-        console.log('User registered successfully');
         // Die Werte für Benutzerobjekt
         this.user.name = this.name;
         this.user.email = this.email;
@@ -84,7 +82,6 @@ export class ChooseAvatarComponent {
         })
           .then(() => {
             // Anzeigenamen aktualisiert
-            console.log('Display name updated successfully');
           })
           .catch((error) => {
             // Bei einem Fehler die Fehlermeldung anzeigen
@@ -102,7 +99,6 @@ export class ChooseAvatarComponent {
     this.email = userData.email;
     this.name = userData.name
     this.password = userData.password;
-    console.log('User name:', userData);
   }
 
   @ViewChild('fileInput') fileInput: any;
@@ -116,7 +112,6 @@ export class ChooseAvatarComponent {
     if (selectedFile) {
       // Den Dateipfad in eine sichere URL umwandeln
       const fileURL = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(selectedFile));
-      console.log('Ausgewählte Datei:', selectedFile);
       this.selectedCharacter = fileURL;
     }
   }
