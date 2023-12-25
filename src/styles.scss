@@ -908,6 +908,9 @@ $main-purple: #eceefe;
     margin: unset !important;
 }
 
+  .cdk-overlay-pane {
+    min-width: 100vw;
+  }
   
 
   .message-container {

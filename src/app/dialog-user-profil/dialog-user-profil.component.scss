@@ -2,7 +2,6 @@
     padding: 45px 40px;
     display: flex;
     flex-direction: column;
-    min-width: 500px;
     font-size: 18px;
 }
 
@@ -69,5 +68,11 @@
             cursor: pointer;
             text-decoration: none !important;
         }
+    }
+}
+
+@media(max-width:800px) {
+    .profil-dialog {
+        height: 100vh;
     }
 }

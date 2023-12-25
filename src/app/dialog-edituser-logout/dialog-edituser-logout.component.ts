@@ -32,11 +32,22 @@ export class DialogEdituserLogoutComponent implements OnInit {
   }
 
   showProfil() {
+    // Close the currently open dialog
     this.dialogRef.close();
-    const dialog = this.dialog.open(DialogUserProfilComponent, { position: { top: '100px', right: '50px' }, panelClass: 'custom-logout-dialog' });
-
-    
+  
+    // Determine if the screen width is greater than 1200px
+    const isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
+  
+    // Configure the dialog settings based on screen width
+    const dialogConfig = {
+      position: { top: '100px', right: '50px' },
+      panelClass: isScreenWidthGreaterThan1200 ? 'custom-logout-dialog' : ''
+    };
+  
+    // Open the dialog with the configured settings
+    const dialog = this.dialog.open(DialogUserProfilComponent, dialogConfig);
   }
+  
 
   logOut() {
     const auth = getAuth();

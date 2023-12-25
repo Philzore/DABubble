@@ -52,8 +52,19 @@ export class DesktopHeaderComponent implements OnInit {
    * 
    */
   openDialog() {
-    const dialog = this.dialog.open(DialogEdituserLogoutComponent, { position: { top: '100px', right: '50px' }, panelClass: 'custom-logout-dialog'});
+    // Determine if the screen width is greater than 1200px
+    const isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
+  
+    // Configure the dialog settings based on screen width
+    const dialogConfig = {
+      position: { top: '100px', right: '50px' },
+      panelClass: isScreenWidthGreaterThan1200 ? 'custom-logout-dialog' : ''
+    };
+  
+    // Open the dialog with the configured settings
+    const dialog = this.dialog.open(DialogEdituserLogoutComponent, dialogConfig);
   }
+  
 
   /**
    * close sidebar
