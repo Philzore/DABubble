@@ -28,11 +28,26 @@ export class DialogUserProfilComponent implements OnInit {
    * 
    */
   openEditProfile() {
+    // Close the currently open dialog
     this.dialogRef.close();
-    const dialog = this.dialog.open(DialogEditProfilComponent, { position: { top: '100px', right: '50px' }, panelClass: 'custom-logout-dialog' });
-
+  
+    // Determine if the screen width is greater than 1200px
+    const isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
+  
+    // Configure the dialog settings based on screen width
+    const dialogConfig = {
+      position: { top: '100px', right: '50px' },
+      panelClass: isScreenWidthGreaterThan1200 ? 'custom-logout-dialog' : ''
+    };
+  
+    // Open the dialog with the configured settings
+    const dialog = this.dialog.open(DialogEditProfilComponent, dialogConfig);
+  
+    // Handle the dialog close event
     dialog.afterClosed().subscribe(() => {
+      // Perform actions after the dialog is closed
       this.sharedService.createSubscribeChannelMessages();
     });
   }
+  
 }

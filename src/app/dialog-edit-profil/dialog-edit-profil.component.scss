@@ -16,7 +16,7 @@
     }
 }
 
-.profil-img{
+.profil-img {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -99,4 +99,10 @@
     }
 
     
+}
+
+@media(max-width:800px) {
+    .edit-profil-dialog {
+        height: 100vh;
+    }
 }
