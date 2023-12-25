@@ -128,7 +128,7 @@ export class LoginComponent implements OnInit {
     this.appComponent.showFeedback('Hallo Gast!');
     signInAnonymously(auth)
       .then(() => {
-        this.userDataService.saveCurrentUserLocalStorage('Gast', '', '');
+        this.userDataService.saveCurrentUserLocalStorage('Gast', '', './assets/characters/default_character.png');
         this.router.navigate(['/main-page']);
         // Signed in..
       })
