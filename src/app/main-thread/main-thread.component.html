@@ -100,7 +100,7 @@
               <p class="bold">{{ message.from }}</p>
               <emoji-mart set="apple" #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id"
                 (emojiClick)="addReactionToThreadMessage($event ,message.id)"
-                [style]="{ position: 'absolute', top: '80px', right : '-115px', 'border-radius': '15px', 'z-index': '11', 'width': '250px'}">
+                [style]="{position: 'absolute', top: '80px', right : '-115px', 'border-radius': '15px', 'z-index': '11', 'width': '250px'}">
               </emoji-mart>
               <span class="message-time">{{ message.calculatedTime }}</span>
             </div>
@@ -137,7 +137,7 @@
           <div *ngIf="showAddDataPopup" class="add-data-popup">Datei anhängen</div>
           <div *ngIf="showEmojiPopup" class="emoji-mart">
             <emoji-mart class="emoji-mart-input" (emojiClick)="addEmoji($event)"
-                            [style]="{position: 'absolute', bottom: '50px', left:'75px', 'border-radius': '15px', 'z-index': '1'}">
+                            [style]="{position: 'absolute', bottom: '50px', left:'75px', 'border-radius': '15px', 'z-index': '1', 'width': '250px'}">
             </emoji-mart>
           </div>
           <div *ngIf="showPersonPopup" class="person-popup">

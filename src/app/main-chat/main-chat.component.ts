@@ -475,42 +475,48 @@ openGroupInfoPopUp(): void {
   }
   
 
-  async addReaction(emoji: { native: string }, messageId: string) {
+  async addReaction(emoji, messageId) {
     try {
       let channelId = this.sharedService.filteredChannels[1];
       const singleRef = doc(this.firestore, 'channels', channelId);
       const messageRef = doc(singleRef, 'messages', messageId);
-  
+
       await runTransaction(this.firestore, async (transaction) => {
         const emojiNative = emoji.native;
         const messageSnapshot = await transaction.get(messageRef);
         const existingReactions = messageSnapshot.data()?.['reactions'] || [];
-        const exisitingsReactionsCount = messageSnapshot.data()?.['reactionsCount'] || {};
-  
-        if (existingReactions.includes(emojiNative)) {
-          exisitingsReactionsCount[emojiNative] = (exisitingsReactionsCount[emojiNative] || 0) + 1;
-        } else {
-          this.emojiMap[messageId] = [...existingReactions, emojiNative];
-          exisitingsReactionsCount[emojiNative] = 1;
+        const existingReactionsCount = messageSnapshot.data()?.['reactionsCount'] || {};
+
+        // Initialize emojiMap for messageId if it doesn't exist
+        if (!this.emojiMap[messageId]) {
+          this.emojiMap[messageId] = existingReactions;
         }
+
+        if (existingReactions.includes(emojiNative)) {
+          existingReactionsCount[emojiNative] = (existingReactionsCount[emojiNative] || 0) + 1;
+        } else {
+          this.emojiMap[messageId] = [...this.emojiMap[messageId], emojiNative];
+          existingReactionsCount[emojiNative] = 1;
+        }
+
+        // Update the local message reactions
         (this.message.reactions as string[]) = this.emojiMap[messageId];
-  
+
+
         // Ensure this.emojiMap[messageId] is defined before updating Firestore
         if (this.emojiMap[messageId] !== undefined) {
           transaction.update(messageRef, {
             reactions: this.emojiMap[messageId],
-            reactionsCount: exisitingsReactionsCount,
+            reactionsCount: existingReactionsCount,
           });
-        } else {
-          console.error(`this.emojiMap[${messageId}] is undefined`);
-        }
+        } 
       });
     } catch (error) {
       console.error('Error adding reaction:', error);
     }
-    
   }
   
+
 
 
 
