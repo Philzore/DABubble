@@ -119,25 +119,26 @@ export class DirectChatComponent implements OnInit {
         allMessages[messageId].reactions.push(emojiNative);
         allMessages[messageId].reactionsCount[emojiNative] = 1;
       }
-  
       // Update the entire messages array
       await updateDoc(singleRef, {
         messages: allMessages,
       });
     }
-  
     this.emojiMartVisible = false;
   }
   
 
   // Function to open emoji-mart for a specific message
   openEmojiForMessage(messageID?: string) {
+    // Check if the emoji picker is already open for this message
     if (this.selectedMessageId === messageID) {
-      this.emojiMartVisible = false;
+      // Toggle the visibility of the emoji picker
+      this.emojiMartVisible = !this.emojiMartVisible;
     } else {
-      this.selectedMessageId = messageID; // Open the emoji-mart for the selected message
+      // Open the emoji picker for the new message and ensure it's visible
+      this.selectedMessageId = messageID;
+      this.emojiMartVisible = true;
     }
-    this.emojiMartVisible = true;
   }
 
 

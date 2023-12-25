@@ -50,9 +50,6 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { RouterModule, Routes } from '@angular/router';
 
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -101,6 +98,7 @@ import { RouterModule, Routes } from '@angular/router';
     BrowserAnimationsModule,
     MatAutocompleteModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
+    
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     

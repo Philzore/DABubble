@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
         if (await this.checkIfUserExists(auth.currentUser.displayName)) {
           // Benutzer existiert bereits
           // Führe hier die entsprechenden Aktionen aus
-          console.log('User with this name exists already')
+          console.log('User with this name already exists')
         } else {
           // Benutzer existiert noch nicht
           // Führe hier die entsprechenden Aktionen aus

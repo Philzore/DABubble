@@ -60,7 +60,6 @@ export class SidebarComponent implements OnInit {
   sidebarClose: boolean = false;
   workspaceText: string = 'schließen';
   channelsFromDataBase = [];
-
   userData = {};
 
 

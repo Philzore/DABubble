@@ -1,4 +1,4 @@
-<mat-card class="overview-card" *ngIf="!sidebarClose" [@enterAnimation]="sidebarClose">
+<div class="overview-card" *ngIf="!sidebarClose" [@enterAnimation]="sidebarClose">
   <!-- sidebar header -->
   <mat-card-header>
     <div class="header-section">
@@ -76,7 +76,7 @@
     </div>
     <!-- end direct message drop down -->
   </mat-card-content>
-</mat-card>
+</div>
 
 <div class="workspace-closing" (click)="closeSidebar()">
   <div class="workspace-animation">

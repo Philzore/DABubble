@@ -12,15 +12,13 @@ import { Unsubscribe } from '@angular/fire/auth';
 import { ExpressionBinding } from '@angular/compiler';
 import { AppComponent } from '../app.component';
 import { FormControl } from '@angular/forms';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, finalize, map, startWith } from 'rxjs';
 import { User } from '../models/user.class';
 import { NgZone } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-
-
-
+import { provideStorage, getStorage } from '@angular/fire/storage'
 
 
 
@@ -69,9 +67,6 @@ export class MainChatComponent implements OnInit, OnChanges {
   filePreview: string | ArrayBuffer | null = null;
 
 
-  
-
-
   constructor(
     public dialog: MatDialog,
     @Optional() public dialogRef: MatDialogRef<GroupMemberComponent>,
@@ -84,7 +79,8 @@ export class MainChatComponent implements OnInit, OnChanges {
     private firestore: Firestore,
     private ngZone: NgZone,
     private router: Router,
-    public appComponent: AppComponent,) {
+    public appComponent: AppComponent,
+    ) {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
     });
@@ -343,7 +339,6 @@ openGroupInfoPopUp(): void {
     if (this.unsubThread) {
       this.unsubThread();
     }
-    
     this.threadClosed.emit();
     this.threadOpen = false;
     this.lastMessageId = '';
@@ -421,29 +416,22 @@ openGroupInfoPopUp(): void {
   }
 
   onFileSelected(event: any): void {
-    const fileInput = event.target;
-    const file = fileInput.files?.[0];
-
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        if (file.type.startsWith('image/')) {
-          // If it's an image file, display it in the img element
-          this.filePreview = reader.result;
-          this.copiedText = ''; // Clear the copiedText in case it's not an image
-        } else {
-          // For other file types, you can handle differently or show in the textarea
-          this.copiedText = reader.result as string;
-          this.filePreview = null; // Clear the file preview if it's not an image
-        }
-      };
-
-      reader.readAsDataURL(file);
-    } else {
-      this.copiedText = '';
-      this.filePreview = null;
-    }
+    // const fileInput = event.target;
+    // const file = fileInput.files?.[0];
+    // if (file && file.type.startsWith('image/')) {
+    //   const filePath = `chat_images/${new Date().getTime()}_${file.name}`; // Create a unique path for the file
+    //   const fileRef = this.afStorage.ref(filePath);
+    //   const task = this.afStorage.upload(filePath, file);
+  
+    //   // Get URL for the uploaded file and then save the message
+    //   task.snapshotChanges().pipe(
+    //     finalize(() => {
+    //       fileRef.getDownloadURL().subscribe(url => {
+    //         this.messageSend(url); // Implement this method to send the message
+    //       });
+    //     })
+    //   ).subscribe();
+    // }
   }
 
   async addReactionToMessage(emoji: string, messageId: string) {

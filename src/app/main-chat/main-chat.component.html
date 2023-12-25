@@ -136,11 +136,11 @@
 
         <section class="input-container">
 
-            <!-- <div class="image-preview-container" *ngIf="filePreview">
+            <div class="image-preview-container" *ngIf="filePreview">
                 <a [href]="filePreview" target="_blank">
                   <img [src]="filePreview" alt="Selected File" class="image-preview">
                 </a>
-            </div> -->
+            </div>
               
               <textarea (click)="closeEmojiPopUp()" (keydown)="onKeydown($event)" *ngIf="sharedService.templateIsReady" [(ngModel)]="copiedText"
                 placeholder="Nachricht an #{{ sharedService.filteredChannels[0].name }}">
@@ -158,7 +158,7 @@
 
                     <div *ngIf="showAddDataPopup" class="add-data-popup cursor">
                         <label class="cursor" for="fileInput">Datei auswählen</label>
-                        <input class="cursor" type="file" id="fileInput" (change)="onFileSelected($event)">
+                        <input class="cursor" type="file" id="fileInput" (change)="onFileSelected($event)" multiple>
                     </div>
 
 

@@ -1,13 +1,12 @@
 //----------------- Card CONTAINER ------------- //
-mat-card {
+.overview-card {
     padding: 15px;
     font-size: 20px;
     border-radius: 30px;
-
+    background-color: #fff;
     p {
         margin: 0;
     }
-
 }
 
 mat-card-header {
@@ -176,7 +175,7 @@ mat-card-header {
 }
 
 @media (max-width: 1200px) {
-    mat-card {
+    .overview-card {
         border-radius: 0 30px 30px 0;
         position: absolute;
         bottom: 0;
