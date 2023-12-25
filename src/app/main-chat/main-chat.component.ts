@@ -549,8 +549,11 @@ openGroupInfoPopUp(): void {
    * check if textare has empty lines
    * 
    */
-
  isWhitespace(line: string): any {
-    //return /[\s\n]/.test(line);
+    if (line.trim() == '') {
+      return true ;
+    } else {
+      return false ;
+    }
   }
 }
