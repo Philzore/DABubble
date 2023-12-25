@@ -342,19 +342,34 @@
     z-index: 1;
     transform: translate(-50%, -50%);
     animation: moveToLeftCorner 3s forwards;
-    
+
 }
 
 // ANIMATION FOR WHOLE LOGO TO SLIDE TO UPPER LEFT CORNER
-@keyframes moveToLeftCorner {
-    from {
-        transform: translate(-50%, -50%);
-    }
+@media (min-width: 600px) {
+    @keyframes moveToLeftCorner {
+        from {
+            transform: translate(-50%, -50%);
+        }
 
-    to {
-        top: 1%;
-        left: 1%;
-        transform: translate(0,0);
+        to {
+            top: 1%;
+            left: 1%;
+            transform: translate(0, 0);
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    @keyframes moveToLeftCorner {
+        from {
+            transform: translate(-50%, -50%);
+        }
+
+        to {
+            top: 1%;
+            transform: translate(-50%, 0);
+        }
     }
 }
 
