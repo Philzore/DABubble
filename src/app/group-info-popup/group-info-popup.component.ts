@@ -26,6 +26,9 @@ export class GroupInfoPopupComponent implements OnInit {
   channelDescription = '';
   hideEditDescription = false;
   memberSubscriber:boolean = false ;
+  //feedback when successfull name or description is changed
+  changeNameSuccess = false ;
+  changeDescriptionSuccess = false ;
 
   /**
    * 
@@ -65,9 +68,14 @@ export class GroupInfoPopupComponent implements OnInit {
    */
   saveChannelName() {
     if(this.channelName.length >= 1) {
+      this.changeNameSuccess = true ;
       this.currentChannel.info.name = this.channelName;
       this.sharedService.updateChannelInfoDatabase({ name: this.channelName }, this.currentChannel.id);
       this.isEditing = false;
+
+      setTimeout(() => {
+        this.changeNameSuccess = false ;
+      }, 1000);
     }
   }
 
@@ -77,8 +85,13 @@ export class GroupInfoPopupComponent implements OnInit {
    */
   saveChannelDescription() {
     if(this.channelDescription.length >= 1) {
+      this.changeDescriptionSuccess = true ;
       this.currentChannel.info.description = this.channelDescription;
       this.sharedService.updateChannelInfoDatabase({ description: this.channelDescription }, this.currentChannel.id);
+
+      setTimeout(() => {
+        this.changeDescriptionSuccess = false ;
+      }, 1000);
     }
     this.hideEditDescription = false;
   }

@@ -8,8 +8,9 @@
     <div class="group-info-name-container" [ngClass]="{'is-editing': isEditing}">
         <div class="header-container">
             <h3 class="bold">Channel - Name</h3>
-            <button class="cursor purple" *ngIf="!isEditing" (click)="changeChannelName()">Bearbeiten</button>
-            <button class="cursor purple" [class.opacity-0-3]="(channelName == '')" *ngIf="isEditing" (click)="saveChannelName()">Speichern</button>
+            <button class="cursor purple" *ngIf="!isEditing && !changeNameSuccess" (click)="changeChannelName()">Bearbeiten</button>
+            <button class="cursor purple" [class.opacity-0-3]="(channelName == '')" *ngIf="isEditing && !changeNameSuccess" (click)="saveChannelName()">Speichern</button>
+            <mat-icon *ngIf="changeNameSuccess" class="change-info-done">done</mat-icon>
         </div>
         <div class="group-info-name">
             <ng-container *ngIf="isEditing; else displayChannelName">
@@ -24,8 +25,9 @@
     <div class="group-info-description-container" [ngClass]="{'is-editing': hideEditDescription}">
         <div class="header-container">
             <h3 class="bold">Beschreibung</h3>
-            <button class="cursor purple" *ngIf="!hideEditDescription" (click)="changeChannelDescription()">Bearbeiten</button>
-            <button class="cursor purple" [class.opacity-0-3]="(channelDescription == '')" *ngIf="hideEditDescription" (click)="saveChannelDescription()">Speichern</button>
+            <button class="cursor purple" *ngIf="!hideEditDescription && !changeDescriptionSuccess" (click)="changeChannelDescription()">Bearbeiten</button>
+            <button class="cursor purple" [class.opacity-0-3]="(channelDescription == '')" *ngIf="hideEditDescription && !changeDescriptionSuccess" (click)="saveChannelDescription()">Speichern</button>
+            <mat-icon *ngIf="changeDescriptionSuccess" class="change-info-done">done</mat-icon>
         </div>
         <div class="group-info-name">
             <ng-container *ngIf="hideEditDescription; else displayDescription">
