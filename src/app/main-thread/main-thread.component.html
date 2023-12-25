@@ -152,7 +152,7 @@
         </div>
 
         <div class="input-send-right">
-          <button [class.non-empty]="copiedText !== ''" (click)="sendThreadMessage()" [disabled]="isSendingMessage || copiedText.length < 1">
+          <button [class.non-empty]="(copiedText !== '') && !isWhitespace(copiedText)" (click)="sendThreadMessage()" [disabled]="isSendingMessage || isWhitespace(copiedText)">
               <i class="material-icons">send</i>
           </button>
       </div>

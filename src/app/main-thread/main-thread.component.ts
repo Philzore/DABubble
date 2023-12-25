@@ -58,7 +58,7 @@ export class MainThreadComponent {
  */
   onKeydown(event) {
     //to avoid the default action what would be the line break
-    if ((event.key === "Enter") && (this.copiedText.length >= 1)) {
+    if ((event.key === "Enter") && (this.copiedText.length >= 1) && !this.isWhitespace(this.copiedText)) {
       this.sendThreadMessage();
     }
   }
@@ -152,7 +152,7 @@ export class MainThreadComponent {
 
 
   async sendThreadMessage() {
-    if (this.copiedText.length >= 1) {
+    if (this.copiedText.length >= 1 && !this.isWhitespace(this.copiedText)) {
       this.isSendingMessage = true;
       this.threadMessage.from = this.userDataService.currentUser['name'];
       if (this.threadMessage.from == 'Gast') {
@@ -180,7 +180,7 @@ export class MainThreadComponent {
       this.copiedText = '';
     }
     this.isSendingMessage = false;
-    this.scrollToBottom() ;
+    this.scrollToBottom();
     await this.updateNumberOfThreadMsgs();
   }
 
@@ -189,6 +189,18 @@ export class MainThreadComponent {
     await updateDoc(msgRef, {
       numberOfThreadMsgs: increment(1)
     });
+  }
+
+  /**
+  * check if textare has empty lines
+  * 
+  */
+  isWhitespace(line: string): any {
+    if (line.trim() == '') {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }
