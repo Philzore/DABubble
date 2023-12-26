@@ -18,7 +18,7 @@ import { NgZone } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { provideStorage, getStorage } from '@angular/fire/storage'
+import { provideStorage, getStorage, getDownloadURL, ref, uploadBytes } from '@angular/fire/storage'
 
 @Component({
   selector: 'app-main-chat',
@@ -52,6 +52,7 @@ export class MainChatComponent implements OnInit, OnChanges {
   groupMemberPopUpOpen: boolean = false;
   isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
   isSmallScreen: boolean;
+  uploadedFiles: Array<{ name: string, url: string }> = [];
   emojiMap: { [messageId: string]: string[] } = {};
   emojiCountMap: { [emoji: string]: number } = {};
   selectedMessageId: string | null = null;
@@ -63,7 +64,7 @@ export class MainChatComponent implements OnInit, OnChanges {
   @Input() threadToogleFromOutside: boolean;
   @Output() threadClosed = new EventEmitter<void>();
   filePreview: string | ArrayBuffer | null = null;
-
+  storage = getStorage();
 
   constructor(
     public dialog: MatDialog,
@@ -71,6 +72,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     public sharedService: SharedService,
     public userDataService: UserDataService,
     private elementRef: ElementRef,
+    private eRef: ElementRef,
     private breakpointObserver: BreakpointObserver,
     private renderer: Renderer2,
     private GroupInfoDialogRef: MatDialogRef<GroupInfoPopupComponent>,
@@ -106,10 +108,8 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.emojiMartVisible = false;
   }
 
-  @HostListener('document:click', ['$event'])
-  onBodyClick(event: MouseEvent): void {
-    this.emojiMartVisible = false;
-    console.log('test');
+  insideClick(event: Event) {
+    event.stopPropagation(); // Prevent click from reaching the document
   }
 
   /**
@@ -383,8 +383,14 @@ openGroupInfoPopUp(): void {
       let hours = date.getHours();
       let minutes = date.getMinutes();
       const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+
+// Format the date as "26.Dezember.2023"
+      const day = date.getDate();
+      const month = date.toLocaleString('de-DE', { month: 'long' });
+      const year = date.getFullYear();
+      const formattedDate = `${day}.${month}.${year}`
       this.message.calculatedTime = formattedTime;
-      this.message.time = date;
+      this.message.time = formattedDate;
       this.message.text = this.copiedText;
       this.message.reactionsCount = {};
       this.message.reactions = [];
@@ -414,23 +420,31 @@ openGroupInfoPopUp(): void {
     this.scrollToBottom() ;
   }
 
-  onFileSelected(event: any): void {
-    // const fileInput = event.target;
-    // const file = fileInput.files?.[0];
-    // if (file && file.type.startsWith('image/')) {
-    //   const filePath = `chat_images/${new Date().getTime()}_${file.name}`; // Create a unique path for the file
-    //   const fileRef = this.afStorage.ref(filePath);
-    //   const task = this.afStorage.upload(filePath, file);
+  isSameDay(messageDate) {
+    const currentDate = new Date();
+    const msgDate = new Date(messageDate);
   
-    //   // Get URL for the uploaded file and then save the message
-    //   task.snapshotChanges().pipe(
-    //     finalize(() => {
-    //       fileRef.getDownloadURL().subscribe(url => {
-    //         this.messageSend(url); // Implement this method to send the message
-    //       });
-    //     })
-    //   ).subscribe();
-    // }
+    return currentDate.getDate() === msgDate.getDate() &&
+           currentDate.getMonth() === msgDate.getMonth() &&
+           currentDate.getFullYear() === msgDate.getFullYear();
+  }
+
+  onFileSelected(event) {
+    const file = event.target.files[0];
+    if (file) {
+      this.uploadFile(file);
+    }
+  }
+
+  uploadFile(file) {
+    const storageRef = ref(this.storage, 'uploads/' + file.name);
+    uploadBytes(storageRef, file).then((snapshot) => {
+      console.log('Uploaded a file!');
+      getDownloadURL(snapshot.ref).then((downloadURL) => {
+        this.uploadedFiles.push({ name: file.name, url: downloadURL });
+      });
+    });
+    console.log(storageRef);
   }
 
   async addReactionToMessage(emoji: string, messageId: string) {

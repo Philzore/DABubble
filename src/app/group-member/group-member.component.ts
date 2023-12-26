@@ -44,15 +44,24 @@ export class GroupMemberComponent implements OnInit {
     this.currentChannel.id = this.dialogData[1];
   }
 
+  /**
+   * open Add Member dialog
+   * 
+   */
   openAddMemberPopUp(): void {
-    this.dialogRef.close();
-    const dialogRef = this.dialog.open(GroupAddMemberComponent, { position: { top: '180px', right: '70px' }, panelClass: 'custom-logout-dialog', data: this.sharedService.filteredChannels });
-
+    const isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
+  
+    const dialogConfig = {
+      data: this.sharedService.filteredChannels,
+      position: isScreenWidthGreaterThan1200 ? { top: '180px', right: '70px' } : {},
+      ...(isScreenWidthGreaterThan1200 ? { panelClass: 'custom-logout-dialog' } : {})
+    };
+  
+    const dialogRef = this.dialog.open(GroupAddMemberComponent, dialogConfig);
+  
     dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        if (result.event == 'start') {
-          this.appComponent.showFeedback('Die Nutzer wurden dem Channel hinzugefügt');
-        }
+      if (result && result.event === 'start') {
+        this.appComponent.showFeedback('Die Nutzer wurden dem Channel hinzugefügt');
       }
     });
   }

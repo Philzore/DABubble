@@ -356,18 +356,40 @@ $main-purple: #eceefe;
         }
 
         .chat-divider-bottom {
-          border-bottom: 5px solid $main-purple;
-          width: 100%;
-
-        }
-
+          position: absolute;
+          top: -25px;
+          left: 0%;
+          right: 50%;
+          width: 100%; /* Full width of the parent */
+          height: 1px; /* Adjust as needed */
+          display: flex;
+          align-items: center; /* Center vertically */
+          background-color: $main-purple; /* Assuming you want it transparent */
+      }
+      
+      .date-label {
+          position: absolute;
+          display: inline-block;
+          padding: 2px 10px;
+          background: #ffffff;
+          color: #333333;
+          font-size: 0.8em;
+          border-radius: 10px;
+          border: 1px solid $main-purple;
+          box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+          /* Centering the label */
+          transform: translate(-50%, -50%);
+          top: 50%;
+          left: 50%;
+      }
+      
 
           .message-container {
           display: flex;
           align-items: center;
           padding:10px 30px;
           margin: 70px 0;
-          position: relative;
+          position: relative !important;
           font-size: 18px;
           &:hover {
             background-color: $main-purple;
@@ -391,6 +413,7 @@ $main-purple: #eceefe;
 
 
         .message-container {
+          position: relative;
 
           img {
             height: 50px;
@@ -478,9 +501,6 @@ $main-purple: #eceefe;
                 background-color: $main-purple;
                 padding: 10px;
                 border-radius: 0px 15px 15px 15px;
-                line-break: anywhere;
-
-  
               }
             }
 
@@ -489,8 +509,6 @@ $main-purple: #eceefe;
               color: #fff;
               padding: 10px;
               border-radius: 15px 0px 15px 15px !important;    
-              line-break: anywhere;
-
             }
 
 
@@ -898,7 +916,6 @@ $main-purple: #eceefe;
     position: static !important;
     margin: 0 !important;
   }
-
 }
 
 @media (max-width:500px) {

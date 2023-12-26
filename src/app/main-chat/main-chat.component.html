@@ -33,7 +33,6 @@
     </mat-toolbar>
 
 
-
     <div class="chat-wrapper" #chatWrapper (scroll)="onScroll($event)">
 
         <div *ngIf="sharedService.templateIsReady" class="chat-beginning-container">
@@ -48,6 +47,9 @@
         <div *ngFor="let message of sharedService.channelMessagesFromDB" #messageContainer class="message-container cursor"
             [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}">
 
+            <div *ngIf="!isSameDay(message.time)" class="chat-divider-bottom">
+                <span class="date-label">{{message.time}}</span> 
+            </div>
 
             <img src="{{message.profileImg}}" alt="" referrerpolicy="no-referrer">
             <div class="message-info-container">
@@ -57,7 +59,8 @@
                         <h4>{{message.from}}</h4> <span class="message-time">{{message.calculatedTime}}</span>
                     </div>
 
-                    <emoji-mart class="emoji-mart-message" set="apple" #emojiMartElement
+                    <div (click)="insideClick($event)">
+                        <emoji-mart class="emoji-mart-message" set="apple" #emojiMartElement
                     *ngIf="emojiMartVisible && selectedMessageId === message.id"
                     (emojiClick)="addReactionToMessage($event, message.id)"
                     [style]="{
@@ -70,6 +73,8 @@
                         'right': message.from !== userDataService.currentUser['name'] ? '100px' : 'auto'
                     }">
                     </emoji-mart>
+                      </div>
+                      
 
                     <div class="info-row-react" [ngClass]="{
                         'left-45px': message.from === userDataService.currentUser['name'],
@@ -109,6 +114,7 @@
                 </div>
 
 
+
                 <!-- TODO theoretisch erledigt -->
                     <!-- TODO 2 Antworten und Letzte Antwort 14:56 replaced with real time data -->
                     <div class="last-response-row"
@@ -121,8 +127,9 @@
                             {{message.calculatedTime}} </span>
                     </div>
                 </div>
-
         </div>
+
+
 
         <div *ngIf="showScrollButton" class="scroll-to-bottom-container">
             <i *ngIf="showScrollButton" #scrollButton (click)="scrollToBottom()"

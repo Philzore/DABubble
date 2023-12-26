@@ -1,7 +1,7 @@
 export class Message {
     from: string;
     profileImg:string;
-    time: Date;
+    time: string;
     calculatedTime:string;
     text: string;
     id:string;

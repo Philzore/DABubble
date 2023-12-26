@@ -165,8 +165,13 @@ export class MainThreadComponent {
       let hours = date.getHours();
       let minutes = date.getMinutes();
       const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+
+// Format the date as "26.Dezember.2023"
+      const day = date.getDate();
+      const month = date.toLocaleString('de-DE', { month: 'long' });
+      const year = date.getFullYear();
+      const formattedDate = `${day}.${month}.${year}`
       this.threadMessage.calculatedTime = formattedTime;
-      this.threadMessage.time = date;
       this.threadMessage.text = this.copiedText;
       this.threadMessage.reactions = [];
       this.threadMessage.reactionsCount = {};

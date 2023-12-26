@@ -161,8 +161,13 @@ export class DirectChatComponent implements OnInit {
       let hours = date.getHours();
       let minutes = date.getMinutes();
       const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+
+// Format the date as "26.Dezember.2023"
+      const day = date.getDate();
+      const month = date.toLocaleString('de-DE', { month: 'long' });
+      const year = date.getFullYear();
+      const formattedDate = `${day}.${month}.${year}`
       this.directMessage.calculatedTime = formattedTime;
-      this.directMessage.time = date;
       this.directMessage.text = this.copiedTextDirectMsg;
       this.directMessage.id = String(this.sharedService.directMsgsFromDB.length) ;
       // this.directMessage.reactionsCount = {};
