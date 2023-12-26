@@ -20,8 +20,6 @@ import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { provideStorage, getStorage } from '@angular/fire/storage'
 
-
-
 @Component({
   selector: 'app-main-chat',
   templateUrl: './main-chat.component.html',
@@ -91,8 +89,6 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.sharedService.createSubscribeChannelMessages();
   }
 
-  
-
   /**
    * check if enter key is pressed , if yes, send message
    * 
@@ -108,6 +104,12 @@ export class MainChatComponent implements OnInit, OnChanges {
 
   closeEmojiPopUp():void {
     this.emojiMartVisible = false;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onBodyClick(event: MouseEvent): void {
+    this.emojiMartVisible = false;
+    console.log('test');
   }
 
   /**
