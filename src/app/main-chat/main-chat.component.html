@@ -149,7 +149,7 @@
                 </a>
             </div>
               
-              <textarea (click)="closeEmojiPopUp()" (keydown)="onKeydown($event)" *ngIf="sharedService.templateIsReady" [(ngModel)]="copiedText"
+              <textarea (click)="closeEmojiPopUp()" (keydown)="onKeydown($event, copiedText)" *ngIf="sharedService.templateIsReady" [(ngModel)]="copiedText"
                 placeholder="Nachricht an #{{ sharedService.filteredChannels[0].name }}">
             </textarea>
             <div class="input-send">
@@ -182,8 +182,9 @@
                             <div *ngFor="let channelMember of sharedService.filteredChannels[0].members">
 
                                 <div class="member-row">
-                                    <p class="close-button" (click)="addNameToTextArea(channelMember.name)"> @ {{
-                                        channelMember.name }}</p>
+                                    <p class="close-button" (click)="addNameToTextArea(channelMember.name)">
+                                    {{channelMember.name }}
+                                    </p>
                                 </div>
 
                             </div>

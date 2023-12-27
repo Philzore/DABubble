@@ -99,11 +99,14 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    * @param event 
    */
-  onKeydown(event) {
+  onKeydown(event, value: string) {
     if ((event.key === "Enter") && (this.copiedText.length >= 1) && !this.isWhitespace(this.copiedText)) {
       //to avoid the default action what would be the line break
       event.preventDefault();
       this.messageSend();
+    }
+    if (event.key === '@') {
+      this.showPersonPopup = true;
     }
   }
 
@@ -171,7 +174,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * @param channelMember {string} - name of the channel member
    */
   addNameToTextArea(channelMember: string) {
-    const channelMemberName = `@ ${channelMember} `;
+    const channelMemberName = ` ${channelMember} `;
     if (!this.copiedText.includes(channelMemberName)) {
       this.copiedText += channelMemberName;
     }
