@@ -276,7 +276,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.showEmojiPopup = false;
   }
 
-  closePupUps() {
+  closePopUps() {
     this.emojiMartVisible = false;
     this.showAddDataPopup = false;
     this.showEmojiPopup = false;
@@ -291,7 +291,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    */
   @HostListener('document:keydown.escape', ['$event'])
   onEscapeKey(event: KeyboardEvent): void {
-    this.closePupUps();
+    this.closePopUps();
   }
 
 

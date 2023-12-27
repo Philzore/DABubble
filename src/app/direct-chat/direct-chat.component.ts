@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { SharedService } from '../services/shared.service';
 import { UserDataService } from '../services/user-data.service';
 import { Firestore, addDoc, arrayUnion, collection, doc, getDoc, runTransaction, updateDoc } from '@angular/fire/firestore';
@@ -50,22 +50,6 @@ export class DirectChatComponent implements OnInit {
     if (event.key === "Enter") {
       this.sendDirectMsg();
     }
-  }
-
-  /**
-   * open add Data dialog in chat
-   * 
-   */
-  toggleAddDataPopup(): void {
-    this.showAddDataPopup = !this.showAddDataPopup;
-  }
-
-  /**
-   * open emoji dialog in chat
-   * 
-   */
-  toggleEmojiPopup(): void {
-    this.showEmojiPopup = !this.showEmojiPopup;
   }
 
   addEmoji(emoji: string) {
@@ -137,6 +121,8 @@ export class DirectChatComponent implements OnInit {
 
   // Function to open emoji-mart for a specific message
   openEmojiForMessage(messageID?: string) {
+    this.insideClick(event);
+
     // Check if the emoji picker is already open for this message
     if (this.selectedMessageId === messageID) {
       // Toggle the visibility of the emoji picker
@@ -146,8 +132,49 @@ export class DirectChatComponent implements OnInit {
       this.selectedMessageId = messageID;
       this.emojiMartVisible = true;
     }
+
   }
 
+  insideClick(event: Event) {
+    event.stopPropagation(); // Prevent click from reaching the document
+  }
+
+    /**
+   * open add Data dialog in chat
+   * 
+   */
+    toggleAddDataPopup(): void {
+      this.insideClick(event) ;
+      this.showAddDataPopup = !this.showAddDataPopup;
+      this.showEmojiPopup = false;
+    }
+  
+    /**
+     * open emoji dialog in chat
+     * 
+     */
+    toggleEmojiPopup(): void {
+      this.insideClick(event) ;
+      this.showEmojiPopup = !this.showEmojiPopup;
+      this.showAddDataPopup = false;
+    }
+  
+    closePopUps() {
+      this.emojiMartVisible = false;
+      this.showAddDataPopup = false;
+      this.showEmojiPopup = false;
+    }
+  
+    /**
+     * close pop ups with escape key
+     * 
+     * @param event {listener}
+     */
+    @HostListener('document:keydown.escape', ['$event'])
+    onEscapeKey(event: KeyboardEvent): void {
+      this.closePopUps();
+    }
+  
 
   /**
    * 

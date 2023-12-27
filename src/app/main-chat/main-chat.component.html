@@ -1,4 +1,4 @@
-<div class="chat-container br-30" (click)="closePupUps()">
+<div class="chat-container br-30" (click)="closePopUps()">
     <mat-toolbar *ngIf="sharedService.templateIsReady && !sharedService.showNewMessageInput">
         <div class="chat-header-left cursor" (click)="openGroupInfoPopUp()">
             <p># {{ sharedService.filteredChannels[0]['name'] }}</p> <i class="material-icons">keyboard_arrow_down</i>
@@ -59,7 +59,7 @@
                 <div class="info-row" [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
                     <div class="info-row-name">
                         <h4>{{message.from}}</h4> <span class="message-time">{{message.calculatedTime}}</span>
-                    </div>
+                </div>
 
                     <div (click)="insideClick($event)">
                         <emoji-mart class="emoji-mart-message" set="apple" #emojiMartElement
@@ -75,7 +75,7 @@
                         'right': message.from !== userDataService.currentUser['name'] ? '100px' : 'auto'
                     }">
                     </emoji-mart>
-                      </div>
+                    </div>
                       
 
                     <div class="info-row-react" [ngClass]="{

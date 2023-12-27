@@ -1,4 +1,4 @@
-<div *ngIf="sharedService.threadContentReady" class="thread-container">
+<div *ngIf="sharedService.threadContentReady" class="thread-container" (click)="closePopUps()">
   <!-- Thread Header -->
   <mat-toolbar>
     <div class="thread-header-info">
@@ -34,7 +34,7 @@
 
     <!-- Chat Divider Bottom Container -->
     <div class="chat-divider-bottom-container">
-      <p> {{ sharedService.currentThreadContent.length }} Antworten</p>
+      <p> {{ sharedService.currentThreadContent.length - 1 }} Antworten</p>
       <div class="chat-divider-bottom"></div>
     </div>
 
@@ -54,11 +54,14 @@
           <div class="message-content-container">
             <div class="info-row-thread" [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
               <p class="bold">{{ message.from }}</p>
+
               <emoji-mart set="apple" #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id"
                 (emojiClick)="addReactionToThreadMessage($event ,message.id)"
-                [style]="{width:'300px', position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '11'}">
+                [style]="{width:'300px', position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '1'}">
               </emoji-mart>
+
               <span class="message-time">{{ message.calculatedTime }}</span>
+              
             </div>
             <div class="clicked-message-content">
               <div class="message-text-container" [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
@@ -100,7 +103,7 @@
               <p class="bold">{{ message.from }}</p>
               <emoji-mart set="apple" #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id"
                 (emojiClick)="addReactionToThreadMessage($event ,message.id)"
-                [style]="{position: 'absolute', top: '80px', right : '-115px', 'border-radius': '15px', 'z-index': '11', 'width': '250px'}">
+                [style]="{position: 'absolute', top: '80px', right : '-115px', 'border-radius': '15px', 'z-index': '1', 'width': '250px'}">
               </emoji-mart>
               <span class="message-time">{{ message.calculatedTime }}</span>
             </div>
@@ -134,7 +137,7 @@
         </div>
 
         <div class="input-popups">
-          <div *ngIf="showAddDataPopup" class="add-data-popup">Datei anhängen</div>
+          <div *ngIf="showAddDataPopup" class="add-data-popup">Datei auswählen</div>
           <div *ngIf="showEmojiPopup" class="emoji-mart">
             <emoji-mart class="emoji-mart-input" (emojiClick)="addEmoji($event)"
                             [style]="{position: 'absolute', bottom: '50px', left:'75px', 'border-radius': '15px', 'z-index': '1', 'width': '250px'}">

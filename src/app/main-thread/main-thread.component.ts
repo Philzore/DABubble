@@ -76,13 +76,51 @@ export class MainThreadComponent {
     }
   }
 
-  toggleAddDataPopup(): void {
-    this.showAddDataPopup = !this.showAddDataPopup;
+  insideClick(event: Event) {
+    event.stopPropagation(); // Prevent click from reaching the document
   }
 
-  toggleEmojiPopup(): void {
-    this.showEmojiPopup = !this.showEmojiPopup;
+  /**
+   * open add Data dialog in chat
+   * 
+   */
+  toggleAddDataPopup(): void {
+    this.insideClick(event) ;
+    this.showAddDataPopup = !this.showAddDataPopup;
+    this.showEmojiPopup = false;
+    this.showPersonPopup = false;
   }
+
+
+    /**
+   * open emoji dialog in chat
+   * 
+   */
+    toggleEmojiPopup(): void {
+      this.insideClick(event) ;
+      this.showEmojiPopup = !this.showEmojiPopup;
+      this.showAddDataPopup = false;
+      this.showPersonPopup = false;
+    }
+  
+    /**
+     * open person dialog in chat
+     * 
+     */
+    togglePersonPopup(): void {
+      this.insideClick(event) ;
+      this.showPersonPopup = !this.showPersonPopup;
+      this.showAddDataPopup = false;
+      this.showEmojiPopup = false;
+    }
+  
+    closePopUps() {
+      this.emojiMartVisible = false;
+      this.showAddDataPopup = false;
+      this.showEmojiPopup = false;
+      this.showPersonPopup = false;
+      
+    }
 
   addEmoji(emoji: string) {
     this.copiedText += emoji['emoji']['native'];
@@ -90,6 +128,7 @@ export class MainThreadComponent {
   }
 
   openEmojiForMessage(messageID?: string) {
+    this.insideClick(event) ;
     if (this.selectedMessageId === messageID) {
       this.emojiMartVisible = !this.emojiMartVisible;
     } else {
@@ -129,12 +168,9 @@ export class MainThreadComponent {
     this.emojiMartVisible = false;
   }
 
-  togglePersonPopup(): void {
-    this.showPersonPopup = !this.showPersonPopup;
-  }
-
   closeThread() {
     this.unsubThreadEvent.emit();
+    this.emojiMartVisible = false;
   }
 
   /**

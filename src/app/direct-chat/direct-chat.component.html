@@ -1,4 +1,4 @@
-<div class="chat-container br-30" *ngIf="sharedService.directChatReady">
+<div class="chat-container br-30" *ngIf="sharedService.directChatReady" (click)="closePopUps()">
 
     <mat-toolbar *ngIf="sharedService.templateIsReady && !sharedService.showNewMessageInput">
         <div class="direct-msg-user" *ngIf="sharedService.showDirectMessageView">
@@ -26,15 +26,23 @@
             <img src="{{message.profileImg}}" alt="">
             <div class="message-info-container">
 
-                <div class="info-row">
+                <div class="info-row" [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
                     <div class="info-row-name">
                         <h4>{{message.from}}</h4> <span class="message-time">{{message.calculatedTime}}</span>
-                    </div>
+                </div>
 
-                    <emoji-mart set="apple" #emojiMartElement
-                        *ngIf="emojiMartVisible && selectedMessageId === message.id"
-                        (emojiClick)="addReactionToMessage($event ,message.id)"
-                        [style]="{ position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '1'}">
+                    <emoji-mart class="emoji-mart-message" set="apple" #emojiMartElement
+                    *ngIf="emojiMartVisible && selectedMessageId === message.id"
+                    (emojiClick)="addReactionToMessage($event, message.id)"
+                    [style]="{
+                        position: 'absolute',
+                        bottom: '-250px',
+                        'border-radius': '15px',
+                        'width': '250px',
+                        'z-index': '4',
+                        'left': message.from === userDataService.currentUser['name'] ? '90px' : 'auto',
+                        'right': message.from !== userDataService.currentUser['name'] ? '90px' : 'auto'
+                    }">
                     </emoji-mart>
 
                     <div class="info-row-react" [ngClass]="{
