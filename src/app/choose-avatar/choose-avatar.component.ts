@@ -72,8 +72,6 @@ export class ChooseAvatarComponent {
         // Fügt Nutzer bei Firebase hinzu ( Collection )
         this.createUserWithFirebase();
 
-        this.router.navigate(['']);
-
         // Aktualisiert den Anzeigenamen vom User in der Authentication
         updateProfile(auth.currentUser, {
           displayName: this.name,
@@ -87,6 +85,8 @@ export class ChooseAvatarComponent {
             // Bei einem Fehler die Fehlermeldung anzeigen
             console.error('Error updating display name', error);
           });
+
+          this.router.navigate(['/main-page']);
       })
       .catch((error) => {
         // Bei einem Fehler die Fehlermeldung anzeigen

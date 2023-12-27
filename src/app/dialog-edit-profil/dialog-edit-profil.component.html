@@ -11,7 +11,7 @@
             <mat-icon>account_circle_outline</mat-icon>
             <span><b>Vollständiger Name</b></span>
         </div>
-        <input [class.successfull-input]="nameChangeSuccessfull" min="4" placeholder="{{ userDataService.currentUser['name'] }}" [(ngModel)]="newName">
+        <input [class.successfull-input]="nameChangeSuccessfull" min="4" type="text" placeholder="{{ userDataService.currentUser['name'] }}" [(ngModel)]="newName">
         <span class="success-text" *ngIf="nameChangeSuccessfull">Name erfolgreich geändert</span>
     </div>
     <div class="edit-profil-field">

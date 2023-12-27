@@ -36,6 +36,8 @@ export class DialogEditProfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.oldName = this.userDataService.currentUser['name'] ;
+    this.newName = this.userDataService.currentUser['name'];
+    this.newEmail = this.userDataService.currentUser['mail'];
   }
 
   /**
@@ -44,16 +46,30 @@ export class DialogEditProfilComponent implements OnInit {
    */
   saveUser() {
     const user = this.auth.currentUser;
+    let emailChanged = false;
+    let nameChanged = false;
 
     if (this.newEmail.includes('@') && this.newEmail.includes('.')) {
-      this.refreshEmail(user);
-      this.emailChangeSuccessfull = true;
+      if (this.newEmail !== this.userDataService.currentUser['mail']) {
+        this.refreshEmail(user);
+        emailChanged = true;
+      }
+
+      if (emailChanged) {
+        this.emailChangeSuccessfull = true;
+      }
     }
 
-    if (this.newName.length >= 4) {
+    if (this.newName.length >= 4 && this.newName !== this.userDataService.currentUser['name']) {
       this.refreshDisplayName(user);
-      this.nameChangeSuccessfull = true;
+      nameChanged = true;
+
+      if (nameChanged) {
+        this.nameChangeSuccessfull = true;
+      }
     }
+
+    
   }
 
   /**
