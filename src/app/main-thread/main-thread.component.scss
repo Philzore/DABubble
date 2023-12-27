@@ -22,7 +22,7 @@ $purple: #535af1;
   padding: 5px 20px;
 
   p {
-    flex: 0.5;
+    flex: .5;
     margin: 0;
   }
 
@@ -385,8 +385,20 @@ $purple: #535af1;
     width: 100vw;
     border-radius: 0;
 
+    
+
     .chat-divider-bottom {
       flex: 2;
+    }
+  }
+}
+
+@media(max-width:500px) {
+  .chat-divider-bottom-container {
+    
+    p {
+      flex: 1;
+      margin: 0;
     }
   }
 }
