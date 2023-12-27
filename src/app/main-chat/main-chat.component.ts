@@ -444,23 +444,14 @@ export class MainChatComponent implements OnInit, OnChanges {
   }
 
 
-  onFileSelected(event) {
-    const file = event.target.files[0];
-    if (file) {
-      this.uploadFile(file);
-    }
-  }
+  // onFileSelected(event) {
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     this.uploadFile(file);
+  //   }
+  // }
 
-  uploadFile(file) {
-    const storageRef = ref(this.storage, 'uploads/' + file.name);
-    uploadBytes(storageRef, file).then((snapshot) => {
-      console.log('Uploaded a file!');
-      getDownloadURL(snapshot.ref).then((downloadURL) => {
-        this.uploadedFiles.push({ name: file.name, url: downloadURL });
-      });
-    });
-    console.log(storageRef);
-  }
+
 
   async addReactionToMessage(emoji: string, messageId: string) {
     try {
