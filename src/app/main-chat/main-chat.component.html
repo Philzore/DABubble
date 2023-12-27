@@ -47,9 +47,11 @@
         <div *ngFor="let message of sharedService.channelMessagesFromDB" #messageContainer class="message-container cursor"
             [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}">
 
-            <div *ngIf="!isSameDay(message.time)" class="chat-divider-bottom">
-                <span class="date-label">{{message.time}}</span> 
+            <div *ngIf="!isSameDay(message.timeStamp, lastDisplayedDate)" class="chat-divider-bottom">
+                <span class="date-label">{{ message.time }}</span>
             </div>
+            <ng-container *ngIf="!isSameDay(message.timeStamp, lastDisplayedDate); then updateDate"></ng-container>
+            <ng-template #updateDate>{{ updateLastDisplayedDate(message.time) }}</ng-template>
 
             <img src="{{message.profileImg}}" alt="" referrerpolicy="no-referrer">
             <div class="message-info-container">

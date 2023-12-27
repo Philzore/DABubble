@@ -65,6 +65,7 @@ export class MainChatComponent implements OnInit, OnChanges {
   @Output() threadClosed = new EventEmitter<void>();
   filePreview: string | ArrayBuffer | null = null;
   storage = getStorage();
+  lastDisplayedDate: string | null = null;
 
   constructor(
     public dialog: MatDialog,
@@ -362,7 +363,21 @@ openGroupInfoPopUp(): void {
   }
 
 
-  //TODO shorten the messageSend function
+  isSameDay(date1: string, date2: string | null): boolean {
+    if (!date1 || !date2) return false; // If either date is missing, return false.
+
+    const d1 = new Date(date1);
+    const d2 = new Date(date2);
+  
+    return d1.getDate() === d2.getDate() &&
+           d1.getMonth() === d2.getMonth() &&
+           d1.getFullYear() === d2.getFullYear();
+}
+
+updateLastDisplayedDate(date: string): void {
+  this.lastDisplayedDate = date;
+}
+
   /**
    * send a normal messgae in a channel
    * create subcollection messages in channel doc
@@ -419,14 +434,6 @@ openGroupInfoPopUp(): void {
     this.scrollToBottom() ;
   }
 
-  isSameDay(messageDate) {
-    const currentDate = new Date();
-    const msgDate = new Date(messageDate);
-  
-    return currentDate.getDate() === msgDate.getDate() &&
-           currentDate.getMonth() === msgDate.getMonth() &&
-           currentDate.getFullYear() === msgDate.getFullYear();
-  }
 
   onFileSelected(event) {
     const file = event.target.files[0];
