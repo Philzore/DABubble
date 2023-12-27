@@ -2,6 +2,7 @@ export class Message {
     from: string;
     profileImg:string;
     time: string;
+    timeStamp: Date;
     calculatedTime:string;
     text: string;
     id:string;
@@ -14,6 +15,7 @@ export class Message {
         this.from = obj ? obj.from : '';
         this.profileImg = obj ? obj.profileImg : '' ;
         this.time = obj ? obj.time : '';
+        this.timeStamp = obj ? obj.timeStamp : '';
         this.calculatedTime = obj ? obj.calculatedTime : '';
         this.text = obj ? obj.text : '';
         this.id = obj ? obj.id : '';
@@ -28,6 +30,7 @@ export class Message {
             from: this.from,
             profileImg: this.profileImg,
             time: this.time,
+            timeStamp: this.timeStamp,
             calculatedTime: this.calculatedTime,
             text: this.text,
             id: this.id,

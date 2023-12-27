@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SharedService } from '../services/shared.service';
 import { UserDataService } from '../services/user-data.service';
 import { Firestore, addDoc, arrayUnion, collection, doc, getDoc, runTransaction, updateDoc } from '@angular/fire/firestore';
@@ -20,6 +20,8 @@ export class DirectChatComponent implements OnInit {
   showEmojiPopup: boolean = false;
   isSendingMessage = false;
   directMessage = new Message();
+  @ViewChild('chatWrapper') private chatWrapper: ElementRef;
+
 
   constructor(
     public sharedService: SharedService,
@@ -27,6 +29,11 @@ export class DirectChatComponent implements OnInit {
     private firestore: Firestore,
   ) {
 
+  }
+
+  scrollToBottom() {
+    const container: HTMLElement = this.chatWrapper.nativeElement;
+    container.scrollTop = container.scrollHeight;
   }
 
   ngOnInit(): void {
@@ -147,7 +154,6 @@ export class DirectChatComponent implements OnInit {
    * 
    */
   async sendDirectMsg() {
-
     if (this.copiedTextDirectMsg.length >= 1) {
       // this.sharedService.unsubChannels();
       this.isSendingMessage = true;
@@ -169,6 +175,7 @@ export class DirectChatComponent implements OnInit {
       const formattedDate = `${day}.${month}.${year}`
       this.directMessage.calculatedTime = formattedTime;
       this.directMessage.text = this.copiedTextDirectMsg;
+      this.directMessage.timeStamp = date;
       this.directMessage.id = String(this.sharedService.directMsgsFromDB.length) ;
       // this.directMessage.reactionsCount = {};
       // this.directMessage.reactions = [];
@@ -181,9 +188,10 @@ export class DirectChatComponent implements OnInit {
         messages: arrayUnion(this.directMessage.toJSON()),
       });
       this.isSendingMessage = false;
-      // this.scrollToBottom();
-      // this.sharedService.createSubscribeChannelMessages();
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 100);
     }
-  }
+    this.scrollToBottom() ;
+    }
 }
-

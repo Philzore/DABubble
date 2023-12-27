@@ -383,14 +383,13 @@ openGroupInfoPopUp(): void {
       let hours = date.getHours();
       let minutes = date.getMinutes();
       const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-
-// Format the date as "26.Dezember.2023"
       const day = date.getDate();
       const month = date.toLocaleString('de-DE', { month: 'long' });
       const year = date.getFullYear();
       const formattedDate = `${day}.${month}.${year}`
       this.message.calculatedTime = formattedTime;
       this.message.time = formattedDate;
+      this.message.timeStamp = date;
       this.message.text = this.copiedText;
       this.message.reactionsCount = {};
       this.message.reactions = [];
@@ -564,7 +563,7 @@ openGroupInfoPopUp(): void {
    * 
    */
   sortMessagesTime(array) {
-    array.sort((a, b) => a.time - b.time);
+    array.sort((a, b) => a.timeStamp - b.timeStamp);
   }
 
   /**

@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Firestore, addDoc, and, arrayUnion, collection, doc, getDoc, getDocs, limit, onSnapshot, or, query, updateDoc, where } from '@angular/fire/firestore';
-import { BehaviorSubject, Observable, async, map, startWith } from 'rxjs';
+import { BehaviorSubject, Observable, async, map, startWith, timestamp } from 'rxjs';
 import { Message } from '../models/message.class';
 import { User } from '../models/user.class';
 import { Channel } from '../models/channel.class';
@@ -361,7 +361,6 @@ export class SharedService {
     });
   }
 
-
   /**
    * get the messages from firestore and then sort the array
    * 
@@ -416,7 +415,7 @@ export class SharedService {
    * @param array - which need to be sorted
    */
   sortMessagesTime(array) {
-    array.sort((a, b) => a.time - b.time);
+    array.sort((a, b) => a.timeStamp - b.timeStamp);
   }
 
 

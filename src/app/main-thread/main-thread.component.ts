@@ -172,6 +172,7 @@ export class MainThreadComponent {
       const year = date.getFullYear();
       const formattedDate = `${day}.${month}.${year}`
       this.threadMessage.calculatedTime = formattedTime;
+      this.threadMessage.timeStamp = date;
       this.threadMessage.text = this.copiedText;
       this.threadMessage.reactions = [];
       this.threadMessage.reactionsCount = {};
