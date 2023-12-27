@@ -98,7 +98,7 @@ $purple: #535af1;
 
   .message-thread-container {
     max-height: calc(100% - 210px);
-    overflow-y: scroll;
+    overflow-y: auto;
     scroll-behavior: smooth;
 
     .own-message {

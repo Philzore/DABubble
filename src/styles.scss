@@ -348,7 +348,7 @@ $main-purple: #eceefe;
 
   scroll-behavior: smooth;
   max-height: calc(100% - 210px);
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 
   .chat-beginning-container {
