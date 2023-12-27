@@ -286,63 +286,6 @@ $purple: #535af1;
         opacity: 0.6;
       }
     }
-
-    // .input-send {
-    //   display: flex;
-    //   justify-content: space-between;
-    //   position: absolute;
-    //   left: 20px;
-    //   right: 20px;
-    //   bottom: 10px;
-
-    //   .input-popups {
-    //     .member-popup {
-    //       overflow-y: scroll;
-    //       position: absolute;
-    //       z-index: 2;
-    //       left: -20px;
-    //       bottom: 105px;
-    //       max-height: 300px;
-    //       min-width: 250px;
-    //       box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    //       padding: 10px;
-    //       background-color: #fff;
-    //       border-radius: 15px;
-
-    //       p {
-    //         margin: 0;
-    //       }
-
-    //       .emoji-mart {
-    //         position: absolute;
-    //         z-index: 2;
-    //         left: 75px;
-    //         width: 300px !important;
-    //         bottom: 25px;
-    //       }
-
-    //       .chat-member-row {
-    //         display: flex;
-    //         align-items: center;
-    //         justify-content: flex-start;
-    //         padding: 10px;
-    //         gap: 20px;
-    //         transition: 125ms ease-in-out;
-    //         border-radius: 5px;
-    //         cursor: pointer;
-
-    //         &:hover {
-    //           color: #fff;
-    //           background-color: $purple;
-    //         }
-
-    //         img {
-    //           height: 30px;
-    //           border-radius: 50%;
-    //           width: 30px;
-    //         }
-    //       }
-    //     }
   }
 
       .input-send-left {

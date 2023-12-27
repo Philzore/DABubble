@@ -40,8 +40,6 @@
             <p>{{ sharedService.filteredChannels[0].description }}</p>
         </div>
 
-        <div class="chat-divider"></div>
-
         <!-- MESSAGE DESIGN IF SOMEBODYS ELSE MESSAGE START -->
 
         <div *ngFor="let message of sharedService.channelMessagesFromDB; let i = index" #messageContainer class="message-container cursor"
@@ -51,6 +49,7 @@
                 <span class="date-label">{{ message.time }}</span>
             </div>
             <ng-container *ngIf="!isSameDay(message.time, i); then updateDate"></ng-container>
+            
             <ng-template #updateDate>{{ updateLastDisplayedDate(message.time) }}</ng-template>
 
             <img src="{{message.profileImg}}" alt="" referrerpolicy="no-referrer">
@@ -60,22 +59,6 @@
                     <div class="info-row-name">
                         <h4>{{message.from}}</h4> <span class="message-time">{{message.calculatedTime}}</span>
                 </div>
-
-                    <div (click)="insideClick($event)">
-                        <emoji-mart class="emoji-mart-message" set="apple" #emojiMartElement
-                    *ngIf="emojiMartVisible && selectedMessageId === message.id"
-                    (emojiClick)="addReactionToMessage($event, message.id)"
-                    [style]="{
-                        position: 'absolute',
-                        bottom: '-250px',
-                        'border-radius': '15px',
-                        'width': '250px',
-                        'z-index': '4',
-                        'left': message.from === userDataService.currentUser['name'] ? '100px' : 'auto',
-                        'right': message.from !== userDataService.currentUser['name'] ? '100px' : 'auto'
-                    }">
-                    </emoji-mart>
-                    </div>
                       
 
                     <div class="info-row-react" [ngClass]="{
@@ -83,6 +66,20 @@
                         'right-none': message.from === userDataService.currentUser['name'],
                         'reverse-info-row': message.from === userDataService.currentUser['name']
                       }">
+                      <div (click)="insideClick($event)">
+                        <emoji-mart class="emoji-mart-message" set="apple" #emojiMartElement
+                    *ngIf="emojiMartVisible && selectedMessageId === message.id"
+                    (emojiClick)="addReactionToMessage($event, message.id)"
+                    [style]="{
+                        position: 'absolute',
+                        'border-radius': '15px',
+                        'width': '250px',
+                        'z-index': '4',
+                        'left': message.from === userDataService.currentUser['name'] ? '90px' : 'auto',
+                        'right': message.from !== userDataService.currentUser['name'] ? '90px' : 'auto'
+                    }">
+                    </emoji-mart>
+                    </div>
                         <ngx-emoji set="apple" class="material-icons" emoji="white_check_mark"
                             (click)="addReaction({ native: '✅' }, message.id)"></ngx-emoji>
                         <ngx-emoji set="apple" class="material-icons" emoji="raised_hands"

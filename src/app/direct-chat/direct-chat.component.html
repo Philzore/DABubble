@@ -19,7 +19,7 @@
         </div>
     </mat-toolbar>
 
-    <div class="chat-wrapper">
+    <div class="chat-wrapper" #chatWrapper (scroll)="onScroll($event)">
         <div *ngFor="let message of sharedService.directMsgsFromDB" class="message-container cursor"
             [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}">
 
@@ -31,25 +31,25 @@
                         <h4>{{message.from}}</h4> <span class="message-time">{{message.calculatedTime}}</span>
                 </div>
 
-                    <emoji-mart class="emoji-mart-message" set="apple" #emojiMartElement
-                    *ngIf="emojiMartVisible && selectedMessageId === message.id"
-                    (emojiClick)="addReactionToMessage($event, message.id)"
-                    [style]="{
-                        position: 'absolute',
-                        bottom: '-250px',
-                        'border-radius': '15px',
-                        'width': '250px',
-                        'z-index': '4',
-                        'left': message.from === userDataService.currentUser['name'] ? '90px' : 'auto',
-                        'right': message.from !== userDataService.currentUser['name'] ? '90px' : 'auto'
-                    }">
-                    </emoji-mart>
-
                     <div class="info-row-react" [ngClass]="{
                         'left-45px': message.from === userDataService.currentUser['name'],
                         'right-none': message.from === userDataService.currentUser['name'],
                         'reverse-info-row': message.from === userDataService.currentUser['name']
                       }">
+                      <div (click)="insideClick($event)">
+                        <emoji-mart class="emoji-mart-message" set="apple" #emojiMartElement
+                    *ngIf="emojiMartVisible && selectedMessageId === message.id"
+                    (emojiClick)="addReactionToMessage($event, message.id)"
+                    [style]="{
+                        position: 'absolute',
+                        'border-radius': '15px',
+                        'width': '250px',
+                        'z-index': '4',
+                        'left': message.from === userDataService.currentUser['name'] ? '40px' : 'auto',
+                        'right': message.from !== userDataService.currentUser['name'] ? '40px' : 'auto'
+                    }">
+                    </emoji-mart>
+                    </div>
                         <ngx-emoji set="apple" class="material-icons" emoji="white_check_mark"
                             (click)="addReaction({ native: '✅' }, message.id)"></ngx-emoji>
                         <ngx-emoji set="apple" class="material-icons" emoji="raised_hands"
@@ -97,12 +97,19 @@
                 <h2>{{sharedService.oppositeUser.name}}</h2>
             </div>
             <p *ngIf="sharedService.oppositeUser.name != userDataService.currentUser['name']">Die Unterhaltung findet
-                nur zwischen <span class="light-blue">@{{ sharedService.oppositeUser.name }}</span> und dir statt.</p>
+                nur zwischen <span class="light-blue">@{{ sharedService.oppositeUser.name }} </span> und dir statt.</p>
+                <br>
             <p *ngIf="sharedService.oppositeUser.name == userDataService.currentUser['name']"><b>Dieser Raum ist nur für
-                    dich da.</b>Mache dir Notizen,liste deine To-dos auf oder bewahre Links und Dateien griffbereit auf.
+                    dich da. </b> Mache dir Notizen, liste deine To-dos auf oder bewahre Links und Dateien griffbereit.
                 Du kannst hier auch gerne Dinge mit dir selbst besprechen.</p>
+                <br>
         </div>
     </section>
+
+    <div *ngIf="showScrollButton" class="scroll-to-bottom-container">
+        <i *ngIf="showScrollButton" #scrollButton (click)="scrollToBottom()"
+            class="cursor material-icons">arrow_circle_down</i>
+    </div>
 
     <section class="input-container">
 

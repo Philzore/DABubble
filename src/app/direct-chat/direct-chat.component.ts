@@ -19,6 +19,8 @@ export class DirectChatComponent implements OnInit {
   showAddDataPopup: boolean = false;
   showEmojiPopup: boolean = false;
   isSendingMessage = false;
+  showScrollButton = false;
+
   directMessage = new Message();
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
 
@@ -55,6 +57,14 @@ export class DirectChatComponent implements OnInit {
   addEmoji(emoji: string) {
     this.copiedTextDirectMsg += emoji['emoji']['native'];
     this.showEmojiPopup = false;
+  }
+
+  onScroll(event: any) {
+    if (event.target.offsetHeight + 50 + event.target.scrollTop >= event.target.scrollHeight) {
+      this.showScrollButton = false;
+    } else {
+      this.showScrollButton = true;
+    }
   }
 
   async addReactionToMessage(emoji: string, messageId: string) {

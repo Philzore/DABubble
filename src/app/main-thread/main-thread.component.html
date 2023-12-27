@@ -41,13 +41,33 @@
     <!-- Text Response Container -->
     <!-- To display own message on the right side -->
     <div *ngFor="let message of sharedService.currentThreadContent; let first = first">
+
       <div *ngIf="!first && message.from === userDataService.currentUser['name']" class="own-message">
         <div class="info-row-react" [ngClass]="{
           'left-45px': true,
           'right-none': true
         }">
+
           <i class="material-icons cursor" (click)="openEmojiForMessage(message.id)">add_reaction</i>
+
+         <div (click)="insideClick($event)">
+            <emoji-mart class="emoji-mart-message" set="apple" #emojiMartElement
+        *ngIf="emojiMartVisible && selectedMessageId === message.id"
+        (emojiClick)="addReactionToThreadMessage($event, message.id)"
+        [style]="{
+            position: 'absolute',
+            'border-radius': '15px',
+            'width': '250px',
+            'top': '30px',
+            'z-index': '4',
+            'left': message.from === userDataService.currentUser['name'] ? '50px' : 'auto',
+            'right': message.from !== userDataService.currentUser['name'] ? '50px' : 'auto'
+        }">
+        </emoji-mart>
         </div>
+
+        </div>
+        
         <img src="{{ message.profileImg }}" alt="">
         <div class="message-info-thread">
           <!-- Message Response Container -->
@@ -55,10 +75,6 @@
             <div class="info-row-thread" [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
               <p class="bold">{{ message.from }}</p>
 
-              <emoji-mart set="apple" #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id"
-                (emojiClick)="addReactionToThreadMessage($event ,message.id)"
-                [style]="{width:'300px', position: 'absolute', bottom: '-110px', right : '0', 'border-radius': '15px', 'z-index': '1'}">
-              </emoji-mart>
 
               <span class="message-time">{{ message.calculatedTime }}</span>
               
@@ -99,12 +115,26 @@
         <div class="message-info-thread">
           <!-- Message Response Container -->
           <div class="message-content-container">
-            <div class="info-row-thread">
-              <p class="bold">{{ message.from }}</p>
-              <emoji-mart set="apple" #emojiMartElement *ngIf="emojiMartVisible && selectedMessageId === message.id"
-                (emojiClick)="addReactionToThreadMessage($event ,message.id)"
-                [style]="{position: 'absolute', top: '80px', right : '-115px', 'border-radius': '15px', 'z-index': '1', 'width': '250px'}">
-              </emoji-mart>
+            <div class="info-row">
+              <h4 class="bold">{{ message.from }}</h4>
+
+              <div (click)="insideClick($event)">
+                <emoji-mart class="emoji-mart-message" set="apple" #emojiMartElement
+            *ngIf="emojiMartVisible && selectedMessageId === message.id"
+            (emojiClick)="addReactionToThreadMessage($event, message.id)"
+            [style]="{
+                position: 'absolute',
+                bottom: '-250px',
+                'border-radius': '15px',
+                'width': '250px',
+                'z-index': '4',
+                'left': message.from === userDataService.currentUser['name'] ? '100px' : 'auto',
+                'right': message.from !== userDataService.currentUser['name'] ? '100px' : 'auto'
+            }">
+            </emoji-mart>
+            </div>
+
+
               <span class="message-time">{{ message.calculatedTime }}</span>
             </div>
             <div class="clicked-message-content">
