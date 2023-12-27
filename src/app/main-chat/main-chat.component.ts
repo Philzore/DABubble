@@ -152,6 +152,7 @@ export class MainChatComponent implements OnInit, OnChanges {
 
   // Function to open emoji-mart for a specific message
   openEmojiForMessage(messageID?: string) {
+    this.insideClick(event) ;
     // Check if the emoji picker is already open for this message
     if (this.selectedMessageId === messageID) {
       // Toggle the visibility of the emoji picker
@@ -290,18 +291,10 @@ export class MainChatComponent implements OnInit, OnChanges {
    */
   @HostListener('document:keydown.escape', ['$event'])
   onEscapeKey(event: KeyboardEvent): void {
-    this.closePopups();
+    this.closePupUps();
   }
 
-  /**
-   * close pop ups
-   * 
-   */
-  closePopups(): void {
-    this.showAddDataPopup = false;
-    this.showEmojiPopup = false;
-    this.showPersonPopup = false;
-  }
+
 
   /**
    * open or close the thrad component
