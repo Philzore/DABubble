@@ -58,10 +58,10 @@ export class RegisterComponent {
   // EMAIL VALIDIERUNG
   emailFormControl = new FormControl('', [
     Validators.required,
-    Validators.email,
+    Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
   ]);
   getEmailErrorMessage() {
-    return this.emailFormControl.hasError('email')
+    return this.emailFormControl.hasError('pattern')
       ? 'Diese E-Mail-Adresse ist leider ungültig' : '';
   }
 

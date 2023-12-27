@@ -35,7 +35,9 @@
             <img src="assets/icons/email-icon.png" alt="image of mail icon" class="inputfield-image">
             <input type="text" class="inputfield" placeholder="beispielname@email.com" [(ngModel)]="email" name="email"
                 [formControl]="emailFormControl">
-            <mat-error *ngIf="emailFormControl.invalid">{{getEmailErrorMessage()}}</mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('pattern')">
+                {{getEmailErrorMessage()}}
+            </mat-error>
         </div>
 
         <div class="inputfield-container">
