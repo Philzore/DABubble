@@ -64,7 +64,6 @@ export class MainChatComponent implements OnInit, OnChanges {
   @Input() threadToogleFromOutside: boolean;
   @Output() threadClosed = new EventEmitter<void>();
   filePreview: string | ArrayBuffer | null = null;
-  storage = getStorage();
   lastDisplayedDate: string | null = null;
 
   constructor(
@@ -90,6 +89,9 @@ export class MainChatComponent implements OnInit, OnChanges {
   async ngOnInit() {
     await this.sharedService.getChannelsFromDataBase('first');
     this.sharedService.createSubscribeChannelMessages();
+    const storage = getStorage();
+    // const storageRef = ref(storage,'uploads/' + 'IMG_6880.png');
+    // console.log(storageRef);
   }
 
   /**
