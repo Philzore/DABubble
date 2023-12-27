@@ -245,6 +245,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   toggleAddDataPopup(): void {
+    this.insideClick(event) ;
     this.showAddDataPopup = !this.showAddDataPopup;
     this.showEmojiPopup = false;
     this.showPersonPopup = false;
@@ -255,6 +256,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   toggleEmojiPopup(): void {
+    this.insideClick(event) ;
     this.showEmojiPopup = !this.showEmojiPopup;
     this.showAddDataPopup = false;
     this.showPersonPopup = false;
@@ -265,19 +267,18 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   togglePersonPopup(): void {
+    this.insideClick(event) ;
     this.showPersonPopup = !this.showPersonPopup;
     this.showAddDataPopup = false;
     this.showEmojiPopup = false;
   }
 
-
-  @HostListener('document:click', ['$event'])
-  onClick(event: MouseEvent): void {
-    if (!this.elementRef.nativeElement.contains(event.target)) {
-      this.showAddDataPopup = false;
-      this.showEmojiPopup = false;
-      this.showPersonPopup = false;
-    }
+  closePupUps() {
+    this.emojiMartVisible = false;
+    this.showAddDataPopup = false;
+    this.showEmojiPopup = false;
+    this.showPersonPopup = false;
+    
   }
 
   /**
@@ -365,7 +366,7 @@ export class MainChatComponent implements OnInit, OnChanges {
 
   isSameDay(date1: string, dateIndex: number | null): boolean {
     let index = dateIndex - 1
-    
+
     if (index >= 0) {
 
       if (date1 == this.sharedService.channelMessagesFromDB[index].time) {
@@ -377,7 +378,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     } else {
       return false
     }
-    
+
   }
 
   updateLastDisplayedDate(date: string): void {

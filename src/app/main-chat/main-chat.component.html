@@ -1,4 +1,4 @@
-<div class="chat-container br-30">
+<div class="chat-container br-30" (click)="closePopups()">
     <mat-toolbar *ngIf="sharedService.templateIsReady && !sharedService.showNewMessageInput">
         <div class="chat-header-left cursor" (click)="openGroupInfoPopUp()">
             <p># {{ sharedService.filteredChannels[0]['name'] }}</p> <i class="material-icons">keyboard_arrow_down</i>
