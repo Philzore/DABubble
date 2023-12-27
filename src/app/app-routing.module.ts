@@ -10,9 +10,11 @@ import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ChooseAvatarComponent } from './choose-avatar/choose-avatar.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { IntroAnimationComponent } from './intro-animation/intro-animation.component';
 
 const routes: Routes = [
-  {path: '', component:LoginComponent},
+  {path: '', component:IntroAnimationComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'register', component:RegisterComponent},
   {path: 'choose-avatar', component:ChooseAvatarComponent},
   {path: 'imprint', component: ImprintComponent},

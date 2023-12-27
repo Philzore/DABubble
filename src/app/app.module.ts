@@ -48,6 +48,7 @@ import { Emoji, EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { DirectChatComponent } from './direct-chat/direct-chat.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { RouterModule, Routes } from '@angular/router';
+import { IntroAnimationComponent } from './intro-animation/intro-animation.component';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { RouterModule, Routes } from '@angular/router';
     DialogReauthenticateComponent,
     GroupMemberInfoComponent,
     DirectChatComponent,
+    IntroAnimationComponent,
     
   ],
   imports: [
