@@ -48,7 +48,7 @@ export class MainChatComponent implements OnInit, OnChanges {
   showScrollButton = false;
   isSendingMessage = false;
   runtime = false;
-  groupInfoPopUpOpen: boolean = false; 
+  groupInfoPopUpOpen: boolean = false;
   groupMemberPopUpOpen: boolean = false;
   isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
   isSmallScreen: boolean;
@@ -81,7 +81,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     private ngZone: NgZone,
     private router: Router,
     public appComponent: AppComponent,
-    ) {
+  ) {
     this.sharedService.isSidebarOpen$().subscribe((isOpen) => {
       this.isSidebarOpen = isOpen;
     });
@@ -105,7 +105,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     }
   }
 
-  closeEmojiPopUp():void {
+  closeEmojiPopUp(): void {
     this.emojiMartVisible = false;
   }
 
@@ -160,8 +160,8 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.emojiMartVisible = true;
     }
   }
-  
-  
+
+
   /**
    * add name to text are when click on @ symbol and the name
    * 
@@ -179,39 +179,39 @@ export class MainChatComponent implements OnInit, OnChanges {
  * open Group Info dialog
  * 
  */
-openGroupInfoPopUp(): void {
-  // Determine if the screen width is greater than 1200px
-  const isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
+  openGroupInfoPopUp(): void {
+    // Determine if the screen width is greater than 1200px
+    const isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
 
-  // Configure the dialog settings based on screen width
-  const dialogConfig = {
-    position: isScreenWidthGreaterThan1200 ? { top: '180px', left: '320px' } : {},
-    panelClass: isScreenWidthGreaterThan1200 ? 'group-info-dialog' : 'br-30',
-    data: this.sharedService.filteredChannels
-  };
+    // Configure the dialog settings based on screen width
+    const dialogConfig = {
+      position: isScreenWidthGreaterThan1200 ? { top: '180px', left: '320px' } : {},
+      panelClass: isScreenWidthGreaterThan1200 ? 'group-info-dialog' : 'br-30',
+      data: this.sharedService.filteredChannels
+    };
 
-  // Open the dialog with the configured settings
-  const dialogRef = this.dialog.open(GroupInfoPopupComponent, dialogConfig);
+    // Open the dialog with the configured settings
+    const dialogRef = this.dialog.open(GroupInfoPopupComponent, dialogConfig);
 
-  dialogRef.afterClosed().subscribe((result) => {
-    if (result && result.event === 'start') {
-      this.appComponent.showFeedback('Du hast den Channel Verlassen');
-    }
-  });
-}
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && result.event === 'start') {
+        this.appComponent.showFeedback('Du hast den Channel Verlassen');
+      }
+    });
+  }
 
 
   openGroupMemberPopUp() {
     // Determine if the screen width is greater than 1200px
     const isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
-  
+
     // Configure the dialog settings based on screen width
     const dialogConfig = {
       position: isScreenWidthGreaterThan1200 ? { top: '180px', right: '150px' } : {},
       panelClass: isScreenWidthGreaterThan1200 ? 'custom-logout-dialog' : 'br-30',
       data: this.sharedService.filteredChannels
     };
-  
+
     // Open the dialog with the configured settings
     this.dialogRef = this.dialog.open(GroupMemberComponent, dialogConfig);
   }
@@ -223,22 +223,22 @@ openGroupInfoPopUp(): void {
    */
   openAddMemberPopUp(): void {
     const isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
-  
+
     const dialogConfig = {
       data: this.sharedService.filteredChannels,
       position: isScreenWidthGreaterThan1200 ? { top: '180px', right: '70px' } : {},
       ...(isScreenWidthGreaterThan1200 ? { panelClass: 'custom-logout-dialog' } : {})
     };
-  
+
     const dialogRef = this.dialog.open(GroupAddMemberComponent, dialogConfig);
-  
+
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.event === 'start') {
         this.appComponent.showFeedback('Die Nutzer wurden dem Channel hinzugefügt');
       }
     });
   }
-  
+
 
   /**
    * open add Data dialog in chat
@@ -363,20 +363,26 @@ openGroupInfoPopUp(): void {
   }
 
 
-  isSameDay(date1: string, date2: string | null): boolean {
-    if (!date1 || !date2) return false; // If either date is missing, return false.
+  isSameDay(date1: string, dateIndex: number | null): boolean {
+    let index = dateIndex - 1
+    
+    if (index >= 0) {
 
-    const d1 = new Date(date1);
-    const d2 = new Date(date2);
-  
-    return d1.getDate() === d2.getDate() &&
-           d1.getMonth() === d2.getMonth() &&
-           d1.getFullYear() === d2.getFullYear();
-}
+      if (date1 == this.sharedService.channelMessagesFromDB[index].time) {
+        return true;
+      } else {
+        return false;
+      }
 
-updateLastDisplayedDate(date: string): void {
-  this.lastDisplayedDate = date;
-}
+    } else {
+      return false
+    }
+    
+  }
+
+  updateLastDisplayedDate(date: string): void {
+    this.lastDisplayedDate = date;
+  }
 
   /**
    * send a normal messgae in a channel
@@ -431,7 +437,7 @@ updateLastDisplayedDate(date: string): void {
         this.scrollToBottom();
       }, 100);
     }
-    this.scrollToBottom() ;
+    this.scrollToBottom();
   }
 
 
@@ -458,14 +464,14 @@ updateLastDisplayedDate(date: string): void {
       let channelId = this.sharedService.filteredChannels[1];
       const singleRef = doc(this.firestore, 'channels', channelId);
       const messageRef = doc(singleRef, 'messages', messageId);
-  
+
       // Use transaction to handle concurrency issues
       await runTransaction(this.firestore, async (transaction) => {
         // Retrieve existing reactions from Firebase
         const messageSnapshot = await transaction.get(messageRef);
         const existingReactions = messageSnapshot.data()?.['reactions'] || [];
         const exisitingsReactionsCount = messageSnapshot.data()?.['reactionsCount'] || {};
-  
+
         // Your existing logic for updating local emoji map and count
         if (this.selectedMessageId === messageId) {
           const emojiNative = emoji['emoji']['native'];
@@ -477,7 +483,7 @@ updateLastDisplayedDate(date: string): void {
           }
           (this.message.reactions as string[]) = this.emojiMap[messageId];
         }
-  
+
         // Ensure this.emojiMap[messageId] is defined before updating Firestore
         if (this.emojiMap[messageId] !== undefined) {
           transaction.update(messageRef, {
@@ -488,14 +494,14 @@ updateLastDisplayedDate(date: string): void {
           console.error(`this.emojiMap[${messageId}] is undefined`);
         }
       });
-  
+
       this.emojiMartVisible = false;
     } catch (error) {
       console.error('Error adding reaction:', error);
     }
-    
+
   }
-  
+
 
   async addReaction(emoji, messageId) {
     try {
@@ -531,13 +537,13 @@ updateLastDisplayedDate(date: string): void {
             reactions: this.emojiMap[messageId],
             reactionsCount: existingReactionsCount,
           });
-        } 
+        }
       });
     } catch (error) {
       console.error('Error adding reaction:', error);
     }
   }
-  
+
 
 
 
@@ -577,11 +583,11 @@ updateLastDisplayedDate(date: string): void {
    * check if textare has empty lines
    * 
    */
- isWhitespace(line: string): any {
+  isWhitespace(line: string): any {
     if (line.trim() == '') {
-      return true ;
+      return true;
     } else {
-      return false ;
+      return false;
     }
   }
 }
