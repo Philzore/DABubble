@@ -33,7 +33,7 @@
     </mat-toolbar>
 
 
-    <div class="chat-wrapper" #chatWrapper (scroll)="onScroll($event)">
+    <div class="chat-wrapper scrollbar" #chatWrapper (scroll)="onScroll($event)">
 
         <div *ngIf="sharedService.templateIsReady" class="chat-beginning-container">
             <h2>Dies ist der Anfang vom Channel #{{ sharedService.filteredChannels[0].name }}</h2>
