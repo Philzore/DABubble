@@ -7,6 +7,7 @@ import { User } from '../models/user.class';
 import { updateProfile } from "firebase/auth";
 import { AppComponent } from '../app.component';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { signInWithEmailAndPassword } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-choose-avatar',
@@ -86,7 +87,7 @@ export class ChooseAvatarComponent {
             console.error('Error updating display name', error);
           });
 
-          this.router.navigate(['/main-page']);
+          this.login();
       })
       .catch((error) => {
         // Bei einem Fehler die Fehlermeldung anzeigen
@@ -99,6 +100,20 @@ export class ChooseAvatarComponent {
     this.email = userData.email;
     this.name = userData.name
     this.password = userData.password;
+  }
+
+  login() {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, this.email, this.password)
+      .then(async (userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        this.userDataService.saveCurrentUserLocalStorage(auth.currentUser.displayName, auth.currentUser.email, auth.currentUser.photoURL);
+        this.router.navigate(['/main-page']);
+      })
+      .catch((error) => {
+        
+      });
   }
 
   @ViewChild('fileInput') fileInput: any;
