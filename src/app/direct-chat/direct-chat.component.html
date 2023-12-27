@@ -19,7 +19,7 @@
         </div>
     </mat-toolbar>
 
-    <div class="chat-wrapper" #chatWrapper (scroll)="onScroll($event)">
+    <div class="chat-wrapper scrollbar" #chatWrapper (scroll)="onScroll($event)">
         <div *ngFor="let message of sharedService.directMsgsFromDB" class="message-container cursor"
             [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}">
 
