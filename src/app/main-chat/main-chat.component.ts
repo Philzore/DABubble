@@ -446,7 +446,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   async messageSend() {
-    if (this.copiedText.length >= 1 && !this.isWhitespace(this.copiedText)) {
+    if ((this.copiedText.trim().length > 0 || this.fileUploaded)) {
       this.sharedService.unsubChannels();
       this.isSendingMessage = true;
       this.message.from = this.userDataService.currentUser['name'];
@@ -494,6 +494,9 @@ export class MainChatComponent implements OnInit, OnChanges {
     }
     this.scrollToBottom();
     this.resetUpload();
+    console.log("copiedText:", this.copiedText);
+    console.log("fileUploaded:", this.fileUploaded);
+    console.log("isWhitespace:", this.isWhitespace(this.copiedText));
   }
 
 
