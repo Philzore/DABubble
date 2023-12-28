@@ -132,20 +132,20 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.copiedText = '';
   }
 
-  convertToAnchor() {
-    const url = this.copiedText;
-    if (!url) return;
+  // convertToAnchor() {
+  //   const url = this.copiedText;
+  //   if (!url) return;
   
-    // Create an anchor element and set attributes
-    const anchor = document.createElement('a');
-    anchor.setAttribute('href', url);
-    anchor.innerText = 'Open Image';
-    anchor.setAttribute('target', '_blank'); // Open in new tab
+  //   // Create an anchor element and set attributes
+  //   const anchor = document.createElement('a');
+  //   anchor.setAttribute('href', url);
+  //   anchor.innerText = 'Open Image';
+  //   anchor.setAttribute('target', '_blank'); // Open in new tab
   
-    // Append the anchor to a container or replace the textarea content
-    // For example, appending to a div with the ID 'linkContainer'
-    document.getElementById('linkContainer').appendChild(anchor);
-  }
+  //   // Append the anchor to a container or replace the textarea content
+  //   // For example, appending to a div with the ID 'linkContainer'
+  //   document.getElementById('linkContainer').appendChild(anchor);
+  // }
   
   
 
@@ -494,20 +494,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     }
     this.scrollToBottom();
     this.resetUpload();
-    console.log("copiedText:", this.copiedText);
-    console.log("fileUploaded:", this.fileUploaded);
-    console.log("isWhitespace:", this.isWhitespace(this.copiedText));
   }
-
-
-  // onFileSelected(event) {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     this.uploadFile(file);
-  //   }
-  // }
-
-
 
   async addReactionToMessage(emoji: string, messageId: string) {
     try {

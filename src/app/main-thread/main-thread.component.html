@@ -89,6 +89,12 @@
                     'own-message': message.from === userDataService.currentUser['name']
                   }">{{ message.text }}</p>
               </div>
+
+              <div class="uploaded-content" *ngIf="this.message.fileUploaded">
+                <i class="material-icons">image</i>
+                <a *ngIf="this.message.fileUploaded" [href]="this.message.imageUrl" target="_blank">Open Uploaded Image</a>
+                </div>
+
               <div class="emoji-wrapper"
                 [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
 
@@ -160,6 +166,17 @@
           class="cursor material-icons">arrow_circle_down</i>
       </div>
 
+
+      <!-- this.threadMessage because otherwise it would show it if you clicked on a image message -->
+      <div 
+      *ngIf="this.threadMessage.fileUploaded" 
+      class="uploaded-content-container">
+        <i class="material-icons">image</i>
+        <a [href]="this.message.imageUrl" target="_blank">Open Image</a>
+        <i class="material-icons cursor" (click)="resetUpload()">close</i>
+    </div>
+      
+
       <section class="input-container">
         <textarea (keydown)="onKeydown($event, copiedText)" [(ngModel)]="copiedText"
           placeholder="Nachricht an {{ sharedService.currentThreadContent[0].from}}"></textarea>
@@ -171,7 +188,10 @@
           </div>
 
           <div class="input-popups">
-            <div *ngIf="showAddDataPopup" class="add-data-popup">Datei auswählen</div>
+          <div *ngIf="showAddDataPopup" class="add-data-popup cursor">
+          </div>
+          <label class="cursor" for="fileInput">Datei auswählen</label>
+          <input class="cursor" type="file" id="fileInput" multiple (change)="uploadImagesThread($event)">
             <div *ngIf="showEmojiPopup" class="emoji-mart">
               <emoji-mart class="emoji-mart-input" (emojiClick)="addEmoji($event)"
                 [style]="{position: 'absolute', bottom: '50px', left:'75px', 'border-radius': '15px', 'z-index': '1', 'width': '250px'}">

@@ -4,6 +4,7 @@ import { Message } from '../models/message.class';
 import { UserDataService } from '../services/user-data.service';
 import { Firestore, addDoc, collection, doc, getDocs, increment, runTransaction, updateDoc } from '@angular/fire/firestore';
 import { MainChatComponent } from '../main-chat/main-chat.component';
+import { provideStorage, getStorage, getDownloadURL, ref, uploadBytes } from '@angular/fire/storage'
 
 
 @Component({
@@ -29,6 +30,9 @@ export class MainThreadComponent {
   @Output() unsubThreadEvent = new EventEmitter<any>();
   @ViewChild('scrollButton') scrollButton: ElementRef;
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
+  filePreview: string | ArrayBuffer | null = null;
+  lastDisplayedDate: string | null = null;
+  fileUploadedThread:boolean = false;
 
   constructor(
     public sharedService: SharedService,
@@ -50,6 +54,59 @@ export class MainThreadComponent {
       this.threadReady = true;
     }, 500);
   }
+
+  uploadImagesThread(event: any) {
+    const storage = getStorage();
+    const files = event.target.files;
+    if (!files) return;
+  
+    // Loop through each file and upload it
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      // Create a storage reference
+      const storageRef = ref(storage, `images/${file.name}`);
+  
+      // Upload the file to Firebase Storage
+      uploadBytes(storageRef, file).then((snapshot) => {
+        console.log('Uploaded a blob or file!', snapshot);
+  
+        // If you want to get the URL of the uploaded file
+        getDownloadURL(snapshot.ref).then((url) => {
+          this.threadMessage.imageUrl = url;
+          this.threadMessage.fileUploaded = true;
+          this.fileUploadedThread = true; // Set to true when a file is successfully uploaded
+          setTimeout(() => {
+          this.scrollToBottom();
+          console.log('successfully added to thread');
+          }, 500);
+          // Here you might want to update your database or UI with the new image URL
+        });
+      }).catch((error) => {
+        console.error("Upload failed", error);
+        // Handle unsuccessful uploads
+      });
+    }
+  }
+
+  resetUpload() {
+    this.threadMessage.fileUploaded = false;
+    this.fileUploadedThread = false;
+    this.copiedText = '';
+  }
+
+  // convertToAnchor() {
+  //   const url = this.copiedText;
+  //   if (!url) return;
+  //   // Create an anchor element and set attributes
+  //   const anchor = document.createElement('a');
+  //   anchor.setAttribute('href', url);
+  //   anchor.innerText = 'Open Image';
+  //   anchor.setAttribute('target', '_blank'); // Open in new tab
+  
+  //   // Append the anchor to a container or replace the textarea content
+  //   // For example, appending to a div with the ID 'linkContainer'
+  //   document.getElementById('linkContainerThread').appendChild(anchor);
+  // }
 
   /**
    * check if enter key is pressed , if yes, send message
@@ -192,7 +249,7 @@ export class MainThreadComponent {
 
 
   async sendThreadMessage() {
-    if (this.copiedText.length >= 1 && !this.isWhitespace(this.copiedText)) {
+    if ((this.copiedText.trim().length > 0 || this.fileUploadedThread)) {
       this.isSendingMessage = true;
       this.threadMessage.from = this.userDataService.currentUser['name'];
       if (this.threadMessage.from == 'Gast') {
@@ -227,6 +284,7 @@ export class MainThreadComponent {
     }
     this.isSendingMessage = false;
     this.scrollToBottom();
+    this.resetUpload();
     await this.updateNumberOfThreadMsgs();
   }
 

@@ -4,6 +4,7 @@ import { UserDataService } from '../services/user-data.service';
 import { Firestore, addDoc, arrayUnion, collection, doc, getDoc, runTransaction, updateDoc } from '@angular/fire/firestore';
 import { Message } from '../models/message.class';
 import { debounceTime } from 'rxjs';
+import { provideStorage, getStorage, getDownloadURL, ref, uploadBytes } from '@angular/fire/storage'
 
 @Component({
   selector: 'app-direct-chat',
