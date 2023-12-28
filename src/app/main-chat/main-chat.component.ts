@@ -12,7 +12,7 @@ import { Unsubscribe } from '@angular/fire/auth';
 import { ExpressionBinding } from '@angular/compiler';
 import { AppComponent } from '../app.component';
 import { FormControl } from '@angular/forms';
-import { Observable, finalize, map, startWith } from 'rxjs';
+import { Observable, finalize, map, share, startWith } from 'rxjs';
 import { User } from '../models/user.class';
 import { NgZone } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -305,6 +305,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * @param messageID {string} - id form the clicked message
    */
   toggleThread(messageID: string) {
+    // this.sharedService.hideThread = false ;
     this.sharedService.threadContentReady = false;
     if (!this.threadOpen && this.lastMessageId == '') {
       this.openThread(messageID);

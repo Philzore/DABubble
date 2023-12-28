@@ -23,6 +23,7 @@ mat-card-header {
     height: calc(100vh - 160px);
     margin-left: 20px;
     position: relative;
+    overflow-y: hidden;
 }
 
 .mat-mdc-card-content {
@@ -85,15 +86,15 @@ mat-card-header {
     flex-direction: column;
     gap: 15px;
     margin-left: 20px;
-    max-height: 200px;
+    max-height: 500px;
     box-sizing: border-box;
     overflow-y: auto;
     line-height: normal;
 }
 
-.direct-message {
-    max-height: 270px;
-}
+// .direct-message {
+//     max-height: 270px;
+// }
 
 .single-entry {
     font-size: 18px;
@@ -192,6 +193,10 @@ mat-card-header {
         margin: 0;
         height: calc(100vh - 120px);
         max-width: none;
+    }
+
+    .list-container {
+        max-height: 400px;
     }
 
     .workspace-closing {
