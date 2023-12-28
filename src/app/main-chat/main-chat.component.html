@@ -96,6 +96,11 @@
                           }">{{ message.text }}</p>
                     </div>
 
+                    <div class="uploaded-content" *ngIf="this.message.fileUploaded">
+                    <i class="material-icons">image</i>
+                    <a *ngIf="this.message.fileUploaded" [href]="this.message.imageUrl" target="_blank">Open Uploaded Image</a>
+                    </div>
+
                 <div class="emoji-wrapper"
                     [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
 
@@ -135,11 +140,11 @@
                 class="cursor material-icons">arrow_circle_down</i>
         </div>
 
-        <!-- <div class="uploaded-content-container">
-            <i class="material-icons">attach_file</i>
-            <a href="">IMG_6076.pjeg</a>
-            <i class="material-icons">close_button</i>
-        </div> -->
+        <div *ngIf="this.message.fileUploaded" class="uploaded-content-container">
+            <i class="material-icons">image</i>
+            <a [href]="this.message.imageUrl" target="_blank">Open Image</a>
+            <i class="material-icons cursor" (click)="resetUpload()">close</i>
+        </div>
 
         <section class="input-container">
 
@@ -164,10 +169,10 @@
 
 
                     <div *ngIf="showAddDataPopup" class="add-data-popup cursor">
-                        <label class="cursor" for="fileInput">Datei auswählen</label>
-                        <input class="cursor" type="file" id="fileInput"  multiple>
                     </div>
+                    <label class="cursor" for="fileInput">Datei auswählen</label>
 
+                    <input class="cursor" type="file" id="fileInput" multiple (change)="uploadImages($event)">
 
 
                     <div *ngIf="showEmojiPopup" class="emoji-mart">
@@ -193,10 +198,12 @@
                 </div>
 
                 <div class="input-send-right">
-                    <button [class.non-empty]="(copiedText !== '') && !isWhitespace(copiedText)" (click)="messageSend()"
-                        [disabled]="isSendingMessage || isWhitespace(copiedText)">
+                    <button [class.non-empty]="(copiedText.trim() !== '' || fileUploaded)" 
+                            (click)="messageSend()"
+                            [disabled]="isSendingMessage || (isWhitespace(copiedText) && !fileUploaded)">
                         <i class="material-icons">send</i>
                     </button>
+
                 </div>
             </div>
         </section>

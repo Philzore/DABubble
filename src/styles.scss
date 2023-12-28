@@ -457,6 +457,15 @@ $main-purple: #eceefe;
       justify-content: center;
       margin: 0 30px;
 
+      .uploaded-content {
+        display: flex;
+        align-items: center;
+        padding: 15px 30px;
+        gap: 15px;
+        border: 1px solid $purple;
+        border-radius: 15px;
+      }
+
 
       .info-row {
         display: flex;
@@ -577,6 +586,7 @@ $main-purple: #eceefe;
   padding: 20px;
   border: 1px solid $purple;
   border-radius: 15px;
+  background-color: #fff;
 
   .material-icons {
     height: 24px;

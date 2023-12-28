@@ -65,6 +65,8 @@ export class MainChatComponent implements OnInit, OnChanges {
   @Output() threadClosed = new EventEmitter<void>();
   filePreview: string | ArrayBuffer | null = null;
   lastDisplayedDate: string | null = null;
+  fileUploaded:boolean = false;
+
 
   constructor(
     public dialog: MatDialog,
@@ -89,10 +91,63 @@ export class MainChatComponent implements OnInit, OnChanges {
   async ngOnInit() {
     await this.sharedService.getChannelsFromDataBase('first');
     this.sharedService.createSubscribeChannelMessages();
-    const storage = getStorage();
-    // const storageRef = ref(storage,'uploads/' + 'IMG_6880.png');
-    // console.log(storageRef);
   }
+
+  uploadImages(event: any) {
+    const storage = getStorage();
+
+    const files = event.target.files;
+    if (!files) return;
+  
+    // Loop through each file and upload it
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      // Create a storage reference
+      const storageRef = ref(storage, `images/${file.name}`);
+  
+      // Upload the file to Firebase Storage
+      uploadBytes(storageRef, file).then((snapshot) => {
+        console.log('Uploaded a blob or file!', snapshot);
+  
+        // If you want to get the URL of the uploaded file
+        getDownloadURL(snapshot.ref).then((url) => {
+          this.message.imageUrl = url;
+          this.message.fileUploaded = true;
+          this.fileUploaded = true; // Set to true when a file is successfully uploaded
+          setTimeout(() => {
+          this.scrollToBottom();
+          }, 500);
+          // Here you might want to update your database or UI with the new image URL
+        });
+      }).catch((error) => {
+        console.error("Upload failed", error);
+        // Handle unsuccessful uploads
+      });
+    }
+  }
+
+  resetUpload() {
+    this.message.fileUploaded = false;
+    this.fileUploaded = false;
+    this.copiedText = '';
+  }
+
+  convertToAnchor() {
+    const url = this.copiedText;
+    if (!url) return;
+  
+    // Create an anchor element and set attributes
+    const anchor = document.createElement('a');
+    anchor.setAttribute('href', url);
+    anchor.innerText = 'Open Image';
+    anchor.setAttribute('target', '_blank'); // Open in new tab
+  
+    // Append the anchor to a container or replace the textarea content
+    // For example, appending to a div with the ID 'linkContainer'
+    document.getElementById('linkContainer').appendChild(anchor);
+  }
+  
+  
 
   /**
    * check if enter key is pressed , if yes, send message
@@ -438,6 +493,7 @@ export class MainChatComponent implements OnInit, OnChanges {
       }, 100);
     }
     this.scrollToBottom();
+    this.resetUpload();
   }
 
 

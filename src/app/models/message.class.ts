@@ -9,8 +9,10 @@ export class Message {
     numberOfThreadMsgs:number
     reactionsCount: { [emoji: string]: number } = {};
     reactions: [];
-;
-    
+    imageUrl: string;
+    fileUploaded: boolean;
+
+
     constructor(obj?: any) {
         this.from = obj ? obj.from : '';
         this.profileImg = obj ? obj.profileImg : '' ;
@@ -22,6 +24,8 @@ export class Message {
         this.numberOfThreadMsgs = obj ? obj.numberOfThreadMsgs : 0 ;
         this.reactionsCount = obj ? obj.reactionsCount : {};
         this.reactions = obj ? obj.reactions : [];
+        this.imageUrl = obj ? obj.imageUrl : '';
+        this.fileUploaded = obj && typeof obj.fileUploaded === 'boolean' ? obj.fileUploaded : false;
 
     }
 
@@ -36,7 +40,9 @@ export class Message {
             id: this.id,
             numberOfThreadMsgs : this.numberOfThreadMsgs,
             reactionsCount: this.reactionsCount,
-            reactions: this.reactions
+            reactions: this.reactions,
+            imageUrl: this.imageUrl,
+            fileUploaded: this.fileUploaded
         }
     }
 }
