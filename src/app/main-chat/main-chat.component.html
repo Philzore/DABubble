@@ -96,9 +96,11 @@
                           }">{{ message.text }}</p>
                     </div>
 
-                    <div class="uploaded-content" *ngIf="this.message.fileUploaded">
+
+                    <!-- Content that is displayed in the chat -->
+                    <div class="uploaded-content" *ngIf="message.fileUploaded">
                     <i class="material-icons">image</i>
-                    <a *ngIf="this.message.fileUploaded" [href]="this.message.imageUrl" target="_blank">Open Uploaded Image</a>
+                    <a [href]="message.imageUrl"  target="_blank">Open Uploaded Image</a>
                     </div>
 
                 <div class="emoji-wrapper"
@@ -140,10 +142,12 @@
                 class="cursor material-icons">arrow_circle_down</i>
         </div>
 
-        <div *ngIf="this.message.fileUploaded" class="uploaded-content-container">
+
+        <!-- Container that is displayed when adding image before sending -->
+        <div *ngIf="message.fileUploaded" class="uploaded-content-container">
             <i class="material-icons">image</i>
-            <a [href]="this.message.imageUrl" target="_blank">Open Image</a>
-            <i class="material-icons cursor" (click)="resetUpload()">close</i>
+            <a [href]="message.imageUrl" target="_blank">Open Image</a>
+            <i class="material-icons cursor" (click)="resetUpload()" aria-label="close image">close</i>
         </div>
 
         <section class="input-container">

@@ -88,25 +88,12 @@ export class MainThreadComponent {
     }
   }
 
-  resetUpload() {
+  resetUploadThread() {
     this.threadMessage.fileUploaded = false;
     this.fileUploadedThread = false;
     this.copiedText = '';
   }
 
-  // convertToAnchor() {
-  //   const url = this.copiedText;
-  //   if (!url) return;
-  //   // Create an anchor element and set attributes
-  //   const anchor = document.createElement('a');
-  //   anchor.setAttribute('href', url);
-  //   anchor.innerText = 'Open Image';
-  //   anchor.setAttribute('target', '_blank'); // Open in new tab
-  
-  //   // Append the anchor to a container or replace the textarea content
-  //   // For example, appending to a div with the ID 'linkContainer'
-  //   document.getElementById('linkContainerThread').appendChild(anchor);
-  // }
 
   /**
    * check if enter key is pressed , if yes, send message
@@ -249,7 +236,7 @@ export class MainThreadComponent {
 
 
   async sendThreadMessage() {
-    if ((this.copiedText.trim().length > 0 || this.fileUploadedThread)) {
+    if ((this.copiedText.trim().length > 0)) {
       this.isSendingMessage = true;
       this.threadMessage.from = this.userDataService.currentUser['name'];
       if (this.threadMessage.from == 'Gast') {
@@ -284,7 +271,7 @@ export class MainThreadComponent {
     }
     this.isSendingMessage = false;
     this.scrollToBottom();
-    this.resetUpload();
+    this.resetUploadThread();
     await this.updateNumberOfThreadMsgs();
   }
 

@@ -204,6 +204,15 @@ $purple: #535af1;
     align-items: center;
     position: relative;
 
+    .uploaded-content {
+      display: flex;
+      align-items: center;
+      padding: 15px 30px;
+      gap: 15px;
+      border: 1px solid $purple;
+      border-radius: 15px;
+    }
+
     .info-row-thread {
       display: flex;
 
@@ -238,6 +247,27 @@ $purple: #535af1;
         border-radius: 15px 0px 15px 15px !important;
       }
     }
+  }
+
+  .uploaded-content-container {
+    position: relative;
+    left: 20px;
+    right: 20px;
+    bottom: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 30px;
+    padding: 20px;
+    border: 1px solid $purple;
+    border-radius: 15px;
+    background-color: #fff;
+  
+    .material-icons {
+      height: 24px;
+      width: 24px;
+    }
+  
   }
 
   .input-container {

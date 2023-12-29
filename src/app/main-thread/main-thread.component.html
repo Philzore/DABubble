@@ -90,10 +90,10 @@
                   }">{{ message.text }}</p>
               </div>
 
-              <div class="uploaded-content" *ngIf="this.message.fileUploaded">
+              <div class="uploaded-content" *ngIf="threadMessage.fileUploaded">
                 <i class="material-icons">image</i>
-                <a *ngIf="this.message.fileUploaded" [href]="this.message.imageUrl" target="_blank">Open Uploaded Image</a>
-                </div>
+                <a [href]="threadMessage.imageUrl" target="_blank">Open Uploaded Image</a>
+              </div>
 
               <div class="emoji-wrapper"
                 [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
@@ -168,13 +168,11 @@
 
 
       <!-- this.threadMessage because otherwise it would show it if you clicked on a image message -->
-      <div 
-      *ngIf="this.threadMessage.fileUploaded" 
-      class="uploaded-content-container">
+      <div  *ngIf="threadMessage.fileUploaded" class="uploaded-content-container">
         <i class="material-icons">image</i>
-        <a [href]="this.message.imageUrl" target="_blank">Open Image</a>
-        <i class="material-icons cursor" (click)="resetUpload()">close</i>
-    </div>
+        <a [href]="threadMessage.imageUrl" target="_blank">Open Image</a>
+        <i class="material-icons cursor" (click)="resetUploadThread()" aria-label="close image">close</i>
+      </div>
       
 
       <section class="input-container">
