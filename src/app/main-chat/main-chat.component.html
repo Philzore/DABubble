@@ -151,11 +151,11 @@
         </div>
 
         <section class="input-container">
-
               
-              <textarea (click)="closeEmojiPopUp()" (keydown)="onKeydown($event, copiedText)" *ngIf="sharedService.templateIsReady" [(ngModel)]="copiedText"
+              <textarea (keydown)="onKeydown($event, copiedText)" *ngIf="sharedService.templateIsReady" [(ngModel)]="copiedText"
                 placeholder="Nachricht an #{{ sharedService.filteredChannels[0].name }}">
             </textarea>
+
             <div class="input-send">
                 <div class="input-send-left">
                     <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
@@ -165,13 +165,9 @@
 
                 <div class="input-popups">
 
-
-
-                    <div *ngIf="showAddDataPopup" class="add-data-popup cursor">
-                    </div>
+                    <div *ngIf="showAddDataPopup" class="add-data-popup cursor"></div>
                     <label class="cursor" for="fileInput">Datei auswählen</label>
                     <input class="cursor" type="file" id="fileInput" multiple (change)="uploadImages($event)">
-
 
                     <div *ngIf="showEmojiPopup" class="emoji-mart">
                         <!-- Emoji popup for message -->
@@ -179,6 +175,7 @@
                             [style]="{ position: 'absolute', bottom: '50px', left:'75px', 'border-radius': '15px', 'z-index': '1', 'width': '250px'}">
                     </emoji-mart>
                     </div>
+                    
                     <div *ngIf="showPersonPopup" class="person-popup">
 
                         <div class="member-popup scroll-bar">
