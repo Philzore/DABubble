@@ -301,16 +301,21 @@
           >
         </div>
 
+
         <div class="input-popups">
-          <div *ngIf="showAddDataPopup" class="add-data-popup cursor"></div>
-          <label class="cursor" for="fileInputThread">Datei auswählen</label>
-          <input
+          <div *ngIf="showAddDataPopup" class="add-data-popup cursor">
+            <label 
+            (click)="insideClick($event)" 
             class="cursor"
-            type="file"
-            id="fileInputThread"
-            multiple
-            (change)="uploadImagesThread($event)"
-          />
+            for="fileInputThread">Datei auswählen</label>
+            <input
+              class="cursor"
+              type="file"
+              id="fileInputThread"
+              multiple
+              (change)="uploadImagesThread($event)"
+            /></div>
+          
 
           <div *ngIf="showEmojiPopup" class="emoji-mart">
             <emoji-mart

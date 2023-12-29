@@ -144,7 +144,7 @@
 
 
         <!-- Container that is displayed when adding image before sending -->
-        <div *ngIf="message.fileUploaded" class="uploaded-content-container">
+        <div class="uploaded-content-container" *ngIf="fileUploaded">
             <i class="material-icons">image</i>
             <a [href]="message.imageUrl" target="_blank">Open Image</a>
             <i class="material-icons cursor" (click)="resetUpload()" aria-label="close image">close</i>
@@ -165,9 +165,11 @@
 
                 <div class="input-popups">
 
-                    <div *ngIf="showAddDataPopup" class="add-data-popup cursor"></div>
-                    <label class="cursor" for="fileInput">Datei auswählen</label>
-                    <input class="cursor" type="file" id="fileInput" multiple (change)="uploadImages($event)">
+                    <div *ngIf="showAddDataPopup" class="add-data-popup cursor">
+                        <label class="cursor" (click)="insideClick($event)" for="fileInput">Datei auswählen</label>
+                        <input class="cursor" type="file" id="fileInput" multiple (change)="uploadImages($event)">
+                    </div>
+                    
 
                     <div *ngIf="showEmojiPopup" class="emoji-mart">
                         <!-- Emoji popup for message -->

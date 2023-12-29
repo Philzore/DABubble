@@ -288,7 +288,9 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   toggleAddDataPopup(): void {
-    this.insideClick(event) ;
+    if (event) {
+      this.insideClick(event);
+    }
     this.showAddDataPopup = !this.showAddDataPopup;
     this.showEmojiPopup = false;
     this.showPersonPopup = false;
