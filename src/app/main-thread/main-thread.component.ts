@@ -271,7 +271,7 @@ export class MainThreadComponent {
     }
     this.isSendingMessage = false;
     this.scrollToBottom();
-    this.resetUploadThread();
+    // this.resetUploadThread();
     await this.updateNumberOfThreadMsgs();
   }
 

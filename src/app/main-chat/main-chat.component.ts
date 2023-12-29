@@ -374,7 +374,6 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.lastMessageId = messageID;
       this.createSubscribeThreadMessages(messageID);
     }
-    // ? only for mobilephone or also on larger devices ? 
     this.emojiMartVisible = false;
   }
 
