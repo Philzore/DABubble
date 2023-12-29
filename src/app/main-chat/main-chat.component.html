@@ -193,7 +193,8 @@
                 </div>
 
                 <div class="input-send-right">
-                    <button [class.non-empty]="(copiedText.trim() !== '' || fileUploaded)" 
+                    <button 
+                        [class.non-empty]="(copiedText.trim() !== '' || fileUploaded)" 
                         (click)="messageSend()"
                         [disabled]="isSendingMessage || (isWhitespace(copiedText) && !fileUploaded)">
                     <i class="material-icons">send</i>

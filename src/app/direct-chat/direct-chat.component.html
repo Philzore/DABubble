@@ -59,12 +59,21 @@
                     </div>
                 </div>
 
-                <div class="message-text-container" [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
-                    <p class="message-text" [ngClass]="{
+                <div class="message-text-container"
+                *ngIf="message.text.trim().length > 0"
+                 [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
+                    <p class="message-text"
+                     [ngClass]="{
                         'message-text-own': message.from === userDataService.currentUser['name'],
                         'own-message': message.from === userDataService.currentUser['name']
                       }">{{ message.text }}</p>
                 </div>
+
+                 <!-- Content that is displayed in the chat -->
+                 <div class="uploaded-content" *ngIf="message.fileUploaded">
+                    <i class="material-icons">image</i>
+                    <a [href]="message.imageUrl"  target="_blank">Open Uploaded Image</a>
+                    </div>
 
                 <div class="emoji-wrapper"
                     [ngClass]="{'justify-start': message.from === userDataService.currentUser['name']}">
@@ -111,6 +120,12 @@
             class="cursor material-icons">arrow_circle_down</i>
     </div>
 
+    <div *ngIf="directMessage.fileUploaded" class="uploaded-content-container">
+        <i class="material-icons">image</i>
+        <a [href]="directMessage.imageUrl" target="_blank">Open Image</a>
+        <i class="material-icons cursor" (click)="resetUpload()" aria-label="close image">close</i>
+    </div>
+
     <section class="input-container">
 
         <textarea (keydown)="onKeydown($event)" *ngIf="sharedService.templateIsReady" [(ngModel)]="copiedTextDirectMsg"
@@ -118,7 +133,9 @@
         </textarea>
         <div class="input-send">
             <div class="input-send-left">
-                <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
+                <div *ngIf="showAddDataPopup" class="add-data-popup cursor"></div>
+                    <label class="cursor" for="fileInputDirect">Datei auswählen</label>
+                    <input class="cursor" type="file" id="fileInputDirect" multiple (change)="uploadImagesDirect($event)">
                 <i class="material-icons toggle-emoji" (click)="toggleEmojiPopup()">insert_emoticon</i>
                 <!-- <i class="material-icons toggle-person" (click)="togglePersonPopup()">alternate_email</i> -->
             </div>
@@ -133,8 +150,11 @@
             </div>
 
             <div class="input-send-right">
-                <button [class.non-empty]="copiedTextDirectMsg !== ''" (click)="sendDirectMsg()"
-                    [disabled]="isSendingMessage">
+                <button
+                    [class.non-empty]="(copiedTextDirectMsg.trim() !== '' || fileUploadedDirect)" 
+                    (click)="sendDirectMsg()"
+                    [disabled]="isSendingMessage || (isWhitespace(copiedTextDirectMsg) && !fileUploadedDirect)">
+
                     <i class="material-icons">send</i>
                 </button>
             </div>
