@@ -23,7 +23,6 @@ export class UserDataService {
     ) { 
     sharedService.headerContentReady = false ;
     this.currentUser = this.getFromLocalStorage('currentUser');
-    console.log(this.currentUser);
   }
   
   setUserData(data: { name: string, email: string, password: string }) {

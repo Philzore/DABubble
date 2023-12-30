@@ -344,7 +344,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * @param messageID {string} - id form the clicked message
    */
   toggleThread(messageID: string) {
-    // this.sharedService.hideThread = false ;
+    this.sharedService.hideThreadWhenChangeChannel = false ;
     this.sharedService.threadContentReady = false;
     if (!this.threadOpen && this.lastMessageId == '') {
       this.openThread(messageID);

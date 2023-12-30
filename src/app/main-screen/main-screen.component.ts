@@ -31,7 +31,10 @@ export class MainScreenComponent {
   constructor(public sharedService: SharedService) {  }
 
   toogleThread(){
-    this.OutputToogleThread = !this.OutputToogleThread;
+    if (this.sharedService.hideThreadWhenChangeChannel == false) {
+      this.OutputToogleThread = !this.OutputToogleThread;
+    }
+    
   }
 
   hideThreadContainer() {  

@@ -35,7 +35,7 @@
       <div>
         <!-- channel container for single channels -->
         <div class="list-container" *ngIf="channelDropdown" [@dropDownMenu]>
-          <div *ngFor="let channel of channelsFromDataBase; let i = index" class="single-entry"  (click)="openChannel(channel.name)" (click)="closeSidebarResponsive()">
+          <div *ngFor="let channel of channelsFromDataBase; let i = index" class="single-entry" (click)="openChannel(channel.name)" (click)="closeSidebarResponsive()">
             <span>#</span>
             <p >{{channel.name}}</p>
           </div>

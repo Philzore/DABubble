@@ -48,7 +48,7 @@ export class SharedService {
   threadPath: string = '';
   currentThreadContent = [];
   threadContentReady: boolean = false;
-  // hideThread = false ;
+  hideThreadWhenChangeChannel = false ;
 
   //direct messages
   showDirectMessageView: boolean = false;
@@ -481,7 +481,7 @@ export class SharedService {
     this.showDirectMessageView = false;
     this.showNewMessageInput = false;
     this.showChannelView = true;
-    // this.hideThread = true ;
+    this.hideThreadWhenChangeChannel = true ;
     // this.sharedService.createSubscribeChannelMessages();
   }
 
