@@ -2,7 +2,7 @@ $main-purple: #eceefe;
 $purple: #535af1;
 
 .last-item {
-  margin-bottom: 30px !important;
+  margin-bottom: 75px !important;
 }
 
 .non-empty {
@@ -104,8 +104,6 @@ $purple: #535af1;
     max-height: calc(100% - 210px);
     overflow-y: auto;
     scroll-behavior: smooth;
-
-    
 
     .own-message {
       display: flex;

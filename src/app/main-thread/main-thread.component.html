@@ -44,7 +44,7 @@
 
     <!-- Text Response Container -->
     <!-- To display own message on the right side -->
-    <div class="test" *ngFor="let message of sharedService.currentThreadContent;let first = first; let last = last" [ngClass]="{'last-item': last}" >
+    <div *ngFor="let message of sharedService.currentThreadContent;let first = first; let last = last" [ngClass]="{'last-item': last}" >
       <div *ngIf="!first " class="own-message" [class.own-message]="message.from === userDataService.currentUser['name']" [class.other-message]="message.from !== userDataService.currentUser['name']">
         <div class="info-row-react" 
         [ngClass]="{
