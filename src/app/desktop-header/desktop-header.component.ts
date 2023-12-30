@@ -3,9 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogEdituserLogoutComponent } from '../dialog-edituser-logout/dialog-edituser-logout.component';
 import { UserDataService } from '../services/user-data.service';
 import { SharedService } from '../services/shared.service';
-import { getAuth } from 'firebase/auth';
-
-
 
 @Component({
   selector: 'app-desktop-header',

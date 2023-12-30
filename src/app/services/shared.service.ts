@@ -1,11 +1,9 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Firestore, addDoc, and, arrayUnion, collection, doc, getDoc, getDocs, limit, onSnapshot, or, query, updateDoc, where } from '@angular/fire/firestore';
-import { BehaviorSubject, Observable, async, map, startWith, timestamp } from 'rxjs';
+import { BehaviorSubject, Observable, map, startWith } from 'rxjs';
 import { Message } from '../models/message.class';
 import { User } from '../models/user.class';
-import { Channel } from '../models/channel.class';
 import { FormControl } from '@angular/forms';
-import { UserDataService } from './user-data.service';
 
 
 @Injectable({

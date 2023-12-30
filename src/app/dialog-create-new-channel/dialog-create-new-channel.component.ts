@@ -1,6 +1,5 @@
-import { Component, inject, Output, EventEmitter, Inject, OnInit } from '@angular/core';
-import { Firestore, addDoc, collection, doc, setDoc } from '@angular/fire/firestore';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppComponent } from '../app.component';
 import { UserDataService } from '../services/user-data.service';

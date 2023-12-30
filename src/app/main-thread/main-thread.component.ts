@@ -2,9 +2,8 @@ import { Component, EventEmitter, Output, ViewChild, ElementRef, Renderer2 } fro
 import { SharedService } from '../services/shared.service';
 import { Message } from '../models/message.class';
 import { UserDataService } from '../services/user-data.service';
-import { Firestore, addDoc, collection, doc, getDocs, increment, runTransaction, updateDoc } from '@angular/fire/firestore';
-import { MainChatComponent } from '../main-chat/main-chat.component';
-import { provideStorage, getStorage, getDownloadURL, ref, uploadBytes } from '@angular/fire/storage'
+import { Firestore, addDoc, collection, doc, increment, runTransaction, updateDoc } from '@angular/fire/firestore';
+import { getStorage, getDownloadURL, ref, uploadBytes } from '@angular/fire/storage'
 
 
 @Component({

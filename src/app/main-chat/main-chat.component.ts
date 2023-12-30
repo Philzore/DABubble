@@ -1,24 +1,17 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, AfterViewInit, Output, OnInit, ViewChild, AfterViewChecked, Renderer2, OnChanges, SimpleChanges, Inject, Optional } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output, OnInit, ViewChild, Renderer2, OnChanges, SimpleChanges, Optional } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GroupInfoPopupComponent } from '../group-info-popup/group-info-popup.component';
 import { GroupMemberComponent } from '../group-member/group-member.component';
 import { GroupAddMemberComponent } from '../group-add-member/group-add-member.component';
 import { SharedService } from '../services/shared.service';
-import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc, where, getDoc, runTransaction } from '@angular/fire/firestore';
-import { ChannelInfo } from '../models/channel-info.class';
+import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, updateDoc, runTransaction } from '@angular/fire/firestore';
 import { Message } from '../models/message.class';
 import { UserDataService } from '../services/user-data.service';
-import { Unsubscribe } from '@angular/fire/auth';
-import { ExpressionBinding } from '@angular/compiler';
 import { AppComponent } from '../app.component';
-import { FormControl } from '@angular/forms';
-import { Observable, finalize, map, share, startWith } from 'rxjs';
-import { User } from '../models/user.class';
 import { NgZone } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { provideStorage, getStorage, getDownloadURL, ref, uploadBytes } from '@angular/fire/storage'
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { getStorage, getDownloadURL, ref, uploadBytes } from '@angular/fire/storage'
 
 @Component({
   selector: 'app-main-chat',

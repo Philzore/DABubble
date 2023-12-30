@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SharedService } from '../services/shared.service';
-import { Firestore, addDoc, collection, doc, getDocs, onSnapshot, query, updateDoc, where, getDoc } from '@angular/fire/firestore';
+import { Firestore, doc, updateDoc, getDoc } from '@angular/fire/firestore';
 import { GroupMemberInfoComponent } from '../group-member-info/group-member-info.component';
 import { UserDataService } from '../services/user-data.service';
 

@@ -1,14 +1,13 @@
-import { Component, EventEmitter, Output, Injectable, ViewChild, Input, OnInit, HostListener } from '@angular/core'; // Import Injectable
+import { Component, EventEmitter, Output, OnInit } from '@angular/core'; // Import Injectable
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateNewChannelComponent } from '../dialog-create-new-channel/dialog-create-new-channel.component';
-import { trigger, state, style, animate, transition, sequence } from '@angular/animations';
-import { Firestore, addDoc, and, collection, getDocs, onSnapshot, or, query, where } from '@angular/fire/firestore';
+import { trigger, style, animate, transition, sequence } from '@angular/animations';
+import { Firestore, collection, getDocs, onSnapshot } from '@angular/fire/firestore';
 import { AppComponent } from '../app.component';
 import { UserDataService } from '../services/user-data.service';
 import { SharedService } from '../services/shared.service';
 import { User } from '../models/user.class';
-import { Subscription, share } from 'rxjs';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 
 @Component({

@@ -3,7 +3,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserDataService } from '../services/user-data.service';
 import { animate, sequence, style, transition, trigger } from '@angular/animations';
 import { SharedService } from '../services/shared.service';
-import { arrayUnion } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-group-add-member',

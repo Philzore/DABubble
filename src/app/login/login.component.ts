@@ -1,11 +1,9 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { signInAnonymously } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
-import { onAuthStateChanged } from "firebase/auth";
 import { AppComponent } from '../app.component';
 import { UserDataService } from '../services/user-data.service';
 import { User } from '../models/user.class';

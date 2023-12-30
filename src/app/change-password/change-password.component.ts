@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { confirmPasswordReset } from '@firebase/auth';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { getAuth } from "firebase/auth";
 import { AppComponent } from '../app.component';
 

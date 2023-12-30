@@ -5,7 +5,7 @@ import { UserDataService } from '../services/user-data.service';
 import { DialogReauthenticateComponent } from '../dialog-reauthenticate/dialog-reauthenticate.component';
 import { AppComponent } from '../app.component';
 import { SharedService } from '../services/shared.service';
-import { Firestore, collection, doc, getDoc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 
 
 @Component({

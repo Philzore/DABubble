@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SidebarComponent } from '../sidebar/sidebar.component';
+import { Component, EventEmitter, Input } from '@angular/core';
 import { SharedService } from '../services/shared.service';
-import { trigger, state, style, animate, transition, sequence } from '@angular/animations';
+import { trigger, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-main-screen',
