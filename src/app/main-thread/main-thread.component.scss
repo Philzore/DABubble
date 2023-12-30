@@ -1,6 +1,10 @@
 $main-purple: #eceefe;
 $purple: #535af1;
 
+.last-item {
+  margin-bottom: 30px !important;
+}
+
 .non-empty {
   opacity: 1 !important;
 }
@@ -101,11 +105,13 @@ $purple: #535af1;
     overflow-y: auto;
     scroll-behavior: smooth;
 
+    
+
     .own-message {
       display: flex;
-      align-items: center;
-      padding: 10px 30px;
-      margin: 70px 0;
+      padding: 20px;
+      flex-direction: row-reverse;
+      justify-content: right;
       position: relative;
 
       img {
@@ -115,10 +121,26 @@ $purple: #535af1;
       }
 
       &:hover {
+        background-color: $main-purple;
+        transition: 125ms ease-in-out;
+  
+        .message-text {
+          background-color: white !important;
+        }
+  
+        .message-text-own {
+          background-color: $purple !important;
+        }
+  
+        .message-time {
+          color: grey !important;
+        }
+  
         .info-row-react {
-          opacity: 1;
+          opacity: 1 !important;
           right: 50px;
         }
+  
       }
       
     }
@@ -137,10 +159,25 @@ $purple: #535af1;
       }
 
       &:hover {
-        .info-row-react {
-          opacity: 1;
-          right: 50px;
+        background-color: $main-purple;
+        transition: 125ms ease-in-out;
+  
+        .message-text {
+          background-color: white !important;
         }
+  
+        .message-text-own {
+          background-color: $purple !important;
+        }
+  
+        .message-time {
+          color: grey !important;
+        }
+  
+        .info-row-react {
+          opacity: 1 !important;
+        }
+  
       }
       
     }
@@ -251,6 +288,22 @@ $purple: #535af1;
 
     .clicked-message-content {
       font-size: 18px;
+
+      .toggle-emoji {
+        display: none;
+        transition: 125ms ease-in-out;
+        border-radius: 50%;
+        padding: 5px !important;
+        background-color: #fff;
+        color: grey;
+        position: relative;
+    
+        &:hover {
+          color: $purple;
+          background-color: $main-purple !important;
+        }
+    
+      }
 
       .message-text {
         background-color: $main-purple;
@@ -378,6 +431,12 @@ $purple: #535af1;
     width: 100vw;
     border-radius: 0;
 
+    .emoji-wrapper {
+
+      .toggle-emoji {
+        display: flex !important;
+      }
+    }
     
 
     .chat-divider-bottom {

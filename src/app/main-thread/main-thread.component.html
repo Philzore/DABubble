@@ -44,9 +44,15 @@
 
     <!-- Text Response Container -->
     <!-- To display own message on the right side -->
-    <div class="test" *ngFor="let message of sharedService.currentThreadContent;let first = first">
+    <div class="test" *ngFor="let message of sharedService.currentThreadContent;let first = first; let last = last" [ngClass]="{'last-item': last}" >
       <div *ngIf="!first " class="own-message" [class.own-message]="message.from === userDataService.currentUser['name']" [class.other-message]="message.from !== userDataService.currentUser['name']">
-        <div class="info-row-react" [ngClass]="{'left-45px': true,'right-none': true}">
+        <div class="info-row-react" 
+        [ngClass]="{
+          'left-45px': message.from === userDataService.currentUser['name'],
+          'right-none': message.from === userDataService.currentUser['name'],
+          'reverse-info-row': message.from === userDataService.currentUser['name']
+        }"
+        >
           <i class="material-icons cursor" (click)="openEmojiForMessage(message.id)">add_reaction</i>
 
           <div (click)="insideClick($event)">
@@ -103,78 +109,24 @@
                 <a [href]="threadMessage.imageUrl" target="_blank">Open Uploaded Image</a>
               </div>
 
-              <div class="emoji-wrapper" [ngClass]="{
-                  'justify-end':
-                    message.from === userDataService.currentUser['name']
-                }">
-                <i class="material-icons toggle-emoji cursor" #toggleEmojiButton [ngClass]="{
-                    'own-message':
-                      message.from === userDataService.currentUser['name']
-                  }" (click)="openEmojiForMessage(message.id)">add_reaction</i>
-                <div class="emoji-react-container">
-                  <div class="emoji" *ngFor="let reaction of message.reactionsCount | keyvalue">
-                    {{ reaction.key }}
-                    <div class="emoji-counter">
-                      {{ reaction.value }}
+              <div class="emoji-wrapper"
+                    [ngClass]="{'justify-end': message.from === userDataService.currentUser['name']}">
+
+                    <i class="material-icons toggle-emoji cursor" #toggleEmojiButton
+                        [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}"
+                        (click)="openEmojiForMessage(message.id)">add_reaction</i>
+                    <div class="emoji-react-container">
+                        <div class="emoji" *ngFor="let reaction of message.reactionsCount | keyvalue ">
+                            {{ reaction.key }}
+                            <div class="emoji-counter">
+                                {{ reaction.value }}
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
           </div>
         </div>
-        <!-- <div *ngIf="!first && message.from !== userDataService.currentUser['name']" class="clicked-message other-user">
-          <div class="info-row-react" [ngClass]="{
-              'left-45px': message.from === userDataService.currentUser['name'],
-              'right-none': message.from === userDataService.currentUser['name']
-            }">
-            <i class="material-icons cursor" (click)="openEmojiForMessage(message.id)">add_reaction</i>
-          </div>
-          <img src="{{ message.profileImg }}" alt="" />
-          <div class="message-info-thread">
-            
-            <div class="message-content-container">
-              <div class="info-row">
-                <h4 class="bold">{{ message.from }}</h4>
-
-                <div (click)="insideClick($event)">
-                  <emoji-mart class="emoji-mart-message" set="apple" #emojiMartElement
-                    *ngIf="emojiMartVisible && selectedMessageId === message.id" (emojiClick)="
-                      addReactionToThreadMessage($event, message.id)
-                    " [style]="{
-                      position: 'absolute',
-                      bottom: '-250px',
-                      'border-radius': '15px',
-                      width: '250px',
-                      'z-index': '4',
-                      left:
-                        message.from === userDataService.currentUser['name']
-                          ? '100px'
-                          : 'auto',
-                      right:
-                        message.from !== userDataService.currentUser['name']
-                          ? '100px'
-                          : 'auto'
-                    }">
-                  </emoji-mart>
-                </div>
-
-                <span class="message-time">{{ message.calculatedTime }}</span>
-              </div>
-              <div class="clicked-message-content">
-                <p class="message-text">
-                  {{ message.text }}
-                </p>
-                <div class="emoji" *ngFor="let reaction of message.reactionsCount | keyvalue">
-                  {{ reaction.key }}
-                  <div class="emoji-counter">
-                    {{ reaction.value }}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
        
       </div>
 
