@@ -21,7 +21,9 @@ export class DirectChatComponent implements OnInit {
   showEmojiPopup: boolean = false;
   isSendingMessage = false;
   showScrollButton = false;
-
+  filePreview: string | ArrayBuffer | null = null;
+  lastDisplayedDate: string | null = null;
+  fileUploadedDirect:boolean = false;
   directMessage = new Message();
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
 
@@ -39,9 +41,44 @@ export class DirectChatComponent implements OnInit {
     container.scrollTop = container.scrollHeight;
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  }
 
+  uploadImagesDirect(event: any) {
+    const storage = getStorage();
+    const files = event.target.files;
+    if (!files) return;
+  
+    // Loop through each file and upload it
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      // Create a storage reference
+      const storageRef = ref(storage, `images/${file.name}`);
+  
+      // Upload the file to Firebase Storage
+      uploadBytes(storageRef, file).then((snapshot) => {
+        console.log('Main Chat du doof');
+  
+        // If you want to get the URL of the uploaded file
+        getDownloadURL(snapshot.ref).then((url) => {
+          this.directMessage.imageUrl = url;
+          this.directMessage.fileUploaded = true;
+          this.fileUploadedDirect = true; // Set to true when a file is successfully uploaded
+          setTimeout(() => {
+          this.scrollToBottom();
+          }, 500);
+          // Here you might want to update your database or UI with the new image URL
+        });
+      }).catch((error) => {
+        console.error("Upload failed", error);
+        // Handle unsuccessful uploads
+      });
+    }
+  }
 
+  resetUpload() {
+    this.directMessage.fileUploaded = false;
+    this.fileUploadedDirect = false;
+    this.copiedTextDirectMsg = '';
   }
 
   /**
@@ -185,6 +222,18 @@ export class DirectChatComponent implements OnInit {
     onEscapeKey(event: KeyboardEvent): void {
       this.closePopUps();
     }
+
+    /**
+   * check if textare has empty lines
+   * 
+   */
+  isWhitespace(line: string): any {
+    if (line.trim() == '') {
+      return true;
+    } else {
+      return false;
+    }
+  }
   
 
   /**
@@ -192,7 +241,7 @@ export class DirectChatComponent implements OnInit {
    * 
    */
   async sendDirectMsg() {
-    if (this.copiedTextDirectMsg.length >= 1) {
+    if (this.copiedTextDirectMsg.trim().length > 0 || this.fileUploadedDirect) {
       // this.sharedService.unsubChannels();
       this.isSendingMessage = true;
       this.directMessage.from = this.userDataService.currentUser['name'];
@@ -230,6 +279,7 @@ export class DirectChatComponent implements OnInit {
         this.scrollToBottom();
       }, 100);
     }
-    this.scrollToBottom() ;
+    this.scrollToBottom();
+    this.resetUpload();
     }
 }

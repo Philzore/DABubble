@@ -95,7 +95,6 @@ export class MainChatComponent implements OnInit, OnChanges {
 
   uploadImages(event: any) {
     const storage = getStorage();
-
     const files = event.target.files;
     if (!files) return;
   
@@ -107,7 +106,7 @@ export class MainChatComponent implements OnInit, OnChanges {
   
       // Upload the file to Firebase Storage
       uploadBytes(storageRef, file).then((snapshot) => {
-        console.log('Uploaded a blob or file!', snapshot);
+        console.log('Main Chat du doof');
   
         // If you want to get the URL of the uploaded file
         getDownloadURL(snapshot.ref).then((url) => {
@@ -131,24 +130,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.fileUploaded = false;
     this.copiedText = '';
   }
-
-  // convertToAnchor() {
-  //   const url = this.copiedText;
-  //   if (!url) return;
   
-  //   // Create an anchor element and set attributes
-  //   const anchor = document.createElement('a');
-  //   anchor.setAttribute('href', url);
-  //   anchor.innerText = 'Open Image';
-  //   anchor.setAttribute('target', '_blank'); // Open in new tab
-  
-  //   // Append the anchor to a container or replace the textarea content
-  //   // For example, appending to a div with the ID 'linkContainer'
-  //   document.getElementById('linkContainer').appendChild(anchor);
-  // }
-  
-  
-
   /**
    * check if enter key is pressed , if yes, send message
    * 
@@ -306,7 +288,9 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   toggleAddDataPopup(): void {
-    this.insideClick(event) ;
+    if (event) {
+      this.insideClick(event);
+    }
     this.showAddDataPopup = !this.showAddDataPopup;
     this.showEmojiPopup = false;
     this.showPersonPopup = false;

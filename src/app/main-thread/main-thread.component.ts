@@ -68,8 +68,7 @@ export class MainThreadComponent {
   
       // Upload the file to Firebase Storage
       uploadBytes(storageRef, file).then((snapshot) => {
-        console.log('Uploaded a blob or file!', snapshot);
-  
+
         // If you want to get the URL of the uploaded file
         getDownloadURL(snapshot.ref).then((url) => {
           this.threadMessage.imageUrl = url;
@@ -77,7 +76,6 @@ export class MainThreadComponent {
           this.fileUploadedThread = true; // Set to true when a file is successfully uploaded
           setTimeout(() => {
           this.scrollToBottom();
-          console.log('successfully added to thread');
           }, 500);
           // Here you might want to update your database or UI with the new image URL
         });
@@ -236,7 +234,7 @@ export class MainThreadComponent {
 
 
   async sendThreadMessage() {
-    if ((this.copiedText.trim().length > 0)) {
+    if ((this.copiedText.trim().length > 0) || this.fileUploadedThread) {
       this.isSendingMessage = true;
       this.threadMessage.from = this.userDataService.currentUser['name'];
       if (this.threadMessage.from == 'Gast') {
@@ -250,7 +248,7 @@ export class MainThreadComponent {
       let minutes = date.getMinutes();
       const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
 
-// Format the date as "26.Dezember.2023"
+      // Format the date as "26.Dezember.2023"
       const day = date.getDate();
       const month = date.toLocaleString('de-DE', { month: 'long' });
       const year = date.getFullYear();
@@ -271,7 +269,7 @@ export class MainThreadComponent {
     }
     this.isSendingMessage = false;
     this.scrollToBottom();
-    // this.resetUploadThread();
+    this.resetUploadThread();
     await this.updateNumberOfThreadMsgs();
   }
 

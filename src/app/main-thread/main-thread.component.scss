@@ -251,15 +251,13 @@ $purple: #535af1;
 
   .uploaded-content-container {
     position: relative;
-    left: 20px;
-    right: 20px;
     bottom: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 30px;
+    margin: 30px 15px;
     padding: 20px;
-    border: 1px solid $purple;
+    border: 1px solid #535af1;
     border-radius: 15px;
     background-color: #fff;
   
