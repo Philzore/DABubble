@@ -373,7 +373,6 @@ export class SharedService {
     });
     this.sortMessagesTime(this.channelMessagesFromDB);
     this.originalArray = this.channelMessagesFromDB;
-    console.log(this.channelMessagesFromDB);
   }
 
   /**
