@@ -50,12 +50,12 @@ input[type="file"] {
 
 .justify-start {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .justify-end {
   display: flex;
-  justify-content: end !important;
+  justify-content: flex-end !important;
 }
 
 html,
@@ -524,7 +524,7 @@ $main-purple: #eceefe;
       .message-text-container {
 
         display: flex;
-        justify-content: start;
+        justify-content: flex-start;
 
         .message-text {
           background-color: $main-purple;
