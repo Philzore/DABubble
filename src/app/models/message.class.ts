@@ -4,6 +4,7 @@ export class Message {
     time: string;
     timeStamp: Date;
     calculatedTime:string;
+    lastThreadTime:string;
     text: string;
     id:string;
     numberOfThreadMsgs:number
@@ -19,6 +20,7 @@ export class Message {
         this.time = obj ? obj.time : '';
         this.timeStamp = obj ? obj.timeStamp : '';
         this.calculatedTime = obj ? obj.calculatedTime : '';
+        this.lastThreadTime = obj ? obj.lastThreadTime : '';
         this.text = obj ? obj.text : '';
         this.id = obj ? obj.id : '';
         this.numberOfThreadMsgs = obj ? obj.numberOfThreadMsgs : 0 ;
@@ -36,6 +38,7 @@ export class Message {
             time: this.time,
             timeStamp: this.timeStamp,
             calculatedTime: this.calculatedTime,
+            lastThreadTime: this.lastThreadTime,
             text: this.text,
             id: this.id,
             numberOfThreadMsgs : this.numberOfThreadMsgs,
