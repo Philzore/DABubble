@@ -1,8 +1,4 @@
-<div
-  *ngIf="sharedService.threadContentReady"
-  class="thread-container"
-  (click)="closePopUps()"
->
+<div *ngIf="sharedService.threadContentReady" class="thread-container" (click)="closePopUps()">
   <!-- Thread Header -->
   <mat-toolbar>
     <div class="thread-header-info">
@@ -12,20 +8,13 @@
     <i class="material-icons close-button" (click)="closeThread()">close</i>
   </mat-toolbar>
 
-  <div
-    #chatWrapper
-    (scroll)="onScroll($event)"
-    class="message-thread-container scrollbar"
-  >
+  <div #chatWrapper (scroll)="onScroll($event)" class="message-thread-container scrollbar">
     <!-- Chat Divider Top -->
     <div class="chat-divider-top"></div>
 
     <div class="clicked-message">
-      <img
-        *ngIf="sharedService.threadContentReady"
-        src="{{ sharedService.currentThreadContent[0].profileImg }}"
-        alt=""
-      />
+      <img *ngIf="sharedService.threadContentReady" src="{{ sharedService.currentThreadContent[0].profileImg }}"
+        alt="" />
       <div class="message-info-thread">
         <!-- Message Content Container -->
         <div class="message-content-container">
@@ -34,11 +23,8 @@
             <p *ngIf="sharedService.threadContentReady" class="bold">
               {{ sharedService.currentThreadContent[0].from }}
             </p>
-            <span
-              *ngIf="sharedService.threadContentReady"
-              class="message-time"
-              >{{ sharedService.currentThreadContent[0].calculatedTime }}</span
-            >
+            <span *ngIf="sharedService.threadContentReady" class="message-time">{{
+              sharedService.currentThreadContent[0].calculatedTime }}</span>
           </div>
           <!-- Clicked Message Content -->
           <div class="clicked-message-content">
@@ -58,37 +44,15 @@
 
     <!-- Text Response Container -->
     <!-- To display own message on the right side -->
-    <div
-      *ngFor="
-        let message of sharedService.currentThreadContent;
-        let first = first
-      "
-    >
-      <div
-        *ngIf="!first && message.from === userDataService.currentUser['name']"
-        class="own-message"
-      >
-        <div
-          class="info-row-react"
-          [ngClass]="{
-            'left-45px': true,
-            'right-none': true
-          }"
-        >
-          <i
-            class="material-icons cursor"
-            (click)="openEmojiForMessage(message.id)"
-            >add_reaction</i
-          >
+    <div class="test" *ngFor="let message of sharedService.currentThreadContent;let first = first">
+      <div *ngIf="!first " class="own-message" [class.own-message]="message.from === userDataService.currentUser['name']" [class.other-message]="message.from !== userDataService.currentUser['name']">
+        <div class="info-row-react" [ngClass]="{'left-45px': true,'right-none': true}">
+          <i class="material-icons cursor" (click)="openEmojiForMessage(message.id)">add_reaction</i>
 
           <div (click)="insideClick($event)">
-            <emoji-mart
-              class="emoji-mart-message"
-              set="apple"
-              #emojiMartElement
+            <emoji-mart class="emoji-mart-message" set="apple" #emojiMartElement
               *ngIf="emojiMartVisible && selectedMessageId === message.id"
-              (emojiClick)="addReactionToThreadMessage($event, message.id)"
-              [style]="{
+              (emojiClick)="addReactionToThreadMessage($event, message.id)" [style]="{
                 position: 'absolute',
                 'border-radius': '15px',
                 width: '250px',
@@ -102,8 +66,7 @@
                   message.from !== userDataService.currentUser['name']
                     ? '50px'
                     : 'auto'
-              }"
-            >
+              }">
             </emoji-mart>
           </div>
         </div>
@@ -112,68 +75,44 @@
         <div class="message-info-thread">
           <!-- Message Response Container -->
           <div class="message-content-container">
-            <div
-              class="info-row-thread"
-              [ngClass]="{
+            <div class="info-row-thread" [ngClass]="{
                 'justify-end':
                   message.from === userDataService.currentUser['name']
-              }"
-            >
+              }">
               <p class="bold">{{ message.from }}</p>
 
               <span class="message-time">{{ message.calculatedTime }}</span>
             </div>
             <div class="clicked-message-content">
-              <div
-                class="message-text-container"
-                [ngClass]="{
+              <div class="message-text-container" [ngClass]="{
                   'justify-end':
                     message.from === userDataService.currentUser['name']
-                }"
-              >
-                <p 
-                  *ngIf="message.text.trim().length > 0"
-                  class="message-text"
-                  [ngClass]="{
+                }">
+                <p *ngIf="message.text.trim().length > 0" class="message-text" [ngClass]="{
                     'message-text-own':
                       message.from === userDataService.currentUser['name'],
                     'own-message':
                       message.from === userDataService.currentUser['name']
-                  }"
-                >
+                  }">
                   {{ message.text }}
                 </p>
               </div>
 
               <div class="uploaded-content" *ngIf="message.fileUploaded">
                 <i class="material-icons">image</i>
-                <a [href]="threadMessage.imageUrl" target="_blank"
-                  >Open Uploaded Image</a
-                >
+                <a [href]="threadMessage.imageUrl" target="_blank">Open Uploaded Image</a>
               </div>
 
-              <div
-                class="emoji-wrapper"
-                [ngClass]="{
+              <div class="emoji-wrapper" [ngClass]="{
                   'justify-end':
                     message.from === userDataService.currentUser['name']
-                }"
-              >
-                <i
-                  class="material-icons toggle-emoji cursor"
-                  #toggleEmojiButton
-                  [ngClass]="{
+                }">
+                <i class="material-icons toggle-emoji cursor" #toggleEmojiButton [ngClass]="{
                     'own-message':
                       message.from === userDataService.currentUser['name']
-                  }"
-                  (click)="openEmojiForMessage(message.id)"
-                  >add_reaction</i
-                >
+                  }" (click)="openEmojiForMessage(message.id)">add_reaction</i>
                 <div class="emoji-react-container">
-                  <div
-                    class="emoji"
-                    *ngFor="let reaction of message.reactionsCount | keyvalue"
-                  >
+                  <div class="emoji" *ngFor="let reaction of message.reactionsCount | keyvalue">
                     {{ reaction.key }}
                     <div class="emoji-counter">
                       {{ reaction.value }}
@@ -184,40 +123,25 @@
             </div>
           </div>
         </div>
-        <div
-          *ngIf="!first && message.from !== userDataService.currentUser['name']"
-          class="clicked-message"
-        >
-          <div
-            class="info-row-react"
-            [ngClass]="{
+        <!-- <div *ngIf="!first && message.from !== userDataService.currentUser['name']" class="clicked-message other-user">
+          <div class="info-row-react" [ngClass]="{
               'left-45px': message.from === userDataService.currentUser['name'],
               'right-none': message.from === userDataService.currentUser['name']
-            }"
-          >
-            <i
-              class="material-icons cursor"
-              (click)="openEmojiForMessage(message.id)"
-              >add_reaction</i
-            >
+            }">
+            <i class="material-icons cursor" (click)="openEmojiForMessage(message.id)">add_reaction</i>
           </div>
           <img src="{{ message.profileImg }}" alt="" />
           <div class="message-info-thread">
-            <!-- Message Response Container -->
+            
             <div class="message-content-container">
               <div class="info-row">
                 <h4 class="bold">{{ message.from }}</h4>
 
                 <div (click)="insideClick($event)">
-                  <emoji-mart
-                    class="emoji-mart-message"
-                    set="apple"
-                    #emojiMartElement
-                    *ngIf="emojiMartVisible && selectedMessageId === message.id"
-                    (emojiClick)="
+                  <emoji-mart class="emoji-mart-message" set="apple" #emojiMartElement
+                    *ngIf="emojiMartVisible && selectedMessageId === message.id" (emojiClick)="
                       addReactionToThreadMessage($event, message.id)
-                    "
-                    [style]="{
+                    " [style]="{
                       position: 'absolute',
                       bottom: '-250px',
                       'border-radius': '15px',
@@ -231,8 +155,7 @@
                         message.from !== userDataService.currentUser['name']
                           ? '100px'
                           : 'auto'
-                    }"
-                  >
+                    }">
                   </emoji-mart>
                 </div>
 
@@ -242,10 +165,7 @@
                 <p class="message-text">
                   {{ message.text }}
                 </p>
-                <div
-                  class="emoji"
-                  *ngFor="let reaction of message.reactionsCount | keyvalue"
-                >
+                <div class="emoji" *ngFor="let reaction of message.reactionsCount | keyvalue">
                   {{ reaction.key }}
                   <div class="emoji-counter">
                     {{ reaction.value }}
@@ -254,138 +174,105 @@
               </div>
             </div>
           </div>
+        </div> -->
+       
+      </div>
+
+
+
+      <div *ngIf="showScrollButton" class="scroll-to-bottom-container">
+        <i #scrollButton (click)="scrollToBottom()" class="cursor material-icons">arrow_circle_down</i>
+      </div>
+    </div>
+
+    <section class="input-container">
+      <textarea (keydown)="onKeydown($event, copiedText)" [(ngModel)]="copiedText"
+        placeholder="Nachricht an {{ sharedService.currentThreadContent[0].from}}">
+      </textarea>
+      <div class="input-send">
+        <div class="input-send-left">
+          <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
+          <i class="material-icons toggle-emoji" (click)="toggleEmojiPopup()">insert_emoticon</i>
+          <i class="material-icons toggle-person" (click)="togglePersonPopup()">alternate_email</i>
         </div>
-        <section class="input-container">
-          <textarea (keydown)="onKeydown($event, copiedText)" [(ngModel)]="copiedText"
-            placeholder="Nachricht an {{ sharedService.currentThreadContent[0].from}}">
-          </textarea>
-          <div class="input-send">
-            <div class="input-send-left">
-              <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
-              <i class="material-icons toggle-emoji" (click)="toggleEmojiPopup()">insert_emoticon</i>
-              <i class="material-icons toggle-person" (click)="togglePersonPopup()">alternate_email</i>
-            </div>
-  
-            <div class="input-popups">
-              <div *ngIf="showAddDataPopup" class="add-data-popup cursor">
-              </div>
-              <label class="cursor" for="fileInput">Datei auswählen</label>
-              <input class="cursor" type="file" id="fileInput" multiple (change)="uploadImagesThread($event)">
-              <div *ngIf="showEmojiPopup" class="emoji-mart">
-                <emoji-mart class="emoji-mart-input" (emojiClick)="addEmoji($event)"
-                  [style]="{position: 'absolute', bottom: '50px', left:'75px', 'border-radius': '15px', 'z-index': '1', 'width': '250px'}">
-                </emoji-mart>
-              </div>
-              <div *ngIf="showPersonPopup" class="person-popup">
-                <div class="member-popup scroll-bar">
-                  <div *ngFor="let channelMember of sharedService.filteredChannels[0].members">
-                    <div class="member-row">
-                      <p class="close-button" (click)="addNameToTextArea(channelMember.name)">@ {{ channelMember.name }}
-                      </p>
-                    </div>
-                  </div>
+
+        <div class="input-popups">
+          <div *ngIf="showAddDataPopup" class="add-data-popup cursor">
+          </div>
+          <label class="cursor" for="fileInput">Datei auswählen</label>
+          <input class="cursor" type="file" id="fileInput" multiple (change)="uploadImagesThread($event)">
+          <div *ngIf="showEmojiPopup" class="emoji-mart">
+            <emoji-mart class="emoji-mart-input" (emojiClick)="addEmoji($event)"
+              [style]="{position: 'absolute', bottom: '50px', left:'75px', 'border-radius': '15px', 'z-index': '1', 'width': '250px'}">
+            </emoji-mart>
+          </div>
+          <div *ngIf="showPersonPopup" class="person-popup">
+            <div class="member-popup scroll-bar">
+              <div *ngFor="let channelMember of sharedService.filteredChannels[0].members">
+                <div class="member-row">
+                  <p class="close-button" (click)="addNameToTextArea(channelMember.name)">@ {{ channelMember.name }}
+                  </p>
                 </div>
               </div>
             </div>
-  
-            <div class="input-send-right">
-              <button [class.non-empty]="(copiedText !== '') && !isWhitespace(copiedText)" (click)="sendThreadMessage()"
-                [disabled]="isSendingMessage || isWhitespace(copiedText)">
-                <i class="material-icons">send</i>
-              </button>
-            </div>
           </div>
-        </section>
-      </div>
+        </div>
 
-      <div *ngIf="showScrollButton" class="scroll-to-bottom-container">
-        <i
-          #scrollButton
-          (click)="scrollToBottom()"
-          class="cursor material-icons"
-          >arrow_circle_down</i
-        >
+        <div class="input-send-right">
+          <button [class.non-empty]="(copiedText !== '') && !isWhitespace(copiedText)" (click)="sendThreadMessage()"
+            [disabled]="isSendingMessage || isWhitespace(copiedText)">
+            <i class="material-icons">send</i>
+          </button>
+        </div>
       </div>
-    </div>
+    </section>
 
     <!-- this.threadMessage because otherwise it would show it if you clicked on a image message -->
     <div *ngIf="threadMessage.fileUploaded" class="uploaded-content-container">
       <i class="material-icons">image</i>
       <a [href]="threadMessage.imageUrl" target="_blank">Open Image</a>
-      <i
-        class="material-icons cursor"
-        (click)="resetUploadThread()"
-        aria-label="close image"
-        >close</i
-      >
+      <i class="material-icons cursor" (click)="resetUploadThread()" aria-label="close image">close</i>
     </div>
 
     <section class="input-container">
-      <textarea
-        (keydown)="onKeydown($event, copiedText)"
-        [(ngModel)]="copiedText"
-        placeholder="Nachricht an {{
+      <textarea (keydown)="onKeydown($event, copiedText)" [(ngModel)]="copiedText" placeholder="Nachricht an {{
           sharedService.currentThreadContent[0].from
-        }}"
-      ></textarea>
+        }}"></textarea>
 
       <div class="input-send">
         <div class="input-send-left">
-          <i class="material-icons add-data" (click)="toggleAddDataPopup()"
-            >add</i
-          >
-          <i class="material-icons toggle-emoji" (click)="toggleEmojiPopup()"
-            >insert_emoticon</i
-          >
-          <i class="material-icons toggle-person" (click)="togglePersonPopup()"
-            >alternate_email</i
-          >
+          <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
+          <i class="material-icons toggle-emoji" (click)="toggleEmojiPopup()">insert_emoticon</i>
+          <i class="material-icons toggle-person" (click)="togglePersonPopup()">alternate_email</i>
         </div>
 
 
         <div class="input-popups">
           <div *ngIf="showAddDataPopup" class="add-data-popup cursor">
-            <label 
-            (click)="insideClick($event)" 
-            class="cursor"
-            for="fileInputThread">Datei auswählen</label>
-            <input
-              class="cursor"
-              type="file"
-              id="fileInputThread"
-              multiple
-              (change)="uploadImagesThread($event)"
-            /></div>
-          
+            <label (click)="insideClick($event)" class="cursor" for="fileInputThread">Datei auswählen</label>
+            <input class="cursor" type="file" id="fileInputThread" multiple (change)="uploadImagesThread($event)" />
+          </div>
+
 
           <div *ngIf="showEmojiPopup" class="emoji-mart">
-            <emoji-mart
-              class="emoji-mart-input"
-              (emojiClick)="addEmoji($event)"
-              [style]="{
+            <emoji-mart class="emoji-mart-input" (emojiClick)="addEmoji($event)" [style]="{
                 position: 'absolute',
                 bottom: '50px',
                 left: '75px',
                 'border-radius': '15px',
                 'z-index': '1',
                 width: '250px'
-              }"
-            >
+              }">
             </emoji-mart>
           </div>
 
           <div *ngIf="showPersonPopup" class="person-popup">
             <div class="member-popup scroll-bar">
-              <div
-                *ngFor="
+              <div *ngFor="
                   let channelMember of sharedService.filteredChannels[0].members
-                "
-              >
+                ">
                 <div class="member-row">
-                  <p
-                    class="close-button"
-                    (click)="addNameToTextArea(channelMember.name)"
-                  >
+                  <p class="close-button" (click)="addNameToTextArea(channelMember.name)">
                     @ {{ channelMember.name }}
                   </p>
                 </div>
@@ -395,11 +282,8 @@
         </div>
 
         <div class="input-send-right">
-          <button
-            [class.non-empty]="(copiedText.trim() !== '' || fileUploadedThread)" 
-            (click)="sendThreadMessage()"
-            [disabled]="isSendingMessage || isWhitespace(copiedText) && !fileUploadedThread"
-          >
+          <button [class.non-empty]="(copiedText.trim() !== '' || fileUploadedThread)" (click)="sendThreadMessage()"
+            [disabled]="isSendingMessage || isWhitespace(copiedText) && !fileUploadedThread">
             <i class="material-icons">send</i>
           </button>
         </div>

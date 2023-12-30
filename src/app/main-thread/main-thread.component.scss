@@ -123,6 +123,28 @@ $purple: #535af1;
       
     }
 
+    .other-message {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      margin: 20px 0;
+      position: relative;
+
+      img {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+      }
+
+      &:hover {
+        .info-row-react {
+          opacity: 1;
+          right: 50px;
+        }
+      }
+      
+    }
+
     .info-row-react {
       transition: 225ms ease-in-out;
       opacity: 0;
