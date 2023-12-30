@@ -130,7 +130,7 @@
                         <p *ngIf="message.numberOfThreadMsgs <= 0" (click)="toggleThread(message.id)" class="cursor">
                             Antworten ...</p>
                         <span *ngIf="message.numberOfThreadMsgs > 0" class="message-time">Letzte Antwort
-                            {{message.calculatedTime}} </span>
+                            {{message.lastThreadTime}} </span>
                     </div>
                 </div>
         </div>

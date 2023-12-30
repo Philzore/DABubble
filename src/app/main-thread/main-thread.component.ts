@@ -263,6 +263,13 @@ export class MainThreadComponent {
       );
       await updateDoc(doc(this.firestore, this.sharedService.threadPath, threadRef.id), {
         id: threadRef.id,
+      }).then(async () => {
+        let msgId = this.sharedService.messagePath.slice(-20) ;
+        let msgPath = this.sharedService.messagePath.slice(0, -20) ;
+        console.log(msgPath);
+        await updateDoc(doc(this.firestore, msgPath, msgId), {
+          lastThreadTime : formattedTime ,
+        })
       });
       this.copiedText = '';
     }
