@@ -128,6 +128,7 @@ export class SharedService {
     });
   }
 
+
   fillOptionsOfAutoComplete() {
     this.options = [];
     this.usersForFilter.forEach((user) => {

@@ -97,11 +97,16 @@ export class DirectChatComponent implements OnInit {
   }
 
   onScroll(event: any) {
-    if (event.target.offsetHeight + 50 + event.target.scrollTop >= event.target.scrollHeight) {
-      this.showScrollButton = false;
-    } else {
-      this.showScrollButton = true;
-    }
+    const target = event.target;
+  
+    // Check if the content height is greater than the container's height
+    const hasScrollableContent = target.scrollHeight > target.offsetHeight;
+  
+    // Check if the user is near the bottom of the content
+    const isNearBottom = target.offsetHeight + 50 + target.scrollTop >= target.scrollHeight;
+  
+    // Show the scroll button only if there's content to scroll and the user isn't near the bottom
+    this.showScrollButton = hasScrollableContent && !isNearBottom;
   }
 
   async addReactionToMessage(emoji: string, messageId: string) {
