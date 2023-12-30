@@ -8,6 +8,7 @@ import { UserDataService } from '../services/user-data.service';
 import { SharedService } from '../services/shared.service';
 import { User } from '../models/user.class';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { first } from 'rxjs';
 
 
 @Component({
@@ -80,7 +81,6 @@ export class SidebarComponent implements OnInit {
       this.sidebarClose = state;
     });
     this.userData = this.userDataService.getCurrentUser();
-
   }
 
   closeThread(){
@@ -98,6 +98,9 @@ export class SidebarComponent implements OnInit {
       this.channelsFromDataBase.push(doc.data());
     });
     this.sharedService.channelsForFilter = this.channelsFromDataBase ;
+    if(this.channelsFromDataBase.length >= 1) {
+    this.openChannel(this.channelsFromDataBase[0].name);
+    }
   }
 
   /**
