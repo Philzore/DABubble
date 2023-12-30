@@ -142,17 +142,9 @@
         placeholder="Nachricht an {{ sharedService.currentThreadContent[0].from}}">
       </textarea>
       <div class="input-send">
-        <div class="input-send-left">
-          <i class="material-icons add-data" (click)="toggleAddDataPopup()">add</i>
-          <i class="material-icons toggle-emoji" (click)="toggleEmojiPopup()">insert_emoticon</i>
-          <i class="material-icons toggle-person" (click)="togglePersonPopup()">alternate_email</i>
-        </div>
 
         <div class="input-popups">
-          <div *ngIf="showAddDataPopup" class="add-data-popup cursor">
-          </div>
-          <label class="cursor" for="fileInput">Datei auswählen</label>
-          <input class="cursor" type="file" id="fileInput" multiple (change)="uploadImagesThread($event)">
+          
           <div *ngIf="showEmojiPopup" class="emoji-mart">
             <emoji-mart class="emoji-mart-input" (emojiClick)="addEmoji($event)"
               [style]="{position: 'absolute', bottom: '50px', left:'75px', 'border-radius': '15px', 'z-index': '1', 'width': '250px'}">
@@ -200,7 +192,7 @@
 
 
         <div class="input-popups">
-          <div *ngIf="showAddDataPopup" class="add-data-popup cursor">
+          <div [hidden]="!showAddDataPopup" class="add-data-popup cursor">
             <label (click)="insideClick($event)" class="cursor" for="fileInputThread">Datei auswählen</label>
             <input class="cursor" type="file" id="fileInputThread" multiple (change)="uploadImagesThread($event)" />
           </div>

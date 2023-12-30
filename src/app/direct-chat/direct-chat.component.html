@@ -138,7 +138,7 @@
             </div>
 
             <div class="input-popups">
-                <div *ngIf="showAddDataPopup" class="add-data-popup cursor">
+                <div [hidden]="!showAddDataPopup" class="add-data-popup cursor">
                     <label 
                     (click)="insideClick($event)" 
                     class="cursor"

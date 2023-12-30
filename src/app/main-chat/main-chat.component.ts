@@ -99,7 +99,6 @@ export class MainChatComponent implements OnInit, OnChanges {
   
       // Upload the file to Firebase Storage
       uploadBytes(storageRef, file).then((snapshot) => {
-        console.log('Main Chat du doof');
   
         // If you want to get the URL of the uploaded file
         getDownloadURL(snapshot.ref).then((url) => {
@@ -281,9 +280,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   toggleAddDataPopup(): void {
-    if (event) {
-      this.insideClick(event);
-    }
+    this.insideClick(event);
     this.showAddDataPopup = !this.showAddDataPopup;
     this.showEmojiPopup = false;
     this.showPersonPopup = false;

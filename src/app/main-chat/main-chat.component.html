@@ -165,11 +165,10 @@
 
                 <div class="input-popups">
 
-                    <div *ngIf="showAddDataPopup" class="add-data-popup cursor">
-                        <label class="cursor" (click)="insideClick($event)" for="fileInput">Datei auswählen</label>
-                        <input class="cursor" type="file" id="fileInput" multiple (change)="uploadImages($event)">
-                    </div>
-                    
+                    <div [hidden]="!showAddDataPopup" class="add-data-popup cursor">
+                        <label class="cursor" for="fileInput" (click)="insideClick($event)">Datei auswählen</label>
+                        <input class="cursor" type="file" id="fileInput" multiple (change)="uploadImages($event)" (click)="insideClick($event)">
+                      </div>
 
                     <div *ngIf="showEmojiPopup" class="emoji-mart">
                         <!-- Emoji popup for message -->
