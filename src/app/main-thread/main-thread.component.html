@@ -27,10 +27,14 @@
               sharedService.currentThreadContent[0].calculatedTime }}</span>
           </div>
           <!-- Clicked Message Content -->
-          <div class="clicked-message-content">
-            <p *ngIf="sharedService.threadContentReady" class="message-text">
+          <div class="clicked-message-content" >
+            <p *ngIf="sharedService.threadContentReady && sharedService.currentThreadContent[0].text.trim().length > 0" class="message-text">
               {{ sharedService.currentThreadContent[0].text }}
             </p>
+            <div class="uploaded-content" *ngIf="sharedService.currentThreadContent[0].imageUrl">
+              <i class="material-icons">image</i>
+              <a [href]="sharedService.currentThreadContent[0].imageUrl"  target="_blank">Open Uploaded Image</a>
+              </div>
           </div>
         </div>
       </div>
