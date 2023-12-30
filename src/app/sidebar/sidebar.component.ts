@@ -98,6 +98,7 @@ export class SidebarComponent implements OnInit {
       this.channelsFromDataBase.push(doc.data());
     });
     this.sharedService.channelsForFilter = this.channelsFromDataBase ;
+    // ! When reaction on a message it gets doubled
     if(this.channelsFromDataBase.length >= 1) {
     this.openChannel(this.channelsFromDataBase[0].name);
     }
