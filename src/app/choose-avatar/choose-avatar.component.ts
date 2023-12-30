@@ -76,14 +76,7 @@ export class ChooseAvatarComponent {
         // Die Werte für Benutzerobjekt
         this.user.name = this.name;
         this.user.email = this.email;
-        this.user.avatar = this.selectedCharacter;
 
-        // if (this.selectedCharacterIndex !== null) {
-        //   this.user.avatar = (this.selectedCharacterIndex + 1).toString();
-        // }
-
-   
-    
         if (this.selectedCharacterIndex !== null) {
           this.user.avatar = this.characters[this.selectedCharacterIndex];
         } else if (this.ownProfilePicture) {
@@ -165,8 +158,6 @@ export class ChooseAvatarComponent {
         this.selectedCharacter = url;
         this.ownProfilePicture = url;
         this.user.avatar = url;
-
-        console.log('aktuelle userdaten:', this.user, 'aktuelle variable ownProfilePicture:', this.ownProfilePicture);
       });
     });
   }
