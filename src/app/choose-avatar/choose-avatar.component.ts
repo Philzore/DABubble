@@ -1,18 +1,25 @@
 import { Component, ViewChild } from '@angular/core';
 import { UserDataService } from '../services/user-data.service';
 import { Router } from '@angular/router';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 import { User } from '../models/user.class';
-import { updateProfile } from "firebase/auth";
+import { updateProfile } from 'firebase/auth';
 import { AppComponent } from '../app.component';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { signInWithEmailAndPassword } from '@angular/fire/auth';
+import {
+  StringFormat,
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytes,
+} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-choose-avatar',
   templateUrl: './choose-avatar.component.html',
-  styleUrls: ['./choose-avatar.component.scss']
+  styleUrls: ['./choose-avatar.component.scss'],
 })
 export class ChooseAvatarComponent {
   userData = this.userDataService.getUserData();
@@ -23,15 +30,17 @@ export class ChooseAvatarComponent {
 
   selectedCharacterIndex: number | null = null; // Neue Variable, um den ausgewählten Index zu verfolgen
 
-  selectedCharacter: SafeUrl | string = 'assets/characters/default_character.png'; // Standardcharakter
-  
+  selectedCharacter: string = 'assets/characters/default_character.png'; // Standardcharakter
+
+  ownProfilePicture: string = '';
+
   characters: string[] = [
     'assets/characters/character_1.png',
     'assets/characters/character_2.png',
     'assets/characters/character_3.png',
     'assets/characters/character_4.png',
     'assets/characters/character_5.png',
-    'assets/characters/character_6.png'
+    'assets/characters/character_6.png',
   ];
 
   selectCharacter(index: number) {
@@ -39,14 +48,18 @@ export class ChooseAvatarComponent {
     this.selectedCharacter = this.characters[index];
   }
 
-  constructor(private userDataService: UserDataService, private router: Router, private firestore: Firestore, public appComponent: AppComponent, private sanitizer: DomSanitizer) { }
+  constructor(
+    private userDataService: UserDataService,
+    private router: Router,
+    private firestore: Firestore,
+    public appComponent: AppComponent,
+    private sanitizer: DomSanitizer
+  ) {}
 
   createUserWithFirebase() {
     let usersCollection = collection(this.firestore, 'users');
     addDoc(usersCollection, this.user.toJSON())
-      .then(() => {
-        
-      })
+      .then(() => {})
       .catch((error) => {
         console.error('Error adding user to Firestore', error);
       });
@@ -54,30 +67,44 @@ export class ChooseAvatarComponent {
 
   register() {
     const auth = getAuth();
+    
 
     createUserWithEmailAndPassword(auth, this.email, this.password)
       .then((userCredential) => {
-        this.appComponent.showFeedback('Du hast dich erfolgreich registriert!');
         const user = userCredential.user;
         // Registrierung erfolgreich
         // Die Werte für Benutzerobjekt
         this.user.name = this.name;
         this.user.email = this.email;
-        
+        this.user.avatar = this.selectedCharacter;
+
         // if (this.selectedCharacterIndex !== null) {
         //   this.user.avatar = (this.selectedCharacterIndex + 1).toString();
         // }
 
-        this.user.avatar = this.characters[this.selectedCharacterIndex] ;
+   
+    
+        if (this.selectedCharacterIndex !== null) {
+          this.user.avatar = this.characters[this.selectedCharacterIndex];
+        } else if (this.ownProfilePicture) {
+          // Wenn ownProfilePicture gesetzt ist, verwende es als Avatar
+          this.user.avatar = this.ownProfilePicture;
+        } else {
+          // Fallback auf den Standard-Avatar, wenn keine Auswahl getroffen wurde
+          this.user.avatar = 'default_avatar_url';
+        }
+
 
         // Fügt Nutzer bei Firebase hinzu ( Collection )
+        console.log(this.user);
         this.createUserWithFirebase();
+        this.appComponent.showFeedback('Du hast dich erfolgreich registriert!');
 
         // Aktualisiert den Anzeigenamen vom User in der Authentication
         updateProfile(auth.currentUser, {
           displayName: this.name,
           //Phil addes photoUrl
-          photoURL : this.characters[this.selectedCharacterIndex],
+          photoURL: this.user.avatar,
         })
           .then(() => {
             // Anzeigenamen aktualisiert
@@ -87,7 +114,7 @@ export class ChooseAvatarComponent {
             console.error('Error updating display name', error);
           });
 
-          this.login();
+        this.login();
       })
       .catch((error) => {
         // Bei einem Fehler die Fehlermeldung anzeigen
@@ -98,7 +125,7 @@ export class ChooseAvatarComponent {
   ngOnInit() {
     const userData = this.userDataService.getUserData();
     this.email = userData.email;
-    this.name = userData.name
+    this.name = userData.name;
     this.password = userData.password;
   }
 
@@ -108,12 +135,14 @@ export class ChooseAvatarComponent {
       .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user;
-        this.userDataService.saveCurrentUserLocalStorage(auth.currentUser.displayName, auth.currentUser.email, auth.currentUser.photoURL);
+        this.userDataService.saveCurrentUserLocalStorage(
+          auth.currentUser.displayName,
+          auth.currentUser.email,
+          auth.currentUser.photoURL
+        );
         this.router.navigate(['/main-page']);
       })
-      .catch((error) => {
-        
-      });
+      .catch((error) => {});
   }
 
   @ViewChild('fileInput') fileInput: any;
@@ -124,10 +153,21 @@ export class ChooseAvatarComponent {
 
   onFileSelected(event: any) {
     const selectedFile = event.target.files[0];
-    if (selectedFile) {
-      // Den Dateipfad in eine sichere URL umwandeln
-      const fileURL = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(selectedFile));
-      this.selectedCharacter = fileURL;
-    }
+    const storage = getStorage();
+
+    // Create a storage reference
+    const storageRef = ref(storage, `profile_pictures/${selectedFile.name}`);
+
+    // Upload the file to Firebase Storage
+    uploadBytes(storageRef, selectedFile).then((snapshot) => {
+
+      getDownloadURL(snapshot.ref).then((url) => {
+        this.selectedCharacter = url;
+        this.ownProfilePicture = url;
+        this.user.avatar = url;
+
+        console.log('aktuelle userdaten:', this.user, 'aktuelle variable ownProfilePicture:', this.ownProfilePicture);
+      });
+    });
   }
 }
