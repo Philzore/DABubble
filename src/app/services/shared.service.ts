@@ -5,7 +5,6 @@ import { Message } from '../models/message.class';
 import { User } from '../models/user.class';
 import { FormControl } from '@angular/forms';
 
-
 @Injectable({
   providedIn: 'root',
 })

@@ -19,7 +19,6 @@ import { getStorage, getDownloadURL, ref, uploadBytes } from '@angular/fire/stor
   styleUrls: ['./main-chat.component.scss']
 })
 export class MainChatComponent implements OnInit, OnChanges {
-
   copiedText: string = '';
   isSidebarOpen: boolean = true;
   showAddDataPopup: boolean = false;

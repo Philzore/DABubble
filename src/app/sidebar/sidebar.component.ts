@@ -62,8 +62,6 @@ export class SidebarComponent implements OnInit {
   channelsFromDataBase = [];
   userData = {};
 
-
-
   constructor(
     public dialog: MatDialog,
     public sharedService: SharedService,
