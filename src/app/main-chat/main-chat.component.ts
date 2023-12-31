@@ -19,6 +19,7 @@ import { getStorage, getDownloadURL, ref, uploadBytes } from '@angular/fire/stor
   styleUrls: ['./main-chat.component.scss']
 })
 export class MainChatComponent implements OnInit, OnChanges {
+
   copiedText: string = '';
   isSidebarOpen: boolean = true;
   showAddDataPopup: boolean = false;
@@ -344,8 +345,11 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.openThread(messageID);
       this.lastMessageId = messageID;
       this.threadRuntime = true;
+
     } else if ((this.lastMessageId == messageID) && this.threadOpen) {
       this.closeThread();
+      console.log(this.sharedService.threadContentReady);
+
     } else if ((this.lastMessageId != messageID) && this.threadOpen) {
       this.unsubThread();
       this.sharedService.currentThreadContent = [];
