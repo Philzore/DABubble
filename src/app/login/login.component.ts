@@ -90,8 +90,6 @@ export class LoginComponent implements OnInit {
         // IdP data available using getAdditionalUserInfo(result)
         // ...
         this.router.navigate(['/main-page']);
-        this.sharedService.getChannelsFromDataBase('DaBubble');
-        this.sharedService.createSubscribeChannelMessages();
       }).catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;

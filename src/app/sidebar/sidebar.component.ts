@@ -192,6 +192,7 @@ export class SidebarComponent implements OnInit {
 
   /* Open Channel */
   openChannel(name) {
+    this.sharedService.unsubChannels();
     this.sharedService.showChannelViewFct();
     this.sharedService.updateChannel(name);
   }
