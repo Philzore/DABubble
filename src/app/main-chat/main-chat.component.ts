@@ -30,10 +30,10 @@ export class MainChatComponent implements OnInit, OnChanges {
   userData = [];
   thradMessagesFromDB = [];
   threadRuntime: boolean = false;
-  lastMessageId: string = '';
+  // lastMessageId: string = '';
   message = new Message();
   threadMessage = new Message();
-  threadOpen = false;
+  // threadOpen = false;
   unsubThread;
   emojiMartVisible = false;
   selectedEmoji: string | null = null;
@@ -340,16 +340,17 @@ export class MainChatComponent implements OnInit, OnChanges {
   toggleThread(messageID: string) {
     this.sharedService.hideThreadWhenChangeChannel = false ;
     this.sharedService.threadContentReady = false;
-    if (!this.threadOpen && this.lastMessageId == '') {
+    
+    if (!this.sharedService.threadIsOpen && this.sharedService.lastMsgIdForThread == '') {
       this.openThread(messageID);
-      this.lastMessageId = messageID;
+      this.sharedService.lastMsgIdForThread = messageID;
       this.threadRuntime = true;
-    } else if ((this.lastMessageId == messageID) && this.threadOpen) {
+    } else if ((this.sharedService.lastMsgIdForThread == messageID) && this.sharedService.threadIsOpen) {
       this.closeThread();
-    } else if ((this.lastMessageId != messageID) && this.threadOpen) {
+    } else if ((this.sharedService.lastMsgIdForThread != messageID) && this.sharedService.threadIsOpen) {
       this.unsubThread();
       this.sharedService.currentThreadContent = [];
-      this.lastMessageId = messageID;
+      this.sharedService.lastMsgIdForThread = messageID;
       this.createSubscribeThreadMessages(messageID);
     }
     this.emojiMartVisible = false;
@@ -363,7 +364,7 @@ export class MainChatComponent implements OnInit, OnChanges {
   openThread(messageID: string) {
     this.threadClosed.emit();
     this.createSubscribeThreadMessages(messageID);
-    this.threadOpen = true;
+    this.sharedService.threadIsOpen = true;
   }
 
   /**
@@ -375,8 +376,8 @@ export class MainChatComponent implements OnInit, OnChanges {
       this.unsubThread();
     }
     this.threadClosed.emit();
-    this.threadOpen = false;
-    this.lastMessageId = '';
+    this.sharedService.threadIsOpen = false;
+    this.sharedService.lastMsgIdForThread = '';
     this.sharedService.currentThreadContent = [];
     this.sharedService.threadContentReady = false;
   }
@@ -569,6 +570,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * @param messageID {string} - id form the clicked message
    */
   async getThreadMessagesFromSingleMessage(messageID: string) {
+    console.log('drin');
     this.sharedService.threadContentReady = false;
     let channelId = this.sharedService.filteredChannels[1];
     this.sharedService.currentThreadContent = [];
@@ -583,6 +585,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.sharedService.threadPath = `channels/${channelId}/messages/${messageID}/thread`;
     this.sortMessagesTime(this.sharedService.currentThreadContent);
     this.sharedService.threadContentReady = true;
+    console.log('rdy');
   }
 
   /**
