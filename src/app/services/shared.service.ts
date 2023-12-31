@@ -479,7 +479,7 @@ export class SharedService {
     if (this.showDirectMessageView) {
       this.unsubDirectChat();
     }
-    this.availableThread = true ;
+    this.availableThread = true;
     this.showDirectMessageView = false;
     this.showNewMessageInput = false;
     this.showChannelView = true;

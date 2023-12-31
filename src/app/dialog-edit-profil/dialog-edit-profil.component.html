@@ -19,7 +19,7 @@
             <mat-icon>mail_outline</mat-icon>
             <span><b>E-Mail-Adresse</b></span>
         </div>
-        <input disabled [class.successfull-input]="emailChangeSuccessfull" type="email" placeholder="{{ userDataService.currentUser['mail'] }}" [(ngModel)]="newEmail">
+        <input [class.successfull-input]="emailChangeSuccessfull" type="email" placeholder="{{ userDataService.currentUser['mail'] }}" [(ngModel)]="newEmail">
         <span class="success-text" *ngIf="emailChangeSuccessfull">E-Mail Adresse wurde erfolgreich geändert</span>
     </div>
     <div class="edit-profil-btns">
