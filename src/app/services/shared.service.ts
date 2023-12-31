@@ -46,6 +46,7 @@ export class SharedService {
   currentThreadContent = [];
   threadContentReady: boolean = false;
   hideThreadWhenChangeChannel = false ;
+  availableThread = true ;
 
   //direct messages
   showDirectMessageView: boolean = false;
@@ -463,6 +464,7 @@ export class SharedService {
    */
   showDirectMessageViewFct() {
     this.unsubChannels();
+    
     this.showChannelView = false;
     this.showNewMessageInput = false;
     this.showDirectMessageView = true;
@@ -476,6 +478,7 @@ export class SharedService {
     if (this.showDirectMessageView) {
       this.unsubDirectChat();
     }
+    this.availableThread = true ;
     this.showDirectMessageView = false;
     this.showNewMessageInput = false;
     this.showChannelView = true;

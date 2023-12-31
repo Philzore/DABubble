@@ -20,7 +20,6 @@ import { trigger, style, animate, transition } from '@angular/animations';
   ]
 })
 export class MainScreenComponent {
-  hideThread = true;
   viewState: string = 'all'; // Initialize with a default value
   activeChannel = '';
   OutputToogleThread ;
@@ -37,7 +36,8 @@ export class MainScreenComponent {
   }
 
   hideThreadContainer() {  
-    this.hideThread = !this.hideThread;
+    this.sharedService.availableThread = !this.sharedService.availableThread;
+
   }
 
 }
