@@ -97,7 +97,8 @@ export class SidebarComponent implements OnInit {
     querySnapshotChannels.forEach((doc) => {
       this.channelsFromDataBase.push(doc.data());
     });
-    this.sharedService.channelsForFilter = this.channelsFromDataBase ;
+    this.sharedService.channelsForFilter = this.channelsFromDataBase;
+    // TODO Fix this problem
     // if(this.channelsFromDataBase.length >= 1) {
     // this.openChannel(this.channelsFromDataBase[0].name);
     // }
