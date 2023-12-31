@@ -85,6 +85,7 @@ export class SidebarComponent implements OnInit {
     this.openDirectMsg.emit();
   }
 
+
   /**
    * load channels from firestore and push to local array
    * 
