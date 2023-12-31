@@ -37,7 +37,6 @@ export class MainScreenComponent {
 
   hideThreadContainer() {  
     this.sharedService.availableThread = !this.sharedService.availableThread;
-
   }
 
 }
