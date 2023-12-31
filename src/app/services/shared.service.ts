@@ -469,6 +469,7 @@ export class SharedService {
     this.showNewMessageInput = false;
     this.showDirectMessageView = true;
     this.createSubscribeDirectChat();
+    
   }
 
   /**

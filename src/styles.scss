@@ -321,6 +321,7 @@ $main-purple: #eceefe;
         width: 40px;
         background-size: cover;
         border-radius: 50%;
+        object-fit: cover;
       }
     }
 
@@ -449,6 +450,7 @@ $main-purple: #eceefe;
       height: 50px;
       width: 50px;
       border-radius: 50%;
+      object-fit: cover;
     }
 
     .message-info-container {
@@ -859,7 +861,6 @@ $main-purple: #eceefe;
 .own-message {
   display: flex;
   padding: 20px;
-  margin: 20px;
   flex-direction: row-reverse;
   justify-content: right;
 
