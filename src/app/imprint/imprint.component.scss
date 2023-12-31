@@ -1,4 +1,36 @@
+.content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+//------------------ BACK ARROW ICON ------------------- //
+
+.back-icon{
+    transition: 0.2s;
+    object-fit: cover;
+    margin-bottom: 16px;
+    &:hover {
+        background-color: #ECEEFE;
+        border-radius: 50px;
+        cursor: pointer;
+    }
+}
+
 .impressum {
     max-width: 1440px;
     margin: auto;
+    display: flex;
+    flex-direction: column;
+
+    background-color: white;
+    padding: 48px;
+    border-radius: 30px;
+
+    .imprint-header{
+        color: #444DF2;
+        font-size: 40px;
+        font-weight: 500;
+    }
 }
