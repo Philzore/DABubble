@@ -571,7 +571,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    * @param messageID {string} - id form the clicked message
    */
   async getThreadMessagesFromSingleMessage(messageID: string) {
-    console.log('drin');
+
     this.sharedService.threadContentReady = false;
     let channelId = this.sharedService.filteredChannels[1];
     this.sharedService.currentThreadContent = [];
@@ -586,7 +586,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     this.sharedService.threadPath = `channels/${channelId}/messages/${messageID}/thread`;
     this.sortMessagesTime(this.sharedService.currentThreadContent);
     this.sharedService.threadContentReady = true;
-    console.log('rdy');
+
   }
 
   /**
