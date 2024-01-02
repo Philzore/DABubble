@@ -4,10 +4,7 @@
     justify-content: space-between;
     align-items: center;
     margin: 32px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    width: 100%;
 
     .register-container {
         display: flex;
@@ -36,8 +33,9 @@
 /*/----------------- LOGIN CONTAINER -------------/*/
 .content {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    flex-direction: column;
     padding-left: 16px;
     padding-right: 16px;
     height: 100vh;
@@ -234,10 +232,8 @@
     align-items: center;
     justify-content: center;
     gap: 16px;
-    position: absolute;
-    bottom: 2em;
-    left: 0;
-    right: 0;
+    margin-top: 24px;
+    margin-bottom: 24px;
 
     .impressum {
         font-size: 18px;
@@ -272,8 +268,8 @@
 .mobile-register-container {
     display: none;
     flex-direction: column;
-    position: absolute;
-    bottom: 5em;
+    margin-top: 24px;
+    margin-bottom: 24px;
 
     .question {
         font-weight: 400;
