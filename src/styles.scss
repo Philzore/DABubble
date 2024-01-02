@@ -966,6 +966,33 @@ $main-purple: #eceefe;
     margin: unset !important;
   }
 
+  mat-toolbar {
+
+    .chat-header-left {
+
+      p {
+        font-size: 18px;
+      }
+
+    }
+
+    .chat-header-right {
+
+      img {
+        width: 30px !important;
+        height: 30px !important;
+      }
+  
+      .material-icons {
+        height: 25px !important;
+        width: 25px !important;
+      }
+  
+  
+    }
+
+  }
+
   .cdk-overlay-pane {
     min-width: 100vw;
   }
