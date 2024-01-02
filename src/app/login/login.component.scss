@@ -269,7 +269,6 @@
     display: none;
     flex-direction: column;
     margin-top: 24px;
-    margin-bottom: 24px;
 
     .question {
         font-weight: 400;
@@ -371,13 +370,17 @@
 
 //-------------RESPONSIVE-------------//
 @media (max-width: 600px) {
+    .logo-image{
+        height: 55px;
+    }
+
     .login-container-header {
         gap: 16px !important;
     }
 
     .login-container {
         padding: 24px !important;
-        gap: 16px !important;
+        gap: 8ng bpx !important;
     }
 
     .register-container {
@@ -398,6 +401,7 @@
 
     .recommendation {
         font-size: 16px !important;
+        line-height: unset !important;
     }
 
     .inputfield {
