@@ -931,6 +931,7 @@ $main-purple: #eceefe;
     border-radius: 0 !important;
     height: calc(100vh - 120px);
     margin: 0;
+    overflow-x: hidden !important;
 
     .emoji-wrapper {
 

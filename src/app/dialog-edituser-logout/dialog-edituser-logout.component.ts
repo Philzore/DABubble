@@ -55,14 +55,26 @@ export class DialogEdituserLogoutComponent implements OnInit {
       // Sign-out successful.
       this.dialogRef.close();
       this.userDataService.clearCurrentUserLocalStorage();
+      this.performUnsubscriptions(); // Ensure all unsubscriptions are handled.
       this.router.navigate(['/']);
-      this.sharedService.templateIsReady = false ;
-      this.sharedService.unsubChannels();
-      if (this.sharedService.unsubDirectChat){
-        this.sharedService.unsubDirectChat();
-      }
+      this.sharedService.templateIsReady = false;
+
     }).catch((error) => {
       // An error happened.
+      console.error("Error during sign out:", error);
     });
   }
+
+performUnsubscriptions() {
+    // Unsubscribe from Thread if the function exists.
+    if (this.sharedService.unsubThread) {
+      this.sharedService.unsubThread();
+    }
+
+    // Unsubscribe from Channels if the function exists.
+    if (this.sharedService.unsubChannels) {
+      this.sharedService.unsubChannels();
+    }
+}
+
 }
