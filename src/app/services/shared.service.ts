@@ -279,7 +279,6 @@ export class SharedService {
 
   async updateDirectMsgName(oldName: string, newName: string) {
     if (this.unsubDirectChat) {
-      console.log("Chat");
       this.unsubDirectChat();
     }
 
@@ -475,7 +474,6 @@ export class SharedService {
     this.lastMsgIdForThread = '' ;
     this.createSubscribeDirectChat();
     if (this.unsubThread) {
-      console.log("Thread");
       this.unsubThread() ;
     }
   }
