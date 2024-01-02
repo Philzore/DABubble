@@ -60,10 +60,12 @@ input[type="file"] {
 
 html,
 body {
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   background-color: #eceefe;
   font-family: Nunito, sans-serif !important;
   scroll-behavior: smooth;
+  margin: 0;
+
 }
 
 @font-face {
@@ -99,10 +101,6 @@ body::-webkit-scrollbar-thumb {
 .scrollbar::-webkit-scrollbar-thumb {
   background-color: rgb(165, 163, 163);
   border-radius: 100px;
-}
-
-body {
-  margin: 0;
 }
 
 .br-30 {
@@ -448,6 +446,7 @@ $main-purple: #eceefe;
 
     img {
       height: 50px;
+      min-width: 50px;
       width: 50px;
       border-radius: 50%;
       object-fit: cover;
@@ -978,7 +977,7 @@ $main-purple: #eceefe;
 
   .emoji-mart {
     max-width: 250px;
-    bottom: 20px !important;
+    // bottom: 20px !important;
   }
 
   .last-response-row {
