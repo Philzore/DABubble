@@ -35,7 +35,7 @@ export class MainChatComponent implements OnInit, OnChanges {
   message = new Message();
   threadMessage = new Message();
   // threadOpen = false;
-  unsubThread;
+  // unsubThread;
   emojiMartVisible = false;
   selectedEmoji: string | null = null;
   showScrollButton = false;
@@ -349,7 +349,7 @@ export class MainChatComponent implements OnInit, OnChanges {
     } else if ((this.sharedService.lastMsgIdForThread == messageID) && this.sharedService.threadIsOpen) {
       this.closeThread();
     } else if ((this.sharedService.lastMsgIdForThread != messageID) && this.sharedService.threadIsOpen) {
-      this.unsubThread();
+      this.sharedService.unsubThread();
       this.sharedService.currentThreadContent = [];
       this.sharedService.lastMsgIdForThread = messageID;
       this.createSubscribeThreadMessages(messageID);
@@ -373,8 +373,8 @@ export class MainChatComponent implements OnInit, OnChanges {
    * 
    */
   closeThread() {
-    if (this.unsubThread) {
-      this.unsubThread();
+    if (this.sharedService.unsubThread) {
+      this.sharedService.unsubThread();
     }
     this.threadClosed.emit();
     this.sharedService.threadIsOpen = false;
@@ -391,7 +391,7 @@ export class MainChatComponent implements OnInit, OnChanges {
   async createSubscribeThreadMessages(messageID: string) {
     let channelId = this.sharedService.filteredChannels[1];
     //load right thread from firestore
-    this.unsubThread = onSnapshot(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`), async (doc) => {
+    this.sharedService.unsubThread = onSnapshot(collection(this.firestore, `channels/${channelId}/messages/${messageID}/thread`), async (doc) => {
       await this.getThreadMessagesFromSingleMessage(messageID);
     });
   }

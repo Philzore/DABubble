@@ -269,7 +269,6 @@ export class MainThreadComponent {
       }).then(async () => {
         let msgId = this.sharedService.messagePath.slice(-20) ;
         let msgPath = this.sharedService.messagePath.slice(0, -20) ;
-        console.log(msgPath);
         await updateDoc(doc(this.firestore, msgPath, msgId), {
           lastThreadTime : formattedTime ,
         })

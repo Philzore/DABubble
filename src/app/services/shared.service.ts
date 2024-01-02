@@ -49,6 +49,7 @@ export class SharedService {
   availableThread = true ;
   threadIsOpen = false ;
   lastMsgIdForThread = '' ;
+  unsubThread ;
 
   //direct messages
   showDirectMessageView: boolean = false;
@@ -472,7 +473,9 @@ export class SharedService {
     this.showDirectMessageView = true;
     this.lastMsgIdForThread = '' ;
     this.createSubscribeDirectChat();
-    
+    if (this.unsubThread) {
+      this.unsubThread() ;
+    }
   }
 
   /**
@@ -481,6 +484,9 @@ export class SharedService {
   showChannelViewFct() {
     if (this.showDirectMessageView) {
       this.unsubDirectChat();
+    }
+    if (this.unsubThread) {
+      this.unsubThread() ;
     }
     this.threadIsOpen = false ;
     this.availableThread = true ;
