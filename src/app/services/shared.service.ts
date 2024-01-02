@@ -174,6 +174,7 @@ export class SharedService {
     this.templateIsReady = false;
     await this.getChannelsFromDataBase(newValue);
     this.createSubscribeChannelMessages();
+    console.log('Update Channel') ;
   }
 
   /**
@@ -362,6 +363,7 @@ export class SharedService {
     let channelId = this.filteredChannels[1];
     this.unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
       await this.getMessagesFromChannel();
+      console.log('subChannel') ;
     });
   }
 
