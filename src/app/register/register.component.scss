@@ -2,16 +2,14 @@
 .header {
     margin: 32px;
     display: flex;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
+    width: 100%;
 }
 // -------------------- CONTENT ------------------------ //
 .content {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    flex-direction: column;
     height: 100vh;
     padding-left: 16px;
     padding-right: 16px;
@@ -128,10 +126,8 @@
     display: flex;
     justify-content: center;
     gap: 16px;
-    position: absolute;
-    bottom: 2em;
-    left: 0;
-    right: 0;
+    margin-top: 24px;
+    margin-bottom: 24px;
     .impressum {
         font-size: 18px;
         font-weight: 400px;
@@ -165,7 +161,7 @@
         justify-content: center;
     }
     .register-container{
-        gap: 16px !important;
+        gap: 8px !important;
     }
     .register-headline-container{
         gap: 16px !important;
