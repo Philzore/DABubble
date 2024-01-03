@@ -30,18 +30,21 @@
 }
 
 //------------------ BACK ARROW ICON ------------------- //
-.back-icon-container{
-    margin-right: 2px;
+.back-icon-container {
     display: flex;
+    justify-content: center;
     align-items: center;
-}
-.back-icon{
     transition: 0.2s;
-    object-fit: cover;
-    &:hover {
-        background-color: #ECEEFE;
-        border-radius: 50px;
-        cursor: pointer;
+    .back-icon{
+        padding: 4px;
+        transition: 0.2s;
+        object-fit: cover;
+
+        &:hover {
+            background-color: #ECEEFE;
+            border-radius: 50px;
+            cursor: pointer;
+        }
     }
 }
 
