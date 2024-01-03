@@ -138,8 +138,8 @@
 
 
 
-        <div *ngIf="showScrollButton" class="scroll-to-bottom-container">
-            <i *ngIf="showScrollButton" #scrollButton (click)="scrollToBottom()"
+        <div *ngIf="showScrollButton" class="scroll-to-bottom-container" [ngClass]="{'z-index': !this.isScreenWidthGreaterThan1200 && this.sharedService.isSidebarOpen.value && !this.sharedService.threadIsOpen}">
+            <i #scrollButton (click)="scrollToBottom()"
                 class="cursor material-icons">arrow_circle_down</i>
         </div>
 
@@ -151,7 +151,7 @@
             <i class="material-icons cursor" (click)="resetUpload()" aria-label="close image">close</i>
         </div>
 
-        <section class="input-container">
+        <section class="input-container" [ngClass]="{'z-index': this.sharedService.isSidebarOpen.value && !this.sharedService.threadIsOpen && !this.isScreenWidthGreaterThan1200}">
               
               <textarea (keydown)="onKeydown($event, copiedText)" *ngIf="sharedService.templateIsReady" [(ngModel)]="copiedText"
                 placeholder="Nachricht an #{{ sharedService.filteredChannels[0].name }}">

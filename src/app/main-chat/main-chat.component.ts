@@ -562,8 +562,6 @@ export class MainChatComponent implements OnInit, OnChanges {
 
 
 
-
-
   /**
    * get the thread messages from a single message
    * push to thradMessagesFromDB with the class Message

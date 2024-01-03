@@ -1,6 +1,10 @@
 $main-purple: #eceefe;
 $purple: #535af1;
 
+.z-index {
+  z-index: 2;
+}
+
 .emoji-mart {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
 
@@ -60,12 +64,13 @@ input[type="file"] {
 
 html,
 body {
+  height: 100vh !important;
   overflow-x: hidden !important;
+  overflow-y: hidden !important;
   background-color: #eceefe;
   font-family: Nunito, sans-serif !important;
   scroll-behavior: smooth;
   margin: 0;
-
 }
 
 @font-face {
@@ -922,14 +927,9 @@ $main-purple: #eceefe;
     padding: 15px !important;
   }
 
-  .message-container {
-    margin: 30px 15px !important;
-    margin-right: 0px !important;
-  }
-
   .chat-container {
     border-radius: 0 !important;
-    height: calc(100vh - 120px);
+    height: calc(100vh - 110px);
     margin: 0;
     overflow-x: hidden !important;
 
