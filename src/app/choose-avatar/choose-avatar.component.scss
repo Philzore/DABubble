@@ -2,20 +2,15 @@
 .header {
     margin: 32px;
     display: flex;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
 }
 
 // -------------------- CONTENT ------------------------ //
 
 .content {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    gap: 64px;
     height: 100vh;
     padding-left: 16px;
     padding-right: 16px;
@@ -44,14 +39,19 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-
     position: relative;
 
+    .back-icon-container{
+        margin-right: 2px;
+        display: flex;
+        align-items: center;
+    }
     .back-icon{
-        position: absolute;
-        left: 0;
-
-        &:hover{
+        transition: 0.2s;
+        object-fit: cover;
+        &:hover {
+            background-color: #ECEEFE;
+            border-radius: 50px;
             cursor: pointer;
         }
     }
@@ -203,11 +203,9 @@
     display: flex;
     justify-content: center;
     gap: 16px;
-    position: absolute;
-    bottom: 2em;
-    left: 0;
-    right: 0;
 
+    margin-top: 24px;
+    margin-bottom: 24px;
     .impressum {
         font-size: 18px;
         font-weight: 400px;
@@ -233,6 +231,9 @@
 
 //-------------RESPONSIVE-------------//
 @media (max-width: 600px) {
+    .logo-image{
+        height: 55px;
+    }
     .header {
         justify-content: center;
     }
