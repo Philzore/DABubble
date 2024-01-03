@@ -243,7 +243,7 @@ $main-purple: #eceefe;
 .chat-container {
   position: relative;
   background-color: rgb(255, 255, 255) !important;
-  height: calc(100vh - 160px);
+  height: calc(100vh - 110px);
   margin: 0 20px;
 
   mat-toolbar {
@@ -350,7 +350,7 @@ $main-purple: #eceefe;
 .chat-wrapper {
 
   scroll-behavior: smooth;
-  max-height: calc(100% - 210px);
+  max-height: calc(100% - 95px);
   overflow-y: auto;
   overflow-x: hidden;
 
@@ -928,7 +928,7 @@ $main-purple: #eceefe;
 
   .chat-container {
     border-radius: 0 !important;
-    height: calc(100vh - 110px);
+    // height: calc(100vh - 110px);
     margin: 0;
     overflow-x: hidden !important;
 
@@ -952,6 +952,11 @@ $main-purple: #eceefe;
     max-width: 100%;
   }
 
+  app-desktop-header {
+    height: 110px;
+    display: block;
+  }
+
   .cdk-overlay-pane {
     max-width: 100vw !important;
     position: static !important;
@@ -965,6 +970,7 @@ $main-purple: #eceefe;
     position: static !important;
     margin: unset !important;
   }
+
 
   mat-toolbar {
 
