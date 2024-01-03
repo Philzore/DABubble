@@ -350,7 +350,7 @@ $main-purple: #eceefe;
 .chat-wrapper {
 
   scroll-behavior: smooth;
-  max-height: calc(100% - 95px);
+  max-height: calc(100% - 100px);
   overflow-y: auto;
   overflow-x: hidden;
 
@@ -593,12 +593,13 @@ $main-purple: #eceefe;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  height: 100px;
   padding: 20px;
   position: absolute;
   bottom: 0px;
   left: 0px;
   right: 0px;
-  margin: 30px 15px;
+  margin: 0 15px;
   border: 1px solid $main-purple;
   border-radius: 10px;
   background: #fff;
