@@ -426,7 +426,7 @@ export class MainChatComponent implements OnInit, OnChanges {
    */
   async messageSend() {
     if ((this.copiedText.trim().length > 0 || this.fileUploaded)) {
-      this.sharedService.unsubChannels();
+      this.sharedService.unsubChannelMessages();
       this.isSendingMessage = true;
       this.message.from = this.userDataService.currentUser['name'];
       if (this.message.from == 'Gast') {

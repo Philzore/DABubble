@@ -38,6 +38,7 @@ export class SharedService {
   templateIsReady = false;
   messagePath: string = '';
   showNewMessageInput: boolean = false;
+  unsubChannelMessages;
 
   //thread
   private threadContainerVisibilitySubject = new BehaviorSubject<boolean>(true);
@@ -174,7 +175,6 @@ export class SharedService {
     this.templateIsReady = false;
     await this.getChannelsFromDataBase(newValue);
     this.createSubscribeChannelMessages();
-    console.log('Update Channel') ;
   }
 
   /**
@@ -200,8 +200,8 @@ export class SharedService {
    * @param newName - replaced name with oldName
    */
   async updateName(oldName: string, newName: string) {
-    if (this.unsubChannels) {
-      this.unsubChannels();
+    if (this.unsubChannelMessages) {
+      this.unsubChannelMessages();
     }
 
     const channelCol = collection(this.firestore, 'channels');
@@ -360,9 +360,8 @@ export class SharedService {
    */
   createSubscribeChannelMessages() {
     let channelId = this.filteredChannels[1];
-    this.unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
+    this.unsubChannelMessages = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
       await this.getMessagesFromChannel();
-      console.log('subChannel') ;
     });
   }
 
@@ -468,7 +467,7 @@ export class SharedService {
    * Showing directmessage view
    */
   showDirectMessageViewFct() {
-    this.unsubChannels();
+    this.unsubChannelMessages();
     this.threadIsOpen = false ;
     this.showChannelView = false;
     this.showNewMessageInput = false;

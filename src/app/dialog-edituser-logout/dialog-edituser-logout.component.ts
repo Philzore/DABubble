@@ -73,6 +73,10 @@ performUnsubscriptions() {
     }
 
     // Unsubscribe from Channels if the function exists.
+    if (this.sharedService.unsubChannelMessages) {
+      this.sharedService.unsubChannelMessages();
+    }
+
     if (this.sharedService.unsubChannels) {
       this.sharedService.unsubChannels();
     }
