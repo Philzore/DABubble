@@ -927,7 +927,7 @@ $main-purple: #eceefe;
 
   .chat-container {
     border-radius: 0 !important;
-    // height: calc(100vh - 110px);
+    height: calc(100vh - 110px);
     margin: 0;
     overflow-x: hidden !important;
 
@@ -970,6 +970,13 @@ $main-purple: #eceefe;
     margin: unset !important;
   }
 
+  app-main-screen {
+    overflow-y: hidden;
+  }
+
+  .chat-container {
+    height: calc(100vh - 180px);
+  }
 
   mat-toolbar {
 

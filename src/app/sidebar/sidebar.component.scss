@@ -234,3 +234,9 @@ mat-card-header {
     background-color: rgb(165, 163, 163);
     border-radius: 100px;
 }
+
+@media (max-width:500px) {
+    .overview-card {
+        max-height: calc(100vh - 180px);
+    }
+}

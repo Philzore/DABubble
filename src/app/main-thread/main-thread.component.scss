@@ -453,4 +453,8 @@ $purple: #535af1;
       margin: 0;
     }
   }
+
+  .thread-container {
+    height: calc(100vh - 180px);
+  }
 }
