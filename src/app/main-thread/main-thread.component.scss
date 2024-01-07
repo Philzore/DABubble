@@ -2,7 +2,7 @@ $main-purple: #eceefe;
 $purple: #535af1;
 
 .last-item {
-  margin-bottom: 75px !important;
+  margin-bottom: 140px !important;
 }
 
 .non-empty {
@@ -349,13 +349,12 @@ $purple: #535af1;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    height: 100px;
+    // height: 100px;
     padding: 20px;
     position: absolute;
     bottom: 0px;
     left: 0px;
     right: 0px;
-    margin: 0 15px;
     border: 1px solid $main-purple;
     border-radius: 10px;
     background: #fff;

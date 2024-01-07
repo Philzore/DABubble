@@ -243,7 +243,7 @@ $main-purple: #eceefe;
 .chat-container {
   position: relative;
   background-color: rgb(255, 255, 255) !important;
-  height: calc(100vh - 110px);
+  height: calc(100vh - 160px);
   margin: 0 20px;
 
   mat-toolbar {
@@ -350,7 +350,7 @@ $main-purple: #eceefe;
 .chat-wrapper {
 
   scroll-behavior: smooth;
-  max-height: calc(100% - 100px);
+  max-height: calc(100% - 160px);  
   overflow-y: auto;
   overflow-x: hidden;
 
@@ -593,13 +593,11 @@ $main-purple: #eceefe;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  height: 100px;
   padding: 20px;
   position: absolute;
   bottom: 0px;
   left: 0px;
   right: 0px;
-  margin: 0 15px;
   border: 1px solid $main-purple;
   border-radius: 10px;
   background: #fff;
