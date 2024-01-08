@@ -346,6 +346,7 @@ $purple: #535af1;
   }
 
   .input-container {
+    z-index: 1;
     display: flex;
     justify-content: center;
     flex-direction: column;

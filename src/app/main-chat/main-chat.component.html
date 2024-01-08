@@ -43,7 +43,7 @@
 
         <!-- MESSAGE DESIGN IF SOMEBODYS ELSE MESSAGE START -->
 
-        <div *ngFor="let message of sharedService.channelMessagesFromDB; let i = index" #messageContainer class="message-container cursor"
+        <div *ngFor="let message of sharedService.channelMessagesFromDB; let i = index; let last = last" [class.last]="last" #messageContainer class="message-container cursor"
             [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}">
 
             <div *ngIf="!isSameDay(message.time, i)" class="chat-divider-bottom">
