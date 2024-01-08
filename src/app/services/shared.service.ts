@@ -32,6 +32,7 @@ export class SharedService {
 
   //sidebar
   public isSidebarOpen = new BehaviorSubject<boolean>(false);
+  hideInputContainer = true ;
 
   //main chat
   channelMessagesFromDB: any[];
@@ -181,6 +182,7 @@ export class SharedService {
    * Toggle the state of the sidebar (open or closed).
    */
   toggleSidebar(): void {
+    console.log(this.isSidebarOpen.value);
     this.isSidebarOpen.next(!this.isSidebarOpen.value);
   }
 

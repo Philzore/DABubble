@@ -1,5 +1,11 @@
 //----------------- Card CONTAINER ------------- //
 .overview-card {
+    max-width: 300px;
+    box-sizing: border-box;
+    height: calc(100vh - 160px);
+    margin-left: 20px;
+    position: relative;
+    overflow-y: hidden;
     padding: 15px;
     font-size: 20px;
     border-radius: 30px;
@@ -17,14 +23,14 @@ mat-card-header {
     padding: 0;
 }
 
-.overview-card {
-    max-width: 300px;
-    box-sizing: border-box;
-    height: calc(100vh - 160px);
-    margin-left: 20px;
-    position: relative;
-    overflow-y: hidden;
-}
+// .overview-card {
+//     max-width: 300px;
+//     box-sizing: border-box;
+//     height: calc(100vh - 160px);
+//     margin-left: 20px;
+//     position: relative;
+//     overflow-y: hidden;
+// }
 
 .mat-mdc-card-content {
     padding: 0;
@@ -185,16 +191,11 @@ mat-card-header {
         right: 0;
         left: 0;
         z-index: 1;
+        margin: 0;
         height: calc(100vh - 120px);
+        // height: calc(100vh - 160px);
         border-radius: 0;
         overflow-x: hidden !important;
-    }
-
-    .overview-card {
-        position: absolute;
-        left: 0;
-        margin: 0;
-        height: calc(100vh - 160px);
         max-width: none;
     }
 

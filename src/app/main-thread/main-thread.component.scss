@@ -427,7 +427,7 @@ $purple: #535af1;
 @media (max-width: 1200px) {
   .thread-container {
     border-radius: 0 !important;
-    height: calc(100vh - 160px);
+    height: calc(100vh - 110px); //160
     margin: 0;
     width: 100vw;
     overflow-x: hidden !important;
