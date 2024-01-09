@@ -72,6 +72,13 @@ body {
   margin: 0;
 }
 
+@media(max-width: 1000px) {
+  html,
+  body {
+    height: 100dvh !important;
+  }
+}
+
 @font-face {
   font-family: Nunito;
   src: url('./assets/fonts/nunito/static/Nunito-Regular.ttf');
@@ -984,7 +991,8 @@ $main-purple: #eceefe;
   }
 
   .chat-container {
-    height: calc(100vh - 180px);
+    // height: calc(100vh - 180px);
+     height: calc(100dvh - 100px);
   }
 
   mat-toolbar {

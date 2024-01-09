@@ -51,12 +51,13 @@ header {
     align-items: center;
     gap: 30px;
     position: relative;
+
     h2 {
         margin: 0;
         font-weight: 700;
 
         @media(max-width:1130px) {
-           display: none;
+            display: none;
         }
     }
 
@@ -76,13 +77,13 @@ header {
 
         @media(max-width:1130px) {
             right: 0;
-         }
+        }
     }
 
     mat-icon {
         @media(max-width:1130px) {
             display: none;
-         }
+        }
     }
 
     &:hover {
@@ -94,10 +95,10 @@ header {
 @media (max-width:1200px) {
 
     header {
-        padding:0 20px;
-        margin:0;
+        padding: 0 20px;
+        margin: 0;
         height: 110px;
-        
+
         input {
             display: none;
         }
@@ -116,4 +117,35 @@ header {
         display: none;
     }
 
+    .point {
+        bottom: 15px !important;
+    }
+
+}
+
+@media (max-width:550px) {
+
+    .header-responsive {
+        h1 {
+            font-size: 20px;
+        }
+
+        img {
+            height: 50px;
+            width: 50px;
+        }
+
+
+    }
+
+    .user-info-container {
+        img {
+            height: 50px;
+            width: 50px;
+        }
+
+        .point {
+            bottom: 25px !important;
+        }
+    }
 }
