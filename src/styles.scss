@@ -990,11 +990,6 @@ $main-purple: #eceefe;
     overflow-y: hidden;
   }
 
-  .chat-container {
-    // height: calc(100vh - 180px);
-     height: calc(100dvh - 100px);
-  }
-
   mat-toolbar {
 
     .chat-header-left {
@@ -1033,7 +1028,6 @@ $main-purple: #eceefe;
 
   .emoji-mart {
     max-width: 250px;
-    // bottom: 20px !important;
   }
 
   .last-response-row {

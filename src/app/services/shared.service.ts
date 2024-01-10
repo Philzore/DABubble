@@ -61,6 +61,9 @@ export class SharedService {
   directChatReady = false;
   unsubDirectChat;
 
+  //window 
+  isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
+
   constructor(
     private firestore: Firestore,
   ) {
@@ -183,6 +186,7 @@ export class SharedService {
    */
   toggleSidebar(): void {
     console.log(this.isSidebarOpen.value);
+    console.log(this.isScreenWidthGreaterThan1200);
     this.isSidebarOpen.next(!this.isSidebarOpen.value);
   }
 

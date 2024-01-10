@@ -43,7 +43,7 @@ export class MainChatComponent implements OnInit, OnChanges {
   runtime = false;
   groupInfoPopUpOpen: boolean = false;
   groupMemberPopUpOpen: boolean = false;
-  isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
+  // isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
   isSmallScreen: boolean;
   uploadedFiles: Array<{ name: string, url: string }> = [];
   emojiMap: { [messageId: string]: string[] } = {};
@@ -161,7 +161,7 @@ export class MainChatComponent implements OnInit, OnChanges {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
-    this.isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
+    this.sharedService.isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
   }
 
   scrollToBottom() {

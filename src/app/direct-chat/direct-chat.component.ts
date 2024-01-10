@@ -24,7 +24,7 @@ export class DirectChatComponent implements OnInit {
   lastDisplayedDate: string | null = null;
   fileUploadedDirect:boolean = false;
   directMessage = new Message();
-  isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
+  // isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
 
 
@@ -43,10 +43,10 @@ export class DirectChatComponent implements OnInit {
 
   ngOnInit(): void {  }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
-    this.isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
-  }
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event: Event): void {
+  //   this.isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
+  // }
 
   uploadImagesDirect(event: any) {
     const storage = getStorage();
