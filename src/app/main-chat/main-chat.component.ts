@@ -82,8 +82,9 @@ export class MainChatComponent implements OnInit, OnChanges {
   }
 
   async ngOnInit() {
-    await this.sharedService.getChannelsFromDataBase('first');
-    this.sharedService.createSubscribeChannelMessages();
+    // await this.sharedService.getChannelsFromDataBase('first');
+    // this.sharedService.createSubscribeChannelMessages();
+     await this.sharedService.updateChannel('first') ;
   }
 
   uploadImages(event: any) {
