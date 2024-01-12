@@ -435,9 +435,11 @@ export class MainChatComponent implements OnInit, OnChanges {
       } else {
         this.message.profileImg = `${this.userDataService.currentUser['imgNr']}`;
       }
+
       let date = new Date();
       let hours = date.getHours();
       let minutes = date.getMinutes();
+      
       const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
       const day = date.getDate();
       const month = date.toLocaleString('de-DE', { month: 'long' });

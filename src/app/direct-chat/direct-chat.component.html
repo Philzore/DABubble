@@ -20,8 +20,16 @@
     </mat-toolbar>
 
     <div class="chat-wrapper scrollbar" #chatWrapper (scroll)="onScroll($event)">
-        <div *ngFor="let message of sharedService.directMsgsFromDB" class="message-container cursor"
+        <div *ngFor="let message of sharedService.directMsgsFromDB let i = index" class="message-container cursor"
             [ngClass]="{'own-message': message.from === userDataService.currentUser['name']}">
+
+
+            <div *ngIf="!isSameDay(message.time, i)" class="chat-divider-bottom">
+                <span class="date-label">{{ message.time }}</span>
+            </div>
+            <ng-container *ngIf="!isSameDay(message.time, i); then updateDate"></ng-container>
+            
+            <ng-template #updateDate>{{ updateLastDisplayedDate(message.time) }}</ng-template>
 
             <img src="{{message.profileImg}}" alt="">
             <div class="message-info-container">

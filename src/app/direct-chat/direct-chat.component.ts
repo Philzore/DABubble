@@ -243,6 +243,28 @@ export class DirectChatComponent implements OnInit {
   }
   
 
+  isSameDay(date1: string, dateIndex: number | null): boolean {
+    let index = dateIndex - 1
+
+    if (index >= 0) {
+
+      if (date1 == this.sharedService.channelMessagesFromDB[index].time) {
+        return true;
+      } else {
+        return false;
+      }
+
+    } else {
+      return false
+    }
+
+  }
+
+  updateLastDisplayedDate(date: string): void {
+    this.lastDisplayedDate = date;
+  }
+
+
   /**
    * 
    * 
@@ -262,12 +284,12 @@ export class DirectChatComponent implements OnInit {
       let minutes = date.getMinutes();
       const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
 
-// Format the date as "26.Dezember.2023"
       const day = date.getDate();
       const month = date.toLocaleString('de-DE', { month: 'long' });
       const year = date.getFullYear();
       const formattedDate = `${day}.${month}.${year}`
       this.directMessage.calculatedTime = formattedTime;
+      this.directMessage.time = formattedDate;
       this.directMessage.text = this.copiedTextDirectMsg;
       this.directMessage.timeStamp = date;
       this.directMessage.id = String(this.sharedService.directMsgsFromDB.length) ;

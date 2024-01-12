@@ -423,7 +423,7 @@ $main-purple: #eceefe;
     display: flex;
     align-items: center;
     padding: 10px 30px 15px 30px;
-    margin: 0px 0; //70
+    margin: 40px 0;
     position: relative !important;
     font-size: 18px;
 
@@ -452,9 +452,10 @@ $main-purple: #eceefe;
     
   }
 
-  .last {
-    padding-bottom: 30px !important;
-  }
+  // ? auskommentiert because of added margin for messages so not neccesary
+  // .last {
+  //   padding-bottom: 30px !important;
+  // }
 
   .message-container {
     position: relative;

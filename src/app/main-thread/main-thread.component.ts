@@ -234,6 +234,27 @@ export class MainThreadComponent {
     this.showPersonPopup = false;
   }
 
+  isSameDay(date1: string, dateIndex: number | null): boolean {
+    let index = dateIndex - 1
+
+    if (index >= 0) {
+
+      if (date1 == this.sharedService.currentThreadContent[index].time) {
+        return true;
+      } else {
+        return false;
+      }
+
+    } else {
+      return false
+    }
+
+  }
+
+  updateLastDisplayedDate(date: string): void {
+    this.lastDisplayedDate = date;
+  }
+
 
   async sendThreadMessage() {
     if ((this.copiedText.trim().length > 0) || this.fileUploadedThread) {
@@ -248,14 +269,14 @@ export class MainThreadComponent {
       let date = new Date();
       let hours = date.getHours();
       let minutes = date.getMinutes();
-      const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
 
-      // Format the date as "26.Dezember.2023"
+      const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
       const day = date.getDate();
       const month = date.toLocaleString('de-DE', { month: 'long' });
       const year = date.getFullYear();
       const formattedDate = `${day}.${month}.${year}`
       this.threadMessage.calculatedTime = formattedTime;
+      this.threadMessage.time = formattedDate;
       this.threadMessage.timeStamp = date;
       this.threadMessage.text = this.copiedText;
       this.threadMessage.reactions = [];

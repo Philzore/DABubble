@@ -48,7 +48,7 @@
 
     <!-- Text Response Container -->
     <!-- To display own message on the right side -->
-    <div *ngFor="let message of sharedService.currentThreadContent;let first = first; let last = last" [ngClass]="{'last-item': last}" >
+    <div *ngFor="let message of sharedService.currentThreadContent; let i = index; let first = first; let last = last" [ngClass]="{'last-item': last}" >
       <div *ngIf="!first " class="own-message" [class.own-message]="message.from === userDataService.currentUser['name']" [class.other-message]="message.from !== userDataService.currentUser['name']">
         <div class="info-row-react" 
         [ngClass]="{
@@ -80,6 +80,13 @@
             </emoji-mart>
           </div>
         </div>
+
+        <div *ngIf="!isSameDay(message.time, i)" class="chat-divider-bottom">
+          <span class="date-label">{{ message.time }}</span>
+        </div>
+        <ng-container *ngIf="!isSameDay(message.time, i); then updateDate"></ng-container>
+      
+        <ng-template #updateDate>{{ updateLastDisplayedDate(message.time) }}</ng-template>
 
         <img src="{{ message.profileImg }}" alt="" />
         <div class="message-info-thread">
