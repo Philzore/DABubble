@@ -141,7 +141,7 @@
       </div>
     </div>
 
-    <section class="input-container">
+    <!-- <section *ngIf="(sharedService.isSidebarOpen.value && !this.sharedService.isScreenWidthGreaterThan1200) || this.sharedService.isScreenWidthGreaterThan1200" class="input-container" >
       <textarea (keydown)="onKeydown($event, copiedText)" [(ngModel)]="copiedText"
         placeholder="Nachricht an {{ sharedService.currentThreadContent[0].from}}">
       </textarea>
@@ -173,7 +173,7 @@
           </button>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- this.threadMessage because otherwise it would show it if you clicked on a image message -->
     <div *ngIf="threadMessage.fileUploaded" class="uploaded-content-container">
@@ -182,7 +182,7 @@
       <i class="material-icons cursor" (click)="resetUploadThread()" aria-label="close image">close</i>
     </div>
 
-    <section class="input-container">
+    <section *ngIf="(sharedService.isSidebarOpen.value && !this.sharedService.isScreenWidthGreaterThan1200) || this.sharedService.isScreenWidthGreaterThan1200" class="input-container" >
       <textarea (keydown)="onKeydown($event, copiedText)" [(ngModel)]="copiedText" placeholder="Nachricht an {{
           sharedService.currentThreadContent[0].from
         }}"></textarea>
