@@ -2,16 +2,14 @@
 .header {
     margin: 32px;
     display: flex;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
+    width: 100%;
 }
 // -------------------- CONTENT ------------------------ //
 .content {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    flex-direction: column;
     height: 100vh;
     padding-left: 16px;
     padding-right: 16px;
@@ -32,18 +30,21 @@
 }
 
 //------------------ BACK ARROW ICON ------------------- //
-.back-icon-container{
+.back-icon-container {
     display: flex;
-    position: absolute;
-    left: 0;
-}
-.back-icon{
+    justify-content: center;
+    align-items: center;
     transition: 0.2s;
-    object-fit: cover;
-    &:hover {
-        background-color: #ECEEFE;
-        border-radius: 50px;
-        cursor: pointer;
+    .back-icon{
+        padding: 4px;
+        transition: 0.2s;
+        object-fit: cover;
+
+        &:hover {
+            background-color: #ECEEFE;
+            border-radius: 50px;
+            cursor: pointer;
+        }
     }
 }
 
@@ -58,6 +59,8 @@
         color: #444DF2;
         font-size: 40px;
         font-weight: 700;
+        width: 100%;
+        text-align: center;
     }
 }
 .register-notice-container {
@@ -128,10 +131,8 @@
     display: flex;
     justify-content: center;
     gap: 16px;
-    position: absolute;
-    bottom: 2em;
-    left: 0;
-    right: 0;
+    margin-top: 24px;
+    margin-bottom: 24px;
     .impressum {
         font-size: 18px;
         font-weight: 400px;
@@ -161,14 +162,14 @@
 
 //-------------RESPONSIVE-------------//
 @media (max-width: 600px) {
+    .logo-image{
+        height: 55px;
+    }
     .header {
         justify-content: center;
     }
     .register-container{
-        gap: 16px !important;
-    }
-    .register-headline-container{
-        gap: 16px !important;
+        gap: 8px !important;
     }
     .register-headline {
         font-size: 24px !important;
@@ -179,6 +180,9 @@
     }
     .inputfield{
         font-size: 16px !important;
+    }
+    .inputfield-image{
+        top: 12px !important;
     }
  .next-button{
         font-size: 16px !important;

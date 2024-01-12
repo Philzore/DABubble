@@ -47,7 +47,7 @@ export class RegisterComponent {
 
   getNameErrorMessage() {
     if (this.nameFormControl.hasError('fullName')) {
-      return 'Bitte geben Sie Vor-und Nachname ein';
+      return 'Bitte gebe deinen Vor-und Nachnamen ein';
     }
     if (this.nameFormControl.hasError('minLength')) {
       return 'Vor-und Nachname sollten mindestens zwei Buchstaben haben';

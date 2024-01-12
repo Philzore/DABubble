@@ -2,7 +2,7 @@ $main-purple: #eceefe;
 $purple: #535af1;
 
 .last-item {
-  margin-bottom: 75px !important;
+  margin-bottom: 140px !important;
 }
 
 .non-empty {
@@ -101,7 +101,7 @@ $purple: #535af1;
   }
 
   .message-thread-container {
-    max-height: calc(100% - 210px);
+    max-height: calc(100% - 100px);
     overflow-y: auto;
     scroll-behavior: smooth;
 
@@ -346,15 +346,16 @@ $purple: #535af1;
   }
 
   .input-container {
+    z-index: 1;
     display: flex;
     justify-content: center;
     flex-direction: column;
+    // height: 100px;
     padding: 20px;
     position: absolute;
     bottom: 0px;
     left: 0px;
-    right: 0px;
-    margin: 30px 15px;
+    right: 8px;
     border: 1px solid $main-purple;
     border-radius: 10px;
     background: #fff;
@@ -425,13 +426,10 @@ $purple: #535af1;
 
 @media (max-width: 1200px) {
   .thread-container {
-    position: absolute;
-    height: calc(100vh - 120px);
-    bottom: 0;
-    right: 0;
-    left: 0;
+    border-radius: 0 !important;
+    height: calc(100vh - 110px); //160
+    margin: 0;
     width: 100vw;
-    border-radius: 0;
     overflow-x: hidden !important;
 
     .emoji-wrapper {
@@ -455,5 +453,9 @@ $purple: #535af1;
       flex: 1;
       margin: 0;
     }
+  }
+
+  .thread-container {
+    height: calc(100vh - 180px);
   }
 }

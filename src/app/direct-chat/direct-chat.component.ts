@@ -24,6 +24,7 @@ export class DirectChatComponent implements OnInit {
   lastDisplayedDate: string | null = null;
   fileUploadedDirect:boolean = false;
   directMessage = new Message();
+  // isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
   @ViewChild('chatWrapper') private chatWrapper: ElementRef;
 
 
@@ -42,6 +43,11 @@ export class DirectChatComponent implements OnInit {
 
   ngOnInit(): void {  }
 
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event: Event): void {
+  //   this.isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
+  // }
+
   uploadImagesDirect(event: any) {
     const storage = getStorage();
     const files = event.target.files;
@@ -52,11 +58,8 @@ export class DirectChatComponent implements OnInit {
       const file = files[i];
       // Create a storage reference
       const storageRef = ref(storage, `images/${file.name}`);
-  
       // Upload the file to Firebase Storage
       uploadBytes(storageRef, file).then((snapshot) => {
-        console.log('Main Chat du doof');
-  
         // If you want to get the URL of the uploaded file
         getDownloadURL(snapshot.ref).then((url) => {
           this.directMessage.imageUrl = url;

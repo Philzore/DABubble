@@ -32,6 +32,8 @@ app-main-thread {
         right: 0;
         left: 0;
         border-radius: 0;
+        min-width: unset;
+        width: 100vw;
         // z-index: 2;
     }
 

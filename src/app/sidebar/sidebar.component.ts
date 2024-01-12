@@ -121,7 +121,7 @@ export class SidebarComponent implements OnInit {
    * 
    */
   createSubscribeChannels() {
-    const unsubChannels = onSnapshot(collection(this.firestore, 'channels'), async (doc) => {
+    this.sharedService.unsubChannels = onSnapshot(collection(this.firestore, 'channels'), async (doc) => {
       await this.getChannelsFromDataBase();
     });
   }
@@ -190,7 +190,7 @@ export class SidebarComponent implements OnInit {
 
   /* Open Channel */
   openChannel(name) {
-    this.sharedService.unsubChannels();
+    this.sharedService.unsubChannelMessages();
     this.sharedService.showChannelViewFct();
     this.sharedService.updateChannel(name);
   }

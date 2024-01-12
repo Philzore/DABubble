@@ -86,17 +86,12 @@ export class ChooseAvatarComponent {
           // Fallback auf den Standard-Avatar, wenn keine Auswahl getroffen wurde
           this.user.avatar = 'default_avatar_url';
         }
-
-
         // Fügt Nutzer bei Firebase hinzu ( Collection )
-        console.log(this.user);
         this.createUserWithFirebase();
         this.appComponent.showFeedback('Du hast dich erfolgreich registriert!');
-
         // Aktualisiert den Anzeigenamen vom User in der Authentication
         updateProfile(auth.currentUser, {
           displayName: this.name,
-          //Phil addes photoUrl
           photoURL: this.user.avatar,
         })
           .then(() => {

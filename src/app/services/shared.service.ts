@@ -32,12 +32,14 @@ export class SharedService {
 
   //sidebar
   public isSidebarOpen = new BehaviorSubject<boolean>(false);
+  hideInputContainer = true ;
 
   //main chat
   channelMessagesFromDB: any[];
   templateIsReady = false;
   messagePath: string = '';
   showNewMessageInput: boolean = false;
+  unsubChannelMessages;
 
   //thread
   private threadContainerVisibilitySubject = new BehaviorSubject<boolean>(true);
@@ -58,6 +60,9 @@ export class SharedService {
   currentDirectMsgID = '';
   directChatReady = false;
   unsubDirectChat;
+
+  //window 
+  isScreenWidthGreaterThan1200 = window.innerWidth > 1200;
 
   constructor(
     private firestore: Firestore,
@@ -174,13 +179,14 @@ export class SharedService {
     this.templateIsReady = false;
     await this.getChannelsFromDataBase(newValue);
     this.createSubscribeChannelMessages();
-    console.log('Update Channel') ;
   }
 
   /**
    * Toggle the state of the sidebar (open or closed).
    */
   toggleSidebar(): void {
+    console.log(this.isSidebarOpen.value);
+    console.log(this.isScreenWidthGreaterThan1200);
     this.isSidebarOpen.next(!this.isSidebarOpen.value);
   }
 
@@ -200,8 +206,8 @@ export class SharedService {
    * @param newName - replaced name with oldName
    */
   async updateName(oldName: string, newName: string) {
-    if (this.unsubChannels) {
-      this.unsubChannels();
+    if (this.unsubChannelMessages) {
+      this.unsubChannelMessages();
     }
 
     const channelCol = collection(this.firestore, 'channels');
@@ -360,9 +366,8 @@ export class SharedService {
    */
   createSubscribeChannelMessages() {
     let channelId = this.filteredChannels[1];
-    this.unsubChannels = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
+    this.unsubChannelMessages = onSnapshot(collection(this.firestore, `channels/${channelId}/messages`), async (doc) => {
       await this.getMessagesFromChannel();
-      console.log('subChannel') ;
     });
   }
 
@@ -468,7 +473,7 @@ export class SharedService {
    * Showing directmessage view
    */
   showDirectMessageViewFct() {
-    this.unsubChannels();
+    this.unsubChannelMessages();
     this.threadIsOpen = false ;
     this.showChannelView = false;
     this.showNewMessageInput = false;
