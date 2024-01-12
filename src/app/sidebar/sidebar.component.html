@@ -15,62 +15,64 @@
   <!-- end sidebar header -->
   <!-- channel drop down -->
   <mat-card-content>
-    <div class="dropdown-container">
-      <div class="dropdown-header">
-        <div class="dropdown-hover" (click)="openDropdownChannels()">
-          <div class="arrow">
-            <mat-icon *ngIf="!channelDropdown">arrow_right</mat-icon>
-            <mat-icon *ngIf="channelDropdown">arrow_drop_down</mat-icon>
+    <div class="dropdowns-container">
+      <div class="dropdown-container">
+        <div class="dropdown-header">
+          <div class="dropdown-hover" (click)="openDropdownChannels()">
+            <div class="arrow">
+              <mat-icon *ngIf="!channelDropdown">arrow_right</mat-icon>
+              <mat-icon *ngIf="channelDropdown">arrow_drop_down</mat-icon>
+            </div>
+            <div class="dropdown-name">
+              <mat-icon>workspaces_outline</mat-icon>
+              <span><b>Channels</b></span>
+            </div>
           </div>
-          <div class="dropdown-name">
-            <mat-icon>workspaces_outline</mat-icon>
-            <span><b>Channels</b></span>
+          <div>
+            <button class="icon-btn-hover" mat-icon-button (click)="openDialog()"><mat-icon>add</mat-icon></button>
           </div>
         </div>
         <div>
-          <button class="icon-btn-hover" mat-icon-button (click)="openDialog()"><mat-icon>add</mat-icon></button>
+          <!-- channel container for single channels -->
+          <div class="list-container" *ngIf="channelDropdown" [@dropDownMenu]>
+            <div *ngFor="let channel of channelsFromDataBase; let i = index" class="single-entry" (click)="openChannel(channel.name)" (click)="closeSidebarResponsive()">
+              <span>#</span>
+              <p >{{channel.name}}</p>
+            </div>
+            <div class="add-channel" (click)="openDialog()">
+              <mat-icon class="no-overflow">add_circle_outline</mat-icon>
+              <span>Channel hinzufügen</span>
+            </div>
+          </div>
+          <!-- end channel container for single channels -->
         </div>
       </div>
-      <div>
-        <!-- channel container for single channels -->
-        <div class="list-container" *ngIf="channelDropdown" [@dropDownMenu]>
-          <div *ngFor="let channel of channelsFromDataBase; let i = index" class="single-entry" (click)="openChannel(channel.name)" (click)="closeSidebarResponsive()">
-            <span>#</span>
-            <p >{{channel.name}}</p>
-          </div>
-          <div class="add-channel" (click)="openDialog()">
-            <mat-icon class="no-overflow">add_circle_outline</mat-icon>
-            <span>Channel hinzufügen</span>
-          </div>
-        </div>
-        <!-- end channel container for single channels -->
-      </div>
-    </div>
-    <!-- end channel drop down -->
-    <!-- direct message drop down -->
-    <div class="dropdown-container">
-      <div class="dropdown-header">
-        <div class="dropdown-hover" (click)="openDropdownMessages()">
-          <div class="arrow">
-            <mat-icon *ngIf="!messageDropdown">arrow_right</mat-icon>
-            <mat-icon *ngIf="messageDropdown">arrow_drop_down</mat-icon>
-          </div>
-          <div class="dropdown-name">
-            <mat-icon>account_circle_outline</mat-icon>
-            <span><b>Direktnachrichten</b></span>
+      <!-- end channel drop down -->
+      <!-- direct message drop down -->
+      <div class="dropdown-container">
+        <div class="dropdown-header">
+          <div class="dropdown-hover" (click)="openDropdownMessages()">
+            <div class="arrow">
+              <mat-icon *ngIf="!messageDropdown">arrow_right</mat-icon>
+              <mat-icon *ngIf="messageDropdown">arrow_drop_down</mat-icon>
+            </div>
+            <div class="dropdown-name">
+              <mat-icon>account_circle_outline</mat-icon>
+              <span><b>Direktnachrichten</b></span>
+            </div>
           </div>
         </div>
-      </div>
-      <div>
-        <!-- user container for direct messages -->
-        <div class="list-container direct-message" *ngIf="messageDropdown" [@dropDownMenu]>
-          <div *ngFor="let user of userDataService.usersFromDatabase" class="single-entry" (click)="this.sharedService.openDirectMsg(user, userDataService.currentUser['name'])" (click)="closeSidebarResponsive()" (click)="closeThread()">
-            <img src= '{{user.avatar}}' referrerpolicy="no-referrer">
-            <span class="point">&#9679;</span>
-            <p>{{user.name}} <span *ngIf="user.name == userDataService.currentUser['name']">(Du)</span></p>
+        <div>
+          <!-- user container for direct messages -->
+          <div class="list-container direct-message" *ngIf="messageDropdown" [@dropDownMenu]>
+            <div *ngFor="let user of userDataService.usersFromDatabase" class="single-entry" (click)="this.sharedService.openDirectMsg(user, userDataService.currentUser['name'])" (click)="closeSidebarResponsive()" (click)="closeThread()">
+              <img src= '{{user.avatar}}' referrerpolicy="no-referrer">
+              <span class="point">&#9679;</span>
+              <p>{{user.name}} <span *ngIf="user.name == userDataService.currentUser['name']">(Du)</span></p>
+            </div>
           </div>
+          <!-- end channel container for single channels -->
         </div>
-        <!-- end channel container for single channels -->
       </div>
     </div>
     <!-- end direct message drop down -->

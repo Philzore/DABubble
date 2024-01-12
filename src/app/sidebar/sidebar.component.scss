@@ -32,6 +32,12 @@ mat-card-header {
 //     overflow-y: hidden;
 // }
 
+.mat-card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Adjust height as needed */
+  }
+
 .mat-mdc-card-content {
     padding: 0;
 }
@@ -56,13 +62,27 @@ mat-card-header {
 }
 
 //----------------- Dropdown CONTAINER ------------- //
-.dropdown-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 25px;
-    gap: 25px;
+.dropdowns-container {
+        display: flex;
+        flex-direction: column;
+        height: 80%;
+        margin-bottom: 25px;
+        gap: 25px;
 }
+
+
+// .dropdown-container {
+//     display: flex;
+//     flex-direction: column;
+//     width: 100%;
+//     
+//     
+// }
+
+.dropdown-container {
+    flex: 1; /* Each container takes equal space */
+    overflow-y: auto; /* Adds a scrollbar if content overflows */
+  }
 
 .dropdown-hover {
     display: flex;
@@ -85,6 +105,7 @@ mat-card-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    min-height: 50px;
 }
 
 .list-container {
@@ -94,8 +115,10 @@ mat-card-header {
     margin-left: 20px;
     max-height: 500px;
     box-sizing: border-box;
-    overflow-y: auto;
     line-height: normal;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 // .direct-message {
@@ -193,14 +216,13 @@ mat-card-header {
         z-index: 1;
         margin: 0;
         height: calc(100vh - 120px);
-        // height: calc(100vh - 160px);
         border-radius: 0;
         overflow-x: hidden !important;
         max-width: none;
     }
 
-    .list-container {
-        max-height: 400px;
+    .dropdowns-container {
+        height: calc(100% - 80px);
     }
 
     .workspace-closing {
