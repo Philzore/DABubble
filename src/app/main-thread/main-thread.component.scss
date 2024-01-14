@@ -82,7 +82,7 @@ $purple: #535af1;
 
 .thread-container {
   position: relative;
-  height: calc(100vh - 160px);
+  height: calc(100dvh - 160px);
   background: #fff;
   border-radius: 30px;
 
@@ -459,7 +459,7 @@ $purple: #535af1;
 @media (max-width: 1200px) {
   .thread-container {
     border-radius: 0 !important;
-    height: calc(100vh - 110px); //160
+    height: calc(100dvh - 110px); //160
     margin: 0;
     width: 100vw;
     overflow-x: hidden !important;
@@ -488,6 +488,6 @@ $purple: #535af1;
   }
 
   .thread-container {
-    height: calc(100vh - 180px);
+    height: calc(100dvh - 180px);
   }
 }

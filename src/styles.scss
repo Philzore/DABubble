@@ -64,7 +64,7 @@ input[type="file"] {
 
 html,
 body {
-  height: 100vh !important;
+  height: 100dvh !important;
   overflow-x: hidden !important;
   background-color: #eceefe;
   font-family: Nunito, sans-serif !important;
@@ -250,7 +250,7 @@ $main-purple: #eceefe;
 .chat-container {
   position: relative;
   background-color: rgb(255, 255, 255) !important;
-  height: calc(100vh - 160px);
+  height: calc(100dvh - 160px);
   margin: 0 20px;
 
   mat-toolbar {
@@ -944,7 +944,7 @@ $main-purple: #eceefe;
 
   .chat-container {
     border-radius: 0 !important;
-    height: calc(100vh - 220px);
+    height: calc(100dvh - 110px);
     margin: 0;
     overflow-x: hidden !important;
 
@@ -963,8 +963,8 @@ $main-purple: #eceefe;
   app-group-member,
   app-group-info-popup {
     display: block !important;
-    width: 100vw !important;
-    height: 100vh !important;
+    width: 100dvw !important;
+    height: 100dvh !important;
     max-width: 100%;
   }
 

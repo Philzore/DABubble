@@ -2,7 +2,7 @@
 .overview-card {
     max-width: 300px;
     box-sizing: border-box;
-    height: calc(100vh - 160px);
+    height: calc(100dvh - 160px);
     margin-left: 20px;
     position: relative;
     overflow-y: hidden;
@@ -26,7 +26,7 @@ mat-card-header {
 .overview-card {
     max-width: 300px;
     box-sizing: border-box;
-    height: calc(100vh - 160px);
+    height: calc(100dvh - 160px);
     margin-left: 20px;
     position: relative;
     overflow-y: hidden;
@@ -207,7 +207,7 @@ mat-card-header {
         left: 0;
         z-index: 1;
         margin: 0;
-        height: calc(100vh - 120px);
+        height: calc(100dvh - 120px);
         border-radius: 0;
         overflow-x: hidden !important;
         max-width: none;
