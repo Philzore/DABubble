@@ -23,14 +23,14 @@ mat-card-header {
     padding: 0;
 }
 
-// .overview-card {
-//     max-width: 300px;
-//     box-sizing: border-box;
-//     height: calc(100vh - 160px);
-//     margin-left: 20px;
-//     position: relative;
-//     overflow-y: hidden;
-// }
+.overview-card {
+    max-width: 300px;
+    box-sizing: border-box;
+    height: calc(100vh - 160px);
+    margin-left: 20px;
+    position: relative;
+    overflow-y: hidden;
+}
 
 .mat-card-content {
     display: flex;
