@@ -24,7 +24,7 @@ mat-card-header {
 }
 
 .overview-card {
-    max-width: 300px;
+    min-width: 310px;
     box-sizing: border-box;
     height: calc(100dvh - 160px);
     margin-left: 20px;
