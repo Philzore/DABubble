@@ -71,14 +71,6 @@ mat-card-header {
 }
 
 
-// .dropdown-container {
-//     display: flex;
-//     flex-direction: column;
-//     width: 100%;
-//     
-//     
-// }
-
 .dropdown-container {
     flex: 1; /* Each container takes equal space */
     overflow-y: auto; /* Adds a scrollbar if content overflows */

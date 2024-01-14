@@ -100,13 +100,13 @@ body::-webkit-scrollbar-thumb {
 }
 
 .scrollbar::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 8px !important;
+  height: 8px !important;
 }
 
 .scrollbar::-webkit-scrollbar-track {
-  background-color: #e4e4e4;
-  border-radius: 100px;
+  background-color: #e4e4e4 !important;
+  border-radius: 100px !important;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {

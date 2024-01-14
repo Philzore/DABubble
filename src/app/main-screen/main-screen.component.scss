@@ -3,6 +3,10 @@
     // gap: 20px;
 }
 
+app-sidebar {
+    min-width:310px;
+}
+
 app-main-chat,app-direct-chat{
     width: 100vw;
 }
